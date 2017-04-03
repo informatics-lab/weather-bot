@@ -1,0 +1,19 @@
+{
+  "name": "weather-bot",
+  "version": "0.0.1",
+  "description": "Met Office prototype chat bot to talk about all things weather & climate related",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "LOG_LEVEL=info node src/main/js/app",
+    "debug": "LOG_LEVEL=debug node src/main/js/app"
+  },
+  "author": "Tom Powell <thomas.powell@informaticslab.co.uk>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "botbuilder": "^3.7.0",
+    "nconf": "^0.8.4",
+    "request": "^2.81.0",
+    "restify": "^4.3.0",
+    "winston": "^2.3.1"
+  }
+}
