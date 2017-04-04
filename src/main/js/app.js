@@ -20,9 +20,8 @@ winston.configure({
 });
 var app = require("../../../package.json");
 
-
 var domains = require("./domains");
-
+var persona = require("./persona")(require("../resources/personas/default.json"));
 
 /*
  * application entry point
@@ -47,7 +46,7 @@ function main() {
     var recognizer = new builder.LuisRecognizer(config.get("LUIS_MODEL_URL"));
     bot.recognizer(recognizer);
 
-    domains.general.greeting(bot);
+    domains.general.greeting(bot, persona);
 
 };
 main();
