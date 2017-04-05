@@ -4,16 +4,15 @@ var winston = require("winston");
 
 module.exports = function (intents, persona) {
 
-    var intent = "greeting";
+    var intent = "none";
 
-    intents.matches(intent, [
+    intents.onDefault([
         function (session, args, next) {
-            winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
-            var response = persona.getResponse("greeting");
+            winston.info("[ %s ] intent matched [ %s ]", intent, session.message.text);
+            var response = persona.getResponse(intent);
             winston.debug("response [ %s ]", response);
             session.send(response);
         }
     ]);
-    
-};
 
+};

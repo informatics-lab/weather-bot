@@ -1,5 +1,8 @@
 "use strict";
 
+/*
+ * CONFIG
+ */
 // dependencies
 var restify = require("restify");
 var builder = require("botbuilder");
@@ -10,12 +13,12 @@ var config = nconf.env().argv().file({file: "secrets.json"});
 config.app = require("../../../package.json");
 config.persona = config.get("PERSONA") ? config.get("PERSONA").toLowerCase() : "default";
 
-//logging conf
+// logging conf
 var winston = require("winston");
 winston.configure({
     transports: [
         new (winston.transports.Console)({
-            level: config.get("LOG_LEVEL"),
+            level: config.get("LOG_LEVEL") || "info",
             colorize: true,
             timestamp: false
         })
@@ -24,7 +27,7 @@ winston.configure({
 
 
 /*
- * application entry point
+ * Application entry point
  */
 function main() {
     winston.info("starting %s %s", config.app.name, config.app.version);
@@ -43,14 +46,17 @@ function main() {
 
     var bot = new builder.UniversalBot(connector, {persistConversationData: true});
 
-    var recognizer = new builder.LuisRecognizer(config.get("LUIS_MODEL_URL"));
-    bot.recognizer(recognizer);
-
     var domains = require("./domains");
     var persona = require("./persona")(require("../resources/personas/" + config.persona + ".json"));
 
-    //add domains here
-    domains.general.greeting(bot, persona);
+    var recognizer = new builder.LuisRecognizer(config.get("LUIS_MODEL_URL"));
+    var intents = new builder.IntentDialog({ recognizers: [recognizer] });
+    bot.dialog('/', intents);
+
+    // add bot knowledge domains here
+    domains.none(intents, persona);
+    domains.general.greeting(intents, persona);
+
 
 }
 main();
