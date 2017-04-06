@@ -19,7 +19,7 @@ winston.configure({
     transports: [
         new (winston.transports.Console)({
             level: config.get("LOG_LEVEL") || "info",
-            colorize: true,
+            colorize: "all",
             timestamp: false
         })
     ]
@@ -56,7 +56,6 @@ function main() {
     // add bot knowledge domains here
     domains.none(intents, persona);
     domains.general.greeting(intents, persona);
-
 
 }
 main();

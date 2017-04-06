@@ -4,8 +4,7 @@
   "description": "Met Office prototype chat bot to talk about all things weather & climate related",
   "main": "src/app.js",
   "scripts": {
-    "start": "LOG_LEVEL=info node src/main/js/app",
-    "debug": "LOG_LEVEL=debug node src/main/js/app"
+    "start": "node src/main/js/app"
   },
   "author": "Tom Powell <thomas.powell@informaticslab.co.uk>",
   "license": "GPL-3.0",

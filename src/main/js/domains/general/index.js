@@ -1,3 +1,5 @@
 "use strict";
 
-exports.greeting = require("./greeting");
+var basicDomainBuilder = require('../basicDomainBuilder');
+
+exports.greeting = new basicDomainBuilder("greeting");

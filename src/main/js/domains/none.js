@@ -12,6 +12,7 @@ module.exports = function (intents, persona) {
             var response = persona.getResponse(intent);
             winston.debug("response [ %s ]", response);
             session.send(response);
+            session.endDialog();
         }
     ]);
 

@@ -9,7 +9,11 @@ module.exports = function (persona) {
     }
 
     function getRandomResponseForKey(key) {
-        return persona[key][randomIntFromInterval(0, persona[key].length - 1)];
+        if(persona.hasOwnProperty(key)) {
+            return persona[key][randomIntFromInterval(0, persona[key].length - 1)];
+        } else {
+            return persona.none[randomIntFromInterval(0, persona[none].length - 1)]
+        }
     }
 
     return {

@@ -1,11 +1,16 @@
 {
   "none": [
-    "Sorry, I don't know how to answer that"
+    "sorry, I don't know how to answer that"
   ],
   "greeting": [
-    "Hi"
-    , "Howdy"
-    , "Hello"
-    , "Yo"
+    "hi"
+    , "howdy"
+    , "hello"
+    , "yo"
+  ],
+  "farewell": [
+    "goodbye"
+    , "bye"
+    , "farewell"
   ]
 }
