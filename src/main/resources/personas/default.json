@@ -2,6 +2,10 @@
   "none": [
     "sorry, I don't know how to answer that"
   ],
+  "help": [
+    "help stuff"
+  ],
+  "foo":"bar",
   "greeting": [
     "hi"
     , "howdy"

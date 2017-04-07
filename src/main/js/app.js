@@ -60,6 +60,7 @@ function main() {
 
     // add the intents
     intents.none(botIntents, persona);
+    intents.help(botIntents, persona);
     intents.general.greeting(botIntents, persona);
 
     //add bot dialogs here.
