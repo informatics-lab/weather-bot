@@ -6,6 +6,7 @@
 // dependencies
 var restify = require("restify");
 var builder = require("botbuilder");
+var request = require("request");
 
 // application conf
 var nconf = require("nconf");
@@ -25,6 +26,23 @@ winston.configure({
     ]
 });
 
+function askLUIS(q) {
+    var uri = config.get("LUIS_MODEL_URL") + q;
+    return new Promise(function (resolve, reject) {
+        var options = {
+            uri: uri,
+            method: 'GET'
+        };
+        request(options, function (err, response, body) {
+            if(!err) {
+                resolve(JSON.parse(body));
+            } else {
+                winston.error(err);
+                reject(err);
+            }
+        });
+    })
+}
 
 /*
  * Application entry point
@@ -50,18 +68,22 @@ function main() {
     var intents = require("./intents");
     var persona = require("./persona")(require("../resources/personas/" + config.persona + ".json"));
 
-    var recognizer = new builder.LuisRecognizer(config.get("LUIS_MODEL_URL"));
-    var botIntents = new builder.IntentDialog({recognizers: [recognizer]});
-    bot.dialog("/", botIntents);
+    //conversation root
+    bot.dialog("/", [ function(session) {
+        askLUIS(session.message.text)
+            .then(function(response) {
+                session.beginDialog(response.topScoringIntent.intent, response);
+            });
+    }]);
 
     bot.on('error', function (e) {
         winston.error(e);
     });
 
     // add the intents
-    intents.none(botIntents, persona);
-    intents.help(botIntents, persona);
-    intents.general.greeting(botIntents, persona);
+    intents.none(bot, persona);
+    intents.help(bot, persona);
+    intents.general.greeting(bot, persona);
 
     //add bot dialogs here.
     dialogs.user.name(bot, persona);

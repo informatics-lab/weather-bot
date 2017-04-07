@@ -1,13 +1,12 @@
 "use strict";
 
-var builder = require("botbuilder");
 var winston = require("winston");
 
-module.exports = function (intents, persona) {
+module.exports = function (bot, persona) {
 
     var intent = "none";
 
-    intents.onDefault([
+    bot.dialog(intent, [
         function (session) {
             winston.info("[ %s ] intent matched [ %s ]", intent, session.message.text);
             var response = persona.getResponse(intent);
