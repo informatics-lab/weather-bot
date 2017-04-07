@@ -47,21 +47,20 @@ function main() {
     var bot = new builder.UniversalBot(connector, {persistConversationData: true});
 
     var dialogs = require("./dialogs");
-    var domains = require("./domains");
+    var intents = require("./intents");
     var persona = require("./persona")(require("../resources/personas/" + config.persona + ".json"));
 
     var recognizer = new builder.LuisRecognizer(config.get("LUIS_MODEL_URL"));
-    bot.recognizer(recognizer);
+    var botIntents = new builder.IntentDialog({recognizers: [recognizer]});
+    bot.dialog("/", botIntents);
 
     bot.on('error', function (e) {
         winston.error(e);
     });
 
-    // add the none intent
-    domains.none(bot, persona, recognizer);
-    
-    // add bot knowledge domains here.
-    domains.general.greeting(bot, persona);
+    // add the intents
+    intents.none(botIntents, persona);
+    intents.general.greeting(botIntents, persona);
 
     //add bot dialogs here.
     dialogs.user.name(bot, persona);
