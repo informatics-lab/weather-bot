@@ -1,4 +1,7 @@
 {
+  "error": [
+    "Oops. Something went wrong then. Try asking me something else."
+  ],
   "none": [
     "Sorry, I don't know how to answer that. Ask me something else."
   ],
@@ -76,6 +79,24 @@
       "would_you_like_to_be_human": [
         "I'm pretty content being the way I am.",
         "I'm having too much fun just being me."
+      ]
+    },
+    "user": {
+      "bored":[
+        "The Devil finds work for idle hands."
+      ],
+      "happy":[
+        "Good, I'm pleased to hear that."
+      ],
+      "robot":[
+        "That makes two of us."
+      ],
+      "sad":[
+        "I'm sorry to hear that."
+      ],
+      "tired":[
+        "You should get some shuteye. You'll feel refreshed.",
+        "Sleep is important to your health. Rest up for a bit and we can chat later."
       ]
     }
   },

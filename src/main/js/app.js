@@ -78,8 +78,8 @@ function main() {
                     session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
                 })
                 .catch((err) => {
-                    winston.error("error connecting with LUIS \n %s", err);
-                    session.send("Oops. Something went wrong contacting LUIS.");
+                    winston.error("%s", err);
+                    session.send(persona.getResponse("error"));
                     session.endDialog();
                 });
         }
@@ -92,7 +92,8 @@ function main() {
     //smalltalk
     intents.smalltalk.greeting(bot, persona);
     intents.smalltalk.bot.are_you_a_chatbot(bot, persona);
-
+    
+    intents.smalltalk.user.bored(bot, persona);
 
     //add bot dialogs here.
     dialogs.user.name(bot, persona);
