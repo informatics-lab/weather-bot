@@ -5,16 +5,16 @@ var winston = require("winston");
 
 module.exports = function (bot, persona) {
 
-    var dialog = "user.name";
+    var dialog = "dialogs.user.name";
 
     bot.dialog(dialog, [
         function (session) {
             winston.debug("running dialog [ %s ]", dialog);
-            builder.Prompts.text(session, 'What is your name?');
+            builder.Prompts.text(session, persona.getResponse(dialog));
         },
         function(session, results) {
             session.userData.name = results.response;
-            session.beginDialog("greeting");
+            session.beginDialog("smalltalk.greeting");
         }
     ]);
 };

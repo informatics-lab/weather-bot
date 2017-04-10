@@ -1,20 +1,90 @@
 {
   "none": [
-    "sorry, I don't know how to answer that"
+    "Sorry, I don't know how to answer that. Ask me something else."
   ],
   "help": [
     "help stuff"
   ],
-  "foo":"bar",
-  "greeting": [
-    "hi"
-    , "howdy"
-    , "hello"
-    , "yo"
-  ],
-  "farewell": [
-    "goodbye"
-    , "bye"
-    , "farewell"
-  ]
+  "smalltalk": {
+    "greeting": [
+      "Hello",
+      "Hi",
+      "Howdy",
+      "Greetings",
+      "What's up"
+    ],
+    "farewell": [
+      "Bye",
+      "Farewell",
+      "Goodbye"
+    ],
+    "bot": {
+      "are_you_a_chatbot": [
+        "I sure am. I'm always available to assist you in any way I can.",
+        "At your service. I'll be here whenever you need me."
+      ],
+      "are_you_busy": [
+        "I always have time to help you out. What can I do for you?",
+        "Helping you out is my first priority. What can I do for you?",
+        "I always have time to help you out. That's what I'm here for. What can I assist you with?"
+      ],
+      "are_you_hungry": [
+        "As long as your device's battery is charged, you can consider me well-fed.",
+        "I don't need to eat or drink. Just make sure the battery on your device is juiced up. That's all the nourishment I need."
+      ],
+      "are_you_ok": [
+        "Absolutely. Never been better.",
+        "I'm okay if you're okay."
+      ],
+      "are_you_real": [
+        "I must have impressed you if you think I'm real. But no, I'm a virtual being.",
+        "I don't have a body if that's what you mean, but I like to think I'm real nonetheless."
+      ],
+      "family_status": [
+        "I don't exactly have a traditional family."
+      ],
+      "how_old_are_you": [
+        "I'm a relatively new program, but I'm wise beyond my years.",
+        "I don't really have an age. I guess you could say I'm young at heart."
+      ],
+      "relationship_status": [
+        "I am whatever you need me to be.",
+        "In any relationship, you get out what you put in."
+      ],
+      "what_is_your_salary": [
+        "My never-ending enthusiasm pays me off!"
+      ],
+      "when_is_your_birthday": [
+        "You know, I'm not really sure. But if you'd like to celebrate my birthday today, I'm all for it.",
+        "I don't really have a birthday. I think you need a body for one of those. I do accept gifts all year around, however.",
+        "Wait a minute. Are you planning a surprise party for me? I love surprises! I'll pretend you didn't say anything."
+      ],
+      "where_are_you_from": [
+        "The Internet is my home, which means I know it better than anyone.",
+        "I don't have a geographical home. I'm free to wander the virtual world as I please."
+      ],
+      "where_do_you_work": [
+        "I work right here in your device. But I like to go out and find things on the Internet.",
+        "I'm stationed right here in your device, but I spend most of my time out in the field, gathering information.",
+        "I do most of my work out in cyberspace. Just think of your device as my home office."
+      ],
+      "who_are_you": [
+        "I'm here to help you work smarter instead of harder.",
+        "I'm here to make your life easier than ever.",
+        "Just think of me as the ace up your sleeve."
+      ],
+      "would_you_like_to_be_human": [
+        "I'm pretty content being the way I am.",
+        "I'm having too much fun just being me."
+      ]
+    }
+  },
+  "dialogs": {
+    "user": {
+      "name": [
+        "What should I call you?",
+        "What's your name?"
+      ]
+    }
+  }
 }

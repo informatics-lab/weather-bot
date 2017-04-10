@@ -2,4 +2,5 @@
 
 var basicIntentBuilder = require('../basicIntentBuilder');
 
-exports.greeting = new basicIntentBuilder("greeting");
+exports.greeting = require("./greeting");
+exports.bot = require("./bot");

@@ -8,22 +8,28 @@ module.exports = function (persona) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    function getRandomResponseForKey(key) {
-        return persona[key][randomIntFromInterval(0, persona[key].length - 1)];
+    function getRandomElementFromArray(array) {
+        return array[randomIntFromInterval(0, array.length - 1)];
     }
 
     function getResponseForKey(key) {
-        if (persona.hasOwnProperty(key)) {
-            if (typeof(persona[key] === "object")) {
-                return getRandomResponseForKey(key);
-            } else if (typeof(persona === "string")) {
-                return persona[key];
-            } else {
-                winston.error("persona [%s] value was not 'object' or 'string' but was [%s]", key, typeof(persona[key]));
+        var keyParts = key.split(".");
+        var personaProperty = persona;
+        for (var i = 0; i < keyParts.length; i++) {
+            if (personaProperty.hasOwnProperty(keyParts[i])) {
+                personaProperty = personaProperty[keyParts[i]];
+            }
+            else {
+                winston.warn("persona is missing key [%s]", key);
                 return getResponseForKey("none");
             }
+        }
+        if (typeof(personaProperty === "object")) {
+            return getRandomElementFromArray(personaProperty);
+        } else if (typeof(personaProperty === "string")) {
+            return personaProperty;
         } else {
-            winston.warn("persona is missing key [%s]", key);
+            winston.error("persona [%s] value was not 'object' or 'string' but was [%s]", key, typeof(persona[key]));
             return getResponseForKey("none");
         }
     }
