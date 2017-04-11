@@ -50,7 +50,7 @@ module.exports = (key) => {
             return httpClient.getAsJson(uri);
         },
 
-        getTextForRegionId(regionId) {
+        getTextForRegionId: (regionId) => {
             var uri = `${baseUri}/txt/wxfcs/regionalforecast/json/${regionId}?key=${key}`;
             return httpClient.getAsJson(uri);
         }

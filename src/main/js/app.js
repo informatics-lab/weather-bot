@@ -25,8 +25,7 @@ winston.configure({
         })
     ]
 });
-var LUIS = require("./services/luis")(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
-
+var luis = require("./services/luis")(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
 
 /*
  * Application entry point
@@ -58,7 +57,7 @@ function main() {
             if(config.get("DEBUG_TOOLS") && debugTools(session)) {
                 return;
             }
-            LUIS.parse(session.message.text)
+            luis.parse(session.message.text)
                 .then((response) => {
                     session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
                 })
