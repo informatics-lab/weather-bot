@@ -25,24 +25,7 @@ winston.configure({
         })
     ]
 });
-
-function askLUIS(q) {
-    var uri = config.get("LUIS_MODEL_URL") + q;
-    return new Promise(function (resolve, reject) {
-        var options = {
-            uri: uri,
-            method: 'GET'
-        };
-        request(options, function (err, response, body) {
-            if(!err) {
-                resolve(JSON.parse(body));
-            } else {
-                winston.error(err);
-                reject(err);
-            }
-        });
-    })
-}
+var luis = require("./services/luis")(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
 
 /*
  * Application entry point
@@ -53,7 +36,7 @@ function main() {
     // Set up the bot server..
     var server = restify.createServer({name: config.app.name});
     server.use(restify.bodyParser({mapParams: false}));
-    server.listen(config.get("PORT") || 3978, function () {
+    server.listen(config.get("PORT") || 3978, () => {
         winston.info("%s listening on %s", server.name, server.url);
     });
     var connector = new builder.ChatConnector({
@@ -66,27 +49,52 @@ function main() {
 
     var dialogs = require("./dialogs");
     var intents = require("./intents");
-    var persona = require("./persona")(require("../resources/personas/" + config.persona + ".json"));
+    var persona = require("./persona")(require(`../resources/personas/${config.persona}.json`));
 
     //conversation root
-    bot.dialog("/", [ function(session) {
-        askLUIS(session.message.text)
-            .then(function(response) {
-                session.beginDialog(response.topScoringIntent.intent, response);
-            });
-    }]);
-
-    bot.on('error', function (e) {
-        winston.error(e);
-    });
+    bot.dialog("/", [
+        (session) => {
+            if(config.get("DEBUG_TOOLS") && debugTools(session)) {
+                return;
+            }
+            luis.parse(session.message.text)
+                .then((response) => {
+                    session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
+                })
+                .catch((err) => {
+                    winston.error("%s", err);
+                    session.send(persona.getResponse("error"));
+                    session.endDialog();
+                });
+        }
+    ]);
 
     // add the intents
     intents.none(bot, persona);
     intents.help(bot, persona);
-    intents.general.greeting(bot, persona);
+
+    //smalltalk
+    intents.smalltalk.greeting(bot, persona);
+    intents.smalltalk.bot.are_you_a_chatbot(bot, persona);
+    
+    intents.smalltalk.user.bored(bot, persona);
 
     //add bot dialogs here.
     dialogs.user.name(bot, persona);
 
 }
 main();
+
+function debugTools(session) {
+    if(session.message.text === "/dUserData"){
+        session.userData = {};
+        session.send("user data deleted");
+        return true;
+    }
+    if(session.message.text === "/sUserData"){
+        console.log(session.userData);
+        session.send(JSON.stringify(session.userData));
+        return true;
+    }
+    return false;
+}

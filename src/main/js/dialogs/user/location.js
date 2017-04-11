@@ -5,7 +5,7 @@ var winston = require("winston");
 
 module.exports = function (bot, persona) {
 
-    var dialog = "dialogs.user.name";
+    var dialog = "dialogs.user.location";
 
     bot.dialog(dialog, [
         function (session) {
@@ -13,8 +13,8 @@ module.exports = function (bot, persona) {
             builder.Prompts.text(session, persona.getResponse(dialog));
         },
         function(session, results) {
-            session.userData.name = results.response;
-            session.beginDialog("smalltalk.greeting");
+            session.userData.location = results.response;
+            session.endDialog();
         }
     ]);
 };
