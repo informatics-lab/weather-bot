@@ -25,23 +25,8 @@ winston.configure({
         })
     ]
 });
+var LUIS = require("./services/luis")(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
 
-function askLUIS(q) {
-    var uri = config.get("LUIS_MODEL_URL") + q;
-    return new Promise(function (resolve, reject) {
-        var options = {
-            uri: uri,
-            method: 'GET'
-        };
-        request(options, function (err, response, body) {
-            if (!err) {
-                resolve(JSON.parse(body));
-            } else {
-                reject(err);
-            }
-        });
-    })
-}
 
 /*
  * Application entry point
@@ -73,7 +58,7 @@ function main() {
             if(config.get("DEBUG_TOOLS") && debugTools(session)) {
                 return;
             }
-            askLUIS(session.message.text)
+            LUIS.parse(session.message.text)
                 .then((response) => {
                     session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
                 })

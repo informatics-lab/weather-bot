@@ -1,0 +1,70 @@
+{
+  "os": {
+    "name": "Orkney and Shetland",
+    "id": "500"
+  },
+  "he": {
+    "name": "Highland and Eilean Siar",
+    "id": "501"
+  },
+  "gr": {
+    "name": "Grampian",
+    "id": "502"
+  },
+  "ta": {
+    "name": "Tayside",
+    "id": "503"
+  },
+  "st": {
+    "name": "Strathclyde",
+    "id": "504"
+  },
+  "dg": {
+    "name": "Dumfries, Galloway, Lothian",
+    "id": "505"
+  },
+  "ni": {
+    "name": "Northern Ireland",
+    "id": "506"
+  },
+  "yh": {
+    "name": "Yorkshire and the Humber",
+    "id": "507"
+  },
+  "ne": {
+    "name": "Northeast England",
+    "id": "508"
+  },
+  "em": {
+    "name": "East Midlands",
+    "id": "509"
+  },
+  "ee": {
+    "name": "East of England",
+    "id": "510"
+  },
+  "se": {
+    "name": "London and Southeast England",
+    "id": "511"
+  },
+  "nw": {
+    "name": "Northwest England",
+    "id": "512"
+  },
+  "wm": {
+    "name": "West Midlands",
+    "id": "513"
+  },
+  "sw": {
+    "name": "Southwest England",
+    "id": "514"
+  },
+  "wl": {
+    "name": "Wales",
+    "id": "515"
+  },
+  "uk": {
+    "name": "United Kingdom",
+    "id": "516"
+  }
+}

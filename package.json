@@ -10,6 +10,8 @@
   "license": "GPL-3.0",
   "dependencies": {
     "botbuilder": "^3.7.0",
+    "haversine": "^1.0.2",
+    "js-cache": "^1.0.2",
     "nconf": "^0.8.4",
     "request": "^2.81.0",
     "restify": "^4.3.0",

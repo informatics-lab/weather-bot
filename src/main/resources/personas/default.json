@@ -98,6 +98,35 @@
         "You should get some shuteye. You'll feel refreshed.",
         "Sleep is important to your health. Rest up for a bit and we can chat later."
       ]
+    },
+    "courtesy": {
+      "good" : [
+        "Fantastic!",
+        "Terrific!"
+      ],
+      "no_problem": [
+        "Didn't think it would be.",
+        "Great!"
+      ],
+      "please" : [
+        "Just tell me what you want me to do, I'm here!"
+      ],
+      "sorry" : [
+        "It's okay. No worries.",
+        "It's cool"
+      ],
+      "thank_you": [
+        "Don't mention it.",
+        "I'm glad to help.",
+        "Anytime. That's what I'm here for."
+      ],
+      "well_done": [
+        "Just doing my job.",
+        "My pleasure."
+      ],
+      "you_are_welcome": [
+        "Such nice manners you have."
+      ]
     }
   },
   "dialogs": {
