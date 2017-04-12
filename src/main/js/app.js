@@ -25,7 +25,11 @@ winston.configure({
         })
     ]
 });
+
+// services conf
 var luis = require("./services/luis")(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
+var datapoint = require("./services/datapoint")(config.get("DATAPOINT_API_KEY"));
+var gmaps = require("./services/gmaps")(config.get("GOOGLE_MAPS_API_KEY"));
 
 /*
  * Application entry point
@@ -47,8 +51,8 @@ function main() {
 
     var bot = new builder.UniversalBot(connector, {persistConversationData: true});
 
-    var dialogs = require("./dialogs");
     var intents = require("./intents");
+    var prompt = require("./prompt");
     var persona = require("./persona")(require(`../resources/personas/${config.persona}.json`));
 
     //conversation root
@@ -74,24 +78,40 @@ function main() {
     intents.help(bot, persona);
 
     // weather
-    intents.weather.forecast(bot, persona);
+    intents.weather.forecast(bot, persona, datapoint, gmaps);
 
     // smalltalk
     intents.smalltalk.greeting(bot, persona);
+    intents.smalltalk.farewell(bot, persona);
     intents.smalltalk.bot.are_you_a_chatbot(bot, persona);
-    
     intents.smalltalk.user.bored(bot, persona);
 
+    // user
     intents.user.name(bot, persona);
+    intents.user.location(bot, persona, gmaps);
 
-    // add bot dialogs here.
-    dialogs.user.name(bot, persona);
-    dialogs.user.location(bot, persona);
+    prompt(bot, persona);
 
 }
 main();
 
 function debugTools(session) {
+    if(session.message.text === "/dAllData"){
+        session.userData = {};
+        session.conversationData = {};
+        session.send("all data deleted");
+        return true;
+    }
+    if(session.message.text === "/dConversationData"){
+        session.conversationData = {};
+        session.send("conversation data deleted");
+        return true;
+    }
+    if(session.message.text === "/sConversationData"){
+        console.log(session.conversationData);
+        session.send(JSON.stringify(session.conversationData));
+        return true;
+    }
     if(session.message.text === "/dUserData"){
         session.userData = {};
         session.send("user data deleted");

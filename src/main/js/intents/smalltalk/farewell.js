@@ -4,11 +4,11 @@ var winston = require("winston");
 var doT = require("dot");
 
 module.exports = function (bot, persona) {
-    
-    var intent = "smalltalk.greeting";
+
+    var intent = "smalltalk.farewell";
 
     bot.dialog(intent, [
-        (session, results, next) => {
+        (session) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
 
             var template = doT.template(persona.getResponse(intent));
@@ -16,12 +16,7 @@ module.exports = function (bot, persona) {
 
             winston.debug("response [ %s ]", response);
             session.send(response);
-
-            if(!session.userData.name) {
-                session.beginDialog("user.name", {});
-            } else {
-                session.endDialog();
-            }
+            session.endDialog();
         }
     ])
 };
