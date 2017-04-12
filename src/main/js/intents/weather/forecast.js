@@ -20,7 +20,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 }
                 var locationEntity = results.entities.filter(e => e.type === 'location')[0];
                 if (locationEntity) {
-                    return next({response: locationEntity.entity});
+                    session.conversationData.location = locationEntity.entity;
                 }
             }
             if (!session.conversationData.time_target) {
@@ -57,16 +57,16 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            var d = sugar.Date.create(session.conversationData.time_target);
+            var d = sugar.Date.create(session.conversationData.time_target, {fromUTC: true});
             var dStr = `${d.toISOString().substr(0, 10)}Z`;
             var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => f.value === dStr)[0];
             var dayWx = wx.Rep[0];
-            
+
             var template = doT.template(persona.getResponse(intent));
-            var response = template(dayWx);
+            var response = template({wx: dayWx, location: session.conversationData.location, time_target: session.conversationData.time_target});
 
             winston.debug("response [ %s ]", response);
-            
+
             session.send(response);
             session.endDialog();
         }

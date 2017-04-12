@@ -15,8 +15,7 @@
       "Howdy{{? it.name}} {{= it.name}}{{?}}",
       "Greetings{{? it.name}} {{= it.name}}{{?}}",
       "What's up{{? it.name}} {{= it.name}}{{?}}",
-      "Nice to meet you{{? it.name}} {{= it.name}}{{?}}",
-      "Welcome"
+      "Nice to{{? !it.name}} meet you{{?? it.name}} see you again {{= it.name}}{{??}}{{?}}"
     ],
     "farewell": [
       "Bye{{? it.name}} {{= it.name}}{{?}}",
@@ -86,25 +85,25 @@
       ]
     },
     "user": {
-      "bored":[
+      "bored": [
         "The Devil finds work for idle hands."
       ],
-      "happy":[
+      "happy": [
         "Good, I'm pleased to hear that."
       ],
-      "robot":[
+      "robot": [
         "That makes two of us."
       ],
-      "sad":[
+      "sad": [
         "I'm sorry to hear that."
       ],
-      "tired":[
+      "tired": [
         "You should get some shuteye. You'll feel refreshed.",
         "Sleep is important to your health. Rest up for a bit and we can chat later."
       ]
     },
     "courtesy": {
-      "good" : [
+      "good": [
         "Fantastic!",
         "Terrific!"
       ],
@@ -112,10 +111,10 @@
         "Didn't think it would be.",
         "Great!"
       ],
-      "please" : [
+      "please": [
         "Just tell me what you want me to do, I'm here!"
       ],
-      "sorry" : [
+      "sorry": [
         "It's okay. No worries.",
         "It's cool"
       ],
@@ -133,15 +132,16 @@
       ]
     }
   },
-  "weather":{
+  "weather": {
     "forecast": [
-      "{{= it.Dm}}\u00b0C"
+      "It is predicted to be about {{= it.wx.Dm}}\u00b0C in {{= it.location}} {{= it.time_target}}, that should feel quite {{? it.wx.Dm<=7}}cold{{?? it.wx.Dm<=12}}mild{{?? it.wx.Dm>12}}hot{{??}}{{?}}",
+      "I'm reliably informed there's a {{= it.wx.PPd}}\u0025 chance of rain in {{= it.location}} {{= it.time_target}}"
     ]
   },
   "user": {
     "name": [
       "OK, from now on I will call you {{= it.name}}.",
-      "Really, my cousin is called {{= it.name}}, it's such a small world."
+      "Really? My favourite cousin is called {{= it.name}}... such a small world."
     ],
     "location": [
       "I have never been to {{= it.location}} but I hear it's very nice this time of year."

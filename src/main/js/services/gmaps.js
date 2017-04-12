@@ -1,5 +1,6 @@
 "use strict";
 
+var winston = require("winston");
 var httpClient = require("./httpClient");
 var cache = require("js-cache");
 
@@ -12,8 +13,10 @@ module.exports = (key) => {
 
     function geocode(location) {
         if (gmapsCache.get(location)) {
+            winston.debug("resolving [ %s ] from gmaps cache", location);
             return Promise.resolve(gmapsCache.get(location));
         } else {
+            winston.debug("getting [ %s ] from gmaps", location);
             var uri = `${baseUri}?address=${location}&region=uk&language=en&key=${key}`;
             return httpClient.getAsJson(uri)
                 .then((res) => {
