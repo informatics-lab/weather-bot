@@ -73,14 +73,20 @@ function main() {
     intents.none(bot, persona);
     intents.help(bot, persona);
 
-    //smalltalk
+    // weather
+    intents.weather.forecast(bot, persona);
+
+    // smalltalk
     intents.smalltalk.greeting(bot, persona);
     intents.smalltalk.bot.are_you_a_chatbot(bot, persona);
     
     intents.smalltalk.user.bored(bot, persona);
 
-    //add bot dialogs here.
+    intents.user.name(bot, persona);
+
+    // add bot dialogs here.
     dialogs.user.name(bot, persona);
+    dialogs.user.location(bot, persona);
 
 }
 main();

@@ -10,11 +10,13 @@
   "license": "GPL-3.0",
   "dependencies": {
     "botbuilder": "^3.7.0",
+    "dot": "^1.1.1",
     "haversine": "^1.0.2",
     "js-cache": "^1.0.2",
     "nconf": "^0.8.4",
     "request": "^2.81.0",
     "restify": "^4.3.0",
+    "sugar": "^2.0.4",
     "winston": "^2.3.1"
   }
 }
