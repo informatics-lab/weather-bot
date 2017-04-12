@@ -8,7 +8,7 @@ module.exports = function (bot, persona) {
     var intent = "smalltalk.greeting";
 
     bot.dialog(intent, [
-        (session) => {
+        (session, results, next) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
 
             var template = doT.template(persona.getResponse(intent));
@@ -18,7 +18,7 @@ module.exports = function (bot, persona) {
             session.send(response);
 
             if(!session.userData.name) {
-                session.beginDialog("dialogs.user.name");
+                session.beginDialog("user.name", {});
             } else {
                 session.endDialog();
             }

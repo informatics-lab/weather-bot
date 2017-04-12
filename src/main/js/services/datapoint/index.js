@@ -20,8 +20,10 @@ module.exports = (key) => {
 
     function getAllLocations() {
         if (datapointCache.get("locations")) {
+            winston.debug("resolving [ locations ] from datapoint cache");
             return Promise.resolve(datapointCache.get("locations"));
         } else {
+            winston.debug("getting [ locations ] from datapoint");
             var locationsUri = "val/wxfcs/all/json/sitelist";
             var uri = `${baseUri}/${locationsUri}?key=${key}`;
             return httpClient.getAsJson(uri)
@@ -59,10 +61,10 @@ module.exports = (key) => {
     function getDailyDataForSiteId(siteId) {
         var reqId = `daily.${siteId}`;
         if (datapointCache.get(reqId)) {
-            winston.debug("resolving [%s] from datapoint cache", reqId);
+            winston.debug("resolving [ %s ] from datapoint cache", reqId);
             return Promise.resolve(datapointCache.get(reqId));
         } else {
-            winston.debug("getting [%s] from datapoint", reqId);
+            winston.debug("getting [ %s ] from datapoint", reqId);
             return getDataForSiteId(siteId, "daily")
                 .then((res)=> {
                     var ttl = new sugar.Date().millisecondsUntil("midnight");
@@ -75,10 +77,10 @@ module.exports = (key) => {
     function get3HourlyDataForSiteId(siteId) {
         var reqId = `3hourly.${siteId}`;
         if (datapointCache.get(reqId)) {
-            winston.debug("resolving [%s] from datapoint cache", reqId);
+            winston.debug("resolving [ %s ] from datapoint cache", reqId);
             return Promise.resolve(datapointCache.get(reqId));
         } else {
-            winston.debug("getting [%s] from datapoint", reqId);
+            winston.debug("getting [ %s ] from datapoint", reqId);
             return getDataForSiteId(siteId, "3hourly")
                 .then((res)=> {
                     //TODO work out caching time for 3 hourly response

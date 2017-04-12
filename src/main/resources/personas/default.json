@@ -135,25 +135,27 @@
   },
   "weather":{
     "forecast": [
-      "Hot, Hot, Hot!"
+      "{{= it.Dm}}\u00b0C"
     ]
   },
   "user": {
     "name": [
-      "OK, from now on I will call you {{= it.name}}."
+      "OK, from now on I will call you {{= it.name}}.",
+      "Really, my cousin is called {{= it.name}}, it's such a small world."
     ],
     "location": [
       "I have never been to {{= it.location}} but I hear it's very nice this time of year."
     ]
   },
-  "dialogs": {
+  "prompts": {
     "user": {
       "name": [
         "What should I call you?",
-        "What's your name?"
+        "What is your name?",
+        "How should I address you?"
       ],
       "location": [
-        "Where?"
+        "{{= it.pre}} where?"
       ]
     }
   }
