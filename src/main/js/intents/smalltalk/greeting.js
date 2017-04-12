@@ -1,24 +1,26 @@
 "use strict";
 
 var winston = require("winston");
+var doT = require("dot");
 
 module.exports = function (bot, persona) {
     
     var intent = "smalltalk.greeting";
-    
+
     bot.dialog(intent, [
         (session) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
-            if(session.userData.name) {
-                var response = `${persona.getResponse(intent)} ${session.userData.name}`;
-                winston.debug("response [ %s ]", response);
-                session.send(response);
-                session.endDialog();
-            } else {
-                var response = persona.getResponse(intent);
-                winston.debug("response [ %s ]", response);
-                session.send(response);
+
+            var template = doT.template(persona.getResponse(intent));
+            var response = template({name: session.userData.name});
+
+            winston.debug("response [ %s ]", response);
+            session.send(response);
+
+            if(!session.userData.name) {
                 session.beginDialog("dialogs.user.name");
+            } else {
+                session.endDialog();
             }
         }
     ])

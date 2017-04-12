@@ -10,11 +10,11 @@
   ],
   "smalltalk": {
     "greeting": [
-      "Hello",
-      "Hi",
-      "Howdy",
-      "Greetings",
-      "What's up"
+      "Hello {{? it.name}}{{= it.name}}{{?}}",
+      "Hi {{? it.name}}{{= it.name}}{{?}}",
+      "Howdy {{? it.name}}{{= it.name}}{{?}}",
+      "Greetings {{? it.name}}{{= it.name}}{{?}}",
+      "What's up {{? it.name}}{{= it.name}}{{?}}"
     ],
     "farewell": [
       "Bye",
@@ -128,6 +128,19 @@
         "Such nice manners you have."
       ]
     }
+  },
+  "weather":{
+    "forecast": [
+      "Hot, Hot, Hot!"
+    ]
+  },
+  "user": {
+    "name": [
+      "OK, from now on I will call you {{? it.name}}{{= it.name}}{{?}}"
+    ],
+    "location": [
+      "I have never been to {{? it.location}}{{= it.location}}{{?}} but I hear it's very nice this time of year."
+    ]
   },
   "dialogs": {
     "user": {
