@@ -10,16 +10,20 @@
   ],
   "smalltalk": {
     "greeting": [
-      "Hello {{? it.name}}{{= it.name}}{{?}}",
-      "Hi {{? it.name}}{{= it.name}}{{?}}",
-      "Howdy {{? it.name}}{{= it.name}}{{?}}",
-      "Greetings {{? it.name}}{{= it.name}}{{?}}",
-      "What's up {{? it.name}}{{= it.name}}{{?}}"
+      "Hello{{? it.name}} {{= it.name}}{{?}}",
+      "Hi{{? it.name}} {{= it.name}}{{?}}",
+      "Howdy{{? it.name}} {{= it.name}}{{?}}",
+      "Greetings{{? it.name}} {{= it.name}}{{?}}",
+      "What's up{{? it.name}} {{= it.name}}{{?}}",
+      "Nice to meet you{{? it.name}} {{= it.name}}{{?}}",
+      "Welcome"
     ],
     "farewell": [
-      "Bye",
-      "Farewell",
-      "Goodbye"
+      "Bye{{? it.name}} {{= it.name}}{{?}}",
+      "Farewell{{? it.name}} {{= it.name}}{{?}}",
+      "Goodbye{{? it.name}} {{= it.name}}{{?}}",
+      "Take it easy{{? it.name}} {{= it.name}}{{?}}",
+      "Come back again soon"
     ],
     "bot": {
       "are_you_a_chatbot": [
@@ -136,10 +140,10 @@
   },
   "user": {
     "name": [
-      "OK, from now on I will call you {{? it.name}}{{= it.name}}{{?}}"
+      "OK, from now on I will call you {{= it.name}}."
     ],
     "location": [
-      "I have never been to {{? it.location}}{{= it.location}}{{?}} but I hear it's very nice this time of year."
+      "I have never been to {{= it.location}} but I hear it's very nice this time of year."
     ]
   },
   "dialogs": {

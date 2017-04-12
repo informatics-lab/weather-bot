@@ -26,6 +26,7 @@ winston.configure({
     ]
 });
 var luis = require("./services/luis")(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
+var datapoint = require("./services/datapoint")(config.get("DATAPOINT_API_KEY"));
 
 /*
  * Application entry point
@@ -74,14 +75,15 @@ function main() {
     intents.help(bot, persona);
 
     // weather
-    intents.weather.forecast(bot, persona);
+    intents.weather.forecast(bot, persona, datapoint);
 
     // smalltalk
     intents.smalltalk.greeting(bot, persona);
+    intents.smalltalk.farewell(bot, persona);
     intents.smalltalk.bot.are_you_a_chatbot(bot, persona);
-    
     intents.smalltalk.user.bored(bot, persona);
 
+    // user
     intents.user.name(bot, persona);
 
     // add bot dialogs here.
