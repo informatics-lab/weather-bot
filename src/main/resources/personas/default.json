@@ -141,6 +141,7 @@
   "user": {
     "name": [
       "OK, from now on I will call you {{= it.name}}.",
+      "You're now known as {{= it.name}}",
       "Really? My favourite cousin is called {{= it.name}}... such a small world."
     ],
     "location": [
