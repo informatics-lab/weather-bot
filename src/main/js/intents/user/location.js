@@ -19,7 +19,22 @@ module.exports = function (bot, persona, gmaps) {
             session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "To"}});
         },
         (session, results, next) => {
-            session.userData.location = results.response;
+
+            /* location regex
+             * matches:
+             * my location is {location}
+             * in {location}
+             * for {location}
+             */
+
+            var locationRegex = /(?:(in|for| is)) (\w+)/g;
+            var locationRegexResults = locationRegex.exec(results.response);
+            if(locationRegexResults && locationRegexResults.length === 2) {
+                session.userData.location = locationRegexResults[1];
+            } else {
+                session.userData.location = results.response;
+            }
+
             gmaps.geocode(session.userData.location)
                 .then((res)=> {
                     session.userData.gmaps = res;

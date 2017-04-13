@@ -38,7 +38,15 @@ module.exports = (bot, persona, datapoint, gmaps) => {
 
         },
         (session, results, next) => {
-            var locationRegex = /(?:(in|for)) (\w+)/g;
+
+            /* location regex
+             * matches:
+             * my location is {location}
+             * in {location}
+             * for {location}
+             */
+
+            var locationRegex = /(?:(in|for| is)) (\w+)/g;
             var locationRegexResults = locationRegex.exec(results.response);
             if(locationRegexResults && locationRegexResults.length === 2) {
                 session.conversationData.location = locationRegexResults[1];
@@ -64,11 +72,29 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            var timeTargetRegex = /(?=.*\bday\b)((?=.*\bafter\b)|(?=.*\bnext\b)).*/g;
-            var timeTargetRegexResult = timeTargetRegex.exec(session.conversationData.time_target);
+
+            /* next day regex
+             * matches:
+             * the day after
+             * the next day
+             */
+
+            var nextDayRegex = /(?=.*\bday\b)((?=.*\bafter\b)|(?=.*\bnext\b)).*/g;
+            var nextDayRegexResult = nextDayRegex.exec(session.conversationData.time_target);
+
+            /* day after next regex
+             * matches:
+             * the day after next
+             */
+
+            var dayAfterNextRegex = /(?=.*\bday\b)(?=.*\bafter\b)(?=.*\bnext\b).*/g;
+            var dayAfterNextRegexResult = dayAfterNextRegex.exec(session.conversationData.time_target);
+
             var d;
-            if(timeTargetRegexResult) {
+            if(nextDayRegexResult) {
                 d = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 1);
+            } else if(dayAfterNextRegexResult) {
+                d = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 2);
             } else {
                 d = sugar.Date.create(session.conversationData.time_target, {fromUTC: true});
             }

@@ -19,7 +19,15 @@ module.exports = function (bot, persona) {
             session.beginDialog("prompt", {key: "prompts.user.name", model: {}});
         },
         (session, results, next) => {
-            var nameRegex = /(?:( me| is| it's)) (\w+)/g;
+
+            /* name regex
+             * matches:
+             * my name is {name}
+             * call me {name}
+             * it's {name}
+             */
+            
+            var nameRegex = /(?:( me| is|it's)) (\w+)/g;
             var regexResult = nameRegex.exec(results.response);
             if(regexResult && regexResult.length === 3) {
                 session.userData.name = regexResult[2];
