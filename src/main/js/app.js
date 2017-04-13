@@ -78,6 +78,8 @@ function main() {
     intents.help(bot, persona);
     intents.repeat(bot, persona);
 
+    intents.met_office.general_information(bot, persona);
+
     // weather
     intents.weather.forecast(bot, persona, datapoint, gmaps);
 

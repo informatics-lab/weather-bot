@@ -8,6 +8,14 @@
   "help": [
     "help stuff"
   ],
+  "met_office": {
+    "general_information": {
+      "name": "What is the Met Office?",
+      "type": "video",
+      "contentType": "video/mp4",
+      "contentUrl": "https://www.youtube.com/watch?v=tls9h2q7QlY"
+    }
+  },
   "smalltalk": {
     "greeting": [
       "Hello{{? it.name}} {{= it.name}}{{?}}",

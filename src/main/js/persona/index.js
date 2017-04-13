@@ -1,6 +1,7 @@
 "use strict";
 
 var winston = require("winston");
+var builder = require("botbuilder");
 
 module.exports = function (persona) {
 
@@ -10,6 +11,15 @@ module.exports = function (persona) {
 
     function getRandomElementFromArray(array) {
         return array[randomIntFromInterval(0, array.length - 1)];
+    }
+
+    function buildMediaResponse(obj) {
+        var mediaMsg = new builder.Message().attachments([{
+            contentType: obj.contentType,
+            name: obj.name,
+            contentUrl: obj.contentUrl
+        }]);
+        return mediaMsg;
     }
 
     function getResponseForKey(key) {
@@ -25,7 +35,11 @@ module.exports = function (persona) {
             }
         }
         if (typeof(personaProperty === "object")) {
-            return getRandomElementFromArray(personaProperty);
+            if(personaProperty.type) {
+                return buildMediaResponse(personaProperty);
+            } else {
+                return getRandomElementFromArray(personaProperty);
+            }
         } else if (typeof(personaProperty === "string")) {
             return personaProperty;
         } else {
