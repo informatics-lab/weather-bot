@@ -107,9 +107,17 @@
         "Fantastic!",
         "Terrific!"
       ],
+      "no": [
+        "OK"
+      ],
       "no_problem": [
         "Didn't think it would be.",
         "Great!"
+      ],
+      "okay": [
+        "Cool",
+        "Sweet",
+        "Good"
       ],
       "please": [
         "Just tell me what you want me to do, I'm here!"
@@ -127,12 +135,41 @@
         "Just doing my job.",
         "My pleasure."
       ],
+      "yes": [
+        "OK"
+      ],
       "you_are_welcome": [
         "Such nice manners you have."
+      ]
+    },
+    "emotions": {
+      "boo": [
+        "Ah, you scared me",
+        "Golly, you made me jump",
+        "Stop horsing around!"
+      ],
+      "cool": [
+        "You would know, boss.",
+        "You said it.",
+        "Agreed, very cool!"
+      ],
+      "ha_ha": [
+        "Jokes included free of charge.",
+        "Not many assistants have my sense of humor. I hope you appreciate that."
+      ],
+      "la_la": [
+        "I like it when you sing to me."
+      ],
+      "wow": [
+        "Wow indeed!",
+        "Amazing!"
       ]
     }
   },
   "weather": {
+    "not_found": [
+      "Sorry, I couldn't find the weather for the date, time and location you have specified."
+    ],
     "forecast": [
       "It is predicted to be about {{= it.wx.Dm}}\u00b0C in {{= it.location}} {{= it.time_target}}, that should feel quite {{? it.wx.Dm<=7}}cold{{?? it.wx.Dm<=12}}mild{{?? it.wx.Dm>12}}hot{{??}}{{?}}",
       "I'm reliably informed there's a {{= it.wx.PPd}}\u0025 chance of rain in {{= it.location}} {{= it.time_target}}"

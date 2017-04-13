@@ -100,11 +100,14 @@ function main() {
     intents.smalltalk.bot.would_you_like_to_be_human(bot, persona);
 
     intents.smalltalk.courtesy.good(bot, persona);
+    intents.smalltalk.courtesy.no(bot, persona);
     intents.smalltalk.courtesy.no_problem(bot, persona);
+    intents.smalltalk.courtesy.okay(bot, persona);
     intents.smalltalk.courtesy.please(bot, persona);
     intents.smalltalk.courtesy.sorry(bot, persona);
     intents.smalltalk.courtesy.thank_you(bot, persona);
     intents.smalltalk.courtesy.well_done(bot, persona);
+    intents.smalltalk.courtesy.yes(bot, persona);
     intents.smalltalk.courtesy.you_are_welcome(bot, persona);
     
     intents.smalltalk.user.bored(bot, persona);
@@ -112,6 +115,12 @@ function main() {
     intents.smalltalk.user.robot(bot, persona);
     intents.smalltalk.user.sad(bot, persona);
     intents.smalltalk.user.tired(bot, persona);
+
+    intents.smalltalk.emotions.boo(bot, persona);
+    intents.smalltalk.emotions.cool(bot, persona);
+    intents.smalltalk.emotions.ha_ha(bot, persona);
+    intents.smalltalk.emotions.la_la(bot, persona);
+    intents.smalltalk.emotions.wow(bot, persona);
 
     // user
     intents.user.name(bot, persona);
