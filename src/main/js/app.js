@@ -76,6 +76,7 @@ function main() {
     // add the intents
     intents.none(bot, persona);
     intents.help(bot, persona);
+    intents.repeat(bot, persona);
 
     // weather
     intents.weather.forecast(bot, persona, datapoint, gmaps);

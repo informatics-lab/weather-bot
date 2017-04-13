@@ -4,6 +4,7 @@ var winston = require("winston");
 var sugar = require("sugar");
 var builder = require("botbuilder");
 var doT = require("dot");
+var utils = require("../utils");
 
 module.exports = (bot, persona, datapoint, gmaps) => {
 
@@ -119,8 +120,9 @@ module.exports = (bot, persona, datapoint, gmaps) => {
 
             winston.debug("response [ %s ]", response);
             session.send(response);
-            session.endDialog();
-        }
+            next();
+        },
+        utils.storeAsPreviousIntent
     ]);
 
 };

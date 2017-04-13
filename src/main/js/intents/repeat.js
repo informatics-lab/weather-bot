@@ -1,0 +1,21 @@
+"use strict";
+
+var winston = require("winston");
+
+module.exports = function (bot, persona) {
+
+    var intent = "repeat";
+
+    bot.dialog(intent, [
+        function (session, results) {
+            winston.info("[ %s ] intent matched [ %s ]", intent, session.message.text);
+            if(session.conversationData.previous_intent) {
+                session.beginDialog(session.conversationData.previous_intent, results)
+            } else {
+                session.send(persona.getResponse("error"));
+                session.endDialog();
+            }
+        }]
+    );
+
+};

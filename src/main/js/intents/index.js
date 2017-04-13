@@ -1,7 +1,8 @@
 "use strict";
 
-exports.none = require("./none");
 exports.help = require("./help");
+exports.none = require("./none");
+exports.repeat = require("./repeat");
 
 exports.smalltalk = require("./smalltalk");
 exports.weather = require("./weather");
