@@ -2,7 +2,7 @@
 
 var sugar = require("sugar");
 var winston = require("winston");
-var regions = require("./regions");
+var regions = require("./../../../resources/datapoint/regions");
 var haversine = require("haversine");
 var httpClient = require("../httpClient");
 var cache = require("js-cache");
@@ -32,7 +32,7 @@ module.exports = (key) => {
                     return res;
                 });
         }
-    };
+    }
 
     function getNearestSiteToLatLng(latlng) {
         return new Promise((resolve, reject) => {
@@ -56,7 +56,7 @@ module.exports = (key) => {
                     resolve(nearest);
                 });
         });
-    };
+    }
 
     function getDailyDataForSiteId(siteId) {
         var reqId = `daily.${siteId}`;
@@ -72,7 +72,7 @@ module.exports = (key) => {
                     return res;
                 });
         }
-    };
+    }
 
     function get3HourlyDataForSiteId(siteId) {
         var reqId = `3hourly.${siteId}`;
@@ -94,12 +94,12 @@ module.exports = (key) => {
     function getDataForSiteId(siteId, resolution) {
         var uri = `${baseUri}/val/wxfcs/all/json/${siteId}?res=${resolution}&key=${key}`;
         return httpClient.getAsJson(uri);
-    };
+    }
 
     function getTextForRegionId(regionId) {
         var uri = `${baseUri}/txt/wxfcs/regionalforecast/json/${regionId}?key=${key}`;
         return httpClient.getAsJson(uri);
-    };
+    }
 
     return {
         getAllLocations: getAllLocations,

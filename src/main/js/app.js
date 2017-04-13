@@ -83,13 +83,41 @@ function main() {
     // smalltalk
     intents.smalltalk.greeting(bot, persona);
     intents.smalltalk.farewell(bot, persona);
+
     intents.smalltalk.bot.are_you_a_chatbot(bot, persona);
+    intents.smalltalk.bot.are_you_busy(bot, persona);
+    intents.smalltalk.bot.are_you_hungry(bot, persona);
+    intents.smalltalk.bot.are_you_ok(bot, persona);
+    intents.smalltalk.bot.are_you_real(bot, persona);
+    intents.smalltalk.bot.family_status(bot, persona);
+    intents.smalltalk.bot.how_old_are_you(bot, persona);
+    intents.smalltalk.bot.relationship_status(bot, persona);
+    intents.smalltalk.bot.what_is_your_salary(bot, persona);
+    intents.smalltalk.bot.when_is_your_birthday(bot, persona);
+    intents.smalltalk.bot.where_are_you_from(bot, persona);
+    intents.smalltalk.bot.where_do_you_work(bot, persona);
+    intents.smalltalk.bot.who_are_you(bot, persona);
+    intents.smalltalk.bot.would_you_like_to_be_human(bot, persona);
+
+    intents.smalltalk.courtesy.good(bot, persona);
+    intents.smalltalk.courtesy.no_problem(bot, persona);
+    intents.smalltalk.courtesy.please(bot, persona);
+    intents.smalltalk.courtesy.sorry(bot, persona);
+    intents.smalltalk.courtesy.thank_you(bot, persona);
+    intents.smalltalk.courtesy.well_done(bot, persona);
+    intents.smalltalk.courtesy.you_are_welcome(bot, persona);
+    
     intents.smalltalk.user.bored(bot, persona);
+    intents.smalltalk.user.happy(bot, persona);
+    intents.smalltalk.user.robot(bot, persona);
+    intents.smalltalk.user.sad(bot, persona);
+    intents.smalltalk.user.tired(bot, persona);
 
     // user
     intents.user.name(bot, persona);
     intents.user.location(bot, persona, gmaps);
 
+    // prompt
     prompt(bot, persona);
 
 }
