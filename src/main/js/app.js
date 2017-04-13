@@ -91,6 +91,7 @@ function main() {
     intents.smalltalk.bot.are_you_real(bot, persona);
     intents.smalltalk.bot.family_status(bot, persona);
     intents.smalltalk.bot.how_old_are_you(bot, persona);
+    intents.smalltalk.bot.name(bot, persona);
     intents.smalltalk.bot.relationship_status(bot, persona);
     intents.smalltalk.bot.what_is_your_salary(bot, persona);
     intents.smalltalk.bot.when_is_your_birthday(bot, persona);

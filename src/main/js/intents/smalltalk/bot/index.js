@@ -9,6 +9,7 @@ exports.are_you_ok = new basicIntentBuilder("smalltalk.bot.are_you_ok");
 exports.are_you_real = new basicIntentBuilder("smalltalk.bot.are_you_real");
 exports.family_status = new basicIntentBuilder("smalltalk.bot.family_status");
 exports.how_old_are_you = new basicIntentBuilder("smalltalk.bot.how_old_are_you");
+exports.name = new basicIntentBuilder("smalltalk.bot.name");
 exports.relationship_status = new basicIntentBuilder("smalltalk.bot.relationship_status");
 exports.what_is_your_salary = new basicIntentBuilder("smalltalk.bot.what_is_your_salary");
 exports.when_is_your_birthday = new basicIntentBuilder("smalltalk.bot.when_is_your_birthday");
