@@ -38,23 +38,10 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "For"}});
 
         },
+        
+        utils.sanitze.location,
+        
         (session, results, next) => {
-
-            /* location regex
-             * matches:
-             * my location is {location}
-             * in {location}
-             * for {location}
-             */
-
-            var locationRegex = /(?:(in|for| is)) (\w+)/g;
-            var locationRegexResults = locationRegex.exec(results.response);
-            if(locationRegexResults && locationRegexResults.length === 2) {
-                session.conversationData.location = locationRegexResults[1];
-            } else {
-                session.conversationData.location = results.response;
-            }
-
             gmaps.geocode(session.conversationData.location)
                 .then((res)=> {
                     session.conversationData.gmaps = res;

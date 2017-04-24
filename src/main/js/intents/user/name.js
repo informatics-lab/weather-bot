@@ -2,6 +2,7 @@
 
 var winston = require("winston");
 var doT = require("dot");
+var utils = require("../utils");
 
 module.exports = function (bot, persona) {
 
@@ -18,25 +19,7 @@ module.exports = function (bot, persona) {
             }
             session.beginDialog("prompt", {key: "prompts.user.name", model: {}});
         },
-        (session, results, next) => {
-
-            /* name regex
-             * matches:
-             * my name is {name}
-             * call me {name}
-             * it's {name}
-             */
-            
-            var nameRegex = /(?:( me| is|it's)) (\w+)/g;
-            var regexResult = nameRegex.exec(results.response);
-            if(regexResult && regexResult.length === 3) {
-                session.userData.name = regexResult[2];
-            } else {
-                session.userData.name = results.response;
-            }
-
-            return next();
-        },
+        utils.sanitze.name,
         (session) => {
             var template = doT.template(persona.getResponse(intent));
             var response = template({name: session.userData.name});
@@ -44,7 +27,6 @@ module.exports = function (bot, persona) {
             winston.debug("response [ %s ]", response);
             session.send(response);
             session.endDialog();
-
         }
 
     ])
