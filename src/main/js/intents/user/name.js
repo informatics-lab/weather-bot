@@ -3,6 +3,7 @@
 var winston = require("winston");
 var doT = require("dot");
 var utils = require("../utils");
+var sugar = require("sugar");
 
 module.exports = function (bot, persona) {
 
@@ -11,7 +12,7 @@ module.exports = function (bot, persona) {
     bot.dialog(intent, [
         (session, results, next) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
-            if(results && results.entities) {
+            if (results && results.entities) {
                 var nameEntity = results.entities.filter(e => e.type === "name")[0];
                 if (nameEntity) {
                     return next({response: nameEntity.entity});
@@ -21,7 +22,9 @@ module.exports = function (bot, persona) {
         },
         utils.sanitze.name,
         (session, results, next) => {
-            session.userData.name = results.response;
+            if (!session.userData.name || !(session.userData.name === results.response)) {
+                session.userData.name = sugar.String.capitalize(results.response, true, true);
+            }
             return next();
         },
         (session) => {

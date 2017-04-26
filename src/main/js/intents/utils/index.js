@@ -64,8 +64,9 @@ exports.sanitze = {
          * my name is Tom
          * call me Paul
          * it's Sarah
+         * call me Tom Jones please
          */
-        var nameRegex = /(?:(\bme\b|\bis\b|\bit's\b)) (\w+)/g;
+        var nameRegex = /(?:(\bme\b|\bis\b|\bit's\b)) ([A-Za-z ]+(?:(?= \bplease\b))|.*)/g;
         var regexResult = nameRegex.exec(str);
         var result;
         if (regexResult && regexResult.length === 3) {

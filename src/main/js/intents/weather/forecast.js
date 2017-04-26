@@ -78,23 +78,21 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             winston.debug(`filtering wx for [${dates}]`);
 
             var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => dates.includes(f.value));
-
             var response;
 
-            // if (wx) {
-            //     var dayWx = wx.Rep[0];
-            //     var template = doT.template(persona.getResponse(intent));
-            //     response = template({
-            //         wx: dayWx,
-            //         location: session.conversationData.location,
-            //         time_target: session.conversationData.time_target
-            //     });
-            // } else {
-            //     response = persona.getResponse("weather.not_found");
-            // }
-            //
-            // winston.debug("response [ %s ]", response);
-            // session.send(response);
+            if (wx) {
+                var template = doT.template(persona.getResponse(intent));
+                response = template({
+                    wx: wx,
+                    location: session.conversationData.location,
+                    time_target: session.conversationData.time_target
+                });
+            } else {
+                response = persona.getResponse("weather.not_found");
+            }
+            
+            winston.debug("response [ %s ]", response);
+            session.send(response);
             return next();
         },
         utils.storeAsPreviousIntent

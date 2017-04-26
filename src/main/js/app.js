@@ -63,7 +63,11 @@ function main() {
             }
             luis.parse(session.message.text)
                 .then((response) => {
-                    session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
+                    if(response.topScoringIntent.score >= 0.1) {
+                        session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
+                    } else {
+                        session.beginDialog("none");
+                    }
                 })
                 .catch((err) => {
                     winston.error("%s", err);
