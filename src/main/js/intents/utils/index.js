@@ -28,7 +28,7 @@ exports.sanitze = {
      */
     location: (session, results, next) => {
         var str = results.response;
-        winston.debug(`sanitizing [${str}] for a location`);
+        winston.debug(`sanitizing [ ${str} ] for a location`);
 
         /* location regex
          * matches:
@@ -38,12 +38,13 @@ exports.sanitze = {
          */
         var locationRegex = /(?:(\bin\b|\bfor\b|\bis\b)) \b(.*)/g;
         var locationRegexResults = locationRegex.exec(str);
+        var result;
         if (locationRegexResults && locationRegexResults.length === 2) {
-            session.conversationData.location = locationRegexResults[1];
+            result = locationRegexResults[1];
         } else {
-            session.conversationData.location = str;
+            result = str;
         }
-        return next();
+        return next({response: result});
     },
 
     /**
@@ -56,7 +57,7 @@ exports.sanitze = {
      */
     name: (session, results, next) => {
         var str = results.response;
-        winston.debug(`sanitizing [${str}] for a name`);
+        winston.debug(`sanitizing [ ${str} ] for a name`);
 
         /* name regex
          * matches:
@@ -66,25 +67,27 @@ exports.sanitze = {
          */
         var nameRegex = /(?:(\bme\b|\bis\b|\bit's\b)) (\w+)/g;
         var regexResult = nameRegex.exec(str);
+        var result;
         if (regexResult && regexResult.length === 3) {
-            session.userData.name = regexResult[2];
+            result = regexResult[2];
         } else {
-            session.userData.name = str;
+            result = str;
         }
 
-        return next();
+        return next({response: result});
     },
 
     //TODO more work required to implement all edge cases for dates
     /**
-     * Parses the user's input to extract the time bounding that a user may be looking for
+     * Parses the user's input to extract the time bounding that a user may be looking for.
+     * Returned as an array of ISO date time strings.
      * @param session
      * @param results
      * @param next
      */
     time_target: (session, results, next) => {
         var str = results.response;
-        winston.debug(`sanitizing [${str}] for a time_target`);
+        winston.debug(`sanitizing [ ${str} ] for a time_target`);
 
         /* next day regex
          * matches:
@@ -117,8 +120,8 @@ exports.sanitze = {
          * for next week
          * for last week
          */
-        var weekRegex = /(?=(\w+)\b \bweek\b).*/g;
-        var weekRegexResult = weekRegex.exec(str);
+        // var weekRegex = /(?=(\w+)\b \bweek\b).*/g;
+        // var weekRegexResult = weekRegex.exec(str);
 
         /* month regex (functionality not currently implemented)
          * matches:
@@ -127,8 +130,8 @@ exports.sanitze = {
          * for next month
          * for last month
          */
-        var monthRegex = /(?=(\w+)\b \bmonth\b).*/g;
-        var monthRegexResult = monthRegex.exec(str);
+        // var monthRegex = /(?=(\w+)\b \bmonth\b).*/g;
+        // var monthRegexResult = monthRegex.exec(str);
 
         /* year regex (functionality not currently implemented)
          * matches:
@@ -137,8 +140,8 @@ exports.sanitze = {
          * for next year
          * for last year
          */
-        var yearRegex = /(?=(\w+)\b \byear\b).*/g;
-        var yearRegexResult = yearRegex.exec(str);
+        // var yearRegex = /(?=(\w+)\b \byear\b).*/g;
+        // var yearRegexResult = yearRegex.exec(str);
 
         /* day regex
          * matches:
@@ -150,52 +153,55 @@ exports.sanitze = {
         var dayRegex = /(?=(\w+)\b \b(\w+day)\b).*/g;
         var dayRegexResult = dayRegex.exec(str);
 
-        var d;
+        var result = new Array();
         if (nextDayRegexResult) {
             if (session.conversationData.time_target_date) {
-                d = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 1);
+                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 1);
+                result.push(day.toISOString());
             } else {
                 winston.error("next day regex matched but no previous time_target_date found");
             }
         } else if (dayAfterNextRegexResult) {
             if (session.conversationData.time_target_date) {
-                d = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 2);
+                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 2);
+                result.push(day.toISOString());
             } else {
                 winston.error("day after next regex matched but no previous time_target_date found");
             }
         } else if (weekendRegexResult) {
             var sat, sun;
-            switch (weekendRegexResult[0]) {
+            switch (weekendRegexResult[1]) {
                 case "next" :
                 case "last" :
                 case "this" :
-                    sat = sugar.Date.create(`${weekendRegexResult[0]} saturday`, {fromUTC: true});
+                    sat = sugar.Date.create(`${weekendRegexResult[1]} saturday`, {fromUTC: true});
                     break;
                 default :
                     sat = sugar.Date.create("saturday", {fromUTC: true});
                     break;
             }
-            sun = sugar.Date.addDays(sat, 1);
-            d = new Array(sat.toISOString(), sun.toISOString());
+            sun = sugar.Date.addDays(sugar.Date.create(sat.toISOString(), {fromUTC: true}), 1);
+            result.push(sat.toISOString());
+            result.push(sun.toISOString());
         } else if (dayRegexResult) {
             var day;
-            switch (dayRegexResult[0]) {
+            switch (dayRegexResult[1]) {
                 case "next" :
                 case "last" :
                 case "this" :
-                    day = sugar.Date.create(`${dayRegexResult[0]} ${dayRegexResult[1]}`, {fromUTC: true});
+                    day = sugar.Date.create(`${dayRegexResult[1]} ${dayRegexResult[2]}`, {fromUTC: true});
                     break;
                 default :
-                    day = sugar.Date.create(dayRegexResult[1], {fromUTC: true});
+                    day = sugar.Date.create(dayRegexResult[2], {fromUTC: true});
                     break;
             }
-            d = day.toISOString();
+            result.push(day.toISOString());
         } else {
-            var day = sugar.Date.create(session.conversationData.time_target, {fromUTC: true});
-            d = day.toISOString();
+            var day = sugar.Date.create(str, {fromUTC: true});
+            result.push(day.toISOString());
         }
-        session.conversationData.time_target_date = d;
-        return next();
+
+        return next({response: result});
     }
 };
 
@@ -206,45 +212,43 @@ exports.translate = {
 
     accessory: (session, results, next) => {
         var str = results.response;
-        var accessory;
+        var result;
 
         //TODO implement accessory logic
 
-        session.conversationData.accessory = accessory;
-        return next();
+        return next({response: result});
     },
 
     variable: (session, results, next) => {
         var str = results.response;
-        var wxVariable;
+        var result;
         switch (str) {
             case "nice" :
-                wxVariable = new Array("temperature", "sunshine");
+                result = new Array("temperature", "sunshine");
                 break;
             case "hot" :
             case "cold" :
             case "warm" :
             case "chilly" :
-                wxVariable = "temperature";
+                result = "temperature";
                 break;
             case "wet" :
             case "dry" :
             case "rain" :
-                wxVariable = "rainfall";
+                result = "rainfall";
                 break;
             case "wind" :
             case "windy" :
-                wxVariable = "wind";
+                result = "wind";
                 break;
             case "sunny" :
             case "cloudy" :
-                wxVariable = "sunshine";
+                result = "sunshine";
                 break;
             default:
                 winston.warn(`attempt to translate [${str}] for variable failed`);
                 break;
         }
-        session.conversationData.variable = wxVariable;
-        return next();
+        return next({response: result});
     }
 };

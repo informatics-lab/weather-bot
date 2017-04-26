@@ -5,7 +5,7 @@ var httpClient = require("./httpClient");
 var cache = require("js-cache");
 
 var baseUri = "https://maps.googleapis.com/maps/api/geocode/json";
-var DAYS_5 = 432000000;
+var DAYS_5 = 432000000; //5 days in milliseconds
 
 module.exports = (key) => {
 

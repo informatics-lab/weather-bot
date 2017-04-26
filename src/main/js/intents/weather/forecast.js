@@ -38,9 +38,11 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "For"}});
 
         },
-        
         utils.sanitze.location,
-        
+        (session, results, next) => {
+            session.conversationData.location = results.response;
+            return next();
+        },
         (session, results, next) => {
             gmaps.geocode(session.conversationData.location)
                 .then((res)=> {
@@ -60,54 +62,40 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
+            return next({response: session.conversationData.time_target})
+        },
+        utils.sanitze.time_target,
+        (session, results, next) => {
+            session.conversationData.time_target_dates = results.response;
+            return next();
+        },
+        (session, results, next) => {
 
-            /* next day regex
-             * matches:
-             * the day after
-             * the next day
-             */
+            var dates = session.conversationData.time_target_dates.map((date) => {
+                return `${date.substr(0, 10)}Z`;
+            });
 
-            var nextDayRegex = /(?=.*\bday\b)((?=.*\bafter\b)|(?=.*\bnext\b)).*/g;
-            var nextDayRegexResult = nextDayRegex.exec(session.conversationData.time_target);
+            winston.debug(`filtering wx for [${dates}]`);
 
-            /* day after next regex
-             * matches:
-             * the day after next
-             */
-
-            var dayAfterNextRegex = /(?=.*\bday\b)(?=.*\bafter\b)(?=.*\bnext\b).*/g;
-            var dayAfterNextRegexResult = dayAfterNextRegex.exec(session.conversationData.time_target);
-
-            var d;
-            if(nextDayRegexResult) {
-                d = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 1);
-            } else if(dayAfterNextRegexResult) {
-                d = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 2);
-            } else {
-                d = sugar.Date.create(session.conversationData.time_target, {fromUTC: true});
-            }
-            var dStr = `${d.toISOString().substr(0, 10)}Z`;
-            session.conversationData.time_target_date = dStr;
-            winston.debug("filtering wx for [ %s ]", dStr);
-
-            var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => f.value === session.conversationData.time_target_date)[0];
+            var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => dates.includes(f.value));
 
             var response;
-            if(wx) {
-                var dayWx = wx.Rep[0];
-                var template = doT.template(persona.getResponse(intent));
-                response = template({
-                    wx: dayWx,
-                    location: session.conversationData.location,
-                    time_target: session.conversationData.time_target
-                });
-            } else {
-                response = persona.getResponse("weather.not_found");
-            }
 
-            winston.debug("response [ %s ]", response);
-            session.send(response);
-            next();
+            // if (wx) {
+            //     var dayWx = wx.Rep[0];
+            //     var template = doT.template(persona.getResponse(intent));
+            //     response = template({
+            //         wx: dayWx,
+            //         location: session.conversationData.location,
+            //         time_target: session.conversationData.time_target
+            //     });
+            // } else {
+            //     response = persona.getResponse("weather.not_found");
+            // }
+            //
+            // winston.debug("response [ %s ]", response);
+            // session.send(response);
+            return next();
         },
         utils.storeAsPreviousIntent
     ]);

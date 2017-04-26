@@ -20,6 +20,10 @@ module.exports = function (bot, persona) {
             session.beginDialog("prompt", {key: "prompts.user.name", model: {}});
         },
         utils.sanitze.name,
+        (session, results, next) => {
+            session.userData.name = results.response;
+            return next();
+        },
         (session) => {
             var template = doT.template(persona.getResponse(intent));
             var response = template({name: session.userData.name});
