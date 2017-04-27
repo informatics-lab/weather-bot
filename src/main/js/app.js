@@ -85,7 +85,9 @@ function main() {
     intents.met_office.general_information(bot, persona);
 
     // weather
+    intents.weather.accessory(bot, persona, datapoint, gmaps);
     intents.weather.forecast(bot, persona, datapoint, gmaps);
+    intents.weather.variable(bot, persona, datapoint, gmaps);
 
     // smalltalk
     intents.smalltalk.greeting(bot, persona);

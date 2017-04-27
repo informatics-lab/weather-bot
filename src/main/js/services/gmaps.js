@@ -3,24 +3,25 @@
 var winston = require("winston");
 var httpClient = require("./httpClient");
 var cache = require("js-cache");
-
-var baseUri = "https://maps.googleapis.com/maps/api/geocode/json";
-var DAYS_5 = 432000000; //5 days in milliseconds
+var sugar = require("sugar");
+var constants = require("../constants");
 
 module.exports = (key) => {
 
     var gmapsCache = new cache();
 
     function geocode(location) {
-        if (gmapsCache.get(location)) {
-            winston.debug("resolving [ %s ] from gmaps cache", location);
-            return Promise.resolve(gmapsCache.get(location));
+
+        var slug = sugar.String.dasherize(location.toLowerCase());
+        if (gmapsCache.get(slug)) {
+            winston.debug("resolving [ %s ] from gmaps cache", slug);
+            return Promise.resolve(gmapsCache.get(slug));
         } else {
-            winston.debug("getting [ %s ] from gmaps", location);
-            var uri = `${baseUri}?address=${location}&region=uk&language=en&key=${key}`;
+            winston.debug("getting [ %s ] from gmaps", slug);
+            var uri = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&region=uk&language=en&key=${key}`;
             return httpClient.getAsJson(uri)
                 .then((res) => {
-                    gmapsCache.set(location, res, DAYS_5);
+                    gmapsCache.set(slug, res, constants.DAYS_TO_MILLIS(5));
                     return res;
                 });
         }

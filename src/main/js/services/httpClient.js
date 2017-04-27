@@ -8,7 +8,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             var options = {
                 uri: uri,
-                method: 'GET'
+                method: "GET"
             };
             request(options, (err, response, body) => {
                 if (!err) {

@@ -1,10 +1,13 @@
-/**
- * Created by tom on 26/04/2017.
- */
-
+"use strict";
 
 module.exports = {
-    TEMPERATURE: "temperature",
-    RAINFALL: "rainfall"
-
+    THREE_HOURLY: "3hourly",
+    DAILY: "daily",
+    HOURS_TO_MILLIS: function (n) {
+        return n * 3600000;
+    },
+    DAYS_TO_MILLIS: function (n) {
+        return n * 86400000;
+    },
+    
 };
