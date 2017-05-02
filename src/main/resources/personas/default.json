@@ -186,7 +186,30 @@
     "forecast": [
       "It is predicted to be about {{= it.wx.Dm}}\u00b0C in {{= it.location}} {{= it.time_target}}, that should feel quite {{? it.wx.Dm<=7}}cold{{?? it.wx.Dm<=12}}mild{{?? it.wx.Dm>12}}hot{{??}}{{?}}",
       "I'm reliably informed there's a {{= it.wx.PPd}}\u0025 chance of rain in {{= it.location}} {{= it.time_target}}"
-    ]
+    ],
+    "variable": {
+      "location": [
+        "In {{= it.location}}. ",
+        "For {{= it.location}}. "
+      ],
+      "date": [
+        "On {{= it.date.day_string}}. ",
+        "For {{= it.date.day_string}}. "
+      ],
+      "rainfall": [
+        "Rain"
+      ],
+      "temperature": [
+        "Temperature"
+      ],
+      "wind": [
+        "Wind"
+      ],
+      "weather_type": [
+        "Looking at the forecast it says here \"{{= it.model.weather_type}}\". ",
+        "The weatherman is saying {{= it.model.weather_type}}"
+      ]
+    }
   },
   "user": {
     "name": [

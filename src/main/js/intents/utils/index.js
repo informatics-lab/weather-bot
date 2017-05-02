@@ -2,6 +2,7 @@
 
 var sugar = require("sugar");
 var winston = require("winston");
+var constants = require("../../constants");
 
 exports.storeAsPreviousIntent = (session) => {
     if (session.sessionState) {
@@ -213,43 +214,28 @@ exports.translate = {
 
     accessory: (session, results, next) => {
         var str = results.response;
-        var result;
+        var result = constants.WX_VARIABLES.filter((variable) => {
+            return variable.accessories.includes(str);
+        });
 
-        //TODO implement accessory logic
+        if(!result || result.length === 0) {
+            winston.error("unable to map the accessory [ %s ] to any of the current wx variables accessories");
+        }
 
         return next({response: result});
     },
 
     variable: (session, results, next) => {
         var str = results.response;
-        var result;
-        switch (str) {
-            case "nice" :
-                result = new Array("temperature", "sunshine");
-                break;
-            case "hot" :
-            case "cold" :
-            case "warm" :
-            case "chilly" :
-                result = "temperature";
-                break;
-            case "wet" :
-            case "dry" :
-            case "rain" :
-                result = "rainfall";
-                break;
-            case "wind" :
-            case "windy" :
-                result = "wind";
-                break;
-            case "sunny" :
-            case "cloudy" :
-                result = "sunshine";
-                break;
-            default:
-                winston.warn(`attempt to translate [${str}] for variable failed`);
-                break;
+
+        var result = constants.WX_VARIABLES.filter((variable) => {
+            return variable.synonyms.includes(str);
+        });
+
+        if(!result || result.length === 0) {
+            winston.error("unable to map the variable [ %s ] to any of the current wx variables synonyms");
         }
+
         return next({response: result});
     }
 };

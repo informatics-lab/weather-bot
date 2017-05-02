@@ -69,9 +69,11 @@ module.exports = (key) => {
             winston.debug("getting [ %s ] from datapoint", slug);
             return getDataForSiteId(siteId, constants.DAILY)
                 .then((res)=> {
+                    res.resolution = constants.DAILY;
+
                     var ttl = new sugar.Date().millisecondsUntil("midnight");
                     datapointCache.set(slug, res, ttl.raw);
-                    res.resolution = constants.DAILY;
+                    
                     return res;
                 });
         }
@@ -102,10 +104,11 @@ module.exports = (key) => {
                         });
                     });
                     res.SiteRep.DV.Location.Period = wx;
+                    res.resolution = constants.THREE_HOURLY;
 
                     var ttl = sugar.Date.millisecondsUntil(nowDT, sugar.Date.create(res.SiteRep.DV.Location.Period[1].date, {fromUTC:true}));
                     datapointCache.set(slug, res, ttl);
-                    res.resolution = constants.THREE_HOURLY;
+
                     return res;
                 });
         }

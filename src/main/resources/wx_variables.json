@@ -1,0 +1,114 @@
+[
+  {
+    "name": "weather_type",
+    "synonyms": ["sunny", "sun", "cloudy", "cloud", "rainy", "rain", "wet"],
+    "accessories": ["coat", "jacket", "jumper", "fleece", "hat", "gloves", "scarf", "sun cream", "sun glasses"],
+    "datapoint": [
+      {
+        "index": {
+          "daily": {
+            "day": "W",
+            "night": "W"
+          },
+          "3hourly": "W"
+        },
+        "units": "",
+        "id": "weather_type",
+        "name": "Weather Type"
+      }
+    ]
+  },
+  {
+    "name": "rainfall",
+    "synonyms": ["rain", "rainy", "wet", "wetter", "dry", "drier"],
+    "accessories": ["umbrella", "brolly", "coat", "jacket", "wellies", "welly boots"],
+    "datapoint": [
+      {
+        "index": {
+          "daily": {
+            "day": "PPd",
+            "night": "PPm"
+          },
+          "3hourly": "Pp"
+        },
+        "units": "%",
+        "id" : "precipitation_probability",
+        "name": "Precipitation Probability"
+      }
+    ]
+  },
+  {
+    "name": "temperature",
+    "synonyms": ["ice", "freezing", "chilly", "cold", "colder", "warm", "warmer", "hot", "hotter"],
+    "accessories": ["coat", "jacket", "jumper", "fleece", "hat", "gloves", "scarf"],
+    "datapoint": [
+      {
+        "index": {
+          "daily": {
+            "day": "Dm",
+            "night": "Nm"
+          },
+          "3hourly": "T"
+        },
+        "units": "\u00B0C",
+        "id": "temperature",
+        "name": "Temperature"
+      },
+      {
+        "index": {
+          "daily": {
+            "day": "FDm",
+            "night": "FNm"
+          },
+          "3hourly": "F"
+        },
+        "units": "\u00B0C",
+        "id": "feels_like_temperature",
+        "name": "Feels Like Temperature"
+      }
+    ]
+  },
+  {
+    "name": "wind",
+    "synonyms": ["wind", "windy", "blowy", "blustery"],
+    "accessories": ["coat", "jacket", "jumper", "fleece", "hat", "gloves", "scarf"],
+    "datapoint": [
+      {
+        "index": {
+          "daily": {
+            "day": "S",
+            "night": "S"
+          },
+          "3hourly": "S"
+        },
+        "units": "mph",
+        "id": "wind_speed",
+        "name": "Wind Speed"
+      },
+      {
+        "index": {
+          "daily": {
+            "day": "D",
+            "night": "D"
+          },
+          "3hourly": "D"
+        },
+        "units": "compass",
+        "id": "wind_direction",
+        "name": "Wind Direction"
+      },
+      {
+        "index": {
+          "daily": {
+            "day": "Gn",
+            "night": "Gm"
+          },
+          "3hourly": "G"
+        },
+        "units": "mph",
+        "id": "wind_gust",
+        "name": "Wind Gust"
+      }
+    ]
+  }
+]
