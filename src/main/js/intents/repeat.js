@@ -10,7 +10,7 @@ module.exports = function (bot, persona) {
         function (session, results) {
             winston.info("[ %s ] intent matched [ %s ]", intent, session.message.text);
             if(session.conversationData.previous_intent) {
-                session.beginDialog(session.conversationData.previous_intent, results)
+                session.beginDialog(session.conversationData.previous_intent, results);
             } else {
                 session.send(persona.getResponse("error"));
                 session.endDialog();

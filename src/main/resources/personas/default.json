@@ -180,34 +180,39 @@
     }
   },
   "weather": {
+    "location": [
+      "In {{= it.location}}. ",
+      "For {{= it.location}}. "
+    ],
+    "date": [
+      "On {{= it.date.day_string}}. ",
+      "For {{= it.date.day_string}}. "
+    ],
+    "no_data": [
+      "Unfortunately there was no data. ",
+      "There is no data. "
+    ],
     "not_found": [
       "Sorry, I couldn't find the weather for the date, time and location you have specified."
     ],
     "forecast": [
-      "It is predicted to be about {{= it.wx.Dm}}\u00b0C in {{= it.location}} {{= it.time_target}}, that should feel quite {{? it.wx.Dm<=7}}cold{{?? it.wx.Dm<=12}}mild{{?? it.wx.Dm>12}}hot{{??}}{{?}}",
-      "I'm reliably informed there's a {{= it.wx.PPd}}\u0025 chance of rain in {{= it.location}} {{= it.time_target}}"
+      "Temperatures will reach a high of {{= it.model.temperature}}\u00b0C. Given the other conditions today this will feel like {{= it.model.feels_like_temperature}}\u00b0C at its peak. {{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph. Visibility is expected to be {{= it.model.visibility}}. There is a {{= it.model.precipitation_probability}}% chance of precipitation. "
     ],
     "variable": {
-      "location": [
-        "In {{= it.location}}. ",
-        "For {{= it.location}}. "
-      ],
-      "date": [
-        "On {{= it.date.day_string}}. ",
-        "For {{= it.date.day_string}}. "
-      ],
       "rainfall": [
-        "Rain"
+        "There is a {{= it.model.precipitation_probability}}% chance of rain. ",
+        "Probability of precipitation is {{= it.model.precipitation_probability}}%. "
       ],
       "temperature": [
-        "Temperature"
+        "Temperatures are expected to reach {{= it.model.temperature}}\u00b0C, due to the other conditions this will feel more like {{= it.model.feels_like_temperature}}\u00b0C. "
       ],
       "wind": [
         "Wind"
       ],
       "weather_type": [
         "Looking at the forecast it says here \"{{= it.model.weather_type}}\". ",
-        "The weatherman is saying {{= it.model.weather_type}}"
+        "The weatherman is saying {{= it.model.weather_type}}. ",
+        "The general weather type is said to be {{= it.model.weather_type}}"
       ]
     }
   },

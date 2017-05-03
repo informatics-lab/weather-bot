@@ -27,10 +27,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 var variableEntity = results.entities.filter(e => e.type === 'variable')[0];
                 if (variableEntity) {
                     session.conversationData.variable = variableEntity.entity;
-                } else {
-                    session.send(persona.getResponse("error"));
-                    session.endDialog();
-                }
+                } 
             }
             if (!session.conversationData.time_target) {
                 session.conversationData.time_target = "today";
@@ -39,12 +36,12 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             if (session.conversationData.location) {
                 return next({response: session.conversationData.location});
             }
+
             if (session.userData.location) {
                 return next({response: session.userData.location});
             }
 
             session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "For"}});
-
         },
         utils.sanitze.location,
         (session, results, next) => {
@@ -70,13 +67,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             datapoint.getNearestSiteToLatLng(session.conversationData.gmaps.results[0].geometry.location)
                 .then((res) => {
                     session.conversationData.site = res;
-                    var today = sugar.Date.create("today", {fromUTC: true});
-                    if (session.conversationData.time_target_dates && session.conversationData.time_target_dates.length === 1 &&
-                        session.conversationData.time_target_dates.includes(today.toISOString())) {
-                        return datapoint.get3HourlyDataForSiteId(res.location.id);
-                    } else {
-                        return datapoint.getDailyDataForSiteId(res.location.id);
-                    }
+                    return datapoint.getDailyDataForSiteId(res.location.id);
                 })
                 .then((res) => {
                     session.conversationData.forecast = res;
@@ -94,38 +85,42 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         (session, results, next) => {
             var response = "";
 
-            var template = doT.template(persona.getResponse(`${intent}.location`));
-            response = response + template({ location : sugar.String.capitalize(session.conversationData.location,true,true)});
+            var template = doT.template(persona.getResponse("weather.location"));
+            response = response + template({location: sugar.String.capitalize(session.conversationData.location, true, true)});
 
             session.conversationData.time_target_dates.forEach((date) => {
 
-                var template = doT.template(persona.getResponse(`${intent}.date`));
-                response = response + template({ date : constants.DATE_TO_DATE_OBJECT(date) });
+                var day = `${date.substr(0, 10)}Z`;
+                var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => day === f.value);
 
-                session.conversationData.wxVariable.forEach((variable) => {
-                    var model = {};
-                    if (session.conversationData.forecast.resolution === constants.THREE_HOURLY) {
-                        // TODO summarise remaining timesteps for day
+                var template = doT.template(persona.getResponse("weather.date"));
+                response = response + template({date: constants.DATE_TO_DATE_OBJECT(date)});
 
-                    } else if (session.conversationData.forecast.resolution === constants.DAILY) {
-                        var day = `${date.substr(0, 10)}Z`;
-                        var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => day === f.value);
-                        wx = wx[0].Rep[0];
+                if (wx && !(wx.length === 0)) {
+                    wx = wx[0].Rep[0];
+
+                    session.conversationData.wxVariable.forEach((variable) => {
+                        var model = {};
+
                         variable.datapoint.forEach((phenomena) => {
                             var modelKey = phenomena.id;
                             var wxKey = phenomena.index.daily.day;
-                            if(phenomena.id === "weather_type") {
+                            if (phenomena.id === "weather_type") {
                                 model[modelKey] = constants.WX_TYPE_INDEX_TO_WX_TYPE_STRING(wx[wxKey]);
                             } else {
                                 model[modelKey] = wx[wxKey];
                             }
                         });
-                    }
+                        
+                        var template = doT.template(persona.getResponse(`${intent}.${variable.name}`));
+                        response = response + template({model: model});
 
-                    var template = doT.template(persona.getResponse(`${intent}.${variable.name}`));
-                    response = response + template({model: model});
+                    });
 
-                });
+                } else {
+                    response = response + persona.getResponse("weather.no_data");
+                }
+
             });
 
             if (response && !(response === "")) {

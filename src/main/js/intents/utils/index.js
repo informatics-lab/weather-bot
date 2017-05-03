@@ -40,8 +40,8 @@ exports.sanitze = {
         var locationRegex = /(?:(\bin\b|\bfor\b|\bis\b)) \b(.*)/g;
         var locationRegexResults = locationRegex.exec(str);
         var result;
-        if (locationRegexResults && locationRegexResults.length === 2) {
-            result = locationRegexResults[1];
+        if (locationRegexResults && locationRegexResults.length === 3) {
+            result = locationRegexResults[2];
         } else {
             result = str;
         }
@@ -157,15 +157,15 @@ exports.sanitze = {
 
         var result = new Array();
         if (nextDayRegexResult) {
-            if (session.conversationData.time_target_date) {
-                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 1);
+            if (session.conversationData.time_target_dates && session.conversationData.time_target_dates.length >= 1) {
+                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length-1], {fromUTC: true}), 1);
                 result.push(day.toISOString());
             } else {
                 winston.error("next day regex matched but no previous time_target_date found");
             }
         } else if (dayAfterNextRegexResult) {
-            if (session.conversationData.time_target_date) {
-                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_date, {fromUTC: true}), 2);
+            if (session.conversationData.time_target_dates && session.conversationData.time_target_dates.length >= 1) {
+                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length-1], {fromUTC: true}), 2);
                 result.push(day.toISOString());
             } else {
                 winston.error("day after next regex matched but no previous time_target_date found");

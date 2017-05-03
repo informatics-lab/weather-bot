@@ -5,6 +5,7 @@ var sugar = require("sugar");
 var builder = require("botbuilder");
 var doT = require("dot");
 var utils = require("../utils");
+var constants = require("../../constants");
 
 module.exports = (bot, persona, datapoint, gmaps) => {
 
@@ -70,30 +71,38 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             return next();
         },
         (session, results, next) => {
+            var response = "";
 
-            var dates = session.conversationData.time_target_dates.map((date) => {
-                return `${date.substr(0, 10)}Z`;
+            var template = doT.template(persona.getResponse("weather.location"));
+            response = response + template({location: sugar.String.capitalize(session.conversationData.location, true, true)});
+
+            session.conversationData.time_target_dates.forEach((date) => {
+
+                var day = `${date.substr(0, 10)}Z`;
+                var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => day === f.value);
+
+                var template = doT.template(persona.getResponse("weather.date"));
+                response = response + template({date: constants.DATE_TO_DATE_OBJECT(date)});
+
+                if (wx && !(wx.length === 0)) {
+                    wx = wx[0].Rep[0];
+
+                    var template = doT.template(persona.getResponse(intent));
+                    response = response + template({model: constants.DAILY_DATAPOINT_TO_MODEL(wx)});
+
+                } else {
+                    response = response + persona.getResponse("weather.no_data");
+                }
+
             });
 
-            winston.debug(`filtering wx for [${dates}]`);
-
-            var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => dates.includes(f.value));
-            var response;
-
-            if (wx) {
-                var template = doT.template(persona.getResponse(intent));
-                response = template({
-                    wx: wx,
-                    location: session.conversationData.location,
-                    time_target: session.conversationData.time_target
-                });
+            if (response && !(response === "")) {
+                session.send(response);
+                return next();
             } else {
-                response = persona.getResponse("weather.not_found");
+                session.send(persona.getResponse("error"));
+                return session.endDialog();
             }
-            
-            winston.debug("response [ %s ]", response);
-            session.send(response);
-            return next();
         },
         utils.storeAsPreviousIntent
     ]);

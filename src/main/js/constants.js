@@ -2,6 +2,8 @@
 
 var wxVariables = require("../resources/wx_variables");
 var wxTypes = require("../resources/datapoint/weatherTypes");
+var visibilities = require("../resources/datapoint/visibilities");
+var uvs = require("../resources/datapoint/uvIndexes");
 
 var daysToMillis = function (n) {
     return n * 86400000;
@@ -61,6 +63,51 @@ var wxTypeIndexToWxTypeString = function (i) {
     return wxType.toLowerCase();
 };
 
+var windDirectionToWindDirectionString = function(d) {
+    switch (d.substr(0,1).toUpperCase()) {
+        case "N": return "northerly";
+        case "E": return "easterly";
+        case "S": return "southerly";
+        case "W": return "westerly";
+        default: return null;
+    }
+};
+
+var visibilityToVisibilityString = function (i) {
+    var visibility = visibilities[i.toUpperCase()];
+    if(visibility.includes("-")) {
+        var split =  visibility.split("-");
+        visibility = `${split[0].trim()}, at ${split[1].trim()}`;
+        if(split.length === 3) {
+            visibility = `${visibility} and ${split[2].trim()}`;
+        }
+    }
+    return visibility.toLowerCase();
+};
+
+var uvToUvString = function(i) {
+    var uv = uvs[i];
+    return uv.toLowerCase();
+};
+
+var dailyDatapointToModel = function(wx) {
+
+    var model = {};
+
+    model.weather_type = wxTypeIndexToWxTypeString(wx.W);
+    model.temperature = wx.Dm;
+    model.feels_like_temperature = wx.FDm;
+    model.wind_speed = wx.S;
+    model.wind_gust = wx.Gn;
+    model.wind_direction = windDirectionToWindDirectionString(wx.D);
+    model.precipitation_probability = wx.PPd;
+    model.visibility = visibilityToVisibilityString(wx.V);
+    model.uv = uvToUvString(wx.U);
+    model.humidity = wx.Hn;
+
+    return model;
+};
+
 module.exports = {
     "THREE_HOURLY": "3hourly",
     "DAILY": "daily",
@@ -70,5 +117,6 @@ module.exports = {
     "DAY_INDEX_TO_DAY_STRING" : dayIndexToDayString,
     "MONTH_INDEX_TO_MONTH_STRING" : monthIndexToMonthString,
     "DATE_TO_DATE_OBJECT" : dateStringToDateObject,
-    "WX_TYPE_INDEX_TO_WX_TYPE_STRING": wxTypeIndexToWxTypeString
+    "WX_TYPE_INDEX_TO_WX_TYPE_STRING": wxTypeIndexToWxTypeString,
+    "DAILY_DATAPOINT_TO_MODEL": dailyDatapointToModel
 };
