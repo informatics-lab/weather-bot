@@ -100,17 +100,8 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                     wx = wx[0].Rep[0];
 
                     session.conversationData.wxVariable.forEach((variable) => {
-                        var model = {};
 
-                        variable.datapoint.forEach((phenomena) => {
-                            var modelKey = phenomena.id;
-                            var wxKey = phenomena.index.daily.day;
-                            if (phenomena.id === "weather_type") {
-                                model[modelKey] = constants.WX_TYPE_INDEX_TO_WX_TYPE_STRING(wx[wxKey]);
-                            } else {
-                                model[modelKey] = wx[wxKey];
-                            }
-                        });
+                        var model = constants.DAILY_DATAPOINT_TO_MODEL(wx);
                         
                         var template = doT.template(persona.getResponse(`${intent}.${variable.name}`));
                         response = response + template({model: model});

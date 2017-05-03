@@ -65,10 +65,10 @@ var wxTypeIndexToWxTypeString = function (i) {
 
 var windDirectionToWindDirectionString = function(d) {
     switch (d.substr(0,1).toUpperCase()) {
-        case "N": return "northerly";
-        case "E": return "easterly";
-        case "S": return "southerly";
-        case "W": return "westerly";
+        case "N": return "Northerly";
+        case "E": return "Easterly";
+        case "S": return "Southerly";
+        case "W": return "Westerly";
         default: return null;
     }
 };

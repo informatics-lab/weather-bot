@@ -203,6 +203,10 @@ exports.sanitze = {
             }
             result.push(day.toISOString());
         } else {
+            var strRegex = /([A-Za-z ]+)/g;
+            var strRegexResults = strRegex.exec(str);
+            str = strRegexResults[strRegexResults.length-1];
+
             var day = sugar.Date.create(str, {fromUTC: true});
             result.push(day.toISOString());
         }

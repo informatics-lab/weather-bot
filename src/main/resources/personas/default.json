@@ -196,7 +196,7 @@
       "Sorry, I couldn't find the weather for the date, time and location you have specified."
     ],
     "forecast": [
-      "Temperatures will reach a high of {{= it.model.temperature}}\u00b0C. Given the other conditions today this will feel like {{= it.model.feels_like_temperature}}\u00b0C at its peak. {{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph. Visibility is expected to be {{= it.model.visibility}}. There is a {{= it.model.precipitation_probability}}% chance of precipitation. "
+      "Temperatures will reach a high of {{= it.model.temperature}}\u00b0C. Given the other conditions, this will feel like {{= it.model.feels_like_temperature}}\u00b0C at its peak. {{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph. Visibility is expected to be {{= it.model.visibility}}. There is a {{= it.model.precipitation_probability}}% chance of precipitation. "
     ],
     "variable": {
       "rainfall": [
@@ -207,12 +207,12 @@
         "Temperatures are expected to reach {{= it.model.temperature}}\u00b0C, due to the other conditions this will feel more like {{= it.model.feels_like_temperature}}\u00b0C. "
       ],
       "wind": [
-        "Wind"
+        "{{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph with gusts of {{= it.model.wind_gust}}mph expected. "
       ],
       "weather_type": [
-        "Looking at the forecast it says here \"{{= it.model.weather_type}}\". ",
-        "The weatherman is saying {{= it.model.weather_type}}. ",
-        "The general weather type is said to be {{= it.model.weather_type}}"
+        "The weather will be {{= it.model.weather_type}}. ",
+        "The forecast is saying {{= it.model.weather_type}}. ",
+        "The general weather type is said to be {{= it.model.weather_type}}. "
       ]
     }
   },
