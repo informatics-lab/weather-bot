@@ -28,7 +28,7 @@ exports.sanitze = {
      * @returns {*}
      */
     location: (session, results, next) => {
-        var str = results.response;
+        var str = results.response.toLowerCase();
         winston.debug(`sanitizing [ ${str} ] for a location`);
 
         /* location regex
@@ -37,13 +37,15 @@ exports.sanitze = {
          * in weston super mare
          * for bristol
          */
-        var locationRegex = /(?:(\bin\b|\bfor\b|\bis\b)) \b(.*)/g;
+        var locationRegex = /(?:(\bin\b|\bfor\b|\bis\b)) \b([A-Za-z ]+)/g;
         var locationRegexResults = locationRegex.exec(str);
         var result;
-        if (locationRegexResults && locationRegexResults.length === 3) {
-            result = locationRegexResults[2];
+        if (locationRegexResults) {
+            result = locationRegexResults[locationRegexResults.length-1];
         } else {
-            result = str;
+            var strRegex = /([A-Za-z ]+)/g;
+            var strRegexResults = strRegex.exec(str);
+            result = strRegexResults[strRegexResults.length-1];
         }
         return next({response: result});
     },
@@ -57,7 +59,7 @@ exports.sanitze = {
      * @returns {*}
      */
     name: (session, results, next) => {
-        var str = results.response;
+        var str = results.response.toLowerCase();
         winston.debug(`sanitizing [ ${str} ] for a name`);
 
         /* name regex
@@ -67,13 +69,15 @@ exports.sanitze = {
          * it's Sarah
          * call me Tom Jones please
          */
-        var nameRegex = /(?:(\bme\b|\bis\b|\bit's\b)) ([A-Za-z ]+(?:(?= \bplease\b))|.*)/g;
+        var nameRegex = /(?:(\bme\b|\bis\b|\bit's\b|\bi'm\b)) ([A-Za-z ]+(?:(?= \bplease\b))|.*)/g;
         var regexResult = nameRegex.exec(str);
         var result;
         if (regexResult && regexResult.length === 3) {
             result = regexResult[2];
         } else {
-            result = str;
+            var strRegex = /([A-Za-z ]+)/g;
+            var strRegexResults = strRegex.exec(str);
+            result = strRegexResults[strRegexResults.length-1];
         }
 
         return next({response: result});
@@ -88,7 +92,7 @@ exports.sanitze = {
      * @param next
      */
     time_target: (session, results, next) => {
-        var str = results.response;
+        var str = results.response.toLowerCase();
         winston.debug(`sanitizing [ ${str} ] for a time_target`);
 
         /* next day regex
@@ -213,7 +217,7 @@ exports.sanitze = {
 exports.translate = {
 
     accessory: (session, results, next) => {
-        var str = results.response;
+        var str = results.response.toLowerCase();
         var result = constants.WX_VARIABLES.filter((variable) => {
             return variable.accessories.includes(str);
         });
@@ -226,7 +230,7 @@ exports.translate = {
     },
 
     variable: (session, results, next) => {
-        var str = results.response;
+        var str = results.response.toLowerCase();
 
         var result = constants.WX_VARIABLES.filter((variable) => {
             return variable.synonyms.includes(str);
