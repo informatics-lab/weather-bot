@@ -33,7 +33,7 @@ Locale :  `en-GB`
 
 To read/delete data collected within a chat session use: 
 | Command | Result |
-| ---: | --- |
+| --- | --- |
 | `/dAllData` | Delete all data |
 | `/sConversationData` | Show all `conversationData` data |
 | `/dConversationData` | Delete all `conversationData` data |
