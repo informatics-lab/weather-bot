@@ -214,7 +214,21 @@
         "The forecast is saying {{= it.model.weather_type}}. ",
         "The general weather type is said to be {{= it.model.weather_type}}. "
       ]
+    },
+    "accessory": {
+      "unknown": [
+        "Sorry, I'm not really sure what that is."
+      ],
+      "coat": {
+        "yes": [
+          "Yes you will need your coat. "
+        ],
+        "no": [
+          "No, don't bother with a coat. "
+        ]
+      }
     }
+
   },
   "user": {
     "name": [

@@ -4,8 +4,11 @@ var sugar = require("sugar");
 var winston = require("winston");
 var constants = require("../../constants");
 
-exports.storeAsPreviousIntent = (session) => {
-    if (session.sessionState) {
+exports.storeAsPreviousIntent = (session, results) => {
+    if(results && results.response) {
+        session.conversationData.previous_intent = results.response;
+        session.endDialog();
+    } else if (session.sessionState) {
         if (session.sessionState.callstack && session.sessionState.callstack.length >= 2) {
             var previousIntent = session.sessionState.callstack[session.sessionState.callstack.length - 1].id.substr(2);
             session.conversationData.previous_intent = previousIntent;
@@ -45,7 +48,7 @@ exports.sanitze = {
         } else {
             var strRegex = /([A-Za-z ]+)/g;
             var strRegexResults = strRegex.exec(str);
-            result = strRegexResults[strRegexResults.length-1];
+            result = strRegexResults[strRegexResults.length-1].trim();
         }
         return next({response: result});
     },
@@ -77,7 +80,7 @@ exports.sanitze = {
         } else {
             var strRegex = /([A-Za-z ]+)/g;
             var strRegexResults = strRegex.exec(str);
-            result = strRegexResults[strRegexResults.length-1];
+            result = strRegexResults[strRegexResults.length-1].trim();
         }
 
         return next({response: result});
@@ -205,7 +208,7 @@ exports.sanitze = {
         } else {
             var strRegex = /([A-Za-z ]+)/g;
             var strRegexResults = strRegex.exec(str);
-            str = strRegexResults[strRegexResults.length-1];
+            str = strRegexResults[strRegexResults.length-1].trim();
 
             var day = sugar.Date.create(str, {fromUTC: true});
             result.push(day.toISOString());

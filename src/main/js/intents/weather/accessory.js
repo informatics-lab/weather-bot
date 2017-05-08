@@ -83,43 +83,13 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             return next();
         },
         (session, results, next) => {
-            var response = "";
-
-            var template = doT.template(persona.getResponse("weather.location"));
-            response = response + template({location: sugar.String.capitalize(session.conversationData.location, true, true)});
-
-            session.conversationData.time_target_dates.forEach((date) => {
-
-                var day = `${date.substr(0, 10)}Z`;
-                var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => day === f.value);
-
-                var template = doT.template(persona.getResponse("weather.date"));
-                response = response + template({date: constants.DATE_TO_DATE_OBJECT(date)});
-
-                if (wx && !(wx.length === 0)) {
-                    wx = wx[0].Rep[0];
-
-                    session.conversationData.wxVariable.forEach((variable) => {
-
-                        var model = constants.DAILY_DATAPOINT_TO_MODEL(wx);
-
-                        var template = doT.template(persona.getResponse(`weather.variable.${variable.name}`));
-                        response = response + template({model: model});
-
-                    });
-
-                } else {
-                    response = response + persona.getResponse("weather.no_data");
-                }
-
-            });
-
-            if (response && !(response === "")) {
-                session.send(response);
-                return next();
+            var accessorySlug = sugar.String.dasherize(session.conversationData.accessory.toLowerCase());
+            var accessoryIntent = `${intent}.${accessorySlug}`;
+            if(session.library.dialogs[accessoryIntent]) {
+                session.beginDialog(accessoryIntent);
             } else {
-                session.send(persona.getResponse("error"));
-                return session.endDialog();
+                var unknown = `${intent}.unknown`;
+                session.beginDialog(unknown);
             }
         },
         utils.storeAsPreviousIntent
