@@ -1,5 +1,5 @@
 # weather-bot
-Met Office prototype chat bot to talk about all things weather & climate related.
+Met Office prototype chat bot to talk about all things weather & climate related.  
 Built using [Microsoft Bot Framework][1] and [LUIS][3]
 
 ## development
@@ -27,8 +27,8 @@ To run this app you will need a JSON credentials file with the following keys:
 `npm start`    
 
 ### testing
-Connect your bot emulator app to your locally running instance.
-URI :     `http://localhost:3978/api/messages`  
+Connect your bot emulator app to your locally running instance.  
+URI :     `http://localhost:3978/api/messages`    
 Locale :  `en-GB`  
 
 To read/delete data collected within a chat session use:  
