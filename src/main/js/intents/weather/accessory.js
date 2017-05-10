@@ -29,19 +29,23 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                     session.conversationData.accessory = accessoryEntity.entity;
                 }
             }
-            if (!session.conversationData.time_target) {
-                session.conversationData.time_target = "today";
-            }
+            if (!session.conversationData.accessory) {
+                var unknown = `${intent}.unknown`;
+                session.cancelDialog();
+                session.beginDialog(unknown);
+            } else {
+                if (!session.conversationData.time_target) {
+                    session.conversationData.time_target = "today";
+                }
 
-            if (session.conversationData.location) {
-                return next({response: session.conversationData.location});
+                if (session.conversationData.location) {
+                    return next({response: session.conversationData.location});
+                } else if (session.userData.location) {
+                    return next({response: session.userData.location});
+                } else {
+                    session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "For"}});
+                }
             }
-
-            if (session.userData.location) {
-                return next({response: session.userData.location});
-            }
-
-            session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "For"}});
         },
         utils.sanitze.location,
         (session, results, next) => {
@@ -85,7 +89,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         (session, results, next) => {
             var accessorySlug = sugar.String.dasherize(session.conversationData.accessory.toLowerCase());
             var accessoryIntent = `${intent}.${accessorySlug}`;
-            if(session.library.dialogs[accessoryIntent]) {
+            if (session.library.dialogs[accessoryIntent]) {
                 session.beginDialog(accessoryIntent);
             } else {
                 var unknown = `${intent}.unknown`;

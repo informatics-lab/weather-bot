@@ -14,7 +14,7 @@ module.exports = function (intent) {
                     winston.debug("returning object as response");
                 }
                 session.send(response);
-                session.endDialog();
+                return session.endDialog();
             }
         ])
     };

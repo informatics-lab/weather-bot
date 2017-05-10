@@ -61,7 +61,7 @@
         "I'm a relatively new program, but I'm wise beyond my years.",
         "I don't really have an age. I guess you could say I'm young at heart."
       ],
-      "name" : [
+      "name": [
         "I have no name",
         "You can call me whatever you wish"
       ],
@@ -217,18 +217,61 @@
     },
     "accessory": {
       "unknown": [
-        "Sorry, I'm not really sure what that is."
+        "Sorry, I'm not really sure what that is. "
       ],
       "coat": {
-        "yes": [
-          "Yes you will need your coat. "
-        ],
-        "no": [
-          "No, don't bother with a coat. "
+        "type": "variable_certainty",
+        "certainties": [
+          {
+            "score_upper_bound": 1.0,
+            "score_lower_bound": 0.9,
+            "response": [
+              "I would definitely take a coat. "
+            ]
+          },
+          {
+            "score_upper_bound": 0.9,
+            "score_lower_bound": 0.7,
+            "response": [
+              "It would probably be wise to take a coat. "
+            ]
+          },
+          {
+            "score_upper_bound": 0.7,
+            "score_lower_bound": 0.0,
+            "response": [
+              "No, I wouldn't bother with a coat. "
+            ]
+          }
+        ]
+      },
+      "umbrella": {
+        "type": "variable_certainty",
+        "certainties": [
+          {
+            "score_upper_bound": 1.0,
+            "score_lower_bound": 0.96,
+            "response": [
+              "I would definitely take a brolly. "
+            ]
+          },
+          {
+            "score_upper_bound": 0.95,
+            "score_lower_bound": 0.71,
+            "response": [
+              "It would probably be wise to pack an umbrella, the forecast is {{= it.model.weather_type}} "
+            ]
+          },
+          {
+            "score_upper_bound": 0.7,
+            "score_lower_bound": 0.0,
+            "response": [
+              "No, I wouldn't bother with an umbrella. "
+            ]
+          }
         ]
       }
     }
-
   },
   "user": {
     "name": [

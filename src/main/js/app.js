@@ -88,6 +88,7 @@ function main() {
     intents.weather.accessory(bot, persona, datapoint, gmaps);
     intents.weather.accessories.unknown(bot, persona);
     intents.weather.accessories.coat(bot, persona);
+    intents.weather.accessories.umbrella(bot, persona);
 
     intents.weather.forecast(bot, persona, datapoint, gmaps);
     intents.weather.variable(bot, persona, datapoint, gmaps);
