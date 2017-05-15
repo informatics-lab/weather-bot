@@ -239,6 +239,11 @@
       "entities": []
     },
     {
+      "text": "hola",
+      "intent": "smalltalk.greeting",
+      "entities": []
+    },
+    {
       "text": "what can you do",
       "intent": "help",
       "entities": []
@@ -1417,6 +1422,39 @@
           "entity": "location",
           "startPos": 7,
           "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "what about an umbrella",
+      "intent": "repeat",
+      "entities": [
+        {
+          "entity": "accessory",
+          "startPos": 14,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "how about a coat",
+      "intent": "repeat",
+      "entities": [
+        {
+          "entity": "accessory",
+          "startPos": 12,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "what about london",
+      "intent": "repeat",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 11,
+          "endPos": 16
         }
       ]
     },
