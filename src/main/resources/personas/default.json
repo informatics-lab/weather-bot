@@ -270,6 +270,32 @@
             ]
           }
         ]
+      },
+      "jumper": {
+        "type": "variable_certainty",
+        "certainties": [
+          {
+            "score_upper_bound": 1.0,
+            "score_lower_bound": 0.96,
+            "response": [
+              "I would definitely take a jumper. "
+            ]
+          },
+          {
+            "score_upper_bound": 0.95,
+            "score_lower_bound": 0.71,
+            "response": [
+              "It would probably be wise to pack a warm top, the forecast is {{= it.model.weather_type}} "
+            ]
+          },
+          {
+            "score_upper_bound": 0.7,
+            "score_lower_bound": 0.0,
+            "response": [
+              "No, I wouldn't bother with a jumper. "
+            ]
+          }
+        ]
       }
     }
   },
