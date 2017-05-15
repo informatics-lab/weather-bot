@@ -6,7 +6,7 @@ Built using [Microsoft Bot Framework][1] and [LUIS][3]
 If you don't already have it, get the [bot emulator app][2]
 
 ### credentials
-To run this app you will need a JSON credentials file with the following keys:
+To run this app you will need a JSON credentials file called `secrets.json` in the root of the application with the following keys:
 ```javascript
 {
   "PERSONA":                "default",
@@ -23,6 +23,7 @@ To run this app you will need a JSON credentials file with the following keys:
 ```
 
 ### installation
+Using node version 7.10.0  
 `npm install`   
 `npm start`    
 
