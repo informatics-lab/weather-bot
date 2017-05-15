@@ -30,6 +30,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 }
             }
             if (!session.conversationData.accessory) {
+                winston.warn("[ %s ] matched but there was no accessory for [ %s ]", intent, session.message.text);
                 var unknown = `${intent}.unknown`;
                 session.cancelDialog();
                 session.beginDialog(unknown);
@@ -92,6 +93,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             if (session.library.dialogs[accessoryIntent]) {
                 session.beginDialog(accessoryIntent);
             } else {
+                winston.warn("accessory [ %s ] did not match with any known accessories", session.conversationData.accessory);
                 var unknown = `${intent}.unknown`;
                 session.beginDialog(unknown);
             }
