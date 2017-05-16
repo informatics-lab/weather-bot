@@ -6,7 +6,7 @@
     "Sorry, I don't know how to answer that. Try asking me something else."
   ],
   "help": [
-    "I can answer weather related questions like... \n * What is the forecast for London tomorrow? \n * Will it rain this weekend in Bath? * What is the Met Office?"
+    "I can answer weather related questions like... \n * What is the forecast for London tomorrow? \n * Will it rain this weekend in Bath? \n * What is the Met Office?"
   ],
   "met_office": {
     "general_information": {
