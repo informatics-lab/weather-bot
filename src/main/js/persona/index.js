@@ -36,7 +36,7 @@ module.exports = function (persona) {
             match = match[0];
         } else {
             winston.error("score [ %s ] did not match well with certainties [ %s ]", score, certainties);
-            return getResponseForKey("error");
+            return getResponseForKey("error.general");
         }
         return getRandomElementFromArray(match.response);
     }
@@ -85,13 +85,13 @@ module.exports = function (persona) {
                 return getVariableCertaintyResponse(responseItem.certainties, score);
             } else {
                 winston.error("response item [%s] value was 'object' but was type [%s]", key, responseItem.type);
-                return getResponseForKey("error");
+                return getResponseForKey("error.general");
             }
         } else if (responseItem && typeof(responseItem) === "string") {
             return responseItem;
         } else {
             winston.error("response item [%s] value was not 'object' or 'string' but was [%s]", key, typeof(responseItem));
-            return getResponseForKey("error");
+            return getResponseForKey("error.general");
         }
     }
 

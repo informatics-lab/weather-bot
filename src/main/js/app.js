@@ -71,12 +71,16 @@ function main() {
                     if(response.topScoringIntent.score >= 0.1) {
                         session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
                     } else {
-                        session.beginDialog("none");
+                        if(!session.userData.greeted) {
+                            session.beginDialog("smalltalk.greeting");
+                        } else {
+                            session.beginDialog("none");
+                        }
                     }
                 })
                 .catch((err) => {
                     winston.error("%s", err);
-                    session.send(persona.getResponse("error"));
+                    session.send(persona.getResponse("error.general"));
                     session.endDialog();
                 });
         }

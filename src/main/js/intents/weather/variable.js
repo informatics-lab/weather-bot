@@ -118,7 +118,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 session.send(response);
                 return next();
             } else {
-                session.send(persona.getResponse("error"));
+                session.send(persona.getResponse("error.general"));
                 return session.endDialog();
             }
         },

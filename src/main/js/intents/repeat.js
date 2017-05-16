@@ -12,7 +12,7 @@ module.exports = function (bot, persona) {
             if(session.conversationData.previous_intent) {
                 session.beginDialog(session.conversationData.previous_intent, results);
             } else {
-                session.send(persona.getResponse("error"));
+                session.send(persona.getResponse("error.general"));
                 session.endDialog();
             }
         }]

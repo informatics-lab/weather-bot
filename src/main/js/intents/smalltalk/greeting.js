@@ -17,10 +17,15 @@ module.exports = function (bot, persona) {
             winston.debug("response [ %s ]", response);
             session.send(response);
 
-            if(!session.userData.name) {
-                session.beginDialog("user.name", {});
+            if(!session.userData.greeted) {
+                session.userData.greeted = true;
+                session.beginDialog("help");
             } else {
-                session.endDialog();
+                if (!session.userData.name) {
+                    session.beginDialog("user.name", {});
+                } else {
+                    session.endDialog();
+                }
             }
         }
     ])
