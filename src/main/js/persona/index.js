@@ -71,20 +71,29 @@ module.exports = function (persona) {
     function getResponseForKeyWithScore(key, score) {
         var personaProperty = getPersonaPropertyForKey(key);
 
-        if (personaProperty && typeof(personaProperty === "object")) {
-            if (personaProperty.type && (personaProperty.type === "video" || personaProperty.type === "image")) {
-                return buildMediaResponse(personaProperty);
-            } else if (personaProperty.type && personaProperty.type === "variable_certainty") {
-                return getVariableCertaintyResponse(personaProperty.certainties, score);
-            } else {
-                return getRandomElementFromArray(personaProperty);
-            }
-        } else if (personaProperty && typeof(personaProperty === "string")) {
-            return personaProperty;
+        var responseItem;
+        if(personaProperty && Array.isArray(personaProperty)) {
+            responseItem = getRandomElementFromArray(personaProperty);
         } else {
-            winston.error("persona [%s] value was not 'object' or 'string' but was [%s]", key, typeof(personaProperty));
+            responseItem = personaProperty;
+        }
+
+        if (responseItem && typeof(responseItem) === "object") {
+            if (responseItem.type && (responseItem.type === "video" || responseItem.type === "image")) {
+                return buildMediaResponse(responseItem);
+            } else if (responseItem.type && responseItem.type === "variable_certainty") {
+                return getVariableCertaintyResponse(responseItem.certainties, score);
+            } else {
+                winston.error("response item [%s] value was 'object' but was type [%s]", key, responseItem.type);
+                return getResponseForKey("error");
+            }
+        } else if (responseItem && typeof(responseItem) === "string") {
+            return responseItem;
+        } else {
+            winston.error("response item [%s] value was not 'object' or 'string' but was [%s]", key, typeof(responseItem));
             return getResponseForKey("error");
         }
+
     }
 
     return {
