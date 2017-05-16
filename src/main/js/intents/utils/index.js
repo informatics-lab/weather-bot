@@ -72,13 +72,13 @@ exports.sanitze = {
          * it's Sarah
          * call me Tom Jones please
          */
-        var nameRegex = /(?:(\bme\b|\bis\b|\bit's\b|\bi'm\b)) ([A-Za-z ]+(?:(?= \bplease\b))|.*)/g;
+        var nameRegex = /(?:(\bme\b|\bis\b|\bit's\b|\bi'm\b)) ([A-Za-z ]+(?:(?= \bplease\b))|.*)/gi;
         var regexResult = nameRegex.exec(str);
         var result;
         if (regexResult && regexResult.length === 3) {
             result = regexResult[2];
         } else {
-            var strRegex = /([A-Za-z ]+)/g;
+            var strRegex = /([A-Za-z ]+)(?:(?= \bplease\b))/gi;
             var strRegexResults = strRegex.exec(str);
             result = strRegexResults[strRegexResults.length-1].trim();
         }
