@@ -116,7 +116,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
 
             if (response && !(response === "")) {
                 session.send(response);
-                return next();
+                return next({response: "weather.variable"});
             } else {
                 session.send(persona.getResponse("error.general"));
                 return session.endDialog();
