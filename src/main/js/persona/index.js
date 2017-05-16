@@ -41,27 +41,42 @@ module.exports = function (persona) {
         return getRandomElementFromArray(match.response);
     }
 
+    function createHeroCard(session, obj) {
+        return new builder.HeroCard(session)
+            .title(obj.title)
+            .text(getRandomElementFromArray(obj.text))
+            .images([
+                builder.CardImage.create(session, obj.contentUrl)
+            ])
+            .buttons([
+                builder.CardAction.openUrl(session, obj.linkUrl, obj.linkText)
+            ]);
+    }
+    
+    function createVideoCard(session, obj) {
+        return new builder.VideoCard(session)
+            .title(obj.title)
+            .text(getRandomElementFromArray(obj.text))
+            .media([
+                { url: obj.contentUrl }
+            ])
+            .buttons([
+                builder.CardAction.openUrl(session, obj.linkUrl, obj.linkText)
+            ]);
+    }
+
     function buildMediaResponse(session, obj) {
-        var attachment;
+        var card;
         switch (obj.type) {
             case "video":
-                attachment = new builder.VideoCard(session)
-                    .title(obj.title)
-                    .text(getRandomElementFromArray(obj.text))
-                    .media([new builder.CardMedia.create(null, obj.contentUrl)])
-                    .autoloop(false)
-                    .autostart(false)
-                    .shareable(true);
+                card = createVideoCard(session, obj);
                 break;
             case "image":
-                attachment = new builder.HeroCard(session)
-                    .title(obj.title)
-                    .text(getRandomElementFromArray(obj.text))
-                    .images([new builder.CardImage.create(null, obj.contentUrl)]);
+                card = createHeroCard(session, obj);
                 break;
         }
-        var mediaMsg = new builder.Message(session).attachments([attachment]);
-        return mediaMsg;
+        var response = new builder.Message(session).addAttachment(card);
+        return response;
     }
 
     function getResponseForKey(key, session) {

@@ -23,7 +23,9 @@
         "The Met Office is the UK's weather and climate service."
       ],
       "contentType": "video/mp4",
-      "contentUrl": "https://www.youtube.com/watch?v=tls9h2q7QlY"
+      "contentUrl": "https://www.youtube.com/watch?v=tls9h2q7QlY",
+      "linkUrl": "http://www.metoffice.gov.uk/",
+      "linkText": "Learn More"
     }
   },
   "smalltalk": {
