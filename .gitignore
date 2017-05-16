@@ -1,4 +1,4 @@
 .idea
 /node_modules
 secret*
-*.log
+*.log.node-version
