@@ -4,7 +4,7 @@ var winston = require("winston");
 var doT = require("dot");
 
 module.exports = function (bot, persona) {
-    
+
     var intent = "smalltalk.greeting";
 
     bot.dialog(intent, [
@@ -17,16 +17,17 @@ module.exports = function (bot, persona) {
             winston.debug("response [ %s ]", response);
             session.send(response);
 
-            if(!session.userData.greeted) {
+            if (!session.userData.greeted) {
                 session.userData.greeted = true;
-                session.beginDialog("help");
-            } else {
-                if (!session.userData.name) {
-                    session.beginDialog("user.name", {});
-                } else {
-                    session.endDialog();
-                }
+                session.send(persona.getResponse("help", session));
             }
+
+            if (!session.userData.name) {
+                session.beginDialog("user.name", {});
+            } else {
+                session.endDialog();
+            }
+
         }
     ])
 };
