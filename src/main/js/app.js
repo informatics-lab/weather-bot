@@ -7,6 +7,7 @@
 var restify = require("restify");
 var builder = require("botbuilder");
 var request = require("request");
+var ua = require('universal-analytics');
 
 // application conf
 var nconf = require("nconf");
@@ -58,6 +59,9 @@ function main() {
     //conversation root
     bot.dialog("/", [
         (session) => {
+            if (! session.userData.visitor) {
+              session.userData.visitor = ua(config.get("GOOGLE_ANALYTICS_ID"));
+            }
             if(config.get("DEBUG_TOOLS") && debugTools(session)) {
                 return;
             }
@@ -125,7 +129,7 @@ function main() {
     intents.smalltalk.courtesy.well_done(bot, persona);
     intents.smalltalk.courtesy.yes(bot, persona);
     intents.smalltalk.courtesy.you_are_welcome(bot, persona);
-    
+
     intents.smalltalk.user.bored(bot, persona);
     intents.smalltalk.user.happy(bot, persona);
     intents.smalltalk.user.robot(bot, persona);
