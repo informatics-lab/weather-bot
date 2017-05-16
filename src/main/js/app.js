@@ -59,8 +59,9 @@ function main() {
     //conversation root
     bot.dialog("/", [
         (session) => {
-            if (! session.userData.visitor) {
-              session.userData.visitor = ua(config.get("GOOGLE_ANALYTICS_ID"));
+            if (! session.userData.uuid) {
+              session.userData.ga_id = config.get("GOOGLE_ANALYTICS_ID");
+              session.userData.uuid = ua(session.userData.ga_id).cid;
             }
             if(config.get("DEBUG_TOOLS") && debugTools(session)) {
                 return;
