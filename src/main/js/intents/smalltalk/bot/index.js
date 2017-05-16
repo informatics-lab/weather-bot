@@ -17,3 +17,4 @@ exports.where_are_you_from = new basicIntentBuilder("smalltalk.bot.where_are_you
 exports.where_do_you_work = new basicIntentBuilder("smalltalk.bot.where_do_you_work");
 exports.who_are_you = new basicIntentBuilder("smalltalk.bot.who_are_you");
 exports.would_you_like_to_be_human = new basicIntentBuilder("smalltalk.bot.would_you_like_to_be_human");
+exports.how_are_you = new basicIntentBuilder("smalltalk.bot.how_are_you");

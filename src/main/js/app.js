@@ -113,6 +113,7 @@ function main() {
     intents.smalltalk.bot.where_do_you_work(bot, persona);
     intents.smalltalk.bot.who_are_you(bot, persona);
     intents.smalltalk.bot.would_you_like_to_be_human(bot, persona);
+    intents.smalltalk.bot.how_are_you(bot, persona);
 
     intents.smalltalk.courtesy.good(bot, persona);
     intents.smalltalk.courtesy.no(bot, persona);
