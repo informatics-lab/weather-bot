@@ -8,7 +8,7 @@ module.exports = function (intent) {
         bot.dialog(intent, [
              (session) => {
                 winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
-                var response = persona.getResponse(intent);
+                var response = persona.getResponse(intent, session);
                 if (typeof(response) === "string") {
                     winston.debug("response [ %s ]", response);
                 } else {

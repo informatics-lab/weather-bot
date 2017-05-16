@@ -41,11 +41,11 @@ module.exports = function (persona) {
         return getRandomElementFromArray(match.response);
     }
 
-    function buildMediaResponse(obj) {
+    function buildMediaResponse(session, obj) {
         var attachment;
         switch (obj.type) {
             case "video":
-                attachment = new builder.VideoCard()
+                attachment = new builder.VideoCard(session)
                     .title(obj.title)
                     .text(getRandomElementFromArray(obj.text))
                     .media([new builder.CardMedia.create(null, obj.contentUrl)])
@@ -54,21 +54,21 @@ module.exports = function (persona) {
                     .shareable(true);
                 break;
             case "image":
-                attachment = new builder.HeroCard()
+                attachment = new builder.HeroCard(session)
                     .title(obj.title)
                     .text(getRandomElementFromArray(obj.text))
                     .images([new builder.CardImage.create(null, obj.contentUrl)]);
                 break;
         }
-        var mediaMsg = new builder.Message().attachments([attachment]);
+        var mediaMsg = new builder.Message(session).attachments([attachment]);
         return mediaMsg;
     }
 
-    function getResponseForKey(key) {
-        return getResponseForKeyWithScore(key, null);
+    function getResponseForKey(key, session) {
+        return getResponseForKeyWithScore(key, null, session);
     }
 
-    function getResponseForKeyWithScore(key, score) {
+    function getResponseForKeyWithScore(key, score, session) {
         var personaProperty = getPersonaPropertyForKey(key);
 
         var responseItem;
@@ -80,7 +80,7 @@ module.exports = function (persona) {
 
         if (responseItem && typeof(responseItem) === "object") {
             if (responseItem.type && (responseItem.type === "video" || responseItem.type === "image")) {
-                return buildMediaResponse(responseItem);
+                return buildMediaResponse(session, responseItem);
             } else if (responseItem.type && responseItem.type === "variable_certainty") {
                 return getVariableCertaintyResponse(responseItem.certainties, score);
             } else {
@@ -93,7 +93,6 @@ module.exports = function (persona) {
             winston.error("response item [%s] value was not 'object' or 'string' but was [%s]", key, typeof(responseItem));
             return getResponseForKey("error");
         }
-
     }
 
     return {
