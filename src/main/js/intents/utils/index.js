@@ -72,9 +72,13 @@ exports.sanitze = {
         if (regexResult && regexResult.length === 3) {
             result = regexResult[2];
         } else {
-            var strRegex = /([A-Za-z ]+)(?:(?= \bplease\b))/gi;
+            var strRegex = /([A-Za-z ]+)(?:(?= \bplease\b)|(?= \bis\b)|(?=!))/gi;
             var strRegexResults = strRegex.exec(str);
-            result = strRegexResults[strRegexResults.length-1].trim();
+            if(strRegexResults) {
+                result = strRegexResults[strRegexResults.length - 1].trim();
+            } else {
+                result = str;
+            }
         }
 
         return next({response: result});
