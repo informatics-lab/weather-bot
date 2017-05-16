@@ -17,6 +17,7 @@
     "request": "^2.81.0",
     "restify": "^4.3.0",
     "sugar": "^2.0.4",
+    "universal-analytics": "^0.4.13",
     "winston": "^2.3.1"
   }
 }
