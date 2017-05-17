@@ -54,6 +54,11 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 .then((res)=> {
                     session.conversationData.gmaps = res;
                     return next();
+                })
+                .catch((err) => {
+                    winston.warn(err);
+                    session.send(persona.getResponse("error.location.not_uk"));
+                    return session.endDialog();
                 });
         },
         (session, results, next) => {
