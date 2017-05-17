@@ -5,6 +5,7 @@ var utils = require("../utils");
 var constants = require("../../constants");
 var doT = require("dot");
 var scoring = require("../../scoring");
+var ua = require('universal-analytics');
 
 module.exports = function (baseIntent, accessory, synonyms, variableThresholds) {
 
@@ -60,6 +61,9 @@ module.exports = function (baseIntent, accessory, synonyms, variableThresholds) 
                             response = persona.getResponse("weather.no_data");
                         }
 
+                        ua(session.userData.ga_id, session.userData.uuid)
+                            .event({ec: "intent", ea: currentIntent, el: session.message.text})
+                            .send();
                         session.send(response);
                         return next({response: "weather.accessory"});
                     });
