@@ -6,6 +6,7 @@ var builder = require("botbuilder");
 var doT = require("dot");
 var utils = require("../utils");
 var constants = require("../../constants");
+var ua = require('universal-analytics');
 
 module.exports = (bot, persona, datapoint, gmaps) => {
 
@@ -102,6 +103,9 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             });
 
             if (response && !(response === "")) {
+                ua(session.userData.ga_id, session.userData.uuid)
+                    .event({ec: "intent", ea: intent, el: session.message.text})
+                    .send();
                 session.send(response);
                 return next({response: "weather.forecast"});
             } else {

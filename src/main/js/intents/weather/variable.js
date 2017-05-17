@@ -6,6 +6,7 @@ var builder = require("botbuilder");
 var doT = require("dot");
 var utils = require("../utils");
 var constants = require("../../constants");
+var ua = require('universal-analytics');
 
 module.exports = (bot, persona, datapoint, gmaps) => {
 
@@ -27,7 +28,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 var variableEntity = results.entities.filter(e => e.type === 'variable')[0];
                 if (variableEntity) {
                     session.conversationData.variable = variableEntity.entity;
-                } 
+                }
             }
             if (!session.conversationData.time_target) {
                 session.conversationData.time_target = "today";
@@ -102,7 +103,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                     session.conversationData.wxVariable.forEach((variable) => {
 
                         var model = constants.DAILY_DATAPOINT_TO_MODEL(wx);
-                        
+
                         var template = doT.template(persona.getResponse(`${intent}.${variable.name}`));
                         response = response + template({model: model});
 
@@ -115,6 +116,9 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             });
 
             if (response && !(response === "")) {
+                ua(session.userData.ga_id, session.userData.uuid)
+                    .event({ec: "intent", ea: intent, el: session.message.text})
+                    .send();
                 session.send(response);
                 return next({response: "weather.variable"});
             } else {
