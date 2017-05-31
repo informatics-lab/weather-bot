@@ -8,6 +8,8 @@ var restify = require("restify");
 var builder = require("botbuilder");
 var request = require("request");
 var ua = require('universal-analytics');
+var raven = require('raven');
+
 
 // application conf
 var nconf = require("nconf");
@@ -26,6 +28,7 @@ winston.configure({
         })
     ]
 });
+raven.config(`https://${config.get("SENTRY_USERNAME")}:${config.get("SENTRY_PASSWORD")}@sentry.io/${config.get("SENTRY_APP_ID")}`).install();
 
 // services conf
 var luis = require("./services/luis")(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
@@ -155,7 +158,9 @@ function main() {
     prompt(bot, persona);
 
 }
-main();
+raven.context(function() {
+    main();
+});
 
 function debugTools(session) {
     if(session.message.text === "/dAllData"){
