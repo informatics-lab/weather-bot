@@ -345,8 +345,8 @@
       "Really? My favourite cousin is called {{= it.name}}... such a small world.",
       "I have never met a {{= it.name}} before.",
       "{{= it.name}}, that's a nice name. My father wanted to call me {{= it.name}} but my mother preferred Sol.",
-      "I once met a {{= it.name}} at an ABBA tribute concert. Any chance that was you?",
-      "I once got stuck in a lift with a {{= it.name}}"
+      "I once met someone called {{= it.name}} at an ABBA tribute concert. Any chance that was you?",
+      "I once got stuck in a lift with someone called {{= it.name}}"
     ],
     "location": [
       "I have never been to {{= it.location}} but I hear it's very nice this time of year."

@@ -9,16 +9,16 @@ var builder = require("botbuilder");
 var request = require("request");
 var ua = require('universal-analytics');
 var raven = require('raven');
+var nconf = require("nconf");
+var winston = require("winston");
 
 
 // application conf
-var nconf = require("nconf");
 var config = nconf.env().argv().file({file: "secrets.json"});
 config.app = require("../../../package.json");
 config.persona = config.get("PERSONA") ? config.get("PERSONA").toLowerCase() : "default";
 
 // logging conf
-var winston = require("winston");
 winston.configure({
     transports: [
         new (winston.transports.Console)({
@@ -47,9 +47,16 @@ function main() {
     server.listen(config.get("PORT") || 3978, () => {
         winston.info("%s listening on %s", server.name, server.url);
     });
+
+    var appIdStr = "MICROSOFT_APP_ID";
+    var appPasswordStr = "MICROSOFT_APP_PASSWORD";
+    if (config.get("DEBUG")){
+        appIdStr = `DEV_${appIdStr}`;
+        appPasswordStr = `DEV_${appPasswordStr}`;
+    }
     var connector = new builder.ChatConnector({
-        appId: config.get("MICROSOFT_APP_ID"),
-        appPassword: config.get("MICROSOFT_APP_PASSWORD")
+        appId: config.get(appIdStr),
+        appPassword: config.get(appPasswordStr)
     });
     server.post("/api/messages", connector.listen());
 
@@ -62,12 +69,17 @@ function main() {
     //conversation root
     bot.dialog("/", [
         (session) => {
-            if (! session.userData.uuid) {
-              session.userData.ga_id = config.get("GOOGLE_ANALYTICS_ID");
-              session.userData.uuid = ua(session.userData.ga_id).cid;
-            }
             if(config.get("DEBUG_TOOLS") && debugTools(session)) {
                 return;
+            }
+            if (! session.userData.uuid) {
+                if(session.message.address.channelId === "facebook") {
+                    session.userData["channel"] = "fb";
+                    session.userData["name"] = session.message.address.user.name.split(" ")[0];
+                    session.userData["fb"] = session.message.address.user;
+                }
+                session.userData["ga_id"] = config.get("GOOGLE_ANALYTICS_ID");
+                session.userData["uuid"] = ua(session.userData.ga_id).cid;
             }
             luis.parse(session.message.text)
                 .then((response) => {
