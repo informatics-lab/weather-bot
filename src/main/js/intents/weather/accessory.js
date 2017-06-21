@@ -2,8 +2,6 @@
 
 var winston = require("winston");
 var sugar = require("sugar");
-var builder = require("botbuilder");
-var doT = require("dot");
 var utils = require("../utils");
 var constants = require("../../constants");
 
@@ -83,14 +81,6 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                     session.conversationData.forecast = res;
                     return next();
                 });
-        },
-        (session, results, next) => {
-            return next({response: session.conversationData.accessory})
-        },
-        utils.translate.accessory,
-        (session, results, next) => {
-            session.conversationData.wxVariable = results.response;
-            return next();
         },
         (session, results, next) => {
             var accessorySlug = sugar.String.dasherize(session.conversationData.accessory.toLowerCase());

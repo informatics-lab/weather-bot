@@ -1,6 +1,5 @@
 "use strict";
 
-var wxVariables = require("../resources/wx_variables");
 var wxTypes = require("../resources/datapoint/weatherTypes");
 var visibilities = require("../resources/datapoint/visibilities");
 var uvs = require("../resources/datapoint/uvIndexes");
@@ -113,7 +112,6 @@ module.exports = {
     "DAILY": "daily",
     "HOURS_TO_MILLIS": hoursToMillis,
     "DAYS_TO_MILLIS": daysToMillis,
-    "WX_VARIABLES": wxVariables,
     "DAY_INDEX_TO_DAY_STRING" : dayIndexToDayString,
     "MONTH_INDEX_TO_MONTH_STRING" : monthIndexToMonthString,
     "DATE_TO_DATE_OBJECT" : dateStringToDateObject,

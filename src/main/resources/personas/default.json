@@ -1,11 +1,11 @@
 {
   "error": {
-    "general" : [
+    "general": [
       "Oops. Something went wrong then. Try asking me something else.",
       "Hang on a minute, I've got a major problem here. Oh God..."
     ],
-    "location" : {
-      "not_uk" : [
+    "location": {
+      "not_uk": [
         "The location you have asked for seems to be outside of the UK. Currently I can only help you with UK weather.",
         "Looks like that location is outside of my specialist area.",
         "How about trying a location in the UK?"
@@ -218,12 +218,12 @@
   },
   "weather": {
     "location": [
-      "In {{= it.location}}. ",
-      "For {{= it.location}}. "
+      "In {{= it.model.location}}. ",
+      "For {{= it.model.location}}. "
     ],
     "date": [
-      "On {{= it.date.day_string}}. ",
-      "For {{= it.date.day_string}}. "
+      "On {{= it.model.date.day_string}}. ",
+      "For {{= it.model.date.day_string}}. "
     ],
     "no_data": [
       "Unfortunately there was no data. ",
@@ -238,21 +238,61 @@
       "{{? it.model.temperature<=7}}Looks like it will be pretty cold{{?? it.model.temperature<=12}}Chances are it will feel quite mild{{?? it.model.temperature>12}}Lovely and hot{{??}}{{?}} {{? it.model.precipitation_probability<=10}}and dry{{?? it.model.precipitation_probability<=40}}with some showers possibly{{?? it.model.precipitation_probability>40}}and quite wet{{??}}{{?}}."
     ],
     "variable": {
-      "rainfall": [
-        "There is a {{= it.model.precipitation_probability}}% chance of rain. ",
-        "Probability of precipitation is {{= it.model.precipitation_probability}}%. "
+      "unknown": [
+        "Sorry, I'm not sure I understand the weather type you're asking about. "
       ],
-      "temperature": [
-        "Temperatures are expected to reach {{= it.model.temperature}}\u00b0C, due to the other conditions this will feel more like {{= it.model.feels_like_temperature}}\u00b0C. "
-      ],
-      "wind": [
-        "{{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph with gusts of {{= it.model.wind_gust}}mph expected. "
-      ],
-      "weather_type": [
-        "The weather will be {{= it.model.weather_type}}. ",
-        "The forecast is saying {{= it.model.weather_type}}. ",
-        "The general weather type is said to be {{= it.model.weather_type}}. "
-      ]
+      "rain": {
+        "type": "variable_certainty",
+        "certainties": [
+          {
+            "score_upper_bound": 1.0,
+            "score_lower_bound": 0.9,
+            "response": [
+              "Yes"
+            ]
+          },
+          {
+            "score_upper_bound": 0.9,
+            "score_lower_bound": 0.7,
+            "response": [
+              "Maybe"
+            ]
+          },
+          {
+            "score_upper_bound": 0.7,
+            "score_lower_bound": 0.0,
+            "response": [
+              "No"
+            ]
+          }
+        ]
+      },
+      "sun": {
+        "type": "variable_certainty",
+        "certainties": [
+          {
+            "score_upper_bound": 1.0,
+            "score_lower_bound": 0.9,
+            "response": [
+              "Yes, it looks like it's going to be nice in {{= it.model.location}} on {{= it.model.date.day_string}}."
+            ]
+          },
+          {
+            "score_upper_bound": 0.9,
+            "score_lower_bound": 0.7,
+            "response": [
+              "Maybe"
+            ]
+          },
+          {
+            "score_upper_bound": 0.7,
+            "score_lower_bound": 0.0,
+            "response": [
+              "No"
+            ]
+          }
+        ]
+      }
     },
     "accessory": {
       "unknown": [

@@ -44,6 +44,8 @@ exports.sanitze = {
             var strRegexResults = strRegex.exec(str);
             result = strRegexResults[strRegexResults.length-1].trim();
         }
+
+        result = sugar.String.capitalize(result, true, true);
         return next({response: result});
     },
 
@@ -210,39 +212,6 @@ exports.sanitze = {
 
             var day = sugar.Date.create(str, {fromUTC: true});
             result.push(day.toISOString());
-        }
-
-        return next({response: result});
-    }
-};
-
-/*
- * Attempts to translate between user defined variables and weather phenomena
- */
-exports.translate = {
-
-    accessory: (session, results, next) => {
-        var str = results.response.toLowerCase();
-        var result = constants.WX_VARIABLES.filter((variable) => {
-            return variable.accessories.includes(str);
-        });
-
-        if(!result || result.length === 0) {
-            winston.error("unable to map the accessory [ %s ] to any of the current wx variables accessories");
-        }
-
-        return next({response: result});
-    },
-
-    variable: (session, results, next) => {
-        var str = results.response.toLowerCase();
-
-        var result = constants.WX_VARIABLES.filter((variable) => {
-            return variable.synonyms.includes(str);
-        });
-
-        if(!result || result.length === 0) {
-            winston.error("unable to map the variable [ %s ] to any of the current wx variables synonyms");
         }
 
         return next({response: result});
