@@ -23,7 +23,7 @@ module.exports = (key) => {
 
     function geocode(location) {
 
-        var slug = sugar.String.dasherize(location.toLowerCase());
+        var slug = sugar.String.underscore(location.toLowerCase());
         if (gmapsCache.get(slug)) {
             winston.debug("resolving [ %s ] from gmaps cache", slug);
             return Promise.resolve(gmapsCache.get(slug));

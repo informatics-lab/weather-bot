@@ -92,8 +92,11 @@ var mapVisibility = function (i) {
 };
 
 var uvToUvString = function(i) {
-    var uv = uvs[i];
-    return uv.toLowerCase();
+    var uv = {
+        string: uvs[i].toLowerCase(),
+        index: i
+    };
+    return uv;
 };
 
 var dailyDatapointToModel = function(wx) {

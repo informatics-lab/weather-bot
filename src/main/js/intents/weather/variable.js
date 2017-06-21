@@ -84,7 +84,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            var variableSlug = sugar.String.dasherize(session.conversationData.variable.toLowerCase());
+            var variableSlug = sugar.String.underscore(session.conversationData.variable.toLowerCase());
             var variableIntent = `${intent}.${variableSlug}`;
             if (session.library.dialogs[variableIntent]) {
                 session.beginDialog(variableIntent);

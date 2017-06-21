@@ -114,6 +114,7 @@ function main() {
     intents.weather.accessories.coat(bot, persona);
     intents.weather.accessories.umbrella(bot, persona);
     intents.weather.accessories.jumper(bot, persona);
+    intents.weather.accessories.sun_cream(bot, persona);
 
     intents.weather.forecast(bot, persona, datapoint, gmaps);
 

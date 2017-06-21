@@ -274,7 +274,7 @@
             "score_upper_bound": 1.0,
             "score_lower_bound": 0.9,
             "response": [
-              "Yes, it looks like it's going to be nice in {{= it.model.location}} {{= it.model.date.day_string}}."
+              "Yes, it looks like it's going to be nice in {{= it.model.location}} {{= it.model.date.day_string}}. :sunny:"
             ]
           },
           {
@@ -372,6 +372,25 @@
             "score_lower_bound": 0.0,
             "response": [
               "No, I wouldn't bother with a jumper. "
+            ]
+          }
+        ]
+      },
+      "sun_cream": {
+        "type": "variable_certainty",
+        "certainties": [
+          {
+            "score_upper_bound": 1.0,
+            "score_lower_bound": 0.5,
+            "response": [
+              "You should definitely wear some sun cream {{= it.model.date.day_string}}."
+            ]
+          },
+          {
+            "score_upper_bound": 0.49,
+            "score_lower_bound": 0.0,
+            "response": [
+              "If I were in {{= it.model.location}} {{= it.model.date.day_string}} I probablt wouldn't bother wearing any sun cream."
             ]
           }
         ]
