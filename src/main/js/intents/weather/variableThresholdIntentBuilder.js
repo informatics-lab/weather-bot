@@ -18,7 +18,8 @@ module.exports = function (baseIntent, localIntent, synonyms, variableThresholds
 
     function compare(variableThreshold, wxModel) {
         var score = scoring.getScoringFunction(variableThreshold.comparison);
-        return score(variableThreshold.min, variableThreshold.optimal, variableThreshold.max, wxModel[variableThreshold.variable]);
+        var value = eval("wxModel."+variableThreshold.variable);
+        return score(variableThreshold.min, variableThreshold.optimal, variableThreshold.max, value);
     }
 
     return function (bot, persona) {
@@ -50,8 +51,9 @@ module.exports = function (baseIntent, localIntent, synonyms, variableThresholds
                                 scores.push(score);
                             });
 
-                            var max = Math.max.apply(null, scores);
-                            var template = doT.template(persona.getResponseForScore(self.primaryIntent, max));
+                            //TODO should we always be looking at the max score? possibly pass the appropriate function in
+                            var finalScore = Math.max.apply(null, scores);
+                            var template = doT.template(persona.getResponseForScore(self.primaryIntent, finalScore));
                             response += template({model: model});
 
                         } else {

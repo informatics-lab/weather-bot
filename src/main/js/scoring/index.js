@@ -10,6 +10,9 @@ function mapRange(value, low1, high1, low2, high2) {
  * function ‾\_
  */
 function lessThan(min, optimal, max, value) {
+    if(!optimal) throw "missing [optimal] argument for LT scoring function";
+    if(!max) throw "missing [max] argument for LT scoring function";
+
     var result = null;
     if (value <= optimal) {
         result = 1.0;
@@ -26,6 +29,9 @@ function lessThan(min, optimal, max, value) {
  * function _/‾
  */
 function greaterThan(min, optimal, max, value) {
+    if(!min) throw "missing [min] argument for GT scoring function";
+    if(!optimal) throw "missing [optimal] argument for GT scoring function";
+
     var result = null;
     if (value <= min) {
         result = 0.0;
@@ -41,6 +47,10 @@ function greaterThan(min, optimal, max, value) {
  * function _/\_
  */
 function between(min, optimal, max, value) {
+    if(!min) throw "missing [min] argument for B scoring function";
+    if(!optimal) throw "missing [optimal] argument for B scoring function";
+    if(!max) throw "missing [max] argument for B scoring function";
+
     var result = null;
     if (value <= min) {
         result = 0.0;

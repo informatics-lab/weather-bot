@@ -233,9 +233,9 @@
       "Sorry, I couldn't find the weather for the date, time and location you have specified."
     ],
     "forecast": [
-      "Temperatures will reach a high of {{= it.model.temperature}}\u00b0C. Given the other conditions, this will feel like {{= it.model.feels_like_temperature}}\u00b0C at its peak. {{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph. Visibility is expected to be {{= it.model.visibility}}. There is a {{= it.model.precipitation_probability}}% chance of precipitation. ",
+      "In {{= it.model.location}} {{= it.model.date.day_string}} temperatures will reach a high of {{= it.model.temperature}}\u00b0C. Given the other conditions, this will feel like {{= it.model.feels_like_temperature}}\u00b0C at its peak. {{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph.{{? it.model.visibility.distance}} Visibility is expected to be up to {{= it.model.visibility.distance.max}}km.{{?}} There is a {{= it.model.precipitation_probability}}% chance of precipitation. ",
       "My friends at the Met Office think {{= it.model.weather_type}}.",
-      "{{? it.model.temperature<=7}}Looks like it will be pretty cold{{?? it.model.temperature<=12}}Chances are it will feel quite mild{{?? it.model.temperature>12}}Lovely and hot{{??}}{{?}} {{? it.model.precipitation_probability<=10}}and dry{{?? it.model.precipitation_probability<=40}}with some showers possibly{{?? it.model.precipitation_probability>40}}and quite wet{{??}}{{?}}."
+      "{{? it.model.temperature<=7}}Looks like it will be pretty cold{{?? it.model.temperature<=12}}Chances are it will feel quite mild{{?? it.model.temperature>12}}It's looking hot{{??}}{{?}} {{? it.model.precipitation_probability<=10}}and dry{{?? it.model.precipitation_probability<=40}}with some showers possibly{{?? it.model.precipitation_probability>40}}and quite wet{{??}}{{?}}."
     ],
     "variable": {
       "unknown": [
@@ -262,7 +262,7 @@
             "score_upper_bound": 0.7,
             "score_lower_bound": 0.0,
             "response": [
-              "No"
+              "No, it looks dry in {{= it.model.location}} {{= it.model.date.day_string}}"
             ]
           }
         ]
@@ -274,7 +274,7 @@
             "score_upper_bound": 1.0,
             "score_lower_bound": 0.9,
             "response": [
-              "Yes, it looks like it's going to be nice in {{= it.model.location}} on {{= it.model.date.day_string}}."
+              "Yes, it looks like it's going to be nice in {{= it.model.location}} {{= it.model.date.day_string}}."
             ]
           },
           {

@@ -3,6 +3,7 @@
 var wxTypes = require("../resources/datapoint/weatherTypes");
 var visibilities = require("../resources/datapoint/visibilities");
 var uvs = require("../resources/datapoint/uvIndexes");
+var sugar = require("sugar");
 
 var daysToMillis = function (n) {
     return n * 86400000;
@@ -45,9 +46,21 @@ var monthIndexToMonthString = function(i)  {
 
 var dateStringToDateObject = function (dateStr) {
     var dt = new Date(dateStr);
+    var today = sugar.Date.create('today', {fromUTC: true});
+    var tomorrow = sugar.Date.create('tomorrow', {fromUTC: true});
+
+    var dayString;
+    if (dateStr === today.toISOString()) {
+        dayString = "today";
+    } else if (dateStr === tomorrow.toISOString()) {
+        dayString = "tomorrow";
+    } else {
+        dayString = dayIndexToDayString(dt.getDay());
+    }
+
     return {
         day : dt.getDay(),
-        day_string : dayIndexToDayString(dt.getDay()),
+        day_string : dayString,
         month : dt.getMonth(),
         month_string : monthIndexToMonthString(dt.getMonth()),
         year : dt.getFullYear()
@@ -72,16 +85,10 @@ var windDirectionToWindDirectionString = function(d) {
     }
 };
 
-var visibilityToVisibilityString = function (i) {
-    var visibility = visibilities[i.toUpperCase()];
-    if(visibility.includes("-")) {
-        var split =  visibility.split("-");
-        visibility = `${split[0].trim()}, at ${split[1].trim()}`;
-        if(split.length === 3) {
-            visibility = `${visibility} and ${split[2].trim()}`;
-        }
-    }
-    return visibility.toLowerCase();
+var mapVisibility = function (i) {
+    var vis = visibilities[i.toUpperCase()];
+    vis["index"] = i;
+    return vis;
 };
 
 var uvToUvString = function(i) {
@@ -100,7 +107,7 @@ var dailyDatapointToModel = function(wx) {
     model.wind_gust = wx.Gn;
     model.wind_direction = windDirectionToWindDirectionString(wx.D);
     model.precipitation_probability = wx.PPd;
-    model.visibility = visibilityToVisibilityString(wx.V);
+    model.visibility = mapVisibility(wx.V);
     model.uv = uvToUvString(wx.U);
     model.humidity = wx.Hn;
 

@@ -78,23 +78,23 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         },
         (session, results, next) => {
             var response = "";
+            var model = {};
 
-            var template = doT.template(persona.getResponse("weather.location"));
-            response = response + template({location: sugar.String.capitalize(session.conversationData.location, true, true)});
+            model["location"] = session.conversationData.location;
 
             session.conversationData.time_target_dates.forEach((date) => {
 
                 var day = `${date.substr(0, 10)}Z`;
                 var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => day === f.value);
 
-                var template = doT.template(persona.getResponse("weather.date"));
-                response = response + template({date: constants.DATE_TO_DATE_OBJECT(date)});
+                model["date"] = constants.DATE_TO_DATE_OBJECT(date);
 
                 if (wx && !(wx.length === 0)) {
                     wx = wx[0].Rep[0];
+                    model = Object.assign(model, constants.DAILY_DATAPOINT_TO_MODEL(wx));
 
                     var template = doT.template(persona.getResponse(intent));
-                    response = response + template({model: constants.DAILY_DATAPOINT_TO_MODEL(wx)});
+                    response = response + template({model: model});
 
                 } else {
                     response = response + persona.getResponse("weather.no_data");
