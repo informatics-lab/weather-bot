@@ -5,6 +5,19 @@ var sugar = require("sugar");
 var utils = require("../utils");
 var constants = require("../../constants");
 
+/**
+ * weather.variable
+ *
+ * Responds to questions like 'will it rain tomorrow' with a variable-certainty response.
+ * Executes waterfall defined here and then forwards on to weather.variable.<variable_entity>
+ * Uses the entities identified by LUIS otherwise will fallback to use the stored session.conversationData or
+ * session.userData.
+ *
+ * @param bot - bot to add intent to
+ * @param persona - persona client
+ * @param datapoint - datapoint client
+ * @param gmaps - goolge maps client
+ */
 module.exports = (bot, persona, datapoint, gmaps) => {
 
     var intent = "weather.variable";

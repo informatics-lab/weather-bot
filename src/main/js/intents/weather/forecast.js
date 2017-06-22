@@ -8,6 +8,19 @@ var utils = require("../utils");
 var constants = require("../../constants");
 var ua = require('universal-analytics');
 
+
+/**
+ * weather.forecast
+ *
+ * When executed this intent will attempt to give the user a brief forecast.
+ * Uses the entities identified by LUIS otherwise will fallback to use the stored session.conversationData or
+ * session.userData to return weather.forecast response.
+ *
+ * @param bot - bot to add intent to
+ * @param persona - persona client
+ * @param datapoint - datapoint client
+ * @param gmaps - goolge maps client
+ */
 module.exports = (bot, persona, datapoint, gmaps) => {
 
     var intent = "weather.forecast";
