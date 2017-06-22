@@ -1,14 +1,15 @@
 "use strict";
 
 var winston = require("winston");
-var ua = require('universal-analytics');
+var ua = require("universal-analytics");
+var utils = require("./utils");
 
 module.exports = function (bot, persona) {
 
     var intent = "none";
 
     bot.dialog(intent, [
-        function (session) {
+        (session, results, next) => {
             winston.info("[ %s ] intent matched [ %s ]", intent, session.message.text);
 
             if(!session.userData.greeted) {
@@ -20,9 +21,13 @@ module.exports = function (bot, persona) {
                     .event({ec: "intent", ea: intent, el: session.message.text})
                     .send();
                 session.send(response);
-                session.endDialog();
             }
-        }]
-    );
+            return next();
+        },
+        (session, results, next) => {
+            return next({response: intent});
+        },
+        utils.storeAsPreviousIntent
+    ]);
 
 };

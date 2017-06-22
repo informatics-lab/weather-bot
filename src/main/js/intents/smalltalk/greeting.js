@@ -2,6 +2,7 @@
 
 var winston = require("winston");
 var doT = require("dot");
+var utils = require("../utils");
 
 module.exports = function (bot, persona) {
 
@@ -24,10 +25,12 @@ module.exports = function (bot, persona) {
 
             if (!session.userData.name) {
                 session.beginDialog("user.name", {});
-            } else {
-                session.endDialog();
             }
-
-        }
-    ])
+            return next();
+        },
+        (session, results, next) => {
+            return next({response: intent});
+        },
+        utils.storeAsPreviousIntent
+    ]);
 };
