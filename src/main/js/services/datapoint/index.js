@@ -61,7 +61,7 @@ module.exports = (key) => {
     }
 
     function getDailyDataForSiteId(siteId) {
-        var slug = `${constants.DAILY}-${siteId}`;
+        var slug = `${constants.DAILY}_${siteId}`;
         if (datapointCache.get(slug)) {
             winston.debug("resolving [ %s ] from datapoint cache", slug);
             return Promise.resolve(datapointCache.get(slug));
@@ -80,7 +80,7 @@ module.exports = (key) => {
     }
 
     function get3HourlyDataForSiteId(siteId) {
-        var slug = `${constants.THREE_HOURLY}-${siteId}`;
+        var slug = `${constants.THREE_HOURLY}_${siteId}`;
         if (datapointCache.get(slug)) {
             winston.debug("resolving [ %s ] from datapoint cache", slug);
             return Promise.resolve(datapointCache.get(slug));
