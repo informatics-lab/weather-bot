@@ -21,7 +21,7 @@
     "That's outside my area of expertise. Sorry."
   ],
   "help": [
-    "I can answer weather related questions like... \n * What is the forecast for London tomorrow? \n * Will it rain this weekend in Bath? \n * What is the Met Office?"
+    "I can answer weather related questions like... \n * What is the forecast for London tomorrow? \n * Will it rain this weekend in Bath? \n * Will I need my coat on Friday?"
   ],
   "met_office": {
     "general_information": {
@@ -217,14 +217,6 @@
     }
   },
   "weather": {
-    "location": [
-      "In {{= it.model.location}}. ",
-      "For {{= it.model.location}}. "
-    ],
-    "date": [
-      "On {{= it.model.date.day_string}}. ",
-      "For {{= it.model.date.day_string}}. "
-    ],
     "no_data": [
       "Unfortunately there was no data. ",
       "There is no data. "
@@ -232,9 +224,11 @@
     "not_found": [
       "Sorry, I couldn't find the weather for the date, time and location you have specified."
     ],
+    "detail":[
+      "In {{= it.model.location}} {{= it.model.date.day_string}} temperatures will reach a high of {{= it.model.temperature}}\u00b0C. Given the other conditions, this will feel like {{= it.model.feels_like_temperature}}\u00b0C at its peak. {{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph.{{? it.model.visibility.distance}} Visibility is expected to be up to {{= it.model.visibility.distance.max}}km.{{?}} There is a {{= it.model.precipitation_probability}}% chance of precipitation. "
+    ],
     "forecast": [
-      "In {{= it.model.location}} {{= it.model.date.day_string}} temperatures will reach a high of {{= it.model.temperature}}\u00b0C. Given the other conditions, this will feel like {{= it.model.feels_like_temperature}}\u00b0C at its peak. {{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph.{{? it.model.visibility.distance}} Visibility is expected to be up to {{= it.model.visibility.distance.max}}km.{{?}} There is a {{= it.model.precipitation_probability}}% chance of precipitation. ",
-      "My friends at the Met Office think {{= it.model.weather_type}}.",
+      "My friends at the Met Office think {{= it.model.weather_type.string}}. {{? it.model.weather_type.emoji}}{{= it.model.weather_type.emoji}}{{?}}",
       "{{? it.model.temperature<=7}}Looks like it will be pretty cold{{?? it.model.temperature<=12}}Chances are it will feel quite mild{{?? it.model.temperature>12}}It's looking hot{{??}}{{?}} {{? it.model.precipitation_probability<=10}}and dry{{?? it.model.precipitation_probability<=40}}with some showers possibly{{?? it.model.precipitation_probability>40}}and quite wet{{??}}{{?}}."
     ],
     "variable": {
@@ -274,7 +268,7 @@
             "score_upper_bound": 1.0,
             "score_lower_bound": 0.9,
             "response": [
-              "Yes, it looks like it's going to be nice in {{= it.model.location}} {{= it.model.date.day_string}}. :sunny:"
+              "Yes, it looks like it's going to be nice in {{= it.model.location}} {{= it.model.date.day_string}}. {{? it.model.weather_type.emoji}}{{= it.model.weather_type.emoji}}{{?}}"
             ]
           },
           {

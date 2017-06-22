@@ -67,12 +67,14 @@ var dateStringToDateObject = function (dateStr) {
     }
 };
 
-var wxTypeIndexToWxTypeString = function (i) {
+var mapWxType = function (i) {
     var wxType = wxTypes[i];
-    if(wxType.includes("(")) {
-        wxType =  wxType.substr(0, wxType.indexOf("(")).trim();
+    if(wxType.string.includes("(")) {
+        wxType.string =  wxType.string.substr(0, wxType.string.indexOf("(")).trim();
     }
-    return wxType.toLowerCase();
+    wxType.string = wxType.string.toLowerCase();
+    wxType["index"] = i;
+    return wxType;
 };
 
 var windDirectionToWindDirectionString = function(d) {
@@ -103,7 +105,7 @@ var dailyDatapointToModel = function(wx) {
 
     var model = {};
 
-    model.weather_type = wxTypeIndexToWxTypeString(wx.W);
+    model.weather_type = mapWxType(wx.W);
     model.temperature = wx.Dm;
     model.feels_like_temperature = wx.FDm;
     model.wind_speed = wx.S;
@@ -125,6 +127,5 @@ module.exports = {
     "DAY_INDEX_TO_DAY_STRING" : dayIndexToDayString,
     "MONTH_INDEX_TO_MONTH_STRING" : monthIndexToMonthString,
     "DATE_TO_DATE_OBJECT" : dateStringToDateObject,
-    "WX_TYPE_INDEX_TO_WX_TYPE_STRING": wxTypeIndexToWxTypeString,
     "DAILY_DATAPOINT_TO_MODEL": dailyDatapointToModel
 };

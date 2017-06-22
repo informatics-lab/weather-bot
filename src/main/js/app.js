@@ -117,6 +117,7 @@ function main() {
     intents.weather.accessories.sun_cream(bot, persona);
 
     intents.weather.forecast(bot, persona, datapoint, gmaps);
+    intents.weather.detail(bot, persona, datapoint, gmaps);
 
     intents.weather.variable(bot, persona, datapoint, gmaps);
     intents.weather.variables.unknown(bot, persona);

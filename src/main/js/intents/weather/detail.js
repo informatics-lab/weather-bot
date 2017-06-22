@@ -10,35 +10,23 @@ var ua = require('universal-analytics');
 
 module.exports = (bot, persona, datapoint, gmaps) => {
 
-    var intent = "weather.forecast";
+    var intent = "weather.detail";
 
     bot.dialog(intent, [
         (session, results, next) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
 
-            if (results && results.entities) {
-                var timeTargetEntity = results.entities.filter(e => e.type === 'time_target')[0];
-                if (timeTargetEntity) {
-                    session.conversationData.time_target = timeTargetEntity.entity;
-                }
-                var locationEntity = results.entities.filter(e => e.type === 'location')[0];
-                if (locationEntity) {
-                    session.conversationData.location = locationEntity.entity;
-                }
-            }
-            if (!session.conversationData.time_target) {
-                session.conversationData.time_target = "today";
+            if (!session.conversationData.time_target || !session.conversationData.location) {
+                winston.warn("[ %s ] matched but the time_target was [ %s ] and the location was [ %s ]", intent, session.conversationData.time_target, session.conversationData.location);
+                session.cancelDialog();
+                session.beginDialog("error.general");
+            } else if (!session.conversationData.previous_intent.split(".")[0] === "weather") {
+                winston.warn("[ %s ] matched but previous intent was [ %s ]", intent, session.conversationData.previous_intent);
+                session.cancelDialog();
+                session.beginDialog("error.general");
             }
 
-            if (session.conversationData.location) {
-                return next({response: session.conversationData.location});
-            }
-            if (session.userData.location) {
-                return next({response: session.userData.location});
-            }
-
-            session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "For"}});
-
+            return next({response: session.conversationData.location});
         },
         utils.sanitze.location,
         (session, results, next) => {

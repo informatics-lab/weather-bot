@@ -1,34 +1,159 @@
 {
-  "NA": "Not available",
-  "0": "Clear night",
-  "1": "Sunny day",
-  "2": "Partly cloudy (night)",
-  "3": "Partly cloudy (day)",
-  "4": "Not used",
-  "5": "Mist",
-  "6": "Fog",
-  "7": "Cloudy",
-  "8": "Overcast",
-  "9": "Light rain shower (night)",
-  "10": "Light rain shower (day)",
-  "11": "Drizzle",
-  "12": "Light rain",
-  "13": "Heavy rain shower (night)",
-  "14": "Heavy rain shower (day)",
-  "15": "Heavy rain",
-  "16": "Sleet shower (night)",
-  "17": "Sleet shower (day)",
-  "18": "Sleet",
-  "19": "Hail shower (night)",
-  "20": "Hail shower (day)",
-  "21": "Hail",
-  "22": "Light snow shower (night)",
-  "23": "Light snow shower (day)",
-  "24": "Light snow",
-  "25": "Heavy snow shower (night)",
-  "26": "Heavy snow shower (day)",
-  "27": "Heavy snow",
-  "28": "Thunder shower (night)",
-  "29": "Thunder shower (day)",
-  "30": "Thunder"
+  "NA": {
+    "rating": 0,
+    "string": "Not available"
+  },
+  "0": {
+    "rating": 10,
+    "string":"Clear night"
+  },
+  "1": {
+    "rating": 10,
+    "string": "Sunny day",
+    "emoji": ":sunny:"
+  },
+  "2": {
+    "rating": 9,
+    "string": "Partly cloudy (night)",
+    "emoji": ":white_sun_small_cloud:"
+  },
+  "3": {
+    "rating": 9,
+    "string": "Partly cloudy (day)",
+    "emoji": ":white_sun_small_cloud:"
+  },
+  "4": {
+    "rating": 0,
+    "string": "Not used"
+  },
+  "5": {
+    "rating": 4,
+    "string": "Mist",
+    "emoji": ":fog:"
+  },
+  "6": {
+    "rating": 4,
+    "string": "Fog",
+    "emoji": ":fog:"
+  },
+  "7": {
+    "rating": 7,
+    "string": "Cloudy",
+    "emoji": ":cloud:"
+  },
+  "8": {
+    "rating": 6,
+    "string": "Overcast",
+    "emoji": ":cloud:"
+  },
+  "9": {
+    "rating": 5,
+    "string": "Light rain shower (night)",
+    "emoji": ":white_sun_rain_cloud:"
+  },
+  "10": {
+    "rating": 5,
+    "string": "Light rain shower (day)",
+    "emoji": ":white_sun_rain_cloud:"
+  },
+  "11": {
+    "rating": 5,
+    "string": "Drizzle",
+    "emoji": ":white_sun_rain_cloud:"
+  },
+  "12": {
+    "rating": 5,
+    "string": "Light rain",
+    "emoji": ":white_sun_rain_cloud:"
+  },
+  "13": {
+    "rating": 3,
+    "string": "Heavy rain shower (night)",
+    "emoji": ":cloud_rain:"
+  },
+  "14": {
+    "rating": 3,
+    "string": "Heavy rain shower (day)",
+    "emoji": ":cloud_rain:"
+  },
+  "15": {
+    "rating": 3,
+    "string": "Heavy rain",
+    "emoji": ":cloud_rain:"
+  },
+  "16": {
+    "rating": 2,
+    "string": "Sleet shower (night)",
+    "emoji": ":cloud_rain:"
+  },
+  "17": {
+    "rating": 2,
+    "string": "Sleet shower (day)",
+    "emoji": ":cloud_rain:"
+  },
+  "18": {
+    "rating": 2,
+    "string": "Sleet",
+    "emoji": ":cloud_rain:"
+  },
+  "19": {
+    "rating": 2,
+    "string": "Hail shower (night)",
+    "emoji": ":cloud_rain:"
+  },
+  "20": {
+    "rating": 2,
+    "string": "Hail shower (day)",
+    "emoji": ":cloud_rain:"
+  },
+  "21": {
+    "rating": 2,
+    "string": "Hail",
+    "emoji": ":cloud_rain:"
+  },
+  "22": {
+    "rating": 3,
+    "string": "Light snow shower (night)",
+    "emoji": ":cloud_snow:"
+  },
+  "23": {
+    "rating": 4,
+    "string": "Light snow shower (day)",
+    "emoji": ":cloud_snow:"
+  },
+  "24": {
+    "rating": 4,
+    "string": "Light snow",
+    "emoji": ":cloud_snow:"
+  },
+  "25": {
+    "rating": 4,
+    "string": "Heavy snow shower (night)",
+    "emoji": ":cloud_snow:"
+  },
+  "26": {
+    "rating": 4,
+    "string": "Heavy snow shower (day)",
+    "emoji": ":cloud_snow:"
+  },
+  "27": {
+    "rating": 4,
+    "string": "Heavy snow",
+    "emoji": ":cloud_snow:"
+  },
+  "28": {
+    "rating": 2,
+    "string": "Thunder shower (night)",
+    "emoji": ":thunder_cloud_rain:"
+  },
+  "29": {
+    "rating": 2,
+    "string": "Thunder shower (day)",
+    "emoji": ":thunder_cloud_rain:"
+  },
+  "30": {
+    "rating": 1,
+    "string": "Thunder",
+    "emoji": ":cloud_lightning:"
+  }
 }
