@@ -19,10 +19,6 @@ exports.sanitze = {
     /**
      * Parses the user's response to extract the user specified location.
      * Sets the session.conversationData.location property
-     * @param session
-     * @param results
-     * @param next
-     * @returns {*}
      */
     location: (session, results, next) => {
         var str = results.response.toLowerCase();
@@ -52,10 +48,6 @@ exports.sanitze = {
     /**
      * Parses the user's response to extract the users name.
      * Sets the session.userData.name property
-     * @param session
-     * @param results
-     * @param next
-     * @returns {*}
      */
     name: (session, results, next) => {
         var str = results.response.toLowerCase();
@@ -91,9 +83,6 @@ exports.sanitze = {
     /**
      * Parses the user's input to extract the time bounding that a user may be looking for.
      * Returned as an array of ISO date time strings.
-     * @param session
-     * @param results
-     * @param next
      */
     time_target: (session, results, next) => {
         var str = results.response.toLowerCase();

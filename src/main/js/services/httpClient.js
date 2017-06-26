@@ -3,7 +3,17 @@
 var winston = require("winston");
 var request = require("request");
 
+/**
+ * Module makes HTTP requests
+ */
 module.exports = {
+
+    /**
+     * Performs HTTP GET on given URI.
+     *
+     * @param uri - uri to GET
+     * @returns {Promise} resolved with JSON response if successful.
+     */
     getAsJson: (uri) => {
         return new Promise((resolve, reject) => {
             var options = {

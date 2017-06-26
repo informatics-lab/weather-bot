@@ -6,6 +6,23 @@ var constants = require("../../constants");
 var scoring = require("../../scoring");
 var ua = require('universal-analytics');
 
+/**
+ * Module for building variable-threshold intents.
+ *
+ * A variable threshold intent returns a variable-certainty response.
+ * Firstly the 'baseIntent' will be processed as identified by LUIS (weather.accessory|weather.variable).
+ * The 'localIntent' and each of the 'synonyms' are preregistered as unique sub-routes.
+ * The 'baseIntent' will route the request into the appropriate sub-route.
+ * The weather is compared against each of the 'variableThresholds' passed in.
+ * A certainty score is calculated for each with the MAX returned.
+ * The certainty score is mapped to the variable-certainty response in the persona.
+ *
+ *
+ * @param baseIntent - initial intent function to be executed
+ * @param localIntent - generic name for unique intent sub-route
+ * @param synonyms - Array<String> - list of synonyms for the localIntent
+ * @param variableThresholds - Array<VariableThreshold> - list of variables with their associated thresholds specified
+ */
 module.exports = function (baseIntent, localIntent, synonyms, variableThresholds) {
 
     var self = this;
