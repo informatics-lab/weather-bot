@@ -67,10 +67,11 @@ module.exports = function (persona) {
 
     function createVideoCard(session, obj, model) {
 
+        var title = applyModelToTemplate(obj.title, model);
         var text = applyModelToTemplate(getRandomElementFromArray(obj.text), model);
 
         return new builder.VideoCard(session)
-            .title(obj.title)
+            .title(title)
             .text(text)
             .media([
                 {url: obj.contentUrl}

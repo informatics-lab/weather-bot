@@ -6,7 +6,7 @@
     ],
     "data": {
       "not_returned": [
-        "Unfortunately my data source is playing up at the moment, no data is available to fulfill your request."
+        "Unfortunately my data source is playing up at the moment, no data is currently available to fulfill your request."
       ]
     },
     "location": {
@@ -231,7 +231,7 @@
     ],
     "detail":[
       {
-        "title": "Detailed Weather Forecast",
+        "title": "{{= it.location}} Weather Forecast",
         "type": "video",
         "text": [
           "In {{= it.location}} {{= it.date.day_string}} temperatures will reach a high of {{= it.temperature}}\u00b0C. Given the other conditions, this will feel like {{= it.feels_like_temperature}}\u00b0C at its peak. {{= it.wind_direction}} winds will reach a maximum of {{= it.wind_speed}}mph.{{? it.visibility.distance}} Visibility is expected to be up to {{= it.visibility.distance.max}}km.{{?}} There is a {{= it.precipitation_probability}}% chance of precipitation. "
