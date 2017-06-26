@@ -3,7 +3,6 @@
 var winston = require("winston");
 var utils = require("../utils");
 var constants = require("../../constants");
-var doT = require("dot");
 var scoring = require("../../scoring");
 var ua = require('universal-analytics');
 
@@ -29,7 +28,7 @@ module.exports = function (baseIntent, localIntent, synonyms, variableThresholds
             bot.dialog(currentIntent, [
                 (session, results, next) => {
                     var response = "";
-                    var model = {};
+                    var model = {user: session.userData};
 
                     //add location to response string
                     model["location"] = session.conversationData.location;
@@ -53,8 +52,8 @@ module.exports = function (baseIntent, localIntent, synonyms, variableThresholds
 
                             //TODO should we always be looking at the max score? possibly pass the appropriate function in
                             var finalScore = Math.max.apply(null, scores);
-                            var template = doT.template(persona.getResponseForScore(self.primaryIntent, finalScore));
-                            response += template({model: model});
+
+                            response += persona.getResponseForScore(self.primaryIntent, finalScore, model);
 
                         } else {
                             response += persona.getResponse("weather.no_data");

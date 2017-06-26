@@ -170,7 +170,6 @@ function main() {
 
     // user
     intents.user.name(bot, persona);
-    intents.user.location(bot, persona, gmaps);
 
     // prompt
     prompt(bot, persona);

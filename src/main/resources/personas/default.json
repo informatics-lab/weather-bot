@@ -38,18 +38,18 @@
   },
   "smalltalk": {
     "greeting": [
-      "Hello{{? it.name}} {{= it.name}}{{?}}",
-      "Hi{{? it.name}} {{= it.name}}{{?}}",
-      "Howdy{{? it.name}} {{= it.name}}{{?}}",
-      "Greetings{{? it.name}} {{= it.name}}{{?}}",
-      "What's up{{? it.name}} {{= it.name}}{{?}}",
-      "Nice to{{? !it.name}} meet you{{?? it.name}} see you again {{= it.name}}{{??}}{{?}}"
+      "Hello{{? it.user.name}} {{= it.user.name}}{{?}}",
+      "Hi{{? it.user.name}} {{= it.user.name}}{{?}}",
+      "Howdy{{? it.user.name}} {{= it.user.name}}{{?}}",
+      "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}",
+      "What's up{{? it.user.name}} {{= it.user.name}}{{?}}",
+      "Nice to{{? !it.name}} meet you{{?? it.name}} see you again {{= it.user.name}}{{??}}{{?}}"
     ],
     "farewell": [
-      "Bye{{? it.name}} {{= it.name}}{{?}}",
-      "Farewell{{? it.name}} {{= it.name}}{{?}}",
-      "Goodbye{{? it.name}} {{= it.name}}{{?}}",
-      "Take it easy{{? it.name}} {{= it.name}}{{?}}",
+      "Bye{{? it.user.name}} {{= it.user.name}}{{?}}",
+      "Farewell{{? it.user.name}} {{= it.user.name}}{{?}}",
+      "Goodbye{{? it.user.name}} {{= it.user.name}}{{?}}",
+      "Take it easy{{? it.user.name}} {{= it.user.name}}{{?}}",
       "Come back again soon"
     ],
     "bot": {
@@ -225,11 +225,21 @@
       "Sorry, I couldn't find the weather for the date, time and location you have specified."
     ],
     "detail":[
-      "In {{= it.model.location}} {{= it.model.date.day_string}} temperatures will reach a high of {{= it.model.temperature}}\u00b0C. Given the other conditions, this will feel like {{= it.model.feels_like_temperature}}\u00b0C at its peak. {{= it.model.wind_direction}} winds will reach a maximum of {{= it.model.wind_speed}}mph.{{? it.model.visibility.distance}} Visibility is expected to be up to {{= it.model.visibility.distance.max}}km.{{?}} There is a {{= it.model.precipitation_probability}}% chance of precipitation. "
+      {
+        "title": "Detailed Weather Forecast",
+        "type": "video",
+        "text": [
+          "In {{= it.location}} {{= it.date.day_string}} temperatures will reach a high of {{= it.temperature}}\u00b0C. Given the other conditions, this will feel like {{= it.feels_like_temperature}}\u00b0C at its peak. {{= it.wind_direction}} winds will reach a maximum of {{= it.wind_speed}}mph.{{? it.visibility.distance}} Visibility is expected to be up to {{= it.visibility.distance.max}}km.{{?}} There is a {{= it.precipitation_probability}}% chance of precipitation. "
+        ],
+        "contentType": "video/mp4",
+        "contentUrl": "https://s3-eu-west-1.amazonaws.com/informatics-visualcortex/visual-cortex-sample-800x720.mp4",
+        "linkUrl": "http://www.metoffice.gov.uk/",
+        "linkText": "Find Out More"
+      }
     ],
     "forecast": [
-      "My friends at the Met Office think {{= it.model.weather_type.string}}. {{? it.model.weather_type.emoji}}{{= it.model.weather_type.emoji}}{{?}}",
-      "{{? it.model.temperature<=7}}Looks like it will be pretty cold{{?? it.model.temperature<=12}}Chances are it will feel quite mild{{?? it.model.temperature>12}}It's looking hot{{??}}{{?}} {{? it.model.precipitation_probability<=10}}and dry{{?? it.model.precipitation_probability<=40}}with some showers possibly{{?? it.model.precipitation_probability>40}}and quite wet{{??}}{{?}}."
+      "My friends at the Met Office think {{= it.weather_type.string}}. {{? it.weather_type.emoji}}{{= it.weather_type.emoji}}{{?}}",
+      "{{? it.temperature<=7}}Looks like it will be pretty cold{{?? it.temperature<=12}}Chances are it will feel quite mild{{?? it.temperature>12}}It's looking hot{{??}}{{?}} {{? it.precipitation_probability<=10}}and dry{{?? it.precipitation_probability<=40}}with some showers possibly{{?? it.precipitation_probability>40}}and quite wet{{??}}{{?}}."
     ],
     "variable": {
       "unknown": [
@@ -256,7 +266,7 @@
             "score_upper_bound": 0.7,
             "score_lower_bound": 0.0,
             "response": [
-              "No, it looks dry in {{= it.model.location}} {{= it.model.date.day_string}}"
+              "No, it looks dry in {{= it.location}} {{= it.date.day_string}}"
             ]
           }
         ]
@@ -268,7 +278,7 @@
             "score_upper_bound": 1.0,
             "score_lower_bound": 0.9,
             "response": [
-              "Yes, it looks like it's going to be nice in {{= it.model.location}} {{= it.model.date.day_string}}. {{? it.model.weather_type.emoji}}{{= it.model.weather_type.emoji}}{{?}}"
+              "Yes, it looks like it's going to be nice in {{= it.location}} {{= it.date.day_string}}. {{? it.weather_type.emoji}}{{= it.weather_type.emoji}}{{?}}"
             ]
           },
           {
@@ -332,7 +342,7 @@
             "score_upper_bound": 0.95,
             "score_lower_bound": 0.71,
             "response": [
-              "It would probably be wise to pack an umbrella, the forecast is {{= it.model.weather_type}} "
+              "It would probably be wise to pack an umbrella, the forecast is {{= it.weather_type}} "
             ]
           },
           {
@@ -358,7 +368,7 @@
             "score_upper_bound": 0.95,
             "score_lower_bound": 0.71,
             "response": [
-              "It would probably be wise to pack a warm top, the forecast is {{= it.model.weather_type}} "
+              "It would probably be wise to pack a warm top, the forecast is {{= it.weather_type}} "
             ]
           },
           {
@@ -377,14 +387,14 @@
             "score_upper_bound": 1.0,
             "score_lower_bound": 0.5,
             "response": [
-              "You should definitely wear some sun cream {{= it.model.date.day_string}}."
+              "You should definitely wear some sun cream {{= it.date.day_string}}."
             ]
           },
           {
             "score_upper_bound": 0.49,
             "score_lower_bound": 0.0,
             "response": [
-              "If I were in {{= it.model.location}} {{= it.model.date.day_string}} I probablt wouldn't bother wearing any sun cream."
+              "If I were in {{= it.location}} {{= it.date.day_string}} I probablt wouldn't bother wearing any sun cream."
             ]
           }
         ]
@@ -393,16 +403,13 @@
   },
   "user": {
     "name": [
-      "OK, from now on I will call you {{= it.name}}.",
-      "You're now known as {{= it.name}}.",
-      "Really? My favourite cousin is called {{= it.name}}... such a small world.",
-      "I have never met a {{= it.name}} before.",
-      "{{= it.name}}, that's a nice name. My father wanted to call me {{= it.name}} but my mother preferred Sol.",
-      "I once met someone called {{= it.name}} at an ABBA tribute concert. Any chance that was you?",
-      "I once got stuck in a lift with someone called {{= it.name}}"
-    ],
-    "location": [
-      "I have never been to {{= it.location}} but I hear it's very nice this time of year."
+      "OK, from now on I will call you {{= it.user.name}}.",
+      "You're now known as {{= it.user.name}}.",
+      "Really? My favourite cousin is called {{= it.user.name}}... such a small world.",
+      "I have never met a {{= it.user.name}} before.",
+      "{{= it.user.name}}, that's a nice name. My father wanted to call me {{= it.user.name}} but my mother preferred Sol.",
+      "I once met someone called {{= it.user.name}} at an ABBA tribute concert. Any chance that was you?",
+      "I once got stuck in a lift with someone called {{= it.user.name}}"
     ]
   },
   "prompts": {
@@ -411,10 +418,28 @@
         "What should I call you?",
         "What is your name?",
         "How should I address you?"
-      ],
-      "location": [
-        "{{= it.pre}} where?"
       ]
+    },
+    "weather": {
+        "forecast" : {
+            "location": [
+              "{{= it.user.name}}, I get it, you'd like a weather forecast, but for where?",
+              "OK {{= it.user.name}}, where do you want to know that for?",
+              "Where?"
+            ]
+        },
+        "accessory": {
+            "location": [
+              "I get asked that a lot! Where do you want to know that for?",
+              "I can help, but first you'll need to tell me for where?"
+            ]
+        },
+        "variable": {
+            "location": [
+              "Very good question {{= it.user.name}}. Where though?",
+              "Where would you like to know that for?"
+            ]
+        }
     }
   }
 }

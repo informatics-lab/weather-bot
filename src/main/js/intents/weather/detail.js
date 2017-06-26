@@ -2,8 +2,6 @@
 
 var winston = require("winston");
 var sugar = require("sugar");
-var builder = require("botbuilder");
-var doT = require("dot");
 var utils = require("../utils");
 var constants = require("../../constants");
 var ua = require('universal-analytics');
@@ -78,7 +76,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         },
         (session, results, next) => {
             var response = "";
-            var model = {};
+            var model = {user: session.userData};
 
             model["location"] = session.conversationData.location;
 
@@ -93,11 +91,10 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                     wx = wx[0].Rep[0];
                     model = Object.assign(model, constants.DAILY_DATAPOINT_TO_MODEL(wx));
 
-                    var template = doT.template(persona.getResponse(intent));
-                    response = response + template({model: model});
+                    response = persona.getResponse(intent, model);
 
                 } else {
-                    response = response + persona.getResponse("weather.no_data");
+                    response = persona.getResponse("weather.no_data", model);
                 }
 
             });

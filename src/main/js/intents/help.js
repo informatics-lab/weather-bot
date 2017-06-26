@@ -1,6 +1,5 @@
 "use strict";
 
-var builder = require("botbuilder");
 var winston = require("winston");
 var ua = require('universal-analytics');
 var utils = require("./utils");

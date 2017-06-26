@@ -55,7 +55,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 } else if (session.userData.location) {
                     return next({response: session.userData.location});
                 } else {
-                    session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "For"}});
+                    session.beginDialog("prompt", {key: "prompts.weather.accessory.location", model: {user: session.userData}});
                 }
             }
         },

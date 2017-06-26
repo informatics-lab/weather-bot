@@ -2,11 +2,9 @@
 
 var winston = require("winston");
 var sugar = require("sugar");
-var builder = require("botbuilder");
-var doT = require("dot");
 var utils = require("../utils");
 var constants = require("../../constants");
-var ua = require('universal-analytics');
+var ua = require("universal-analytics");
 
 
 /**
@@ -30,11 +28,11 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
 
             if (results && results.entities) {
-                var timeTargetEntity = results.entities.filter(e => e.type === 'time_target')[0];
+                var timeTargetEntity = results.entities.filter(e => e.type === "time_target")[0];
                 if (timeTargetEntity) {
                     session.conversationData.time_target = timeTargetEntity.entity;
                 }
-                var locationEntity = results.entities.filter(e => e.type === 'location')[0];
+                var locationEntity = results.entities.filter(e => e.type === "location")[0];
                 if (locationEntity) {
                     session.conversationData.location = locationEntity.entity;
                 }
@@ -50,7 +48,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 return next({response: session.userData.location});
             }
 
-            session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "For"}});
+            session.beginDialog("prompt", {key: "prompts.weather.forecast.location", model: {user: session.userData}});
 
         },
         utils.sanitze.location,
@@ -91,7 +89,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         },
         (session, results, next) => {
             var response = "";
-            var model = {};
+            var model = {user: session.userData};
 
             model["location"] = session.conversationData.location;
 
@@ -105,12 +103,9 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 if (wx && !(wx.length === 0)) {
                     wx = wx[0].Rep[0];
                     model = Object.assign(model, constants.DAILY_DATAPOINT_TO_MODEL(wx));
-
-                    var template = doT.template(persona.getResponse(intent));
-                    response = response + template({model: model});
-
+                    response = response + persona.getResponse(intent, model);
                 } else {
-                    response = response + persona.getResponse("weather.no_data");
+                    response = response + persona.getResponse("weather.no_data", model);
                 }
 
             });

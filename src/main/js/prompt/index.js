@@ -2,7 +2,6 @@
 
 var builder = require("botbuilder");
 var winston = require("winston");
-var doT = require("dot");
 
 module.exports = function (bot, persona) {
 
@@ -14,11 +13,9 @@ module.exports = function (bot, persona) {
             var model = results.model;
 
             winston.debug("running prompt [%s]", key);
+            var text = persona.getResponse(key, model);
 
-            var template = doT.template(persona.getResponse(key));
-            var prompt = template(model);
-
-            builder.Prompts.text(session, prompt);
+            builder.Prompts.text(session, text);
         }
     ]);
 };
