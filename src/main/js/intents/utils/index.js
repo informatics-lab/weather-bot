@@ -190,9 +190,10 @@ exports.sanitze = {
                     sat = sugar.Date.create("saturday", {fromUTC: true});
                     break;
             }
-            sun = sugar.Date.addDays(sugar.Date.create(sat.toISOString(), {fromUTC: true}), 1);
+            //TODO only using saturday for this weekend to make the date handling in the responses easier
+            // sun = sugar.Date.addDays(sugar.Date.create(sat.toISOString(), {fromUTC: true}), 1);
             result.push(sat.toISOString());
-            result.push(sun.toISOString());
+            // result.push(sun.toISOString());
         } else if (dayRegexResult) {
             var day;
             switch (dayRegexResult[1]) {
