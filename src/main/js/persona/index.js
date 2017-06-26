@@ -11,7 +11,9 @@ module.exports = function (persona) {
     }
 
     function applyModelToTemplate(template, model) {
-        var dotTemp = doT.template(template);
+        var settings = doT.templateSettings;
+        settings.strip = false;
+        var dotTemp = doT.template(template, settings);
         var text = dotTemp(model);
         return text;
     }
