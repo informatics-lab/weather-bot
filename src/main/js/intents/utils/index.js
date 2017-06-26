@@ -87,6 +87,7 @@ exports.sanitze = {
     },
 
     //TODO more work required to implement all edge cases for dates
+    //TODO make this return a single object { 'fromDT': x, 'toDT': y }
     /**
      * Parses the user's input to extract the time bounding that a user may be looking for.
      * Returned as an array of ISO date time strings.

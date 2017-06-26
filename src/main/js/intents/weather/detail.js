@@ -64,6 +64,11 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 .then((res) => {
                     session.conversationData.forecast = res;
                     return next();
+                })
+                .catch((err) => {
+                    winston.warn(err);
+                    session.send(persona.getResponse("error.data.not_returned"));
+                    return session.endDialog();
                 });
         },
         (session, results, next) => {

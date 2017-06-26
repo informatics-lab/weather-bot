@@ -69,11 +69,12 @@ module.exports = (key) => {
             winston.debug("getting [ %s ] from datapoint", slug);
             return getDataForSiteId(siteId, constants.DAILY)
                 .then((res)=> {
+                    if (!res.SiteRep.DV.Period) {
+                        throw "No forecast data was returned for the Datapoint request."
+                    }
                     res.resolution = constants.DAILY;
-
                     var ttl = new sugar.Date().millisecondsUntil("midnight");
                     datapointCache.set(slug, res, ttl.raw);
-                    
                     return res;
                 });
         }
@@ -92,12 +93,12 @@ module.exports = (key) => {
                     // reformat the response data from datapoint
                     var wx = new Array();
                     var nowDT = sugar.Date.create("now");
-                    var compareDT = sugar.Date.addHours(sugar.Date.create(nowDT.toISOString(), {fromUTC:true}), -3);
+                    var compareDT = sugar.Date.addHours(sugar.Date.create(nowDT.toISOString(), {fromUTC: true}), -3);
                     res.SiteRep.DV.Location.Period.forEach((day) => {
                         var date = sugar.Date.create(day.value, {setUTC: true});
                         day.Rep.forEach((fcst) => {
-                            var fcstDate = sugar.Date.addMinutes(sugar.Date.create(date.toISOString(),{fromUTC:true}), fcst.$);
-                            if(sugar.Date.isAfter(fcstDate, compareDT)) {
+                            var fcstDate = sugar.Date.addMinutes(sugar.Date.create(date.toISOString(), {fromUTC: true}), fcst.$);
+                            if (sugar.Date.isAfter(fcstDate, compareDT)) {
                                 fcst.date = fcstDate.toISOString();
                                 wx.push(fcst);
                             }
@@ -106,7 +107,7 @@ module.exports = (key) => {
                     res.SiteRep.DV.Location.Period = wx;
                     res.resolution = constants.THREE_HOURLY;
 
-                    var ttl = sugar.Date.millisecondsUntil(nowDT, sugar.Date.create(res.SiteRep.DV.Location.Period[1].date, {fromUTC:true}));
+                    var ttl = sugar.Date.millisecondsUntil(nowDT, sugar.Date.create(res.SiteRep.DV.Location.Period[1].date, {fromUTC: true}));
                     datapointCache.set(slug, res, ttl);
 
                     return res;

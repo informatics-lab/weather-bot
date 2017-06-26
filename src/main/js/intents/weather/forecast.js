@@ -43,12 +43,14 @@ module.exports = (bot, persona, datapoint, gmaps) => {
 
             if (session.conversationData.location) {
                 return next({response: session.conversationData.location});
-            }
-            if (session.userData.location) {
+            } else if (session.userData.location) {
                 return next({response: session.userData.location});
+            } else {
+                session.beginDialog("prompt", {
+                    key: "prompts.weather.forecast.location",
+                    model: {user: session.userData}
+                });
             }
-
-            session.beginDialog("prompt", {key: "prompts.weather.forecast.location", model: {user: session.userData}});
 
         },
         utils.sanitze.location,
@@ -77,6 +79,11 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 .then((res) => {
                     session.conversationData.forecast = res;
                     return next();
+                })
+                .catch((err) => {
+                    winston.warn(err);
+                    session.send(persona.getResponse("error.data.not_returned"));
+                    return session.endDialog();
                 });
         },
         (session, results, next) => {

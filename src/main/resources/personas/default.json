@@ -4,6 +4,11 @@
       "Oops. Something went wrong then. Try asking me something else.",
       "Hang on a minute, I've got a major problem here. Oh God..."
     ],
+    "data": {
+      "not_returned": [
+        "Unfortunately my data source is playing up at the moment, no data is available to fulfill your request."
+      ]
+    },
     "location": {
       "not_uk": [
         "The location you have asked for seems to be outside of the UK. Currently I can only help you with UK weather.",
