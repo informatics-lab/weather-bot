@@ -4,6 +4,11 @@ var winston = require("winston");
 var builder = require("botbuilder");
 var doT = require("dot");
 
+/**
+ * Module handles mapping a unique-response-identifier to a response-resource in the provided persona JSON file.
+ *
+ * @param persona - persona JSON file responses should be taken from.
+ */
 module.exports = function (persona) {
 
     function randomIntFromInterval(min, max) {
@@ -98,7 +103,7 @@ module.exports = function (persona) {
      * Gets a suitable (keyed) response from the provided persona.
      *
      * @param key - unique key of response item in persona response file.
-     * @param model - data model to apply to response
+     * @param model - data model to apply to response template
      * @param session - current conversation session
      */
     function getResponseForKey(key, model, session) {
@@ -111,7 +116,7 @@ module.exports = function (persona) {
      *
      * @param key - unique key of response item in persona response file.
      * @param score - float between 0 and 1
-     * @param model - data model to apply to response
+     * @param model - data model to apply to response template
      * @param session - current conversation session
      */
     function getResponseForKeyWithScore(key, score, model, session) {
