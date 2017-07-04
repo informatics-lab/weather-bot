@@ -79,7 +79,4 @@ function getScoringFunction(str) {
     }
 }
 
-exports.lessThan = lessThan;
-exports.greaterThan = greaterThan;
-exports.between = between;
 exports.getScoringFunction = getScoringFunction;

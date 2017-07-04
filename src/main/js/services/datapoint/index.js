@@ -69,7 +69,7 @@ module.exports = (key) => {
             winston.debug("getting [ %s ] from datapoint", slug);
             return getDataForSiteId(siteId, constants.DAILY)
                 .then((res)=> {
-                    if (!res.SiteRep.DV.Period) {
+                    if (!res.SiteRep.DV.Location) {
                         throw "No forecast data was returned for the Datapoint request."
                     }
                     res.resolution = constants.DAILY;
