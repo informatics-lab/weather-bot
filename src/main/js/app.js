@@ -32,7 +32,7 @@ raven.config(`https://${config.get("SENTRY_USERNAME")}:${config.get("SENTRY_PASS
 
 // services conf
 var luis = require("./services/luis")(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
-var datapoint = require("./services/datapoint")(config.get("DATAPOINT_API_KEY"));
+var datapoint = require("./services/datapoint").new(config.get("NEW_DATAPOINT_API_KEY"));
 var gmaps = require("./services/gmaps")(config.get("GOOGLE_MAPS_API_KEY"));
 
 /*

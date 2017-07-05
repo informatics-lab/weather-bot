@@ -58,15 +58,16 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            datapoint.getNearestSiteToLatLng(session.conversationData.gmaps.results[0].geometry.location)
-                .then((res) => {
-                    session.conversationData.site = res;
-                    return datapoint.getDailyDataForSiteId(res.location.id);
-                })
+            datapoint.getDailyDataForLatLng(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
                 .then((res) => {
                     session.conversationData.forecast = res;
                     return next();
-                });
+                })
+                .catch((err) => {
+                  winston.warn(err);
+                  session.send(persona.getResponse("error.data.not_returned"));
+                  return session.endDialog();
+                })
         },
         (session, results, next) => {
             return next({response: session.conversationData.time_target})
