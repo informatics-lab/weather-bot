@@ -1,7 +1,7 @@
 {
   "luis_schema_version": "2.1.0",
   "versionId": "0.1",
-  "name": "Weather Bot",
+  "name": "Sol",
   "desc": "",
   "culture": "en-us",
   "intents": [
@@ -34,6 +34,9 @@
     },
     {
       "name": "smalltalk.bot.family_status"
+    },
+    {
+      "name": "smalltalk.bot.how_are_you"
     },
     {
       "name": "smalltalk.bot.how_old_are_you"
@@ -138,6 +141,9 @@
       "name": "weather.accessory"
     },
     {
+      "name": "weather.detail"
+    },
+    {
       "name": "weather.forecast"
     },
     {
@@ -169,13 +175,13 @@
     {
       "name": "accessory",
       "mode": true,
-      "words": "coat,jacket,hat,scarf,gloves,jumper,fleece,pullover,waterproofs,sunglasses,sun cream,sun screen,wellys",
+      "words": "coat,jacket,hat,scarf,gloves,jumper,fleece,pullover,waterproofs,sunglasses,sun cream,sun screen,wellys,sunscreen",
       "activated": true
     },
     {
       "name": "location",
       "mode": true,
-      "words": "Ampthill,Arlesey,Bedford,Biggleswade,Dunstable,Flitwick,Houghton Regis,Kempston,Leighton Buzzard,Linslade,Luton,Potton,Sandy,Shefford,Stotfold,Wixams,Woburn,Ascot,Bracknell,Crowthorne,Earley,Eton,Hungerford,Lambourn,Maidenhead,Newbury,Reading,Sandhurst,Slough,Thatcham,Windsor,Wokingham,Woodley,Bristol,Amersham,Aylesbury,Beaconsfield,Bletchley,Buckingham,Chesham,Fenny Stratford,High Wycombe,Marlow,Milton Keynes,Newport Pagnell,Olney,Princes Risborough,Stony Stratford,Wendover,Winslow,Woburn Sands,Wolverton and Greenleys,Cambridge,Chatteris,Ely,Fulbourn,Godmanchester,Hanley Grange,Huntingdon,March,Northstowe,Peterborough,Ramsey,Soham,St Ives,St Neots,Whittlesey,Wisbech,Alsager,Birchwood,Bollington,Chester,Congleton,Crewe,Ellesmere Port,Frodsham,Knutsford,Macclesfield,Malpas,Middlewich,Nantwich,Neston,Northwich,Poynton with Worth,Runcorn,Sandbach,Warrington,Widnes,Wilmslow,Winsford,Bodmin,Bude,Callington,Camborne,Camelford,Charlestown,Falmouth,Fowey,Hayle,Helston,Launceston,Liskeard,Looe,Lostwithiel,Marazion,Newlyn,Newquay,Padstow,Par,Penryn,Penzance,Porthleven,Redruth,Saltash,St Austell,St Blazey,St Columb Major,St Just,St Mawes,Stratton,Torpoint,Truro,Wadebridge,Barnard Castle,Billingham,Bishop Auckland,Chester le Street,Consett,Crook,Darlington,Durham,Eaglescliffe,Eastington,Ferryhill,Greater Willington,Hartlepool,Newton Aycliffe,Peterlee,Seaham,Sedgefield,Shildon,Spennymoor,Stanhope,Stanley,Stockton on Tees,Tow Law,Willington,Wolsingham,Alston,Ambleside,Appleby in Westmorland,Aspatria,Barrow in Furness,Bowness on Windermere,Brampton,Broughton in Furness,Carlisle,Cleator Moor,Cockermouth,Dalton in Furness,Egremont,Grange over Sands,Harrington,Kendal,Keswick,Kirkby Lonsdale,Kirkby Stephen,Longtown,Maryport,Millom,Milnthorpe,Orgill,Penrith,Sedbergh,Silloth,Staveley,Ulverston,Whitehaven,Wigton,Windermere,Workington,Alfreton,Ashbourne,Bakewell,Barrow Hill and Whittington,Belper,Bolsover,Buxton,Chapel en le Frith,Chesterfield,Clay Cross,Darley Dale,Derby,Dronfield,Dronfield Woodhouse,Eckington,Fairfield,Glossop,Hadfield,Heanor,Ilkeston,Killamarsh,Langley Mill,Long Eaton,Matlock,Melbourne,Netherthorpe,New Mills,Over Woodhouse,Ripley,Sandiacre,Shallcross,Shirebrook,Swadlincote,Whaley Bridge,Wirksworth,Ashburton,Axminster,Bampton,Barnstaple,Bideford,Bovey Tracey,Bradninch,Brixham,Buckfastleigh,Budleigh Salterton,Chagford,Chudleigh,Chulmleigh,Colyton,Crediton,Cullompton,Dartmouth,Dawlish,Exeter,Exmouth,Great Torrington,Hartland,Hatherleigh,Highampton,Holsworthy,Honiton,Ilfracombe,Ivybridge,Kingsbridge,Kingsteignton,Lynton,Modbury,Moretonhampstead,Newton Abbot,North Tawton,Northam,Okehampton,Ottery St Mary,Paignton,Plymouth,Princetown,Salcombe,Seaton,Sherford,Sidmouth,South Molton,Tavistock,Teignmouth,Tiverton,Topsham,Torquay,Totnes,Beaminster,Blandford Forum,Bournemouth,Bridport,Chickerell,Christchurch,Dorchester,Ferndown,Gillingham,Highcliffe,Lyme Regis,Poole,Portland,Shaftesbury,Sherborne,Stalbridge,Sturminster Newton,Swanage,Verwood,Wareham,Weymouth,Wimborne Minster,Beverley,Bridlington,Brough,Driffield,Goole,Hedon,Hessle,Hornsea,Howden,Market Weighton,Pocklington,Snaith,South Cave,Withernsea,Battle,Bexhill on Sea,Brighton,Crowborough,Eastbourne,Hailsham,Hastings,Heathfield,Hove,Lewes,Newhaven,Ore Valley,Peacehaven,Polegate,Rye,Seaford,Telscombe,Uckfield,Wadhurst,Winchelsea,Basildon,Billericay,Braintree,Brentwood,Brightlingsea,Buckhurst Hill,Burnham on Crouch,Canvey Island,Chafford Hundred,Chelmsford,Clackwell,Clacton on Sea,Coggeshall,Colchester,Corringham,Dovercourt,Eastwood,Epping,Frinton on Sea,Grays,Great Dunmow,Hadleigh,Halstead,Harlow,Harwich,Heybridge,Hockley,Holland on Sea,Ingatestone,Laindon,Langdon Hills,Leigh on Sea,Loughton,Maldon,Manningtree,North Shoebury,Ongar,Parkeston,Pitsea,Prettlewell,Rayleigh,Rochford,Romford,Saffron Walden,Shoeburyness,South Benfleet,South Woodham Ferrers,Southchurch,Southend on Sea,Southminster,Stanfield le Hope,Thaxted,Thorpe Bay,Tilbury,Waltham Abbey,Walton on the Naze,West Mersea,West Thurrock,West Tilbury,Westcliff on Sea,Wickford,Witham,Wivenhoe,Berkeley,Bradley Stoke,Cheltenham,Chipping Campden,Chipping Sodbury,Cinderford,Cirencester,Coleford,Dursley,Fairford,Filton,Gloucester,Kingswood,Lechlade,Lydney,Minchinhampton,Mitcheldean,Moreton in Marsh,Nailsworth,Newent,Northleach,Painswick,Patchway,Stonehouse,Stow on the Wold,Stroud,Tetbury,Tewkesbury,Thornbury,Wickwar,Winchcombe,Wotton under Edge,Yate,Acton,Barking,Barnes,Beckenham,Bexley,Brentford,Bromley,Chingford,Croydon,Dagenham,Ealing,East Ham,Edgware,Edmonton,Enfield,Erith,Finchley,Harrow,Hendon,Hornsey,Ilford,Kingston upon Thames,Leyton,Mitcham,Richmond,Southall,Southgate,St Mary Cray,Surbiton,Tottenham,Twickenham,Uxbridge,Walthamstow,Wembley,West Ham,Willesden,Wimbledon,Wood Green,Altrincham,Ashton in Makerfield,Ashton under Lyne,Atherton,Audenshaw,Blackrod,Bolton,Bury,Cadishead,Chadderton,Cheadle,Cheadle Hulme,Denton,Droylsden,Dukinfield,Eccles,Failsworth,Farnworth,Golbourne,Heywood,Hindley,Horwich,Hyde,Ince in Makerfield,Irlam,Kearsley,Leigh,Littleborough,Manchester,Middleton,Milnrow,Mossley,Oldham,Partington,Pendlebury,Prestwich,Radcliffe,Ramsbottom,Rochdale,Royton,Sale,Salford,Shaw and Crompton,Stalybridge,Stockport,Stretford,Swinton,Tottington,Tyldsley,Walkden,Westhoughton,Whitefield,Wigan,Worsley,Aldershot,Alton,Andover,Basingstoke,Bishop ' s Waltham,Blackwater and Hawley,Bordon,Eastleigh,Emsworth,Fareham,Farnborough,Fleet,Fordingbridge,Gosport,Havant,Hedge End,Hythe,Lee on the Solent,Lymington,Lyndhurst,New Alresford,New Milton,North Camp,Petersfield,Portchester,Portsmouth,Ringwood,Romsey,Southampton,Southsea,Southwick,Tadley,Totton,Waterlooville,Whitchurch,Whitehill,Wickham,Winchester,Yateley,Bromyard,Hatfield,Hereford,Kington,Ledbury,Leominster,Ross on Wye,Baldock,Barnet,Berkhamsted,Bishop ' s Stortford,Borehamwood,Broxbourne,Buntingford,Bushey,Cheshunt,Chorleywood,Elstree,Harpenden,Hemel Hempstead,Hertford,Hitchin,Hoddesdon,Letchworth,Potters Bar,Rickmansworth,Royston,Sawbridgeworth,Stevenage,Tring,Waltham Cross,Ware,Watford,Welwyn Garden City,Appley,Brading,Cowes,East Cowes,Newport,Ryde,Sandown,Shanklin,Ventnor,Yarmouth,Ashford,Broadstairs,Canterbury,Chatham,Cranbrook,Crayford,Dartford,Deal,Dover,Edenbridge,Faversham,Folkestone,Fordwich,Gravesend,Greenhill,Herne Bay,Lydd,Maidstone,Margate,Minster,New Romney,Northfleet,Orpington,Paddock Wood,Queenborough,Rainham,Ramsgate,Rochester,Royal Tunbridge Wells,Sandwich,Sevenoaks,Sheerness,Sittingbourne,Snodland,Southborough,Strood,Swanley,Swanscombe and Greenhithe,Tenterden,Tonbridge,Tunbridge Wells,West Malling,Westerham,Westgate on Sea,Whitstable,Accrington,Adlington,Bacup,Barnoldswick,Blackburn,Blackpool,Brierfield,Burnley,Carnforth,Chorley,Clayton le Moors,Cleveleys,Clitheroe,Colne,Darwen,Fleetwood,Garstang,Great Harwood,Haslingden,Kirkham,Lancaster,Leyland,Longridge,Lytham St Annes,Medlar with Wesham,Morecambe,Nelson,Ormskirk,Oswaldtwistle,Padiham,Penwortham,Poulton le Fylde,Preesall,Preston,Rawtenstall,Skelmersdale,Thornton,Thornton Cleveleys,Wesham,Whitworth,Ashby de la Zouch,Ashby Woulds,Braunstone Town,Coalville,Earl Shilton,Hinckley,Leicester,Loughborough,Lutterworth,Market Bosworth,Market Harborough,Melton Mowbray,Oadby,Shepshed,Syston,Wigston Magna,Alford,Barton upon Humber,Boston,Bottesford,Bourne,Brigg,Broughton,Burgh le Marsh,Caistor,Cleethorpes,Coningsby,Crowland,Crowle,Epworth,Gainsborough,Grantham,Grimsby,Holbeach,Horncastle,Immingham,Kirton in Lindsey,Lincoln,Little Coates,Long Sutton,Louth,Mablethorpe,Mablethorpe and Sutton,Market Deeping,Market Rasen,North Hykeham,Scunthorpe,Skegness,Sleaford,Spalding,Spilsby,Stamford,The Deepings,Wainfleet,Winterton,Wragby,Bebington,Birkenhead,Bootle,Bromborough,Crosby,Earlestown,Formby,Halewood,Heswall,Hoylake,Huyton,Kirkby,Liverpool,Maghull,Newton le Willows,Prescot,Rainford,Rainhill,Southport,St Helens,Wallasey,Whiston,Acle,Attleborough,Aylsham,Caister on Sea,Cromer,Dereham,Diss,Downham Market,Fakenham,Gorleston,Great Yarmouth,Hingham,Holt,Hunstanton,King ' s Lynn,Loddon,North Walsham,Norwich,Rackheath,Redenhall with Harleston,Reepham,Sheringham,Stalham,Swaffham,Thetford,Thorpe St Andrew,Watton,Wells next the Sea,Wroxham,Wymondham,Bedale,Bentham,Boroughbridge,Colburn,Easingwold,Eston,Filey,Grangetown,Grassington,Guisborough,Harrogate,Hawes,Haxby,Helmsley,Ingleby Barwick,Kirkbymoorside,Knaresborough,Leyburn,Loftus,Malton,Masham,Middleham,Middlesbrough,Northallerton,Norton on Derwent,Pateley Bridge,Pickering,Redcar,Ripon,Robin Hood ' s Bay,Saltburn by the Sea,Scarborough,Selby,Settle,Sherburn in Elmet,Skelton in Cleveland,Skipton,Stokesley,Tadcaster,Thirsk,Thornaby on Tees,Whitby,Yarm,York,Brackley,Burton Latimer,Corby,Daventry,Desborough,Higham Ferrers,Irthlingborough,Kettering,Northampton,Oundle,Raunds,Rothwell,Rushden,Thrapston,Towcester,Wellingborough,Alnwick,Amble,Ashington,Bedlington,Berwick upon Tweed,Blyth,Corbridge,Cramlington,Haltwhistle,Hexham,Morpeth,Newbiggin by the Sea,Ponteland,Prudhoe,Rothbury,West Bedlington,Wooler,Arnold,Beeston,Bingham,Bracebridge,Bulwell,Carlton,Cotgrave,East Retford,Harworth and Bircotes,Hucknall,Kilton,Kimberley,Kirkby in Ashfield,Mansfield,Netherfield,Newark on Trent,Nottingham,Ollerton,Ollerton and Boughton,Retford,Southwell,Stapleford,Sutton in Ashfield,Warsop,West Bridgefield,Worksop,Abingdon,Banbury,Bicester,Burford,Carterton,Charlbury,Chipping Norton,Didcot,Faringdon,Henley on Thames,Neithrop,Oxford,Ruscote,Thame,Wallingford,Wantage,Watlington,Weston Otmoor,Witney,Woodstock,Oakham,Uppingham,Bishop ' s Castle,Bridgnorth,Broseley,Church Stretton,Cleobury Mortimer,Clun,Craven Arms,Dawley,Ellesmere,Ludlow,Madeley,Market Drayton,Much Wenlock,Oakengates,Oswestry,Shifnal,Shrewsbury,Telford,Wellington,Wem,Axbridge,Bath,Bridgwater,Bruton,Burnham on Sea,Castle Cary,Chard,Clevedon,Crewkerne,Dulverton,Frome,Glastonbury,Highbridge,Ilminster,Keynsham,Langport,Midsomer Norton,Minehead,Nailsea,North Petherton,Norton Radstock,Portishead,Portishead and North Weston,Radstock,Shepton Mallet,Somerton,South Petherton,Street,Taunton,Watchet,Wells,Weston super Mare,Wincanton,Wiveliscombe,Yeovil,Anston,Askern,Barnsley,Bawtry,Brierley,Conisbrough,Dinnington,Doncaster,Edlington,Hoyland,Maltby,Mexborough,Penistone,Rotherham,Sheffield,Stainforth,Stocksbridge,Thorne,Tickhill,Wath upon Dearne,Wombwell,Biddulph,Burntwood,Burslem,Burton upon Trent,Cannock,Eccleshall,Fazeley,Fenton,Hednesford,Kidsgrove,Leek,Lichfield,Longton,Newcastle under Lyme,Penkridge,Perry Crofts,Rugeley,Stafford,Stoke on Trent,Stone,Tamworth,Tunstall,Uttoxeter,Aldeburgh,Beccles,Brandon,Bungay,Bury St Edmunds,Carlton Colville,Clare,Dommoc,Dunwich,Eye,Felixstowe,Framlingham,Halesworth,Haverhill,Ipswich,Kesgrave,Leiston,Lowestoft,Mildenhall,Needham Market,Newmarket,Orford,Otley,Saxmundham,Southwold,Stowmarket,Sudbury,Woodbridge,Beltchingley,Camberley,Chertsey,Dorking,Egham,Epsom,Esher,Farnham,Godalming,Gomshall,Gratton,Great Brookham,Guildford,Haslemere,Horley,Leatherhead,Redhill,Reigate,Southwark,Staines upon Thames,Walton on Thames,Weybridge,Woking,Birtley,Blaydon on tyne,Cullercoats,Darsley Park,Dunston,Gateshead,Hetton,Houghton le Spring,Howdon,Jarrow,Killingworth,Little Benton,Longbenton,Low Fell,Newcastle upon Tyne,North Shields,Ryton,Sheriff Hill,South Shields,Sunderland,Tynemouth,Wallsend,Washington,Whitley Bay,Willington Quay,Windy Nook,Alcester,Atherstone,Bedworth,Coleshill,Henley in Arden,Kenilworth,Middle Quinton,Nuneaton,Royal Leamington Spa,Rugby,Shipston on Stour,Southam,Stratford upon Avon,Warwick,Whitnash,Aldridge,Bilston,Birmingham,Blackheath,Bloxwich,Brierley Hill,Brownhills,Coal Pool,Coseley,Coventry,Cradley Heath,Darlaston,Dudley,Fordbridge,Gornal,Halesowen,Lye,Moxley,Netherton,Oldbury,Pelsall,Rowley Regis,Sedgley,Smethwick,Solihull,Stourbridge,Sutton Coldfield,Tipton,Walsall,Wednesbury,Wednesfield,West Bromwich,Willenhall,Wolverhampton,Arundel,Bognor Regis,Burgess Hill,Chichester,Crawley,Cuckfield,East Grinstead,Haywards Heath,Horsham,Littlehampton,Midhurst,Petworth,Selsey,Shoreham by Sea,Steyning,Worthing,Baildon,Batley,Bingley,Bradford,Brighouse,Castleford,Cleckheaton,Denholme,Dewsbury,Elland,Farsley,Featherstone,Garforth,Guiseley,Halifax,Hebden Bridge,Hebden Royd,Heckmondwike,Hemsworth,Holmfirth,Horsforth,Huddersfield,Ilkley,Keighley,Knottingley,Leeds,Meltham,Mirfield,Morley,Mytholmroyd,Normanton,Ossett,Pontefract,Pudsey,Shipley,Silsden,South Elmsall,South Kirkby and Moorthorpe,Sowerby Bridge,Todmorden,Wakefield,Wetherby,Yeadon,Amesbury,Bradford on Avon,Calne,Chippenham,Corsham,Cricklade,Devizes,Highworth,Ludgershall,Malmesbury,Marlborough,Melksham,Mere,Royal Wootton Bassett,Salisbury,Swindon,Tidworth,Tisbury,Trowbridge,Warminster,Westbury,Wilton,Bewdley,Bromsgrove,Droitwich Spa,Evesham,Great Malvern,Kidderminster,Malvern,Pershore,Redditch,Stourport on Severn,Tenbury Wells,Upton upon Severn,Worcester,Antrim,Ballycastle,Ballyclare,Ballymena,Ballymoney,Bushmills,Carrickfergus,Crumlin,Greenisland,Larne,Lisburn,Merville Garden Village,Newtownabbey,Portrush,Randalstown,Armagh,Craigavon,Lurgan,Markethill,Newry,Portadown,Ballynahinch,Banbridge,Bangor,Carryduff,Castlewellan,Comber,Donaghadee,Doromore,Downpatrick,Dundonald,Holywood,Kilkeel,Killyleagh,Newcastle,Newtownards,Portaferry,Rostrevor,Saintfield,Warrenpoint,Enniskillen,Lisnaskea,Coleraine,Derry,Limavady,Magherafelt,Portstewart,Castlederg,Clogher,Coalisland,Cookstown,Dungannon,Fintona,Fivemiletown,Omagh,Strabane,Aberdeen,Ballater,Banchory,Banff,Banff and Macduff,Boddam,Clerkhill,Ellon,Fraserburgh,Huntly,Insch,Inverbervie,Inverurie,Kemnay,Kintore,Laurencekirk,Macduff,Maud,Oldmeldrum,Peterhead,Portlethen,Portsoy,Red Cloak,Rosehearty,Stonehaven,Turriff,Westhill,Arbroath,Brechin,Carnoustie,Forfar,Kirriemuir,Monifieth,Montrose,Alloa,Alva,Clackmannan,Dollar,Menstrie,Tillicoultry,Tullibody,Annan,Castle Douglas,Dalbeattie,Dumfries,Gatehouse of Fleet,Gretna,Kelloholm,Kirkconnel,Kirkcudbright,Langholm,Lochmaben,Lockerbie,Moffat,Monreith,Newbridge Drive,Newton Stewart,Sanquhar,Stranraer,Thornhill,Wigtown,Dundee,Cockenzie and Port Seton,Dunbar,Haddington,Musselburgh,North Berwick,Prestonpans,Tranent,Edinburgh ?,Airth,Bo ' ness,Bonnybridge,Borrowstounness,Carron,Denny,Duniplace,Dunmore,Falkirk,Grahamston,Grangemouth,Larbert,Stenhousemuir,Anstruther,Auchtermuchty,Balcurvie,Ballingry,Benarty,Buckhaven,Burntisland,Collydean,Cowdenbeath,Crail,Cupar,Dalgety Bay,Dunfermline,Dysart,East Wemyss,Falkland,Glenrothes,Inverkeithing,Kelty,Kincardine,Kinghorn,Kinglassie,Kirkcaldy,Ladybank,Letham,Leuchars,Leven,Levenmouth,Lochgelly,Markinch,Methil,Newburgh,Newport on Tay,North Queensferry,Pitcoudie,Pittenweem,Rosyth,St Andrews,St Monans,Tayport,Woodhaven,Wormit,Alness,Aviemore,Brora,Cromarty,Dingwall,Dornoch,Fort William,Fortrose,Grantown on Spey,Invergordon,Inverlochy,Inverness,Kingussie,Mallaig,Nairn,Portree,Tain,Thurso,Ullapool,Wick,Bathgate,Dalkeith,Edinburgh,Linlithgow,Loanhead,Penicuik,Buckie,Cullen,Dufftown,Elgin,Forres,Keith,Lossiemouth,Aberfeldy,Auchterarder,Birnam,Blackford,Blair Atholl,Blairgowrie and Rattray,Bridge of Earn,Bridge of Tilt,Comrie,Coupar Angus,Crieff,Kinross,Perth,Pitlochry,Scone,Coldstream,Duns,Earlston,Eyemouth,Galashiels,Greenlaw,Hawick,Innerleithen,Jedburgh,Kelso,Lauder,Melrose,Newtown St Boswells,Peebles,Selkirk,Bridge of Allan,Callander,Doune,Dunblane,Stirling,Airdrie,Ayr,Barrhead,Bearsden,Bellshill,Biggar,Campbeltown,Carluke,Clydebank,Coatbridge,Cumbernauld,Dumbarton,Dunoon,East Kilbride,Glasgow,Gourock,Greenock,Hamilton,Helensburgh,Inveraray,Irvine,Johnstone,Kilbarchan,Kilmarnock,Kilwinning,Lanark,Largs,Lochgilphead,Maybole,Milngavie,Motherwell,Oban,Paisley,Prestwick,Rothesay,Rutherglen,Saltcoats,Tobermory,Troon,Armadale,Ballencrieff,Blackridge,Bridgend,Broxburn,East Calder,Livingston,Stoneyburn,Whitburn,Kirkwall,Lerwick,Stornoway,Amlwch,Beaumaris,Benllech,Holyhead,Llanfairpwllgwyngyll,Llangefni,Menai Bridge,Ammanford,Burry Port,Carmarthen,Garnant,Glanamman,Kidwelly,Laugharne,Llandeilo,Llandovery,Llanelli,Newcastle Emlyn,St Clears,Whitland,Aberaeron,Aberystwyth,Cardigan,Lampeter,Llandysul,New Quay,Tregaron,Abergele,Colwyn Bay,Conwy,Deganwy,Llandudno,Llandudno Junction,Llanfairfechan,Llanrwst,Old Colwyn,Penmaenmawr,Towyn,Carrog,Corwen,Denbigh,Gellifor,Llangollen,Prestatyn,Rhuddlan,Rhyl,Ruthin,St Asaph,Bagallit,Buckley,Caerwys,Connah ' s Quay,Ewole,Flint,Hawarden,Holywell,Mold,Queensferry,Saltney,Shotton,Abertillery,Blaina,Brynmawr,Cwmbran,Ebbw Vale,Tafarnaubach,Tredegar,Bala,Barmouth,Betws y Coed,Blaenau Ffestiniog,Caernarfon,Criccieth,Dolgellau,Ffestiniog,Harlech,Llanberis,Llanfachreth,Nefyn,Porthmadog,Pwllheli,Tywyn,Y Felinheli,Aberdare,Caerphilly,Llantrisant,Maesteg,Merthyr Tydfil,Pontypridd,Porth,Porthcawl,Abergavenny,Caldicot,Chepstow,Monmouth,Usk,Fishguard,Goodwick,Hakin,Haverfordwest,Milford Haven,Narberth,Neyland,Pembroke,Pembroke Dock,St Davids,Tenby,Brecon,Builth Wells,Cefnllys,Crickhowell,Hay on Wye,Knighton,Llandrindod Wells,Llanfair Caereinion,Llanfyllin,Llangors,Llanidloes,Llanwrtyd Wells,Machynlleth,Montgomery,Newtown,Old Radnor,Presteigne,Rhayader,Talgarth,Welshpool,Barry,Cardiff,Cowbridge,Llantwit Major,Penarth,Gorseinon,Lliw Valey,Neath,Port Talbot,Swansea,Chirk,Overton on Dee,Rhosllannerchrugog,Rhosnesni,Wrexham",
+      "words": "Ampthill,Arlesey,Bedford,Biggleswade,Dunstable,Flitwick,Houghton Regis,Kempston,Leighton Buzzard,Linslade,Luton,Potton,Sandy,Shefford,Stotfold,Wixams,Woburn,Ascot,Bracknell,Crowthorne,Earley,Eton,Hungerford,Lambourn,Maidenhead,Newbury,Reading,Sandhurst,Slough,Thatcham,Windsor,Wokingham,Woodley,Bristol,Amersham,Aylesbury,Beaconsfield,Bletchley,Buckingham,Chesham,Fenny Stratford,High Wycombe,Marlow,Milton Keynes,Newport Pagnell,Olney,Princes Risborough,Stony Stratford,Wendover,Winslow,Woburn Sands,Wolverton and Greenleys,Cambridge,Chatteris,Ely,Fulbourn,Godmanchester,Hanley Grange,Huntingdon,March,Northstowe,Peterborough,Ramsey,Soham,St Ives,St Neots,Whittlesey,Wisbech,Alsager,Birchwood,Bollington,Chester,Congleton,Crewe,Ellesmere Port,Frodsham,Knutsford,Macclesfield,Malpas,Middlewich,Nantwich,Neston,Northwich,Poynton with Worth,Runcorn,Sandbach,Warrington,Widnes,Wilmslow,Winsford,Bodmin,Bude,Callington,Camborne,Camelford,Charlestown,Falmouth,Fowey,Hayle,Helston,Launceston,Liskeard,Looe,Lostwithiel,Marazion,Newlyn,Newquay,Padstow,Par,Penryn,Penzance,Porthleven,Redruth,Saltash,St Austell,St Blazey,St Columb Major,St Just,St Mawes,Stratton,Torpoint,Truro,Wadebridge,Barnard Castle,Billingham,Bishop Auckland,Chester le Street,Consett,Crook,Darlington,Durham,Eaglescliffe,Eastington,Ferryhill,Greater Willington,Hartlepool,Newton Aycliffe,Peterlee,Seaham,Sedgefield,Shildon,Spennymoor,Stanhope,Stanley,Stockton on Tees,Tow Law,Willington,Wolsingham,Alston,Ambleside,Appleby in Westmorland,Aspatria,Barrow in Furness,Bowness on Windermere,Brampton,Broughton in Furness,Carlisle,Cleator Moor,Cockermouth,Dalton in Furness,Egremont,Grange over Sands,Harrington,Kendal,Keswick,Kirkby Lonsdale,Kirkby Stephen,Longtown,Maryport,Millom,Milnthorpe,Orgill,Penrith,Sedbergh,Silloth,Staveley,Ulverston,Whitehaven,Wigton,Windermere,Workington,Alfreton,Ashbourne,Bakewell,Barrow Hill and Whittington,Belper,Bolsover,Buxton,Chapel en le Frith,Chesterfield,Clay Cross,Darley Dale,Derby,Dronfield,Dronfield Woodhouse,Eckington,Fairfield,Glossop,Hadfield,Heanor,Ilkeston,Killamarsh,Langley Mill,Long Eaton,Matlock,Melbourne,Netherthorpe,New Mills,Over Woodhouse,Ripley,Sandiacre,Shallcross,Shirebrook,Swadlincote,Whaley Bridge,Wirksworth,Ashburton,Axminster,Bampton,Barnstaple,Bideford,Bovey Tracey,Bradninch,Brixham,Buckfastleigh,Budleigh Salterton,Chagford,Chudleigh,Chulmleigh,Colyton,Crediton,Cullompton,Dartmouth,Dawlish,Exeter,Exmouth,Great Torrington,Hartland,Hatherleigh,Highampton,Holsworthy,Honiton,Ilfracombe,Ivybridge,Kingsbridge,Kingsteignton,Lynton,Modbury,Moretonhampstead,Newton Abbot,North Tawton,Northam,Okehampton,Ottery St Mary,Paignton,Plymouth,Princetown,Salcombe,Seaton,Sherford,Sidmouth,South Molton,Tavistock,Teignmouth,Tiverton,Topsham,Torquay,Totnes,Beaminster,Blandford Forum,Bournemouth,Bridport,Chickerell,Christchurch,Dorchester,Ferndown,Gillingham,Highcliffe,Lyme Regis,Poole,Portland,Shaftesbury,Sherborne,Stalbridge,Sturminster Newton,Swanage,Verwood,Wareham,Weymouth,Wimborne Minster,Beverley,Bridlington,Brough,Driffield,Goole,Hedon,Hessle,Hornsea,Howden,Market Weighton,Pocklington,Snaith,South Cave,Withernsea,Battle,Bexhill on Sea,Brighton,Crowborough,Eastbourne,Hailsham,Hastings,Heathfield,Hove,Lewes,Newhaven,Ore Valley,Peacehaven,Polegate,Rye,Seaford,Telscombe,Uckfield,Wadhurst,Winchelsea,Basildon,Billericay,Braintree,Brentwood,Brightlingsea,Buckhurst Hill,Burnham on Crouch,Canvey Island,Chafford Hundred,Chelmsford,Clackwell,Clacton on Sea,Coggeshall,Colchester,Corringham,Dovercourt,Eastwood,Epping,Frinton on Sea,Grays,Great Dunmow,Hadleigh,Halstead,Harlow,Harwich,Heybridge,Hockley,Holland on Sea,Ingatestone,Laindon,Langdon Hills,Leigh on Sea,Loughton,Maldon,Manningtree,North Shoebury,Ongar,Parkeston,Pitsea,Prettlewell,Rayleigh,Rochford,Romford,Saffron Walden,Shoeburyness,South Benfleet,South Woodham Ferrers,Southchurch,Southend on Sea,Southminster,Stanfield le Hope,Thaxted,Thorpe Bay,Tilbury,Waltham Abbey,Walton on the Naze,West Mersea,West Thurrock,West Tilbury,Westcliff on Sea,Wickford,Witham,Wivenhoe,Berkeley,Bradley Stoke,Cheltenham,Chipping Campden,Chipping Sodbury,Cinderford,Cirencester,Coleford,Dursley,Fairford,Filton,Gloucester,Kingswood,Lechlade,Lydney,Minchinhampton,Mitcheldean,Moreton in Marsh,Nailsworth,Newent,Northleach,Painswick,Patchway,Stonehouse,Stow on the Wold,Stroud,Tetbury,Tewkesbury,Thornbury,Wickwar,Winchcombe,Wotton under Edge,Yate,Acton,Barking,Barnes,Beckenham,Bexley,Brentford,Bromley,Chingford,Croydon,Dagenham,Ealing,East Ham,Edgware,Edmonton,Enfield,Erith,Finchley,Harrow,Hendon,Hornsey,Ilford,Kingston upon Thames,Leyton,Mitcham,Richmond,Southall,Southgate,St Mary Cray,Surbiton,Tottenham,Twickenham,Uxbridge,Walthamstow,Wembley,West Ham,Willesden,Wimbledon,Wood Green,Altrincham,Ashton in Makerfield,Ashton under Lyne,Atherton,Audenshaw,Blackrod,Bolton,Bury,Cadishead,Chadderton,Cheadle,Cheadle Hulme,Denton,Droylsden,Dukinfield,Eccles,Failsworth,Farnworth,Golbourne,Heywood,Hindley,Horwich,Hyde,Ince in Makerfield,Irlam,Kearsley,Leigh,Littleborough,Manchester,Middleton,Milnrow,Mossley,Oldham,Partington,Pendlebury,Prestwich,Radcliffe,Ramsbottom,Rochdale,Royton,Sale,Salford,Shaw and Crompton,Stalybridge,Stockport,Stretford,Swinton,Tottington,Tyldsley,Walkden,Westhoughton,Whitefield,Wigan,Worsley,Aldershot,Alton,Andover,Basingstoke,Bishop ' s Waltham,Blackwater and Hawley,Bordon,Eastleigh,Emsworth,Fareham,Farnborough,Fleet,Fordingbridge,Gosport,Havant,Hedge End,Hythe,Lee on the Solent,Lymington,Lyndhurst,New Alresford,New Milton,North Camp,Petersfield,Portchester,Portsmouth,Ringwood,Romsey,Southampton,Southsea,Southwick,Tadley,Totton,Waterlooville,Whitchurch,Whitehill,Wickham,Winchester,Yateley,Bromyard,Hatfield,Hereford,Kington,Ledbury,Leominster,Ross on Wye,Baldock,Barnet,Berkhamsted,Bishop ' s Stortford,Borehamwood,Broxbourne,Buntingford,Bushey,Cheshunt,Chorleywood,Elstree,Harpenden,Hemel Hempstead,Hertford,Hitchin,Hoddesdon,Letchworth,Potters Bar,Rickmansworth,Royston,Sawbridgeworth,Stevenage,Tring,Waltham Cross,Ware,Watford,Welwyn Garden City,Appley,Brading,Cowes,East Cowes,Newport,Ryde,Sandown,Shanklin,Ventnor,Yarmouth,Ashford,Broadstairs,Canterbury,Chatham,Cranbrook,Crayford,Dartford,Deal,Dover,Edenbridge,Faversham,Folkestone,Fordwich,Gravesend,Greenhill,Herne Bay,Lydd,Maidstone,Margate,Minster,New Romney,Northfleet,Orpington,Paddock Wood,Queenborough,Rainham,Ramsgate,Rochester,Royal Tunbridge Wells,Sandwich,Sevenoaks,Sheerness,Sittingbourne,Snodland,Southborough,Strood,Swanley,Swanscombe and Greenhithe,Tenterden,Tonbridge,Tunbridge Wells,West Malling,Westerham,Westgate on Sea,Whitstable,Accrington,Adlington,Bacup,Barnoldswick,Blackburn,Blackpool,Brierfield,Burnley,Carnforth,Chorley,Clayton le Moors,Cleveleys,Clitheroe,Colne,Darwen,Fleetwood,Garstang,Great Harwood,Haslingden,Kirkham,Lancaster,Leyland,Longridge,Lytham St Annes,Medlar with Wesham,Morecambe,Nelson,Ormskirk,Oswaldtwistle,Padiham,Penwortham,Poulton le Fylde,Preesall,Preston,Rawtenstall,Skelmersdale,Thornton,Thornton Cleveleys,Wesham,Whitworth,Ashby de la Zouch,Ashby Woulds,Braunstone Town,Coalville,Earl Shilton,Hinckley,Leicester,Loughborough,Lutterworth,Market Bosworth,Market Harborough,Melton Mowbray,Oadby,Shepshed,Syston,Wigston Magna,Alford,Barton upon Humber,Boston,Bottesford,Bourne,Brigg,Broughton,Burgh le Marsh,Caistor,Cleethorpes,Coningsby,Crowland,Crowle,Epworth,Gainsborough,Grantham,Grimsby,Holbeach,Horncastle,Immingham,Kirton in Lindsey,Lincoln,Little Coates,Long Sutton,Louth,Mablethorpe,Mablethorpe and Sutton,Market Deeping,Market Rasen,North Hykeham,Scunthorpe,Skegness,Sleaford,Spalding,Spilsby,Stamford,The Deepings,Wainfleet,Winterton,Wragby,Bebington,Birkenhead,Bootle,Bromborough,Crosby,Earlestown,Formby,Halewood,Heswall,Hoylake,Huyton,Kirkby,Liverpool,Maghull,Newton le Willows,Prescot,Rainford,Rainhill,Southport,St Helens,Wallasey,Whiston,Acle,Attleborough,Aylsham,Caister on Sea,Cromer,Dereham,Diss,Downham Market,Fakenham,Gorleston,Great Yarmouth,Hingham,Holt,Hunstanton,King ' s Lynn,Loddon,North Walsham,Norwich,Rackheath,Redenhall with Harleston,Reepham,Sheringham,Stalham,Swaffham,Thetford,Thorpe St Andrew,Watton,Wells next the Sea,Wroxham,Wymondham,Bedale,Bentham,Boroughbridge,Colburn,Easingwold,Eston,Filey,Grangetown,Grassington,Guisborough,Harrogate,Hawes,Haxby,Helmsley,Ingleby Barwick,Kirkbymoorside,Knaresborough,Leyburn,Loftus,Malton,Masham,Middleham,Middlesbrough,Northallerton,Norton on Derwent,Pateley Bridge,Pickering,Redcar,Ripon,Robin Hood ' s Bay,Saltburn by the Sea,Scarborough,Selby,Settle,Sherburn in Elmet,Skelton in Cleveland,Skipton,Stokesley,Tadcaster,Thirsk,Thornaby on Tees,Whitby,Yarm,York,Brackley,Burton Latimer,Corby,Daventry,Desborough,Higham Ferrers,Irthlingborough,Kettering,Northampton,Oundle,Raunds,Rothwell,Rushden,Thrapston,Towcester,Wellingborough,Alnwick,Amble,Ashington,Bedlington,Berwick upon Tweed,Blyth,Corbridge,Cramlington,Haltwhistle,Hexham,Morpeth,Newbiggin by the Sea,Ponteland,Prudhoe,Rothbury,West Bedlington,Wooler,Arnold,Beeston,Bingham,Bracebridge,Bulwell,Carlton,Cotgrave,East Retford,Harworth and Bircotes,Hucknall,Kilton,Kimberley,Kirkby in Ashfield,Mansfield,Netherfield,Newark on Trent,Nottingham,Ollerton,Ollerton and Boughton,Retford,Southwell,Stapleford,Sutton in Ashfield,Warsop,West Bridgefield,Worksop,Abingdon,Banbury,Bicester,Burford,Carterton,Charlbury,Chipping Norton,Didcot,Faringdon,Henley on Thames,Neithrop,Oxford,Ruscote,Thame,Wallingford,Wantage,Watlington,Weston Otmoor,Witney,Woodstock,Oakham,Uppingham,Bishop ' s Castle,Bridgnorth,Broseley,Church Stretton,Cleobury Mortimer,Clun,Craven Arms,Dawley,Ellesmere,Ludlow,Madeley,Market Drayton,Much Wenlock,Oakengates,Oswestry,Shifnal,Shrewsbury,Telford,Wellington,Wem,Axbridge,Bath,Bridgwater,Bruton,Burnham on Sea,Castle Cary,Chard,Clevedon,Crewkerne,Dulverton,Frome,Glastonbury,Highbridge,Ilminster,Keynsham,Langport,Midsomer Norton,Minehead,Nailsea,North Petherton,Norton Radstock,Portishead,Portishead and North Weston,Radstock,Shepton Mallet,Somerton,South Petherton,Street,Taunton,Watchet,Wells,Weston super Mare,Wincanton,Wiveliscombe,Yeovil,Anston,Askern,Barnsley,Bawtry,Brierley,Conisbrough,Dinnington,Doncaster,Edlington,Hoyland,Maltby,Mexborough,Penistone,Rotherham,Sheffield,Stainforth,Stocksbridge,Thorne,Tickhill,Wath upon Dearne,Wombwell,Biddulph,Burntwood,Burslem,Burton upon Trent,Cannock,Eccleshall,Fazeley,Fenton,Hednesford,Kidsgrove,Leek,Lichfield,Longton,Newcastle under Lyme,Penkridge,Perry Crofts,Rugeley,Stafford,Stoke on Trent,Stone,Tamworth,Tunstall,Uttoxeter,Aldeburgh,Beccles,Brandon,Bungay,Bury St Edmunds,Carlton Colville,Clare,Dommoc,Dunwich,Eye,Felixstowe,Framlingham,Halesworth,Haverhill,Ipswich,Kesgrave,Leiston,Lowestoft,Mildenhall,Needham Market,Newmarket,Orford,Otley,Saxmundham,Southwold,Stowmarket,Sudbury,Woodbridge,Beltchingley,Camberley,Chertsey,Dorking,Egham,Epsom,Esher,Farnham,Godalming,Gomshall,Gratton,Great Brookham,Guildford,Haslemere,Horley,Leatherhead,Redhill,Reigate,Southwark,Staines upon Thames,Walton on Thames,Weybridge,Woking,Birtley,Blaydon on tyne,Cullercoats,Darsley Park,Dunston,Gateshead,Hetton,Houghton le Spring,Howdon,Jarrow,Killingworth,Little Benton,Longbenton,Low Fell,Newcastle upon Tyne,North Shields,Ryton,Sheriff Hill,South Shields,Sunderland,Tynemouth,Wallsend,Washington,Whitley Bay,Willington Quay,Windy Nook,Alcester,Atherstone,Bedworth,Coleshill,Henley in Arden,Kenilworth,Middle Quinton,Nuneaton,Royal Leamington Spa,Rugby,Shipston on Stour,Southam,Stratford upon Avon,Warwick,Whitnash,Aldridge,Bilston,Birmingham,Blackheath,Bloxwich,Brierley Hill,Brownhills,Coal Pool,Coseley,Coventry,Cradley Heath,Darlaston,Dudley,Fordbridge,Gornal,Halesowen,Lye,Moxley,Netherton,Oldbury,Pelsall,Rowley Regis,Sedgley,Smethwick,Solihull,Stourbridge,Sutton Coldfield,Tipton,Walsall,Wednesbury,Wednesfield,West Bromwich,Willenhall,Wolverhampton,Arundel,Bognor Regis,Burgess Hill,Chichester,Crawley,Cuckfield,East Grinstead,Haywards Heath,Horsham,Littlehampton,Midhurst,Petworth,Selsey,Shoreham by Sea,Steyning,Worthing,Baildon,Batley,Bingley,Bradford,Brighouse,Castleford,Cleckheaton,Denholme,Dewsbury,Elland,Farsley,Featherstone,Garforth,Guiseley,Halifax,Hebden Bridge,Hebden Royd,Heckmondwike,Hemsworth,Holmfirth,Horsforth,Huddersfield,Ilkley,Keighley,Knottingley,Leeds,Meltham,Mirfield,Morley,Mytholmroyd,Normanton,Ossett,Pontefract,Pudsey,Shipley,Silsden,South Elmsall,South Kirkby and Moorthorpe,Sowerby Bridge,Todmorden,Wakefield,Wetherby,Yeadon,Amesbury,Bradford on Avon,Calne,Chippenham,Corsham,Cricklade,Devizes,Highworth,Ludgershall,Malmesbury,Marlborough,Melksham,Mere,Royal Wootton Bassett,Salisbury,Swindon,Tidworth,Tisbury,Trowbridge,Warminster,Westbury,Wilton,Bewdley,Bromsgrove,Droitwich Spa,Evesham,Great Malvern,Kidderminster,Malvern,Pershore,Redditch,Stourport on Severn,Tenbury Wells,Upton upon Severn,Worcester,Antrim,Ballycastle,Ballyclare,Ballymena,Ballymoney,Bushmills,Carrickfergus,Crumlin,Greenisland,Larne,Lisburn,Merville Garden Village,Newtownabbey,Portrush,Randalstown,Armagh,Craigavon,Lurgan,Markethill,Newry,Portadown,Ballynahinch,Banbridge,Bangor,Carryduff,Castlewellan,Comber,Donaghadee,Doromore,Downpatrick,Dundonald,Holywood,Kilkeel,Killyleagh,Newcastle,Newtownards,Portaferry,Rostrevor,Saintfield,Warrenpoint,Enniskillen,Lisnaskea,Coleraine,Derry,Limavady,Magherafelt,Portstewart,Castlederg,Clogher,Coalisland,Cookstown,Dungannon,Fintona,Fivemiletown,Omagh,Strabane,Aberdeen,Ballater,Banchory,Banff,Banff and Macduff,Boddam,Clerkhill,Ellon,Fraserburgh,Huntly,Insch,Inverbervie,Inverurie,Kemnay,Kintore,Laurencekirk,Macduff,Maud,Oldmeldrum,Peterhead,Portlethen,Portsoy,Red Cloak,Rosehearty,Stonehaven,Turriff,Westhill,Arbroath,Brechin,Carnoustie,Forfar,Kirriemuir,Monifieth,Montrose,Alloa,Alva,Clackmannan,Dollar,Menstrie,Tillicoultry,Tullibody,Annan,Castle Douglas,Dalbeattie,Dumfries,Gatehouse of Fleet,Gretna,Kelloholm,Kirkconnel,Kirkcudbright,Langholm,Lochmaben,Lockerbie,Moffat,Monreith,Newbridge Drive,Newton Stewart,Sanquhar,Stranraer,Thornhill,Wigtown,Dundee,Cockenzie and Port Seton,Dunbar,Haddington,Musselburgh,North Berwick,Prestonpans,Tranent,Edinburgh ?,Airth,Bo ' ness,Bonnybridge,Borrowstounness,Carron,Denny,Duniplace,Dunmore,Falkirk,Grahamston,Grangemouth,Larbert,Stenhousemuir,Anstruther,Auchtermuchty,Balcurvie,Ballingry,Benarty,Buckhaven,Burntisland,Collydean,Cowdenbeath,Crail,Cupar,Dalgety Bay,Dunfermline,Dysart,East Wemyss,Falkland,Glenrothes,Inverkeithing,Kelty,Kincardine,Kinghorn,Kinglassie,Kirkcaldy,Ladybank,Letham,Leuchars,Leven,Levenmouth,Lochgelly,Markinch,Methil,Newburgh,Newport on Tay,North Queensferry,Pitcoudie,Pittenweem,Rosyth,St Andrews,St Monans,Tayport,Woodhaven,Wormit,Alness,Aviemore,Brora,Cromarty,Dingwall,Dornoch,Fort William,Fortrose,Grantown on Spey,Invergordon,Inverlochy,Inverness,Kingussie,Mallaig,Nairn,Portree,Tain,Thurso,Ullapool,Wick,Bathgate,Dalkeith,Edinburgh,Linlithgow,Loanhead,Penicuik,Buckie,Cullen,Dufftown,Elgin,Forres,Keith,Lossiemouth,Aberfeldy,Auchterarder,Birnam,Blackford,Blair Atholl,Blairgowrie and Rattray,Bridge of Earn,Bridge of Tilt,Comrie,Coupar Angus,Crieff,Kinross,Perth,Pitlochry,Scone,Coldstream,Duns,Earlston,Eyemouth,Galashiels,Greenlaw,Hawick,Innerleithen,Jedburgh,Kelso,Lauder,Melrose,Newtown St Boswells,Peebles,Selkirk,Bridge of Allan,Callander,Doune,Dunblane,Stirling,Airdrie,Ayr,Barrhead,Bearsden,Bellshill,Biggar,Campbeltown,Carluke,Clydebank,Coatbridge,Cumbernauld,Dumbarton,Dunoon,East Kilbride,Glasgow,Gourock,Greenock,Hamilton,Helensburgh,Inveraray,Irvine,Johnstone,Kilbarchan,Kilmarnock,Kilwinning,Lanark,Largs,Lochgilphead,Maybole,Milngavie,Motherwell,Oban,Paisley,Prestwick,Rothesay,Rutherglen,Saltcoats,Tobermory,Troon,Armadale,Ballencrieff,Blackridge,Bridgend,Broxburn,East Calder,Livingston,Stoneyburn,Whitburn,Kirkwall,Lerwick,Stornoway,Amlwch,Beaumaris,Benllech,Holyhead,Llanfairpwllgwyngyll,Llangefni,Menai Bridge,Ammanford,Burry Port,Carmarthen,Garnant,Glanamman,Kidwelly,Laugharne,Llandeilo,Llandovery,Llanelli,Newcastle Emlyn,St Clears,Whitland,Aberaeron,Aberystwyth,Cardigan,Lampeter,Llandysul,New Quay,Tregaron,Abergele,Colwyn Bay,Conwy,Deganwy,Llandudno,Llandudno Junction,Llanfairfechan,Llanrwst,Old Colwyn,Penmaenmawr,Towyn,Carrog,Corwen,Denbigh,Gellifor,Llangollen,Prestatyn,Rhuddlan,Rhyl,Ruthin,St Asaph,Bagallit,Buckley,Caerwys,Connah ' s Quay,Ewole,Flint,Hawarden,Holywell,Mold,Queensferry,Saltney,Shotton,Abertillery,Blaina,Brynmawr,Cwmbran,Ebbw Vale,Tafarnaubach,Tredegar,Bala,Barmouth,Betws y Coed,Blaenau Ffestiniog,Caernarfon,Criccieth,Dolgellau,Ffestiniog,Harlech,Llanberis,Llanfachreth,Nefyn,Porthmadog,Pwllheli,Tywyn,Y Felinheli,Aberdare,Caerphilly,Llantrisant,Maesteg,Merthyr Tydfil,Pontypridd,Porth,Porthcawl,Abergavenny,Caldicot,Chepstow,Monmouth,Usk,Fishguard,Goodwick,Hakin,Haverfordwest,Milford Haven,Narberth,Neyland,Pembroke,Pembroke Dock,St Davids,Tenby,Brecon,Builth Wells,Cefnllys,Crickhowell,Hay on Wye,Knighton,Llandrindod Wells,Llanfair Caereinion,Llanfyllin,Llangors,Llanidloes,Llanwrtyd Wells,Machynlleth,Montgomery,Newtown,Old Radnor,Presteigne,Rhayader,Talgarth,Welshpool,Barry,Cardiff,Cowbridge,Llantwit Major,Penarth,Gorseinon,Lliw Valey,Neath,Port Talbot,Swansea,Chirk,Overton on Dee,Rhosllannerchrugog,Rhosnesni,Wrexham,Pinhoe,london,belfast,sutton,hull,staines,leamington spa,kingston,st albans,essex,springfield,norfolk,hampton,somerset,camden,kent,cleveland,burlington,georgetown,dublin,auburn,paris,kilbride,milton,franklin,warwickshire,milford,wiltshire,newark,northamptonshire,clinton,renfrewshire",
       "activated": true
     },
     {
@@ -194,31 +200,6 @@
   "regex_features": [],
   "utterances": [
     {
-      "text": "do you like my shoes",
-      "intent": "None",
-      "entities": []
-    },
-    {
-      "text": "why did the chicken cross the road",
-      "intent": "None",
-      "entities": []
-    },
-    {
-      "text": "what planet are we on",
-      "intent": "None",
-      "entities": []
-    },
-    {
-      "text": "what colour are my trousers",
-      "intent": "None",
-      "entities": []
-    },
-    {
-      "text": "what colour are my shoes",
-      "intent": "None",
-      "entities": []
-    },
-    {
       "text": "hello",
       "intent": "smalltalk.greeting",
       "entities": []
@@ -229,58 +210,33 @@
       "entities": []
     },
     {
-      "text": "hey",
-      "intent": "smalltalk.greeting",
-      "entities": []
-    },
-    {
-      "text": "howdy",
-      "intent": "smalltalk.greeting",
-      "entities": []
-    },
-    {
-      "text": "hola",
-      "intent": "smalltalk.greeting",
-      "entities": []
-    },
-    {
-      "text": "what can you do",
-      "intent": "help",
-      "entities": []
-    },
-    {
-      "text": "help",
-      "intent": "help",
-      "entities": []
-    },
-    {
-      "text": "how do you work",
-      "intent": "help",
-      "entities": []
-    },
-    {
-      "text": "what can i ask you",
-      "intent": "help",
-      "entities": []
-    },
-    {
-      "text": "how do i use you",
-      "intent": "help",
-      "entities": []
-    },
-    {
-      "text": "i don't know what to do",
-      "intent": "help",
-      "entities": []
-    },
-    {
-      "text": "i'm confused",
-      "intent": "help",
-      "entities": []
-    },
-    {
-      "text": "who are you?",
+      "text": "who are you",
       "intent": "smalltalk.bot.who_are_you",
+      "entities": []
+    },
+    {
+      "text": "nah",
+      "intent": "smalltalk.courtesy.no",
+      "entities": []
+    },
+    {
+      "text": "yep",
+      "intent": "smalltalk.courtesy.yes",
+      "entities": []
+    },
+    {
+      "text": "nope",
+      "intent": "smalltalk.courtesy.no",
+      "entities": []
+    },
+    {
+      "text": "boo",
+      "intent": "smalltalk.emotions.boo",
+      "entities": []
+    },
+    {
+      "text": "how are you",
+      "intent": "smalltalk.bot.how_are_you",
       "entities": []
     },
     {
@@ -289,123 +245,33 @@
       "entities": []
     },
     {
-      "text": "when is your birthday",
-      "intent": "smalltalk.bot.when_is_your_birthday",
+      "text": "who are you?",
+      "intent": "smalltalk.bot.who_are_you",
       "entities": []
     },
     {
-      "text": "where are you from",
-      "intent": "smalltalk.bot.where_are_you_from",
+      "text": "ok",
+      "intent": "smalltalk.courtesy.okay",
       "entities": []
     },
     {
-      "text": "where do you work",
-      "intent": "smalltalk.bot.where_do_you_work",
+      "text": "help",
+      "intent": "help",
       "entities": []
     },
     {
-      "text": "what is your salary",
-      "intent": "smalltalk.bot.what_is_your_salary",
+      "text": "thank you",
+      "intent": "smalltalk.courtesy.thank_you",
       "entities": []
     },
     {
-      "text": "what is your relationship status",
-      "intent": "smalltalk.bot.relationship_status",
+      "text": "cool",
+      "intent": "smalltalk.emotions.cool",
       "entities": []
     },
     {
-      "text": "what is your family status",
-      "intent": "smalltalk.bot.family_status",
-      "entities": []
-    },
-    {
-      "text": "are you ok",
-      "intent": "smalltalk.bot.are_you_ok",
-      "entities": []
-    },
-    {
-      "text": "are you alright",
-      "intent": "smalltalk.bot.are_you_ok",
-      "entities": []
-    },
-    {
-      "text": "are you hungry",
-      "intent": "smalltalk.bot.are_you_hungry",
-      "entities": []
-    },
-    {
-      "text": "are you busy",
-      "intent": "smalltalk.bot.are_you_busy",
-      "entities": []
-    },
-    {
-      "text": "are you a chatbot",
-      "intent": "smalltalk.bot.are_you_a_chatbot",
-      "entities": []
-    },
-    {
-      "text": "are you real",
-      "intent": "smalltalk.bot.are_you_real",
-      "entities": []
-    },
-    {
-      "text": "would you like to be a human",
-      "intent": "smalltalk.bot.would_you_like_to_be_human",
-      "entities": []
-    },
-    {
-      "text": "i am tired",
-      "intent": "smalltalk.user.tired",
-      "entities": []
-    },
-    {
-      "text": "i am sleepy",
-      "intent": "smalltalk.user.tired",
-      "entities": []
-    },
-    {
-      "text": "i am a bot",
-      "intent": "smalltalk.user.robot",
-      "entities": []
-    },
-    {
-      "text": "i am a robot",
-      "intent": "smalltalk.user.robot",
-      "entities": []
-    },
-    {
-      "text": "i am a chatbot",
-      "intent": "smalltalk.user.robot",
-      "entities": []
-    },
-    {
-      "text": "i am a virtual presence",
-      "intent": "smalltalk.user.robot",
-      "entities": []
-    },
-    {
-      "text": "i am bored",
-      "intent": "smalltalk.user.bored",
-      "entities": []
-    },
-    {
-      "text": "this is boring",
-      "intent": "smalltalk.user.bored",
-      "entities": []
-    },
-    {
-      "text": "i am so bored",
-      "intent": "smalltalk.user.bored",
-      "entities": []
-    },
-    {
-      "text": "i am happy",
-      "intent": "smalltalk.user.happy",
-      "entities": []
-    },
-    {
-      "text": "i am sad",
-      "intent": "smalltalk.user.sad",
+      "text": "sweet",
+      "intent": "smalltalk.emotions.cool",
       "entities": []
     },
     {
@@ -419,23 +285,89 @@
       "entities": []
     },
     {
-      "text": "thank you",
-      "intent": "smalltalk.courtesy.thank_you",
+      "text": "wow",
+      "intent": "smalltalk.emotions.wow",
       "entities": []
     },
     {
-      "text": "you are welcome",
-      "intent": "smalltalk.courtesy.you_are_welcome",
+      "text": "what is your name",
+      "intent": "smalltalk.bot.name",
       "entities": []
     },
     {
-      "text": "you're welcome",
-      "intent": "smalltalk.courtesy.you_are_welcome",
+      "text": "when is your birthday",
+      "intent": "smalltalk.bot.when_is_your_birthday",
       "entities": []
     },
     {
-      "text": "sorry",
-      "intent": "smalltalk.courtesy.sorry",
+      "text": "i am sad",
+      "intent": "smalltalk.user.sad",
+      "entities": []
+    },
+    {
+      "text": "how are you?",
+      "intent": "smalltalk.bot.how_are_you",
+      "entities": []
+    },
+    {
+      "text": "weather",
+      "intent": "weather.forecast",
+      "entities": []
+    },
+    {
+      "text": "lol",
+      "intent": "smalltalk.emotions.ha_ha",
+      "entities": []
+    },
+    {
+      "text": "yeah",
+      "intent": "smalltalk.courtesy.yes",
+      "entities": []
+    },
+    {
+      "text": "hey",
+      "intent": "smalltalk.greeting",
+      "entities": []
+    },
+    {
+      "text": "haha",
+      "intent": "smalltalk.emotions.ha_ha",
+      "entities": []
+    },
+    {
+      "text": "yes",
+      "intent": "smalltalk.courtesy.yes",
+      "entities": []
+    },
+    {
+      "text": "will i need a coat tomorrow?",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 19,
+          "endPos": 26
+        },
+        {
+          "entity": "accessory",
+          "startPos": 14,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "blah blah blah",
+      "intent": "smalltalk.emotions.la_la",
+      "entities": []
+    },
+    {
+      "text": "where are you from",
+      "intent": "smalltalk.bot.where_are_you_from",
+      "entities": []
+    },
+    {
+      "text": "no",
+      "intent": "smalltalk.courtesy.no",
       "entities": []
     },
     {
@@ -444,8 +376,263 @@
       "entities": []
     },
     {
+      "text": "great",
+      "intent": "smalltalk.courtesy.good",
+      "entities": []
+    },
+    {
+      "text": "i am bored",
+      "intent": "smalltalk.user.bored",
+      "entities": []
+    },
+    {
+      "text": "okay",
+      "intent": "smalltalk.courtesy.okay",
+      "entities": []
+    },
+    {
+      "text": "no thanks",
+      "intent": "smalltalk.courtesy.no",
+      "entities": []
+    },
+    {
+      "text": "i'm leaving",
+      "intent": "smalltalk.farewell",
+      "entities": []
+    },
+    {
+      "text": "i am tired",
+      "intent": "smalltalk.user.tired",
+      "entities": []
+    },
+    {
+      "text": "hola",
+      "intent": "smalltalk.greeting",
+      "entities": []
+    },
+    {
+      "text": "goodbye",
+      "intent": "smalltalk.farewell",
+      "entities": []
+    },
+    {
+      "text": "yea",
+      "intent": "smalltalk.courtesy.yes",
+      "entities": []
+    },
+    {
+      "text": "bye",
+      "intent": "smalltalk.farewell",
+      "entities": []
+    },
+    {
       "text": "good",
       "intent": "smalltalk.courtesy.good",
+      "entities": []
+    },
+    {
+      "text": "you're welcome",
+      "intent": "smalltalk.courtesy.you_are_welcome",
+      "entities": []
+    },
+    {
+      "text": "you are welcome",
+      "intent": "smalltalk.courtesy.you_are_welcome",
+      "entities": []
+    },
+    {
+      "text": "are you a robot",
+      "intent": "smalltalk.bot.are_you_real",
+      "entities": []
+    },
+    {
+      "text": "my name is tony",
+      "intent": "user.name",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 11,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "hi, how are you?",
+      "intent": "smalltalk.bot.how_are_you",
+      "entities": []
+    },
+    {
+      "text": "can you tell me more",
+      "intent": "weather.detail",
+      "entities": []
+    },
+    {
+      "text": "tell me more",
+      "intent": "weather.detail",
+      "entities": []
+    },
+    {
+      "text": "where do you work",
+      "intent": "smalltalk.bot.where_do_you_work",
+      "entities": []
+    },
+    {
+      "text": "can i have more information",
+      "intent": "weather.detail",
+      "entities": []
+    },
+    {
+      "text": "sorry",
+      "intent": "smalltalk.courtesy.sorry",
+      "entities": []
+    },
+    {
+      "text": "lalala",
+      "intent": "smalltalk.emotions.la_la",
+      "entities": []
+    },
+    {
+      "text": "i am happy",
+      "intent": "smalltalk.user.happy",
+      "entities": []
+    },
+    {
+      "text": "are you hungry",
+      "intent": "smalltalk.bot.are_you_hungry",
+      "entities": []
+    },
+    {
+      "text": "i'm confused",
+      "intent": "help",
+      "entities": []
+    },
+    {
+      "text": "howdy",
+      "intent": "smalltalk.greeting",
+      "entities": []
+    },
+    {
+      "text": "what can you do",
+      "intent": "help",
+      "entities": []
+    },
+    {
+      "text": "la",
+      "intent": "smalltalk.emotions.la_la",
+      "entities": []
+    },
+    {
+      "text": "i am sleepy",
+      "intent": "smalltalk.user.tired",
+      "entities": []
+    },
+    {
+      "text": "change my name",
+      "intent": "user.name",
+      "entities": []
+    },
+    {
+      "text": "how do you work",
+      "intent": "help",
+      "entities": []
+    },
+    {
+      "text": "i want to change my name",
+      "intent": "user.name",
+      "entities": []
+    },
+    {
+      "text": "weather for tomorrow",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 12,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "gtg",
+      "intent": "smalltalk.farewell",
+      "entities": []
+    },
+    {
+      "text": "i'm off",
+      "intent": "smalltalk.farewell",
+      "entities": []
+    },
+    {
+      "text": "thanks :)",
+      "intent": "smalltalk.courtesy.thank_you",
+      "entities": []
+    },
+    {
+      "text": "weather today",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 8,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "will it rain tomorrow",
+      "intent": "weather.variable",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 13,
+          "endPos": 20
+        },
+        {
+          "entity": "variable",
+          "startPos": 8,
+          "endPos": 11
+        }
+      ]
+    },
+    {
+      "text": "what are you called",
+      "intent": "smalltalk.bot.name",
+      "entities": []
+    },
+    {
+      "text": "what should i call you",
+      "intent": "smalltalk.bot.name",
+      "entities": []
+    },
+    {
+      "text": "how do i use you",
+      "intent": "help",
+      "entities": []
+    },
+    {
+      "text": "more information",
+      "intent": "weather.detail",
+      "entities": []
+    },
+    {
+      "text": "i don't know what to do",
+      "intent": "help",
+      "entities": []
+    },
+    {
+      "text": "what about tomorrow",
+      "intent": "repeat",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 11,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "are you ok",
+      "intent": "smalltalk.bot.are_you_ok",
       "entities": []
     },
     {
@@ -454,29 +641,258 @@
       "entities": []
     },
     {
+      "text": "ok thanks",
+      "intent": "smalltalk.courtesy.thank_you",
+      "entities": []
+    },
+    {
+      "text": "and tomorrow",
+      "intent": "repeat",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 4,
+          "endPos": 11
+        }
+      ]
+    },
+    {
       "text": "well done",
       "intent": "smalltalk.courtesy.well_done",
       "entities": []
     },
     {
-      "text": "weather in bristol",
-      "intent": "weather.forecast",
+      "text": "are you real",
+      "intent": "smalltalk.bot.are_you_real",
+      "entities": []
+    },
+    {
+      "text": "what up",
+      "intent": "smalltalk.greeting",
+      "entities": []
+    },
+    {
+      "text": "what can i ask you",
+      "intent": "help",
+      "entities": []
+    },
+    {
+      "text": "hehe",
+      "intent": "smalltalk.emotions.ha_ha",
+      "entities": []
+    },
+    {
+      "text": "how about tomorrow",
+      "intent": "repeat",
       "entities": [
         {
-          "entity": "location",
-          "startPos": 11,
+          "entity": "time_target",
+          "startPos": 10,
           "endPos": 17
         }
       ]
     },
     {
-      "text": "outlook for exeter",
+      "text": "hows it going?",
+      "intent": "smalltalk.bot.how_are_you",
+      "entities": []
+    },
+    {
+      "text": "weather for this weekend",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 12,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "what is the weather like in paris",
       "intent": "weather.forecast",
       "entities": [
         {
           "entity": "location",
+          "startPos": 28,
+          "endPos": 32
+        },
+        {
+          "entity": "variable",
           "startPos": 12,
-          "endPos": 17
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "cheerio",
+      "intent": "smalltalk.farewell",
+      "entities": []
+    },
+    {
+      "text": "are you a chatbot",
+      "intent": "smalltalk.bot.are_you_a_chatbot",
+      "entities": []
+    },
+    {
+      "text": "i am a robot",
+      "intent": "smalltalk.user.robot",
+      "entities": []
+    },
+    {
+      "text": "why did the chicken cross the road",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "rofl",
+      "intent": "smalltalk.emotions.ha_ha",
+      "entities": []
+    },
+    {
+      "text": "call me john",
+      "intent": "user.name",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 8,
+          "endPos": 11
+        }
+      ]
+    },
+    {
+      "text": "ha ha",
+      "intent": "smalltalk.emotions.ha_ha",
+      "entities": []
+    },
+    {
+      "text": "what is the weather like in madrid",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 28,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "i am so bored",
+      "intent": "smalltalk.user.bored",
+      "entities": []
+    },
+    {
+      "text": "this is boring",
+      "intent": "smalltalk.user.bored",
+      "entities": []
+    },
+    {
+      "text": "i am a bot",
+      "intent": "smalltalk.user.robot",
+      "entities": []
+    },
+    {
+      "text": "are you alright",
+      "intent": "smalltalk.bot.are_you_ok",
+      "entities": []
+    },
+    {
+      "text": "lmfao",
+      "intent": "smalltalk.emotions.ha_ha",
+      "entities": []
+    },
+    {
+      "text": "are you busy",
+      "intent": "smalltalk.bot.are_you_busy",
+      "entities": []
+    },
+    {
+      "text": "what about friday?",
+      "intent": "repeat",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 11,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "what about friday",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 11,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "what is your relationship status",
+      "intent": "smalltalk.bot.relationship_status",
+      "entities": []
+    },
+    {
+      "text": "how much do you get paid",
+      "intent": "smalltalk.bot.what_is_your_salary",
+      "entities": []
+    },
+    {
+      "text": "da da",
+      "intent": "smalltalk.emotions.la_la",
+      "entities": []
+    },
+    {
+      "text": "change my location",
+      "intent": "user.location",
+      "entities": []
+    },
+    {
+      "text": "what planet are we on",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "will i need my umbrella tomorrow",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 24,
+          "endPos": 31
+        },
+        {
+          "entity": "accessory",
+          "startPos": 15,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "what about london",
+      "intent": "repeat",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 11,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "what is your salary",
+      "intent": "smalltalk.bot.what_is_your_salary",
+      "entities": []
+    },
+    {
+      "text": "weather for today",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 12,
+          "endPos": 16
         }
       ]
     },
@@ -492,6 +908,122 @@
       ]
     },
     {
+      "text": "what is the weather like tomorrow in london",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 37,
+          "endPos": 42
+        },
+        {
+          "entity": "time_target",
+          "startPos": 25,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "whats the weather in london?",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 21,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "what is the weather this weekend",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 20,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "i'm going now",
+      "intent": "smalltalk.farewell",
+      "entities": []
+    },
+    {
+      "text": "weather in bristol",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 11,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "do i need my coat",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "accessory",
+          "startPos": 13,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "do you like my shoes",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "i am a chatbot",
+      "intent": "smalltalk.user.robot",
+      "entities": []
+    },
+    {
+      "text": "ok thats cool",
+      "intent": "smalltalk.emotions.cool",
+      "entities": []
+    },
+    {
+      "text": "what colour are my trousers",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what colour are my shoes",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what is your family status",
+      "intent": "smalltalk.bot.family_status",
+      "entities": []
+    },
+    {
+      "text": "would you like to be a human",
+      "intent": "smalltalk.bot.would_you_like_to_be_human",
+      "entities": []
+    },
+    {
+      "text": "i am a virtual presence",
+      "intent": "smalltalk.user.robot",
+      "entities": []
+    },
+    {
+      "text": "outlook for exeter",
+      "intent": "weather.forecast",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 12,
+          "endPos": 17
+        }
+      ]
+    },
+    {
       "text": "forecast for southampton",
       "intent": "weather.forecast",
       "entities": [
@@ -503,53 +1035,140 @@
       ]
     },
     {
-      "text": "weather",
-      "intent": "weather.forecast",
-      "entities": []
-    },
-    {
-      "text": "weather today",
-      "intent": "weather.forecast",
+      "text": "change my name to harry",
+      "intent": "user.name",
       "entities": [
         {
-          "entity": "time_target",
-          "startPos": 8,
-          "endPos": 12
+          "entity": "name",
+          "startPos": 18,
+          "endPos": 22
         }
       ]
     },
     {
-      "text": "weather for this weekend",
-      "intent": "weather.forecast",
+      "text": "you can call me steven",
+      "intent": "user.name",
       "entities": [
         {
-          "entity": "time_target",
-          "startPos": 12,
+          "entity": "name",
+          "startPos": 16,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "can you call me sarah from now on",
+      "intent": "user.name",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 16,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "in devon",
+      "intent": "user.location",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 3,
+          "endPos": 7
+        }
+      ]
+    },
+    {
+      "text": "i'm located in newcastle",
+      "intent": "user.location",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 15,
           "endPos": 23
         }
       ]
     },
     {
-      "text": "weather for today",
-      "intent": "weather.forecast",
+      "text": "my location is swansea",
+      "intent": "user.location",
       "entities": [
         {
-          "entity": "time_target",
-          "startPos": 12,
-          "endPos": 16
+          "entity": "location",
+          "startPos": 15,
+          "endPos": 21
         }
       ]
     },
     {
-      "text": "weather for tomorrow",
-      "intent": "weather.forecast",
+      "text": "im in bristol",
+      "intent": "user.location",
       "entities": [
         {
-          "entity": "time_target",
-          "startPos": 12,
-          "endPos": 19
+          "entity": "location",
+          "startPos": 6,
+          "endPos": 12
         }
       ]
+    },
+    {
+      "text": "can you call me something different",
+      "intent": "user.name",
+      "entities": []
+    },
+    {
+      "text": "call me something different",
+      "intent": "user.name",
+      "entities": []
+    },
+    {
+      "text": "set my location to exeter",
+      "intent": "user.location",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 19,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "set my location to liverpool",
+      "intent": "user.location",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 19,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "set my default location to exeter",
+      "intent": "user.location",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 27,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "change my default location to bath",
+      "intent": "user.location",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 30,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "change my default location",
+      "intent": "user.location",
+      "entities": []
     },
     {
       "text": "what is the weather in bristol tomorrow",
@@ -686,22 +1305,6 @@
       ]
     },
     {
-      "text": "what is the weather like tomorrow in london",
-      "intent": "weather.forecast",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 37,
-          "endPos": 42
-        },
-        {
-          "entity": "time_target",
-          "startPos": 25,
-          "endPos": 32
-        }
-      ]
-    },
-    {
       "text": "what was the weather today in brighton",
       "intent": "weather.forecast",
       "entities": [
@@ -718,50 +1321,6 @@
       ]
     },
     {
-      "text": "how about tomorrow",
-      "intent": "repeat",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 10,
-          "endPos": 17
-        }
-      ]
-    },
-    {
-      "text": "what about tomorrow",
-      "intent": "repeat",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 11,
-          "endPos": 18
-        }
-      ]
-    },
-    {
-      "text": "and tomorrow",
-      "intent": "repeat",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 4,
-          "endPos": 11
-        }
-      ]
-    },
-    {
-      "text": "what about in london",
-      "intent": "weather.forecast",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 14,
-          "endPos": 19
-        }
-      ]
-    },
-    {
       "text": "and for wednesday",
       "intent": "repeat",
       "entities": [
@@ -769,17 +1328,6 @@
           "entity": "time_target",
           "startPos": 8,
           "endPos": 16
-        }
-      ]
-    },
-    {
-      "text": "what is the weather this weekend",
-      "intent": "weather.forecast",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 20,
-          "endPos": 31
         }
       ]
     },
@@ -802,17 +1350,6 @@
           "entity": "time_target",
           "startPos": 8,
           "endPos": 13
-        }
-      ]
-    },
-    {
-      "text": "what about friday",
-      "intent": "weather.forecast",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 11,
-          "endPos": 16
         }
       ]
     },
@@ -899,6 +1436,36 @@
       ]
     },
     {
+      "text": "la de dah",
+      "intent": "smalltalk.emotions.la_la",
+      "entities": []
+    },
+    {
+      "text": "la la",
+      "intent": "smalltalk.emotions.la_la",
+      "entities": []
+    },
+    {
+      "text": "peek a boo",
+      "intent": "smalltalk.emotions.boo",
+      "entities": []
+    },
+    {
+      "text": "what does the met office do",
+      "intent": "met_office.general_information",
+      "entities": []
+    },
+    {
+      "text": "tell me about the met office",
+      "intent": "met_office.general_information",
+      "entities": []
+    },
+    {
+      "text": "what is the met office",
+      "intent": "met_office.general_information",
+      "entities": []
+    },
+    {
       "text": "what is the weather in london for this weekend",
       "intent": "weather.forecast",
       "entities": [
@@ -915,13 +1482,241 @@
       ]
     },
     {
-      "text": "whats the weather in london?",
-      "intent": "weather.forecast",
+      "text": "will it rain tomorrow in london",
+      "intent": "weather.variable",
       "entities": [
         {
           "entity": "location",
-          "startPos": 21,
+          "startPos": 25,
+          "endPos": 30
+        },
+        {
+          "entity": "time_target",
+          "startPos": 13,
+          "endPos": 20
+        },
+        {
+          "entity": "variable",
+          "startPos": 8,
+          "endPos": 11
+        }
+      ]
+    },
+    {
+      "text": "will it be dry tomorrow",
+      "intent": "weather.variable",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 15,
+          "endPos": 22
+        },
+        {
+          "entity": "variable",
+          "startPos": 11,
+          "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "is it going to be dry in exeter on tuesday",
+      "intent": "weather.variable",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 25,
+          "endPos": 30
+        },
+        {
+          "entity": "time_target",
+          "startPos": 35,
+          "endPos": 41
+        },
+        {
+          "entity": "variable",
+          "startPos": 18,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "is it going to be hot on saturday",
+      "intent": "weather.variable",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 25,
+          "endPos": 32
+        },
+        {
+          "entity": "variable",
+          "startPos": 18,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "will i need my sunglasses this afternoon",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 26,
+          "endPos": 39
+        },
+        {
+          "entity": "accessory",
+          "startPos": 15,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "do i need to wear a coat tomorrow",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 25,
+          "endPos": 32
+        },
+        {
+          "entity": "accessory",
+          "startPos": 20,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "do i need to take a fleece today",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 27,
+          "endPos": 31
+        },
+        {
+          "entity": "accessory",
+          "startPos": 20,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "will i need to wear suncream on saturday",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 32,
+          "endPos": 39
+        },
+        {
+          "entity": "accessory",
+          "startPos": 20,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "will i need my umbrella in exeter tomorrow",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 27,
+          "endPos": 32
+        },
+        {
+          "entity": "time_target",
+          "startPos": 34,
+          "endPos": 41
+        },
+        {
+          "entity": "accessory",
+          "startPos": 15,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "will it be nice on saturday",
+      "intent": "weather.variable",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 19,
           "endPos": 26
+        },
+        {
+          "entity": "variable",
+          "startPos": 11,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "tomorrow in london, will it rain?",
+      "intent": "weather.variable",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 12,
+          "endPos": 17
+        },
+        {
+          "entity": "time_target",
+          "startPos": 0,
+          "endPos": 7
+        },
+        {
+          "entity": "variable",
+          "startPos": 28,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "dum de dum",
+      "intent": "smalltalk.emotions.la_la",
+      "entities": []
+    },
+    {
+      "text": "na na",
+      "intent": "smalltalk.emotions.la_la",
+      "entities": []
+    },
+    {
+      "text": "call me tom jones",
+      "intent": "user.name",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 8,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "change my name to peter parker",
+      "intent": "user.name",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 18,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "call me david smith please",
+      "intent": "user.name",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 8,
+          "endPos": 18
         }
       ]
     },
@@ -962,402 +1757,6 @@
           "endPos": 26
         }
       ]
-    },
-    {
-      "text": "my name is tony",
-      "intent": "user.name",
-      "entities": [
-        {
-          "entity": "name",
-          "startPos": 11,
-          "endPos": 14
-        }
-      ]
-    },
-    {
-      "text": "call me john",
-      "intent": "user.name",
-      "entities": [
-        {
-          "entity": "name",
-          "startPos": 8,
-          "endPos": 11
-        }
-      ]
-    },
-    {
-      "text": "change my name to harry",
-      "intent": "user.name",
-      "entities": [
-        {
-          "entity": "name",
-          "startPos": 18,
-          "endPos": 22
-        }
-      ]
-    },
-    {
-      "text": "you can call me steven",
-      "intent": "user.name",
-      "entities": [
-        {
-          "entity": "name",
-          "startPos": 16,
-          "endPos": 21
-        }
-      ]
-    },
-    {
-      "text": "can you call me sarah from now on",
-      "intent": "user.name",
-      "entities": [
-        {
-          "entity": "name",
-          "startPos": 16,
-          "endPos": 20
-        }
-      ]
-    },
-    {
-      "text": "change my name",
-      "intent": "user.name",
-      "entities": []
-    },
-    {
-      "text": "i want to change my name",
-      "intent": "user.name",
-      "entities": []
-    },
-    {
-      "text": "can you call me something different",
-      "intent": "user.name",
-      "entities": []
-    },
-    {
-      "text": "call me something different",
-      "intent": "user.name",
-      "entities": []
-    },
-    {
-      "text": "call me tom jones",
-      "intent": "user.name",
-      "entities": [
-        {
-          "entity": "name",
-          "startPos": 8,
-          "endPos": 16
-        }
-      ]
-    },
-    {
-      "text": "change my name to peter parker",
-      "intent": "user.name",
-      "entities": [
-        {
-          "entity": "name",
-          "startPos": 18,
-          "endPos": 29
-        }
-      ]
-    },
-    {
-      "text": "call me david smith please",
-      "intent": "user.name",
-      "entities": [
-        {
-          "entity": "name",
-          "startPos": 8,
-          "endPos": 18
-        }
-      ]
-    },
-    {
-      "text": "in devon",
-      "intent": "user.location",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 3,
-          "endPos": 7
-        }
-      ]
-    },
-    {
-      "text": "i'm located in newcastle",
-      "intent": "user.location",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 15,
-          "endPos": 23
-        }
-      ]
-    },
-    {
-      "text": "my location is swansea",
-      "intent": "user.location",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 15,
-          "endPos": 21
-        }
-      ]
-    },
-    {
-      "text": "im in bristol",
-      "intent": "user.location",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 6,
-          "endPos": 12
-        }
-      ]
-    },
-    {
-      "text": "change my location",
-      "intent": "user.location",
-      "entities": []
-    },
-    {
-      "text": "set my location to exeter",
-      "intent": "user.location",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 19,
-          "endPos": 24
-        }
-      ]
-    },
-    {
-      "text": "set my location to liverpool",
-      "intent": "user.location",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 19,
-          "endPos": 27
-        }
-      ]
-    },
-    {
-      "text": "set my default location to exeter",
-      "intent": "user.location",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 27,
-          "endPos": 32
-        }
-      ]
-    },
-    {
-      "text": "change my default location to bath",
-      "intent": "user.location",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 30,
-          "endPos": 33
-        }
-      ]
-    },
-    {
-      "text": "change my default location",
-      "intent": "user.location",
-      "entities": []
-    },
-    {
-      "text": "goodbye",
-      "intent": "smalltalk.farewell",
-      "entities": []
-    },
-    {
-      "text": "cheerio",
-      "intent": "smalltalk.farewell",
-      "entities": []
-    },
-    {
-      "text": "bye",
-      "intent": "smalltalk.farewell",
-      "entities": []
-    },
-    {
-      "text": "gtg",
-      "intent": "smalltalk.farewell",
-      "entities": []
-    },
-    {
-      "text": "i'm going now",
-      "intent": "smalltalk.farewell",
-      "entities": []
-    },
-    {
-      "text": "i'm leaving",
-      "intent": "smalltalk.farewell",
-      "entities": []
-    },
-    {
-      "text": "i'm off",
-      "intent": "smalltalk.farewell",
-      "entities": []
-    },
-    {
-      "text": "okay",
-      "intent": "smalltalk.courtesy.okay",
-      "entities": []
-    },
-    {
-      "text": "ok",
-      "intent": "smalltalk.courtesy.okay",
-      "entities": []
-    },
-    {
-      "text": "yeah",
-      "intent": "smalltalk.courtesy.yes",
-      "entities": []
-    },
-    {
-      "text": "yea",
-      "intent": "smalltalk.courtesy.yes",
-      "entities": []
-    },
-    {
-      "text": "yep",
-      "intent": "smalltalk.courtesy.yes",
-      "entities": []
-    },
-    {
-      "text": "yes",
-      "intent": "smalltalk.courtesy.yes",
-      "entities": []
-    },
-    {
-      "text": "no thanks",
-      "intent": "smalltalk.courtesy.no",
-      "entities": []
-    },
-    {
-      "text": "nah",
-      "intent": "smalltalk.courtesy.no",
-      "entities": []
-    },
-    {
-      "text": "nope",
-      "intent": "smalltalk.courtesy.no",
-      "entities": []
-    },
-    {
-      "text": "no",
-      "intent": "smalltalk.courtesy.no",
-      "entities": []
-    },
-    {
-      "text": "sweet",
-      "intent": "smalltalk.emotions.cool",
-      "entities": []
-    },
-    {
-      "text": "cool",
-      "intent": "smalltalk.emotions.cool",
-      "entities": []
-    },
-    {
-      "text": "wow",
-      "intent": "smalltalk.emotions.wow",
-      "entities": []
-    },
-    {
-      "text": "lmfao",
-      "intent": "smalltalk.emotions.ha_ha",
-      "entities": []
-    },
-    {
-      "text": "rofl",
-      "intent": "smalltalk.emotions.ha_ha",
-      "entities": []
-    },
-    {
-      "text": "lol",
-      "intent": "smalltalk.emotions.ha_ha",
-      "entities": []
-    },
-    {
-      "text": "hehe",
-      "intent": "smalltalk.emotions.ha_ha",
-      "entities": []
-    },
-    {
-      "text": "haha",
-      "intent": "smalltalk.emotions.ha_ha",
-      "entities": []
-    },
-    {
-      "text": "ha ha",
-      "intent": "smalltalk.emotions.ha_ha",
-      "entities": []
-    },
-    {
-      "text": "la",
-      "intent": "smalltalk.emotions.la_la",
-      "entities": []
-    },
-    {
-      "text": "lalala",
-      "intent": "smalltalk.emotions.la_la",
-      "entities": []
-    },
-    {
-      "text": "la de dah",
-      "intent": "smalltalk.emotions.la_la",
-      "entities": []
-    },
-    {
-      "text": "la la",
-      "intent": "smalltalk.emotions.la_la",
-      "entities": []
-    },
-    {
-      "text": "da da",
-      "intent": "smalltalk.emotions.la_la",
-      "entities": []
-    },
-    {
-      "text": "na na",
-      "intent": "smalltalk.emotions.la_la",
-      "entities": []
-    },
-    {
-      "text": "dum de dum",
-      "intent": "smalltalk.emotions.la_la",
-      "entities": []
-    },
-    {
-      "text": "boo",
-      "intent": "smalltalk.emotions.boo",
-      "entities": []
-    },
-    {
-      "text": "peek a boo",
-      "intent": "smalltalk.emotions.boo",
-      "entities": []
-    },
-    {
-      "text": "what should i call you",
-      "intent": "smalltalk.bot.name",
-      "entities": []
-    },
-    {
-      "text": "what are you called",
-      "intent": "smalltalk.bot.name",
-      "entities": []
-    },
-    {
-      "text": "what is your name",
-      "intent": "smalltalk.bot.name",
-      "entities": []
     },
     {
       "text": "and the day after?",
@@ -1426,6 +1825,56 @@
       ]
     },
     {
+      "text": "Get the daily temperature greenwood indiana",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "how much rain does chambersburg get a year",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "\"Tell me perth weather, climate & temperature at australia\"",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "show average rainfall for boise",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "Get florence temperature in september",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what to wear in march in california",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "What is the rain volume in sonoma county ?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "temperature of delhi in celsius please",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "Provide me by toronto weather please",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "Show me the forecast at alabama",
+      "intent": "None",
+      "entities": []
+    },
+    {
       "text": "what about an umbrella",
       "intent": "repeat",
       "entities": [
@@ -1448,39 +1897,18 @@
       ]
     },
     {
-      "text": "what about london",
-      "intent": "repeat",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 11,
-          "endPos": 16
-        }
-      ]
-    },
-    {
-      "text": "what does the met office do",
-      "intent": "met_office.general_information",
-      "entities": []
-    },
-    {
-      "text": "tell me about the met office",
-      "intent": "met_office.general_information",
-      "entities": []
-    },
-    {
-      "text": "what is the met office",
-      "intent": "met_office.general_information",
-      "entities": []
-    },
-    {
-      "text": "will it rain tomorrow",
+      "text": "will it rain in pinhoe tomorrow?",
       "intent": "weather.variable",
       "entities": [
         {
+          "entity": "location",
+          "startPos": 16,
+          "endPos": 21
+        },
+        {
           "entity": "time_target",
-          "startPos": 13,
-          "endPos": 20
+          "startPos": 23,
+          "endPos": 30
         },
         {
           "entity": "variable",
@@ -1490,216 +1918,105 @@
       ]
     },
     {
-      "text": "will it rain tomorrow in london",
-      "intent": "weather.variable",
+      "text": "what is the weather like in pinhoe",
+      "intent": "weather.forecast",
       "entities": [
         {
           "entity": "location",
-          "startPos": 25,
-          "endPos": 30
-        },
-        {
-          "entity": "time_target",
-          "startPos": 13,
-          "endPos": 20
-        },
-        {
-          "entity": "variable",
-          "startPos": 8,
-          "endPos": 11
-        }
-      ]
-    },
-    {
-      "text": "will it be dry tomorrow",
-      "intent": "weather.variable",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 15,
-          "endPos": 22
-        },
-        {
-          "entity": "variable",
-          "startPos": 11,
-          "endPos": 13
-        }
-      ]
-    },
-    {
-      "text": "is it going to be hot on saturday",
-      "intent": "weather.variable",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 25,
-          "endPos": 32
-        },
-        {
-          "entity": "variable",
-          "startPos": 18,
-          "endPos": 20
-        }
-      ]
-    },
-    {
-      "text": "is it going to be dry in exeter on tuesday",
-      "intent": "weather.variable",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 25,
-          "endPos": 30
-        },
-        {
-          "entity": "time_target",
-          "startPos": 35,
-          "endPos": 41
-        },
-        {
-          "entity": "variable",
-          "startPos": 18,
-          "endPos": 20
-        }
-      ]
-    },
-    {
-      "text": "will it be nice on saturday",
-      "intent": "weather.variable",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 19,
-          "endPos": 26
-        },
-        {
-          "entity": "variable",
-          "startPos": 11,
-          "endPos": 14
-        }
-      ]
-    },
-    {
-      "text": "tomorrow in london, will it rain?",
-      "intent": "weather.variable",
-      "entities": [
-        {
-          "entity": "location",
-          "startPos": 12,
-          "endPos": 17
-        },
-        {
-          "entity": "time_target",
-          "startPos": 0,
-          "endPos": 7
-        },
-        {
-          "entity": "variable",
           "startPos": 28,
-          "endPos": 31
+          "endPos": 33
         }
       ]
     },
     {
-      "text": "do i need to wear a coat tomorrow",
-      "intent": "weather.accessory",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 25,
-          "endPos": 32
-        },
-        {
-          "entity": "accessory",
-          "startPos": 20,
-          "endPos": 23
-        }
-      ]
-    },
-    {
-      "text": "will i need my sunglasses this afternoon",
-      "intent": "weather.accessory",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 26,
-          "endPos": 39
-        },
-        {
-          "entity": "accessory",
-          "startPos": 15,
-          "endPos": 24
-        }
-      ]
-    },
-    {
-      "text": "do i need to take a fleece today",
-      "intent": "weather.accessory",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 27,
-          "endPos": 31
-        },
-        {
-          "entity": "accessory",
-          "startPos": 20,
-          "endPos": 25
-        }
-      ]
-    },
-    {
-      "text": "will i need to wear suncream on saturday",
-      "intent": "weather.accessory",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 32,
-          "endPos": 39
-        },
-        {
-          "entity": "accessory",
-          "startPos": 20,
-          "endPos": 27
-        }
-      ]
-    },
-    {
-      "text": "will i need my umbrella tomorrow",
-      "intent": "weather.accessory",
-      "entities": [
-        {
-          "entity": "time_target",
-          "startPos": 24,
-          "endPos": 31
-        },
-        {
-          "entity": "accessory",
-          "startPos": 15,
-          "endPos": 22
-        }
-      ]
-    },
-    {
-      "text": "will i need my umbrella in exeter tomorrow",
+      "text": "do i need an umbrella in glasgow on friday",
       "intent": "weather.accessory",
       "entities": [
         {
           "entity": "location",
-          "startPos": 27,
-          "endPos": 32
+          "startPos": 25,
+          "endPos": 31
         },
         {
           "entity": "time_target",
-          "startPos": 34,
+          "startPos": 36,
           "endPos": 41
         },
         {
           "entity": "accessory",
-          "startPos": 15,
-          "endPos": 22
+          "startPos": 13,
+          "endPos": 20
         }
       ]
+    },
+    {
+      "text": "will i need my brolly",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "accessory",
+          "startPos": 15,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "hola sol",
+      "intent": "smalltalk.greeting",
+      "entities": []
+    },
+    {
+      "text": "will i need to wear sun cream tomorrow?",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 30,
+          "endPos": 37
+        },
+        {
+          "entity": "accessory",
+          "startPos": 20,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "should i be wearing sun screen today?",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 31,
+          "endPos": 35
+        },
+        {
+          "entity": "accessory",
+          "startPos": 20,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "do i need sunscreen on thursday?",
+      "intent": "weather.accessory",
+      "entities": [
+        {
+          "entity": "time_target",
+          "startPos": 23,
+          "endPos": 30
+        },
+        {
+          "entity": "accessory",
+          "startPos": 10,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "can you give me more detail please",
+      "intent": "weather.detail",
+      "entities": []
     }
   ]
 }
