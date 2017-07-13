@@ -233,7 +233,7 @@
         "title": "{{= it.location}} Weather Forecast",
         "type": "video",
         "text": [
-          "In {{= it.location}} {{= it.date.day_string}} temperatures will reach a high of {{= it.weather.temperature.screen.max}}\u00b0C. Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max}}\u00b0C at its peak. {{= it.weather.wind.direction.mode}} winds will reach a maximum of {{= it.weather.wind.speed.max}}mph.{{? it.weather.visibility.distance}} Visibility is expected to be up to {{= it.visibility.distance.max}}km.{{?}} There is a {{= it.precipitation_probability}}% chance of precipitation. "
+          "In {{= it.location}} on average temperatures will be around {{= it.weather.temperature.screen.mean}}\u00b0C reaching a high of {{= it.weather.temperature.screen.max.v}}\u00b0C.{{? it.weather.temperature.screen.max.v != it.weather.temperature.feels_like.max.v}} Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max.v}}\u00b0C at its peak.{{?}} {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. Visibility is expected to be {{= it.weather.visibility.string}} at up to {{= it.weather.visibility.distance.max}}km. There is a {{= it.weather.probabiliity_of_precipitation.max.v}}% chance of precipitation. "
         ],
         "contentType": "video/mp4",
         "contentUrl": "https://s3-eu-west-1.amazonaws.com/informatics-visualcortex/visual-cortex-sample-800x720.mp4",

@@ -77,11 +77,21 @@ var mapWindDirection = function(d) {
     var str = null;
     //TODO add more wind directions
     switch (d.substr(0,1).toUpperCase()) {
-        case "N": str = "Northerly";
-        case "E": str = "Easterly";
-        case "S": str = "Southerly";
-        case "W": str =  "Westerly";
-        default: str = null;
+        case "N":
+            str = "Northerly";
+            break;
+        case "E":
+            str = "Easterly";
+            break;
+        case "S":
+            str = "Southerly";
+            break;
+        case "W":
+            str =  "Westerly";
+            break;
+        default:
+            str = null;
+            break;
     }
     return {
         index:d,

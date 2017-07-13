@@ -1,0 +1,93 @@
+{
+  "temperature": {
+    "feels_like": {
+      "max": {
+        "dt": "2017-07-14T00:01Z",
+        "v": 1
+      },
+      "min": {
+        "dt": "2017-07-14T00:02Z",
+        "v": 2
+      },
+      "mean": 3
+    },
+    "screen": {
+      "max": {
+        "dt": "2017-07-14T00:04Z",
+        "v": 4
+      },
+      "min": {
+        "dt": "2017-07-14T00:05Z",
+        "v": 5
+      },
+      "mean": 6
+    }
+  },
+  "probabiliity_of_precipitation": {
+    "max": {
+      "dt": "2017-07-14T00:07Z",
+      "v": 7
+    },
+    "min": {
+      "dt": "2017-07-14T00:08Z",
+      "v": 8
+    },
+    "mean": 9
+  },
+  "wind": {
+    "gust":{
+      "max":{
+        "dt": "2017-07-14T00:10Z",
+        "v": 10
+      },
+      "min":{
+        "dt": "2017-07-14T00:11Z",
+        "v": 11
+      },
+      "mean":12
+    },
+    "speed":{
+      "max":{
+        "dt": "2017-07-14T00:13Z",
+        "v": 13
+      },
+      "min":{
+        "dt": "2017-07-14T00:14Z",
+        "v": 14
+      },
+      "mean":15
+    },
+    "direction": {
+      "index": "N",
+      "string": "Northerly"
+    }
+  },
+  "relative_humidity": {
+    "max":{
+      "dt": "2017-07-14T00:16Z",
+      "v": 16
+    },
+    "min":{
+      "dt": "2017-07-14T00:17Z",
+      "v": 17
+    },
+    "mean":18
+  },
+  "visibility": {
+    "index": "VG",
+    "rating": 4,
+    "official_string": "Very good - Between 20-40 km",
+    "string": "very good",
+    "distance": {
+      "max": 40,
+      "min": 20
+    }
+  },
+  "significant_weather": {
+    "index": 1,
+    "rating": 10,
+    "official_string": "Sunny day",
+    "string": "sunny",
+    "emoji": ":sunny:"
+  }
+}

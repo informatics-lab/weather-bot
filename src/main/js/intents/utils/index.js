@@ -254,7 +254,7 @@ exports.summarize = {
             return {
                 max: varMap.reduce(max),
                 min: varMap.reduce(min),
-                mean: math.mean(varMap.map(x => x.v))
+                mean: math.round(math.mean(varMap.map(x => x.v)))
             }
         }
 
@@ -326,7 +326,5 @@ exports.capture = {
             return next();
         }
     }
-
-
 
 };
