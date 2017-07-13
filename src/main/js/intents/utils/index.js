@@ -2,10 +2,11 @@
 
 var sugar = require("sugar");
 var winston = require("winston");
+var math = require("mathjs");
 var constants = require("../../constants");
 
 exports.storeAsPreviousIntent = (session, results) => {
-    if(results && results.response) {
+    if (results && results.response) {
         session.conversationData.previous_intent = results.response;
     }
     session.endDialog();
@@ -34,11 +35,11 @@ exports.sanitze = {
         var locationRegexResults = locationRegex.exec(str);
         var result;
         if (locationRegexResults) {
-            result = locationRegexResults[locationRegexResults.length-1];
+            result = locationRegexResults[locationRegexResults.length - 1];
         } else {
             var strRegex = /([A-Za-z ]+)/g;
             var strRegexResults = strRegex.exec(str);
-            result = strRegexResults[strRegexResults.length-1].trim();
+            result = strRegexResults[strRegexResults.length - 1].trim();
         }
 
         result = sugar.String.capitalize(result, true, true);
@@ -68,7 +69,7 @@ exports.sanitze = {
         } else {
             var strRegex = /([A-Za-z ]+)(?:(?= \bplease\b)|(?= \bis\b)|(?=!))/gi;
             var strRegexResults = strRegex.exec(str);
-            if(strRegexResults) {
+            if (strRegexResults) {
                 result = strRegexResults[strRegexResults.length - 1].trim();
             } else {
                 result = str;
@@ -80,6 +81,7 @@ exports.sanitze = {
 
     //TODO more work required to implement all edge cases for dates
     //TODO make this return a single object { 'fromDT': x, 'toDT': y }
+    //deprecated now using LUIS builtin.datetimev2
     /**
      * Parses the user's input to extract the time bounding that a user may be looking for.
      * Returned as an array of ISO date time strings.
@@ -155,14 +157,14 @@ exports.sanitze = {
         var result = new Array();
         if (nextDayRegexResult) {
             if (session.conversationData.time_target_dates && session.conversationData.time_target_dates.length >= 1) {
-                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length-1], {fromUTC: true}), 1);
+                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length - 1], {fromUTC: true}), 1);
                 result.push(day.toISOString());
             } else {
                 winston.error("next day regex matched but no previous time_target_date found");
             }
         } else if (dayAfterNextRegexResult) {
             if (session.conversationData.time_target_dates && session.conversationData.time_target_dates.length >= 1) {
-                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length-1], {fromUTC: true}), 2);
+                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length - 1], {fromUTC: true}), 2);
                 result.push(day.toISOString());
             } else {
                 winston.error("day after next regex matched but no previous time_target_date found");
@@ -199,12 +201,86 @@ exports.sanitze = {
         } else {
             var strRegex = /([A-Za-z ]+)/g;
             var strRegexResults = strRegex.exec(str);
-            str = strRegexResults[strRegexResults.length-1].trim();
+            str = strRegexResults[strRegexResults.length - 1].trim();
 
             var day = sugar.Date.create(str, {fromUTC: true});
             result.push(day.toISOString());
         }
 
         return next({response: result});
+    }
+};
+
+exports.summarize = {
+    
+    //TODO add more functionality to merging of significant weather.
+    weather: (session, results, next) => {
+
+        //array of forecasts pre sorted to just the ones we are interested in
+        var fcstArray = session.conversationData.forecast;
+
+        function mapToTimeValue(arr, value) {
+            return arr.map(x => {
+                return {
+                    "dt": x.time,
+                    "v": eval("x." + value)
+                }
+            })
+        }
+
+        var screenTemperature = mapToTimeValue(fcstArray, "screen_temperature");
+        var feels_like_temperature = mapToTimeValue(fcstArray, "feels_like_temperature");
+        var probability_of_precipitation = mapToTimeValue(fcstArray, "probability_of_precipitation");
+        var wind_speed = mapToTimeValue(fcstArray, "10m_wind_speed");
+        var wind_gust = mapToTimeValue(fcstArray, "10m_wind_gust");
+        var wind_direction = mapToTimeValue(fcstArray, "10m_wind_direction");
+        var relative_humidity = mapToTimeValue(fcstArray, "relative_humidity");
+        var visibility = mapToTimeValue(fcstArray, "visibility");
+        var significant_weather= mapToTimeValue(fcstArray, "significant_weather");
+
+        function min(a, b) {
+            return a.v < b.v ? a : b;
+        }
+
+        function max(a, b) {
+            return a.v > b.v ? a : b;
+        }
+
+        function getMaxMinMean(varMap) {
+
+            return {
+                max: varMap.reduce(max),
+                min: varMap.reduce(min),
+                mean: math.mean(varMap.map(x => x.v))
+            }
+        }
+
+        function getMode(varMap) {
+
+            var m = math.mode(varMap.map(x => x.v));
+
+
+            return {
+                mode: m
+            }
+        }
+
+        var wx = {
+            "temperature": {
+                "feels_like": getMaxMinMean(feels_like_temperature),
+                "screen": getMaxMinMean(screenTemperature)
+            },
+            "probabiliity_of_precipitation": getMaxMinMean(probability_of_precipitation),
+            "wind": {
+                "gust": getMaxMinMean(wind_gust),
+                "speed": getMaxMinMean(wind_speed),
+                "direction": getMode(wind_direction)
+            },
+            "relative_humidity": getMaxMinMean(relative_humidity),
+            "visibility" : getMode(visibility),
+            "significant_weather": getMode(significant_weather)
+        };
+
+        session.conversationData.weather = wx;
     }
 };

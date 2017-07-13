@@ -2,7 +2,7 @@
   "error": {
     "general": [
       "Oops. Something went wrong then. Try asking me something else.",
-      "Hang on a minute, I've got a major problem here. Oh God..."
+      "Hang on a minute, I've encountered a major problem. Try asking me something different."
     ],
     "data": {
       "not_returned": [
@@ -20,8 +20,7 @@
   "none": [
     "Sorry, I don't know how to answer that. Try asking me something else.",
     "Do you know how to answer that?! Because I sure don't.",
-    "Literally no idea what you mean, try asking me something I can answer.",
-    "If you could just stick to asking the things I'm good at answering, that would be great.",
+    "I'm not designed to answer that. Try asking me something I can answer.",
     "I don't feel like that's something I'd be good at answering. Have you tried googling it?",
     "That's outside my area of expertise. Sorry."
   ],

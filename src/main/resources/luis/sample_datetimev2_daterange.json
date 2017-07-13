@@ -1,0 +1,35 @@
+{
+  "query": "what is happening over the next 2 days",
+  "topScoringIntent": {
+    "intent": "general",
+    "score": 0.9193448
+  },
+  "intents": [
+    {
+      "intent": "general",
+      "score": 0.9193448
+    },
+    {
+      "intent": "None",
+      "score": 0.235731483
+    }
+  ],
+  "entities": [
+    {
+      "entity": "next 2 days",
+      "type": "builtin.datetimeV2.daterange",
+      "startIndex": 27,
+      "endIndex": 37,
+      "resolution": {
+        "values": [
+          {
+            "timex": "(2017-07-14,2017-07-16,P2D)",
+            "type": "daterange",
+            "start": "2017-07-14",
+            "end": "2017-07-16"
+          }
+        ]
+      }
+    }
+  ]
+}
