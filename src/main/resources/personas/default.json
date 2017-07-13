@@ -242,8 +242,8 @@
       }
     ],
     "forecast": [
-      "My pals at the Met Office think it will be {{= it.weather.significant_weather.string}}. {{? it.weather.significant_weather.emoji}}{{= it.weather.significant_weather.emoji}}{{?}}",
-      "{{? it.weather.temperature.feels_like.mean<=7}}Looks like it will be pretty cold{{?? it.weather.temperature.feels_like.mean<=12}}Chances are it will feel quite mild{{?? it.weather.temperature.feels_like.mean>12}}It's looking hot{{??}}{{?}}"
+      "My pals at the Met Office think {{= it.location}} will be {{= it.weather.significant_weather.string}}. {{? it.weather.significant_weather.emoji}}{{= it.weather.significant_weather.emoji}}{{?}}",
+      "{{= it.location}} {{? it.weather.temperature.feels_like.mean<=7}}looks like it will be pretty cold{{?? it.weather.temperature.feels_like.mean<=12}}will be reasonably mild{{?? it.weather.temperature.feels_like.mean>12}}is looking hot!{{??}}{{?}}"
     ],
     "variable": {
       "unknown": [
