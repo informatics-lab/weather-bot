@@ -26,38 +26,16 @@ module.exports = (bot, persona, datapoint, gmaps) => {
     bot.dialog(intent, [
         (session, results, next) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
-
-            if (results && results.entities) {
-                var timeTargetEntity = results.entities.filter(e => e.type === "time_target")[0];
-                if (timeTargetEntity) {
-                    session.conversationData.time_target = timeTargetEntity.entity;
-                }
-                var locationEntity = results.entities.filter(e => e.type === "location")[0];
-                if (locationEntity) {
-                    session.conversationData.location = locationEntity.entity;
-                }
-            }
-            if (!session.conversationData.time_target) {
-                session.conversationData.time_target = "today";
-            }
-
-            if (session.conversationData.location) {
-                return next({response: session.conversationData.location});
-            } else if (session.userData.location) {
-                return next({response: session.userData.location});
-            } else {
-                session.beginDialog("prompt", {
-                    key: "prompts.weather.forecast.location",
-                    model: {user: session.userData}
-                });
-            }
-
-        },
-        utils.sanitze.location,
-        (session, results, next) => {
-            session.conversationData.location = results.response;
+            ua(session.userData.ga_id, session.userData.uuid)
+                .event({ec: "intent", ea: intent, el: session.message.text})
+                .send();
+            session.conversationData.luis = results;
             return next();
         },
+        utils.capture.time_target,
+        utils.sanitze.time_target,
+        utils.capture.location,
+        utils.sanitze.location,
         (session, results, next) => {
             gmaps.geocode(session.conversationData.location)
                 .then((res)=> {
@@ -71,9 +49,9 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            datapoint.getDailyDataForLatLng(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
+            datapoint.getHourlyDataForLatLng(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
                 .then((res) => {
-                    session.conversationData.forecast = res;
+                    session.conversationData.datapoint = res;
                     return next();
                 })
                 .catch((err) => {
@@ -82,41 +60,21 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                   return session.endDialog();
                 })
         },
-        (session, results, next) => {
-            return next({response: session.conversationData.time_target})
-        },
-        utils.sanitze.time_target,
-        (session, results, next) => {
-            session.conversationData.time_target_dates = results.response;
-            return next();
-        },
+        //TODO
+        // parse the time_target and condense forecast into just the times we need -
+        // not worth doing yet as changing the datetime recognition to use luis' built in functionality.
+        utils.summarize.weather,
         (session, results, next) => {
             var response = "";
-            var model = {user: session.userData};
+            var model = {
+                user: session.userData,
+                location: session.conversationData.location,
+                weather: session.conversationData.weather
+            };
 
-            model["location"] = session.conversationData.location;
-
-            session.conversationData.time_target_dates.forEach((date) => {
-
-                var day = `${date.substr(0, 10)}Z`;
-                var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => day === f.value);
-
-                model["date"] = constants.DATE_TO_DATE_OBJECT(date);
-
-                if (wx && !(wx.length === 0)) {
-                    wx = wx[0].Rep[0];
-                    model = Object.assign(model, constants.DAILY_DATAPOINT_TO_MODEL(wx));
-                    response = response + persona.getResponse(intent, model);
-                } else {
-                    response = response + persona.getResponse("weather.no_data", model);
-                }
-
-            });
+            response = response + persona.getResponse(intent, model);
 
             if (response && !(response === "")) {
-                ua(session.userData.ga_id, session.userData.uuid)
-                    .event({ec: "intent", ea: intent, el: session.message.text})
-                    .send();
                 session.send(response);
                 return next({response: intent});
             } else {

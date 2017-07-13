@@ -69,22 +69,24 @@ var dateStringToDateObject = function (dateStr) {
 
 var mapWxType = function (i) {
     var wxType = wxTypes[i];
-    if(wxType.string.includes("(")) {
-        wxType.string =  wxType.string.substr(0, wxType.string.indexOf("(")).trim();
-    }
-    wxType.string = wxType.string.toLowerCase();
     wxType["index"] = i;
     return wxType;
 };
 
-var windDirectionToWindDirectionString = function(d) {
+var mapWindDirection = function(d) {
+    var str = null;
+    //TODO add more wind directions
     switch (d.substr(0,1).toUpperCase()) {
-        case "N": return "Northerly";
-        case "E": return "Easterly";
-        case "S": return "Southerly";
-        case "W": return "Westerly";
-        default: return null;
+        case "N": str = "Northerly";
+        case "E": str = "Easterly";
+        case "S": str = "Southerly";
+        case "W": str =  "Westerly";
+        default: str = null;
     }
+    return {
+        index:d,
+        string:str
+    };
 };
 
 var mapVisibility = function (i) {
@@ -93,7 +95,7 @@ var mapVisibility = function (i) {
     return vis;
 };
 
-var uvToUvString = function(i) {
+var mapUvIndex = function(i) {
     var uv = {
         string: uvs[i].toLowerCase(),
         index: i
@@ -101,31 +103,20 @@ var uvToUvString = function(i) {
     return uv;
 };
 
-var dailyDatapointToModel = function(wx) {
-
-    var model = {};
-
-    model.weather_type = mapWxType(wx.W);
-    model.temperature = wx.Dm;
-    model.feels_like_temperature = wx.FDm;
-    model.wind_speed = wx.S;
-    model.wind_gust = wx.Gn;
-    model.wind_direction = windDirectionToWindDirectionString(wx.D);
-    model.precipitation_probability = wx.PPd;
-    model.visibility = mapVisibility(wx.V);
-    model.uv = uvToUvString(wx.U);
-    model.humidity = wx.Hn;
-
-    return model;
-};
-
 module.exports = {
+    "HOURLY": "hourly",
     "THREE_HOURLY": "3hourly",
     "DAILY": "daily",
+
     "HOURS_TO_MILLIS": hoursToMillis,
     "DAYS_TO_MILLIS": daysToMillis,
+
     "DAY_INDEX_TO_DAY_STRING" : dayIndexToDayString,
     "MONTH_INDEX_TO_MONTH_STRING" : monthIndexToMonthString,
     "DATE_TO_DATE_OBJECT" : dateStringToDateObject,
-    "DAILY_DATAPOINT_TO_MODEL": dailyDatapointToModel
+
+    "MAP_SIGNIFICANT_WEATHER_TYPE": mapWxType,
+    "MAP_VISIBILITY": mapVisibility,
+    "MAP_WIND_DIRECTION": mapWindDirection,
+    "MAP_UV_INDEX": mapUvIndex
 };

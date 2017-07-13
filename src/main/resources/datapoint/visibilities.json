@@ -1,11 +1,13 @@
 {
   "UN": {
     "rating": 0,
-    "string": "Unknown"
+    "official_string": "Unknown",
+    "string": "unknown"
   },
   "VP": {
     "rating": 1,
-    "string": "Very poor - Less than 1 km",
+    "official_string": "Very poor - Less than 1 km",
+    "string": "very poor",
     "distance": {
       "max": 1,
       "min": 0
@@ -13,7 +15,8 @@
   },
   "PO": {
     "rating": 2,
-    "string": "Poor - Between 1-4 km",
+    "official_string": "Poor - Between 1-4 km",
+    "string": "poor",
     "distance": {
       "max": 4,
       "min": 1
@@ -21,7 +24,8 @@
   },
   "MO": {
     "rating": 3,
-    "string": "Moderate - Between 4-10 km",
+    "official_string": "Moderate - Between 4-10 km",
+    "string": "moderate",
     "distance": {
       "max": 10,
       "min": 4
@@ -29,7 +33,8 @@
   },
   "GO": {
     "rating": 4,
-    "string": "Good - Between 10-20 km",
+    "official_string": "Good - Between 10-20 km",
+    "string": "good",
     "distance": {
       "max": 20,
       "min": 10
@@ -37,7 +42,8 @@
   },
   "VG": {
     "rating": 4,
-    "string": "Very good - Between 20-40 km",
+    "official_string": "Very good - Between 20-40 km",
+    "string": "very good",
     "distance": {
       "max": 40,
       "min": 20
@@ -45,7 +51,8 @@
   },
   "EX": {
     "rating": 5,
-    "string": "Excellent - More than 40 km",
+    "official_string": "Excellent - More than 40 km",
+    "string": "excellent",
     "distance": {
       "max": 100,
       "min": 40

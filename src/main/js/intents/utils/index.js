@@ -22,7 +22,7 @@ exports.sanitze = {
      * Sets the session.conversationData.location property
      */
     location: (session, results, next) => {
-        var str = results.response.toLowerCase();
+        var str = session.conversationData.location.toLowerCase();
         winston.debug(`sanitizing [ ${str} ] for a location`);
 
         /* location regex
@@ -41,9 +41,9 @@ exports.sanitze = {
             var strRegexResults = strRegex.exec(str);
             result = strRegexResults[strRegexResults.length - 1].trim();
         }
-
         result = sugar.String.capitalize(result, true, true);
-        return next({response: result});
+        session.conversationData.location = result;
+        return next();
     },
 
     /**
@@ -51,7 +51,7 @@ exports.sanitze = {
      * Sets the session.userData.name property
      */
     name: (session, results, next) => {
-        var str = results.response.toLowerCase();
+        var str = session.userData.name.toLowerCase();
         winston.debug(`sanitizing [ ${str} ] for a name`);
 
         /* name regex
@@ -76,7 +76,9 @@ exports.sanitze = {
             }
         }
 
-        return next({response: result});
+        session.userData.name = sugar.String.capitalize(result, true, true);
+
+        return next();
     },
 
     //TODO more work required to implement all edge cases for dates
@@ -87,7 +89,7 @@ exports.sanitze = {
      * Returned as an array of ISO date time strings.
      */
     time_target: (session, results, next) => {
-        var str = results.response.toLowerCase();
+        var str = session.conversationData.time_target.toLowerCase();
         winston.debug(`sanitizing [ ${str} ] for a time_target`);
 
         /* next day regex
@@ -207,7 +209,8 @@ exports.sanitze = {
             result.push(day.toISOString());
         }
 
-        return next({response: result});
+        session.conversationData.time_target_dates = result;
+        return next();
     }
 };
 
@@ -216,14 +219,14 @@ exports.summarize = {
     //TODO add more functionality to merging of significant weather.
     weather: (session, results, next) => {
 
-        //array of forecasts pre sorted to just the ones we are interested in
-        var fcstArray = session.conversationData.forecast;
+        //TODO array of forecasts pre sorted to just the ones we are interested in
+        var fcstArray = session.conversationData.datapoint.features[0].properties.time_series;
 
         function mapToTimeValue(arr, value) {
             return arr.map(x => {
                 return {
                     "dt": x.time,
-                    "v": eval("x." + value)
+                    "v": x[value]
                 }
             })
         }
@@ -257,8 +260,9 @@ exports.summarize = {
 
         function getMode(varMap) {
 
+            //TODO fix this
             var m = math.mode(varMap.map(x => x.v));
-
+            m = m[0];
 
             return {
                 mode: m
@@ -274,13 +278,55 @@ exports.summarize = {
             "wind": {
                 "gust": getMaxMinMean(wind_gust),
                 "speed": getMaxMinMean(wind_speed),
-                "direction": getMode(wind_direction)
+                "direction": constants.MAP_WIND_DIRECTION(getMode(wind_direction).mode)
             },
             "relative_humidity": getMaxMinMean(relative_humidity),
-            "visibility" : getMode(visibility),
-            "significant_weather": getMode(significant_weather)
+            "visibility" : constants.MAP_VISIBILITY(getMode(visibility).mode),
+            "significant_weather": constants.MAP_SIGNIFICANT_WEATHER_TYPE(getMode(significant_weather).mode)
         };
 
         session.conversationData.weather = wx;
+        return next();
     }
+};
+
+exports.capture = {
+
+    time_target: (session, results, next)  => {
+        winston.debug("capturing time_target");
+        var luis = session.conversationData.luis;
+        if (luis && luis.entities) {
+            var timeTargetEntity = luis.entities.filter(e => e.type === "time_target")[0];
+            if (timeTargetEntity) {
+                session.conversationData.time_target = timeTargetEntity.entity;
+            }
+        }
+        if (!session.conversationData.time_target) {
+            session.conversationData.time_target = "today";
+        }
+        return next();
+    },
+
+    location: (session, results, next) => {
+        winston.debug("capturing location");
+        var luis = session.conversationData.luis;
+        if (luis && luis.entities) {
+            var locationEntity = luis.entities.filter(e => e.type === "location")[0];
+            if (locationEntity) {
+                session.conversationData.location = locationEntity.entity;
+            }
+        }
+        if (!session.conversationData.location) {
+            session.beginDialog("prompt", {
+                key: "prompts.weather.forecast.location",
+                sessionDataKey: "conversationData.location",
+                model: {user: session.userData}
+            });
+        } else {
+            return next();
+        }
+    }
+
+
+
 };

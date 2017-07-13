@@ -50,7 +50,7 @@ function main() {
 
     var appIdStr = "MICROSOFT_APP_ID";
     var appPasswordStr = "MICROSOFT_APP_PASSWORD";
-    if (config.get("DEBUG")){
+    if (config.get("DEBUG")) {
         appIdStr = `DEV_${appIdStr}`;
         appPasswordStr = `DEV_${appPasswordStr}`;
     }
@@ -69,11 +69,11 @@ function main() {
     //conversation root
     bot.dialog("/", [
         (session) => {
-            if(config.get("DEBUG_TOOLS") && debugTools(session)) {
+            if (config.get("DEBUG_TOOLS") && debugTools(session)) {
                 return;
             }
-            if (! session.userData.uuid) {
-                if(session.message.address.channelId === "facebook") {
+            if (!session.userData.uuid) {
+                if (session.message.address.channelId === "facebook") {
                     session.userData["channel"] = "fb";
                     session.userData["name"] = session.message.address.user.name.split(" ")[0];
                     session.userData["fb"] = session.message.address.user;
@@ -83,10 +83,10 @@ function main() {
             }
             luis.parse(session.message.text)
                 .then((response) => {
-                    if(response.topScoringIntent.score >= 0.1) {
+                    if (response.topScoringIntent.score >= 0.1) {
                         session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
                     } else {
-                        if(!session.userData.greeted) {
+                        if (!session.userData.greeted) {
                             session.beginDialog("smalltalk.greeting");
                         } else {
                             session.beginDialog("none");
@@ -109,20 +109,20 @@ function main() {
     intents.met_office.general_information(bot, persona);
 
     // weather
-    intents.weather.accessory(bot, persona, datapoint, gmaps);
-    intents.weather.accessories.unknown(bot, persona);
-    intents.weather.accessories.coat(bot, persona);
-    intents.weather.accessories.umbrella(bot, persona);
-    intents.weather.accessories.jumper(bot, persona);
-    intents.weather.accessories.sun_cream(bot, persona);
+    // intents.weather.accessory(bot, persona, datapoint, gmaps);
+    // intents.weather.accessories.unknown(bot, persona);
+    // intents.weather.accessories.coat(bot, persona);
+    // intents.weather.accessories.umbrella(bot, persona);
+    // intents.weather.accessories.jumper(bot, persona);
+    // intents.weather.accessories.sun_cream(bot, persona);
 
     intents.weather.forecast(bot, persona, datapoint, gmaps);
-    intents.weather.detail(bot, persona, datapoint, gmaps);
+    intents.weather.detail(bot, persona);
 
-    intents.weather.variable(bot, persona, datapoint, gmaps);
-    intents.weather.variables.unknown(bot, persona);
-    intents.weather.variables.sun(bot, persona);
-    intents.weather.variables.rain(bot, persona);
+    // intents.weather.variable(bot, persona, datapoint, gmaps);
+    // intents.weather.variables.unknown(bot, persona);
+    // intents.weather.variables.sun(bot, persona);
+    // intents.weather.variables.rain(bot, persona);
 
     // smalltalk
     intents.smalltalk.greeting(bot, persona);
@@ -175,33 +175,33 @@ function main() {
     prompt(bot, persona);
 
 }
-raven.context(function() {
+raven.context(function () {
     main();
 });
 
 function debugTools(session) {
-    if(session.message.text === "/dAllData"){
+    if (session.message.text === "/dAllData") {
         session.userData = {};
         session.conversationData = {};
         session.send("all data deleted");
         return true;
     }
-    if(session.message.text === "/dConversationData"){
+    if (session.message.text === "/dConversationData") {
         session.conversationData = {};
         session.send("conversation data deleted");
         return true;
     }
-    if(session.message.text === "/sConversationData"){
+    if (session.message.text === "/sConversationData") {
         console.log(session.conversationData);
         session.send(JSON.stringify(session.conversationData));
         return true;
     }
-    if(session.message.text === "/dUserData"){
+    if (session.message.text === "/dUserData") {
         session.userData = {};
         session.send("user data deleted");
         return true;
     }
-    if(session.message.text === "/sUserData"){
+    if (session.message.text === "/sUserData") {
         console.log(session.userData);
         session.send(JSON.stringify(session.userData));
         return true;

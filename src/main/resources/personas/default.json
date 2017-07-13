@@ -233,7 +233,7 @@
         "title": "{{= it.location}} Weather Forecast",
         "type": "video",
         "text": [
-          "In {{= it.location}} {{= it.date.day_string}} temperatures will reach a high of {{= it.temperature}}\u00b0C. Given the other conditions, this will feel like {{= it.feels_like_temperature}}\u00b0C at its peak. {{= it.wind_direction}} winds will reach a maximum of {{= it.wind_speed}}mph.{{? it.visibility.distance}} Visibility is expected to be up to {{= it.visibility.distance.max}}km.{{?}} There is a {{= it.precipitation_probability}}% chance of precipitation. "
+          "In {{= it.location}} {{= it.date.day_string}} temperatures will reach a high of {{= it.weather.temperature.screen.max}}\u00b0C. Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max}}\u00b0C at its peak. {{= it.weather.wind.direction.mode}} winds will reach a maximum of {{= it.weather.wind.speed.max}}mph.{{? it.weather.visibility.distance}} Visibility is expected to be up to {{= it.visibility.distance.max}}km.{{?}} There is a {{= it.precipitation_probability}}% chance of precipitation. "
         ],
         "contentType": "video/mp4",
         "contentUrl": "https://s3-eu-west-1.amazonaws.com/informatics-visualcortex/visual-cortex-sample-800x720.mp4",
@@ -242,8 +242,8 @@
       }
     ],
     "forecast": [
-      "My friends at the Met Office think {{= it.weather_type.string}}. {{? it.weather_type.emoji}}{{= it.weather_type.emoji}}{{?}}",
-      "{{? it.temperature<=7}}Looks like it will be pretty cold{{?? it.temperature<=12}}Chances are it will feel quite mild{{?? it.temperature>12}}It's looking hot{{??}}{{?}} {{? it.precipitation_probability<=10}}and dry{{?? it.precipitation_probability<=40}}with some showers possibly{{?? it.precipitation_probability>40}}and quite wet{{??}}{{?}}."
+      "My pals at the Met Office think it will be {{= it.weather.significant_weather.string}}. {{? it.weather.significant_weather.emoji}}{{= it.weather.significant_weather.emoji}}{{?}}",
+      "{{? it.weather.temperature.feels_like.mean<=7}}Looks like it will be pretty cold{{?? it.weather.temperature.feels_like.mean<=12}}Chances are it will feel quite mild{{?? it.weather.temperature.feels_like.mean>12}}It's looking hot{{??}}{{?}}"
     ],
     "variable": {
       "unknown": [
