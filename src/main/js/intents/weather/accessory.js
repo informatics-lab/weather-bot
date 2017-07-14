@@ -31,48 +31,12 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             session.conversationData.luis = results;
             session.conversationData.intent = intent;
             return next();
-            
-            if (results && results.entities) {
-                var timeTargetEntity = results.entities.filter(e => e.type === 'time_target')[0];
-                if (timeTargetEntity) {
-                    session.conversationData.time_target = timeTargetEntity.entity;
-                }
-                var locationEntity = results.entities.filter(e => e.type === 'location')[0];
-                if (locationEntity) {
-                    session.conversationData.location = locationEntity.entity;
-                }
-                var accessoryEntity = results.entities.filter(e => e.type === 'accessory')[0];
-                if (accessoryEntity) {
-                    session.conversationData.accessory = accessoryEntity.entity;
-                }
-            }
-            if (!session.conversationData.accessory) {
-                winston.warn("[ %s ] matched but there was no accessory for [ %s ]", intent, session.message.text);
-                var unknown = `${intent}.unknown`;
-                session.cancelDialog();
-                session.beginDialog(unknown);
-            } else {
-                if (!session.conversationData.time_target) {
-                    session.conversationData.time_target = "today";
-                }
-
-                if (session.conversationData.location) {
-                    return next({response: session.conversationData.location});
-                } else if (session.userData.location) {
-                    return next({response: session.userData.location});
-                } else {
-                    session.beginDialog("prompt", {
-                        key: "prompts.weather.accessory.location",
-                        model: {user: session.userData}
-                    });
-                }
-            }
         },
+        utils.capture.location,
         utils.sanitze.location,
-        (session, results, next) => {
-            session.conversationData.location = results.response;
-            return next();
-        },
+        utils.capture.datetimeV2,
+        utils.sanitze.datetimeV2,
+        utils.capture.accessory,
         (session, results, next) => {
             gmaps.geocode(session.conversationData.location)
                 .then((res)=> {
@@ -86,29 +50,18 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            return next({response: session.conversationData.time_target})
-        },
-        utils.sanitze.time_target,
-        (session, results, next) => {
-            session.conversationData.time_target_dates = results.response;
-            return next();
-        },
-        (session, results, next) => {
-            datapoint.getNearestSiteToLatLng(session.conversationData.gmaps.results[0].geometry.location)
+            datapoint.getHourlyDataForLatLng(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
                 .then((res) => {
-                    session.conversationData.site = res;
-                    return datapoint.getDailyDataForSiteId(res.location.id);
-                })
-                .then((res) => {
-                    session.conversationData.forecast = res;
+                    session.conversationData.datapoint = res;
                     return next();
                 })
                 .catch((err) => {
                     winston.warn(err);
                     session.send(persona.getResponse("error.data.not_returned"));
                     return session.endDialog();
-                });
+                })
         },
+        utils.sanitze.weather,
         (session, results, next) => {
             var accessorySlug = sugar.String.underscore(session.conversationData.accessory.toLowerCase());
             var accessoryIntent = `${intent}.${accessorySlug}`;
