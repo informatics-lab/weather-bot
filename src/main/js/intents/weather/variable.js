@@ -2,12 +2,22 @@
 
 var winston = require("winston");
 var sugar = require("sugar");
-var builder = require("botbuilder");
-var doT = require("dot");
 var utils = require("../utils");
 var constants = require("../../constants");
-var ua = require('universal-analytics');
 
+/**
+ * weather.variable
+ *
+ * Responds to questions like 'will it rain tomorrow' with a variable-certainty response.
+ * Executes waterfall defined here and then forwards on to weather.variable.<variable_entity>
+ * Uses the entities identified by LUIS otherwise will fallback to use the stored session.conversationData or
+ * session.userData.
+ *
+ * @param bot - bot to add intent to
+ * @param persona - persona client
+ * @param datapoint - datapoint client
+ * @param gmaps - goolge maps client
+ */
 module.exports = (bot, persona, datapoint, gmaps) => {
 
     var intent = "weather.variable";
@@ -15,40 +25,15 @@ module.exports = (bot, persona, datapoint, gmaps) => {
     bot.dialog(intent, [
         (session, results, next) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
-
-            if (results && results.entities) {
-                var timeTargetEntity = results.entities.filter(e => e.type === 'time_target')[0];
-                if (timeTargetEntity) {
-                    session.conversationData.time_target = timeTargetEntity.entity;
-                }
-                var locationEntity = results.entities.filter(e => e.type === 'location')[0];
-                if (locationEntity) {
-                    session.conversationData.location = locationEntity.entity;
-                }
-                var variableEntity = results.entities.filter(e => e.type === 'variable')[0];
-                if (variableEntity) {
-                    session.conversationData.variable = variableEntity.entity;
-                }
-            }
-            if (!session.conversationData.time_target) {
-                session.conversationData.time_target = "today";
-            }
-
-            if (session.conversationData.location) {
-                return next({response: session.conversationData.location});
-            }
-
-            if (session.userData.location) {
-                return next({response: session.userData.location});
-            }
-
-            session.beginDialog("prompt", {key: "prompts.user.location", model: {pre: "For"}});
-        },
-        utils.sanitze.location,
-        (session, results, next) => {
-            session.conversationData.location = results.response;
+            session.conversationData.luis = results;
+            session.conversationData.intent = intent;
             return next();
         },
+        utils.capture.location,
+        utils.sanitze.location,
+        utils.capture.datetimeV2,
+        utils.sanitze.datetimeV2,
+        utils.capture.variable,
         (session, results, next) => {
             gmaps.geocode(session.conversationData.location)
                 .then((res)=> {
@@ -62,73 +47,28 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            return next({response: session.conversationData.time_target})
-        },
-        utils.sanitze.time_target,
-        (session, results, next) => {
-            session.conversationData.time_target_dates = results.response;
-            return next();
-        },
-        (session, results, next) => {
-            datapoint.getNearestSiteToLatLng(session.conversationData.gmaps.results[0].geometry.location)
+            datapoint.getHourlyDataForLatLng(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
                 .then((res) => {
-                    session.conversationData.site = res;
-                    return datapoint.getDailyDataForSiteId(res.location.id);
-                })
-                .then((res) => {
-                    session.conversationData.forecast = res;
+                    session.conversationData.datapoint = res;
                     return next();
-                });
+                })
+                .catch((err) => {
+                    winston.warn(err);
+                    session.send(persona.getResponse("error.data.not_returned"));
+                    return session.endDialog();
+                })
         },
+        utils.sanitze.weather,
+        utils.summarize.weather,
         (session, results, next) => {
-            return next({response: session.conversationData.variable})
-        },
-        utils.translate.variable,
-        (session, results, next) => {
-            session.conversationData.wxVariable = results.response;
-            return next();
-        },
-        (session, results, next) => {
-            var response = "";
-
-            var template = doT.template(persona.getResponse("weather.location"));
-            response = response + template({location: sugar.String.capitalize(session.conversationData.location, true, true)});
-
-            session.conversationData.time_target_dates.forEach((date) => {
-
-                var day = `${date.substr(0, 10)}Z`;
-                var wx = session.conversationData.forecast.SiteRep.DV.Location.Period.filter(f => day === f.value);
-
-                var template = doT.template(persona.getResponse("weather.date"));
-                response = response + template({date: constants.DATE_TO_DATE_OBJECT(date)});
-
-                if (wx && !(wx.length === 0)) {
-                    wx = wx[0].Rep[0];
-
-                    session.conversationData.wxVariable.forEach((variable) => {
-
-                        var model = constants.DAILY_DATAPOINT_TO_MODEL(wx);
-
-                        var template = doT.template(persona.getResponse(`${intent}.${variable.name}`));
-                        response = response + template({model: model});
-
-                    });
-
-                } else {
-                    response = response + persona.getResponse("weather.no_data");
-                }
-
-            });
-
-            if (response && !(response === "")) {
-                ua(session.userData.ga_id, session.userData.uuid)
-                    .event({ec: "intent", ea: intent, el: session.message.text})
-                    .send();
-                session.send(response);
-                return next({response: "weather.variable"});
+            var variableSlug = sugar.String.underscore(session.conversationData.variable.toLowerCase());
+            var variableIntent = `${intent}.${variableSlug}`;
+            if (session.library.dialogs[variableIntent]) {
+                session.beginDialog(variableIntent);
             } else {
-                session.send(persona.getResponse("error.general"));
-                return session.endDialog();
+                winston.warn("variable [ %s ] did not match with any known variable", session.conversationData.variable);
+                var unknown = `${intent}.unknown`;
+                session.beginDialog(unknown);
             }
         },
         utils.storeAsPreviousIntent

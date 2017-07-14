@@ -2,11 +2,25 @@
 
 var winston = require("winston");
 var builder = require("botbuilder");
+var doT = require("dot");
 
+/**
+ * Module handles mapping a unique-response-identifier to a response-resource in the provided persona JSON file.
+ *
+ * @param persona - persona JSON file responses should be taken from.
+ */
 module.exports = function (persona) {
 
     function randomIntFromInterval(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function applyModelToTemplate(template, model) {
+        var settings = doT.templateSettings;
+        settings.strip = false;
+        var dotTemp = doT.template(template, settings);
+        var text = dotTemp(model);
+        return text;
     }
 
     function getRandomElementFromArray(array) {
@@ -41,10 +55,13 @@ module.exports = function (persona) {
         return getRandomElementFromArray(match.response);
     }
 
-    function createHeroCard(session, obj) {
+    function createHeroCard(session, obj, model) {
+
+        var text = applyModelToTemplate(getRandomElementFromArray(obj.text), model);
+
         return new builder.HeroCard(session)
             .title(obj.title)
-            .text(getRandomElementFromArray(obj.text))
+            .text(text)
             .images([
                 builder.CardImage.create(session, obj.contentUrl)
             ])
@@ -52,62 +69,82 @@ module.exports = function (persona) {
                 builder.CardAction.openUrl(session, obj.linkUrl, obj.linkText)
             ]);
     }
-    
-    function createVideoCard(session, obj) {
+
+    function createVideoCard(session, obj, model) {
+
+        var title = applyModelToTemplate(obj.title, model);
+        var text = applyModelToTemplate(getRandomElementFromArray(obj.text), model);
+
         return new builder.VideoCard(session)
-            .title(obj.title)
-            .text(getRandomElementFromArray(obj.text))
+            .title(title)
+            .text(text)
             .media([
-                { url: obj.contentUrl }
+                {url: obj.contentUrl}
             ])
             .buttons([
                 builder.CardAction.openUrl(session, obj.linkUrl, obj.linkText)
             ]);
     }
 
-    function buildMediaResponse(session, obj) {
+    function buildMediaResponse(session, obj, model) {
         var card;
         switch (obj.type) {
             case "video":
-                card = createVideoCard(session, obj);
+                card = createVideoCard(session, obj, model);
                 break;
             case "image":
-                card = createHeroCard(session, obj);
+                card = createHeroCard(session, obj, model);
                 break;
         }
-        var response = new builder.Message(session).addAttachment(card);
-        return response;
+        return new builder.Message(session).addAttachment(card);
     }
 
-    function getResponseForKey(key, session) {
-        return getResponseForKeyWithScore(key, null, session);
+    /**
+     * Gets a suitable (keyed) response from the provided persona.
+     *
+     * @param key - unique key of response item in persona response file.
+     * @param model - data model to apply to response template
+     * @param session - current conversation session
+     */
+    function getResponseForKey(key, model, session) {
+        return getResponseForKeyWithScore(key, null, model, session);
     }
 
-    function getResponseForKeyWithScore(key, score, session) {
+    /**
+     * Gets a suitable (keyed) response from the provided persona.
+     * Allows for certainty score to be passed in to select from variable certainty responses.
+     *
+     * @param key - unique key of response item in persona response file.
+     * @param score - float between 0 and 1
+     * @param model - data model to apply to response template
+     * @param session - current conversation session
+     */
+    function getResponseForKeyWithScore(key, score, model, session) {
         var personaProperty = getPersonaPropertyForKey(key);
 
         var responseItem;
-        if(personaProperty && Array.isArray(personaProperty)) {
+        if (personaProperty && Array.isArray(personaProperty)) {
             responseItem = getRandomElementFromArray(personaProperty);
         } else {
             responseItem = personaProperty;
         }
 
-        if (responseItem && typeof(responseItem) === "object") {
-            if (responseItem.type && (responseItem.type === "video" || responseItem.type === "image")) {
-                return buildMediaResponse(session, responseItem);
-            } else if (responseItem.type && responseItem.type === "variable_certainty") {
-                return getVariableCertaintyResponse(responseItem.certainties, score);
-            } else {
-                winston.error("response item [%s] value was 'object' but was type [%s]", key, responseItem.type);
-                return getResponseForKey("error.general");
-            }
-        } else if (responseItem && typeof(responseItem) === "string") {
-            return responseItem;
-        } else {
-            winston.error("response item [%s] value was not 'object' or 'string' but was [%s]", key, typeof(responseItem));
-            return getResponseForKey("error.general");
+
+        if (responseItem && typeof(responseItem) === "object" && responseItem.type && responseItem.type === "variable_certainty") {
+            responseItem = getVariableCertaintyResponse(responseItem.certainties, score);
         }
+
+
+        var result;
+        if (responseItem && typeof(responseItem) === "object" && responseItem.type && (responseItem.type === "video" || responseItem.type === "image")) {
+            result = buildMediaResponse(session, responseItem, model);
+        } else if (responseItem && typeof(responseItem) === "string") {
+            result = applyModelToTemplate(responseItem, model);
+        } else {
+            winston.error("response item for key [%s] was not 'object' or 'string' but was [%s]", key, typeof(responseItem));
+            result = getResponseForKey("error.general");
+        }
+        return result;
     }
 
     return {

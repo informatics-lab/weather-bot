@@ -1,9 +1,9 @@
 "use strict";
 
-var wxVariables = require("../resources/wx_variables");
 var wxTypes = require("../resources/datapoint/weatherTypes");
 var visibilities = require("../resources/datapoint/visibilities");
 var uvs = require("../resources/datapoint/uvIndexes");
+var sugar = require("sugar");
 
 var daysToMillis = function (n) {
     return n * 86400000;
@@ -46,77 +46,87 @@ var monthIndexToMonthString = function(i)  {
 
 var dateStringToDateObject = function (dateStr) {
     var dt = new Date(dateStr);
+    var today = sugar.Date.create('today', {fromUTC: true});
+    var tomorrow = sugar.Date.create('tomorrow', {fromUTC: true});
+
+    var dayString;
+    if (dateStr === today.toISOString()) {
+        dayString = "today";
+    } else if (dateStr === tomorrow.toISOString()) {
+        dayString = "tomorrow";
+    } else {
+        dayString = dayIndexToDayString(dt.getDay());
+    }
+
     return {
         day : dt.getDay(),
-        day_string : dayIndexToDayString(dt.getDay()),
+        day_string : dayString,
         month : dt.getMonth(),
         month_string : monthIndexToMonthString(dt.getMonth()),
         year : dt.getFullYear()
     }
 };
 
-var wxTypeIndexToWxTypeString = function (i) {
+var mapWxType = function (i) {
     var wxType = wxTypes[i];
-    if(wxType.includes("(")) {
-        wxType =  wxType.substr(0, wxType.indexOf("(")).trim();
-    }
-    return wxType.toLowerCase();
+    wxType["index"] = i;
+    return wxType;
 };
 
-var windDirectionToWindDirectionString = function(d) {
+var mapWindDirection = function(d) {
+    var str = null;
+    //TODO add more wind directions
     switch (d.substr(0,1).toUpperCase()) {
-        case "N": return "Northerly";
-        case "E": return "Easterly";
-        case "S": return "Southerly";
-        case "W": return "Westerly";
-        default: return null;
+        case "N":
+            str = "Northerly";
+            break;
+        case "E":
+            str = "Easterly";
+            break;
+        case "S":
+            str = "Southerly";
+            break;
+        case "W":
+            str =  "Westerly";
+            break;
+        default:
+            str = null;
+            break;
     }
+    return {
+        index:d,
+        string:str
+    };
 };
 
-var visibilityToVisibilityString = function (i) {
-    var visibility = visibilities[i.toUpperCase()];
-    if(visibility.includes("-")) {
-        var split =  visibility.split("-");
-        visibility = `${split[0].trim()}, at ${split[1].trim()}`;
-        if(split.length === 3) {
-            visibility = `${visibility} and ${split[2].trim()}`;
-        }
-    }
-    return visibility.toLowerCase();
+var mapVisibility = function (i) {
+    var vis = visibilities[i.toUpperCase()];
+    vis["index"] = i;
+    return vis;
 };
 
-var uvToUvString = function(i) {
-    var uv = uvs[i];
-    return uv.toLowerCase();
-};
-
-var dailyDatapointToModel = function(wx) {
-
-    var model = {};
-
-    model.weather_type = wxTypeIndexToWxTypeString(wx.W);
-    model.temperature = wx.Dm;
-    model.feels_like_temperature = wx.FDm;
-    model.wind_speed = wx.S;
-    model.wind_gust = wx.Gn;
-    model.wind_direction = windDirectionToWindDirectionString(wx.D);
-    model.precipitation_probability = wx.PPd;
-    model.visibility = visibilityToVisibilityString(wx.V);
-    model.uv = uvToUvString(wx.U);
-    model.humidity = wx.Hn;
-
-    return model;
+var mapUvIndex = function(i) {
+    var uv = {
+        string: uvs[i].toLowerCase(),
+        index: i
+    };
+    return uv;
 };
 
 module.exports = {
+    "HOURLY": "hourly",
     "THREE_HOURLY": "3hourly",
     "DAILY": "daily",
+
     "HOURS_TO_MILLIS": hoursToMillis,
     "DAYS_TO_MILLIS": daysToMillis,
-    "WX_VARIABLES": wxVariables,
+
     "DAY_INDEX_TO_DAY_STRING" : dayIndexToDayString,
     "MONTH_INDEX_TO_MONTH_STRING" : monthIndexToMonthString,
     "DATE_TO_DATE_OBJECT" : dateStringToDateObject,
-    "WX_TYPE_INDEX_TO_WX_TYPE_STRING": wxTypeIndexToWxTypeString,
-    "DAILY_DATAPOINT_TO_MODEL": dailyDatapointToModel
+
+    "MAP_SIGNIFICANT_WEATHER_TYPE": mapWxType,
+    "MAP_VISIBILITY": mapVisibility,
+    "MAP_WIND_DIRECTION": mapWindDirection,
+    "MAP_UV_INDEX": mapUvIndex
 };

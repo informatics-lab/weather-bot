@@ -1,0 +1,40 @@
+
+{
+  "query": "what is happening at 2",
+  "topScoringIntent": {
+    "intent": "general",
+    "score": 0.888356447
+  },
+  "intents": [
+    {
+      "intent": "general",
+      "score": 0.888356447
+    },
+    {
+      "intent": "None",
+      "score": 0.2779149
+    }
+  ],
+  "entities": [
+    {
+      "entity": "2",
+      "type": "builtin.datetimeV2.time",
+      "startIndex": 21,
+      "endIndex": 21,
+      "resolution": {
+        "values": [
+          {
+            "timex": "T02",
+            "type": "time",
+            "value": "02:00:00"
+          },
+          {
+            "timex": "T14",
+            "type": "time",
+            "value": "14:00:00"
+          }
+        ]
+      }
+    }
+  ]
+}

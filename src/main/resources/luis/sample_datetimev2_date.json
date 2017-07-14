@@ -1,0 +1,35 @@
+
+{
+  "query": "what is happening tomorrow",
+  "topScoringIntent": {
+    "intent": "general",
+    "score": 0.9982406
+  },
+  "intents": [
+    {
+      "intent": "general",
+      "score": 0.9982406
+    },
+    {
+      "intent": "None",
+      "score": 0.162896633
+    }
+  ],
+  "entities": [
+    {
+      "entity": "tomorrow",
+      "type": "builtin.datetimeV2.date",
+      "startIndex": 18,
+      "endIndex": 25,
+      "resolution": {
+        "values": [
+          {
+            "timex": "2017-07-14",
+            "type": "date",
+            "value": "2017-07-14"
+          }
+        ]
+      }
+    }
+  ]
+}

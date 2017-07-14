@@ -9,16 +9,16 @@ var builder = require("botbuilder");
 var request = require("request");
 var ua = require('universal-analytics');
 var raven = require('raven');
+var nconf = require("nconf");
+var winston = require("winston");
 
 
 // application conf
-var nconf = require("nconf");
 var config = nconf.env().argv().file({file: "secrets.json"});
 config.app = require("../../../package.json");
 config.persona = config.get("PERSONA") ? config.get("PERSONA").toLowerCase() : "default";
 
 // logging conf
-var winston = require("winston");
 winston.configure({
     transports: [
         new (winston.transports.Console)({
@@ -32,7 +32,7 @@ raven.config(`https://${config.get("SENTRY_USERNAME")}:${config.get("SENTRY_PASS
 
 // services conf
 var luis = require("./services/luis")(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
-var datapoint = require("./services/datapoint")(config.get("DATAPOINT_API_KEY"));
+var datapoint = require("./services/datapoint").new(config.get("NEW_DATAPOINT_API_KEY"));
 var gmaps = require("./services/gmaps")(config.get("GOOGLE_MAPS_API_KEY"));
 
 /*
@@ -47,9 +47,16 @@ function main() {
     server.listen(config.get("PORT") || 3978, () => {
         winston.info("%s listening on %s", server.name, server.url);
     });
+
+    var appIdStr = "MICROSOFT_APP_ID";
+    var appPasswordStr = "MICROSOFT_APP_PASSWORD";
+    if (config.get("DEBUG")) {
+        appIdStr = `DEV_${appIdStr}`;
+        appPasswordStr = `DEV_${appPasswordStr}`;
+    }
     var connector = new builder.ChatConnector({
-        appId: config.get("MICROSOFT_APP_ID"),
-        appPassword: config.get("MICROSOFT_APP_PASSWORD")
+        appId: config.get(appIdStr),
+        appPassword: config.get(appPasswordStr)
     });
     server.post("/api/messages", connector.listen());
 
@@ -62,19 +69,24 @@ function main() {
     //conversation root
     bot.dialog("/", [
         (session) => {
-            if (! session.userData.uuid) {
-              session.userData.ga_id = config.get("GOOGLE_ANALYTICS_ID");
-              session.userData.uuid = ua(session.userData.ga_id).cid;
-            }
-            if(config.get("DEBUG_TOOLS") && debugTools(session)) {
+            if (config.get("DEBUG_TOOLS") && debugTools(session)) {
                 return;
+            }
+            if (!session.userData.uuid) {
+                if (session.message.address.channelId === "facebook") {
+                    session.userData["channel"] = "fb";
+                    session.userData["name"] = session.message.address.user.name.split(" ")[0];
+                    session.userData["fb"] = session.message.address.user;
+                }
+                session.userData["ga_id"] = config.get("GOOGLE_ANALYTICS_ID");
+                session.userData["uuid"] = ua(session.userData.ga_id).cid;
             }
             luis.parse(session.message.text)
                 .then((response) => {
-                    if(response.topScoringIntent.score >= 0.1) {
+                    if (response.topScoringIntent.score >= 0.1) {
                         session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
                     } else {
-                        if(!session.userData.greeted) {
+                        if (!session.userData.greeted) {
                             session.beginDialog("smalltalk.greeting");
                         } else {
                             session.beginDialog("none");
@@ -102,9 +114,15 @@ function main() {
     intents.weather.accessories.coat(bot, persona);
     intents.weather.accessories.umbrella(bot, persona);
     intents.weather.accessories.jumper(bot, persona);
+    intents.weather.accessories.sun_cream(bot, persona);
 
     intents.weather.forecast(bot, persona, datapoint, gmaps);
+    intents.weather.detail(bot, persona);
+
     intents.weather.variable(bot, persona, datapoint, gmaps);
+    intents.weather.variables.unknown(bot, persona);
+    intents.weather.variables.sun(bot, persona);
+    intents.weather.variables.rain(bot, persona);
 
     // smalltalk
     intents.smalltalk.greeting(bot, persona);
@@ -152,39 +170,38 @@ function main() {
 
     // user
     intents.user.name(bot, persona);
-    intents.user.location(bot, persona, gmaps);
 
     // prompt
     prompt(bot, persona);
 
 }
-raven.context(function() {
+raven.context(function () {
     main();
 });
 
 function debugTools(session) {
-    if(session.message.text === "/dAllData"){
+    if (session.message.text === "/dAllData") {
         session.userData = {};
         session.conversationData = {};
         session.send("all data deleted");
         return true;
     }
-    if(session.message.text === "/dConversationData"){
+    if (session.message.text === "/dConversationData") {
         session.conversationData = {};
         session.send("conversation data deleted");
         return true;
     }
-    if(session.message.text === "/sConversationData"){
+    if (session.message.text === "/sConversationData") {
         console.log(session.conversationData);
         session.send(JSON.stringify(session.conversationData));
         return true;
     }
-    if(session.message.text === "/dUserData"){
+    if (session.message.text === "/dUserData") {
         session.userData = {};
         session.send("user data deleted");
         return true;
     }
-    if(session.message.text === "/sUserData"){
+    if (session.message.text === "/sUserData") {
         console.log(session.userData);
         session.send(JSON.stringify(session.userData));
         return true;

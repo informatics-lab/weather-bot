@@ -1,0 +1,36 @@
+
+{
+  "query": "weather tomorrow at 6",
+  "topScoringIntent": {
+    "intent": "general",
+    "score": 0.9994596
+  },
+  "intents": [
+    {
+      "intent": "general",
+      "score": 0.9994596
+    }
+  ],
+  "entities": [
+    {
+      "entity": "tomorrow at 6",
+      "type": "builtin.datetimeV2.datetime",
+      "startIndex": 8,
+      "endIndex": 20,
+      "resolution": {
+        "values": [
+          {
+            "timex": "2017-07-15T06",
+            "type": "datetime",
+            "value": "2017-07-15 06:00:00"
+          },
+          {
+            "timex": "2017-07-15T18",
+            "type": "datetime",
+            "value": "2017-07-15 18:00:00"
+          }
+        ]
+      }
+    }
+  ]
+}
