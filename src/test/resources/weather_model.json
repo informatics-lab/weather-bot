@@ -83,6 +83,10 @@
       "min": 20
     }
   },
+  "uv": {
+    "string": "blah",
+    "index":1
+  },
   "significant_weather": {
     "index": 1,
     "rating": 10,
