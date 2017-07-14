@@ -81,9 +81,8 @@ exports.sanitze = {
         return next();
     },
 
-    //TODO more work required to implement all edge cases for dates
-
     //deprecated now using LUIS builtin.datetimev2
+    //TODO more work required to implement all edge cases for dates
     /**
      * Parses the user's input to extract the time bounding that a user may be looking for.
      * Returned as an array of ISO date time strings.
@@ -343,7 +342,7 @@ exports.sanitze = {
 
 exports.summarize = {
 
-    //TODO add more functionality to merging of significant weather.
+    //TODO add more functionality to merging of weather forecasts.
     weather: (session, results, next) => {
 
         var fcstArray = session.conversationData.forecast;
@@ -386,7 +385,7 @@ exports.summarize = {
 
         function getMode(varMap) {
 
-            //TODO fix this
+            //TODO fix this : currently if more than 1 mode selects the first
             var m = math.mode(varMap.map(x => x.v));
             m = m[0];
 
@@ -447,6 +446,7 @@ exports.capture = {
         return next();
     },
 
+    //now deprecated as using builtin datetime v2
     time_target: (session, results, next) => {
         winston.debug("capturing time_target");
         var luis = session.conversationData.luis;
@@ -472,14 +472,51 @@ exports.capture = {
             }
         }
         if (!session.conversationData.location) {
+
             session.beginDialog("prompt", {
-                key: "prompts.weather.forecast.location",
+                key: `prompts.${session.conversationData.intent}.location`,
                 sessionDataKey: "conversationData.location",
                 model: {user: session.userData}
             });
         } else {
             return next();
         }
+    },
+
+    accessory: (session, results, next) => {
+        winston.debug("capturing accessory");
+        var luis = session.conversationData.luis;
+        if (luis && luis.entities) {
+            var accessoryEntity = results.entities.filter(e => e.type === "accessory")[0];
+            if (accessoryEntity) {
+                session.conversationData.accessory = accessoryEntity.entity;
+            }
+        }
+        if (!session.conversationData.accessory) {
+            winston.warn("no accessory found in [ %s ]", session.message.text);
+            var unknown = "weather.accessory.unknown";
+            session.cancelDialog();
+            session.beginDialog(unknown);
+        }
+        return next();
+    },
+
+    variable: (session, results, next) => {
+        winston.debug("capturing variable");
+        var luis = session.conversationData.luis;
+        if (luis && luis.entities) {
+            var variableEntity = results.entities.filter(e => e.type === "variable")[0];
+            if (variableEntity) {
+                session.conversationData.variable = variableEntity.entity;
+            }
+        }
+        if (!session.conversationData.variable) {
+            winston.warn("no variable found in [ %s ]", session.message.text);
+            var unknown = "weather.variable.unknown";
+            session.cancelDialog();
+            session.beginDialog(unknown);
+        }
+        return next();
     }
 
 };

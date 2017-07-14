@@ -4,6 +4,9 @@
       "Oops. Something went wrong then. Try asking me something else.",
       "Hang on a minute, I've encountered a major problem. Try asking me something different."
     ],
+    "nonsense": [
+      "Sorry that didn't make sense to me. Try asking me something else."
+    ],
     "data": {
       "not_returned": [
         "Unfortunately my data source is playing up at the moment, no data is currently available to fulfill your request."

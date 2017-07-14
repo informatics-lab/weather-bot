@@ -26,15 +26,18 @@ module.exports = (bot, persona) => {
             ua(session.userData.ga_id, session.userData.uuid)
                 .event({ec: "intent", ea: intent, el: session.message.text})
                 .send();
+            session.conversationData.luis = results;
+            session.conversationData.intent = intent;
 
             if (!session.conversationData.time_target || !session.conversationData.location) {
                 winston.warn("[ %s ] matched but the time_target was [ %s ] and the location was [ %s ]", intent, session.conversationData.time_target, session.conversationData.location);
                 session.cancelDialog();
-                session.beginDialog("error.general");
-            } else if (!session.conversationData.previous_intent.split(".")[0] === "weather") {
+                session.beginDialog("error.nonsense");
+            } 
+            if (!(session.conversationData.previous_intent.split(".")[0] == "weather")) {
                 winston.warn("[ %s ] matched but previous intent was [ %s ]", intent, session.conversationData.previous_intent);
                 session.cancelDialog();
-                session.beginDialog("error.general");
+                session.beginDialog("error.nonsense");
             }
 
             return next();

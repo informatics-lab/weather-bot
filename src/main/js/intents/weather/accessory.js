@@ -25,7 +25,13 @@ module.exports = (bot, persona, datapoint, gmaps) => {
     bot.dialog(intent, [
         (session, results, next) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
-
+            ua(session.userData.ga_id, session.userData.uuid)
+                .event({ec: "intent", ea: intent, el: session.message.text})
+                .send();
+            session.conversationData.luis = results;
+            session.conversationData.intent = intent;
+            return next();
+            
             if (results && results.entities) {
                 var timeTargetEntity = results.entities.filter(e => e.type === 'time_target')[0];
                 if (timeTargetEntity) {

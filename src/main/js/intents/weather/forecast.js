@@ -30,6 +30,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 .event({ec: "intent", ea: intent, el: session.message.text})
                 .send();
             session.conversationData.luis = results;
+            session.conversationData.intent = intent;
             return next();
         },
         utils.capture.datetimeV2,
