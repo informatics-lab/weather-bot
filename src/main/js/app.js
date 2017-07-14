@@ -119,10 +119,10 @@ function main() {
     intents.weather.forecast(bot, persona, datapoint, gmaps);
     intents.weather.detail(bot, persona);
 
-    // intents.weather.variable(bot, persona, datapoint, gmaps);
-    // intents.weather.variables.unknown(bot, persona);
-    // intents.weather.variables.sun(bot, persona);
-    // intents.weather.variables.rain(bot, persona);
+    intents.weather.variable(bot, persona, datapoint, gmaps);
+    intents.weather.variables.unknown(bot, persona);
+    intents.weather.variables.sun(bot, persona);
+    intents.weather.variables.rain(bot, persona);
 
     // smalltalk
     intents.smalltalk.greeting(bot, persona);
