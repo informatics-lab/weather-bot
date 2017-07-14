@@ -82,7 +82,7 @@ exports.sanitze = {
     },
 
     //TODO more work required to implement all edge cases for dates
-    //TODO make this return a single object { 'fromDT': x, 'toDT': y }
+
     //deprecated now using LUIS builtin.datetimev2
     /**
      * Parses the user's input to extract the time bounding that a user may be looking for.
@@ -211,11 +211,138 @@ exports.sanitze = {
 
         session.conversationData.time_target_dates = result;
         return next();
+    },
+
+    //TODO make this return a single object { 'fromDT': x, 'toDT': y }
+    datetimeV2: (session, results, next) => {
+
+        var dt = session.conversationData.time_target;
+        var dtType = dt.type.split('.')[2];
+        var range = null;
+        switch (dtType) {
+            case "time":
+                range = processTime(dt);
+                break;
+            case "date":
+                range = processDate(dt);
+                break;
+            case "datetime":
+                range = processDateTime(dt);
+                break;
+            case "daterange":
+                range = processDateRange(dt);
+                break;
+            case "datetimerange":
+                range = processDateTimeRange(dt);
+                break;
+            default:
+                throw `unrecognised datetimeV2 entity type [${dtType}]`;
+        }
+
+        session.conversationData.time_target.range = range;
+
+        return next();
+
+        function processTime(dt) {
+            if (dt.resolution.values.length > 1) {
+                /*
+                 * multiple time options returned from luis
+                 * how to decide which to use:
+                 * if one of the options is before 7AM, choose the other
+                 * otherwise, pick the closest to now.
+                 */
+                var candidates = dt.resolution.values.map(x => sugar.Date.create(x.value, {fromUTC: true}));
+                candidates = candidates.filter(x => {
+                    var sevenAm = sugar.Date.create("07:00:00");
+                    if (sugar.Date.isAfter(x, sevenAm)) {
+                        return true;
+                    }
+                    return false;
+                });
+
+                if (candidates.length == 1) {
+                    var fromDT = sugar.Date.reset(candidates[0], "hour");
+                    var toDT = sugar.Date.addHours(fromDT, 1);
+                    return {
+                        fromDT: fromDT,
+                        toDT: toDT
+                    }
+                } else {
+                    candidates = candidates.map(x => {
+                        return {
+                            v: x,
+                            s: sugar.Date.secondsUntil(x)
+                        }
+                    }).reduce((a, b) => {
+                        a.s < b.s ? a.v : b.v
+                    });
+                    var fromDT = sugar.Date.reset(candidates, "hour");
+                    var toDT = sugar.Date.addHours(fromDT, 1);
+                    return {
+                        fromDT: fromDT,
+                        toDT: toDT
+                    }
+                }
+            } else {
+                var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].value, {fromUTC: true}), "hour");
+                var toDT = sugar.Date.addHours(fromDT, 1);
+                return {
+                    fromDT: fromDT,
+                    toDT: toDT
+                }
+            }
+        }
+
+        function processDate(dt) {
+            var fromDT = sugar.Date.create(dt.resolution.values[0].value, {fromUTC: true});
+            var toDT = sugar.Date.addDays(fromDT, 1);
+            return {
+                fromDT: fromDT,
+                toDT: toDT
+            }
+        }
+
+        function processDateTime(dt) {
+
+        }
+
+        function processDateRange(dt) {
+            var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].start, {fromUTC: true}), "hour");
+            var toDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].end, {fromUTC: true}), "hour");
+            return {
+                fromDT: fromDT,
+                toDT: toDT
+            }
+        }
+
+        function processDateTimeRange(dt) {
+            return processDateRange(dt);
+        }
+
+    },
+
+    /**
+     * filters the datapoint weather response to just the set of forecasts we are interested in for the given time_target
+     */
+    weather: (session, results, next) => {
+        var fcstArray = session.conversationData.datapoint.features[0].properties.time_series;
+        var range = session.conversationData.time_target.range;
+
+        fcstArray = fcstArray.filter(x => {
+            var dt = sugar.Date.create(x.time);
+            if (sugar.Date.isBetween(dt, range.fromDT, range.toDT)) {
+                return true;
+            }
+            return false;
+        });
+
+        session.conversationData.forecast = fcstArray;
+        return next();
     }
 };
 
 exports.summarize = {
-    
+
     //TODO add more functionality to merging of significant weather.
     weather: (session, results, next) => {
 
@@ -239,7 +366,7 @@ exports.summarize = {
         var wind_direction = mapToTimeValue(fcstArray, "10m_wind_direction");
         var relative_humidity = mapToTimeValue(fcstArray, "relative_humidity");
         var visibility = mapToTimeValue(fcstArray, "visibility");
-        var significant_weather= mapToTimeValue(fcstArray, "significant_weather");
+        var significant_weather = mapToTimeValue(fcstArray, "significant_weather");
 
         function min(a, b) {
             return a.v < b.v ? a : b;
@@ -281,7 +408,7 @@ exports.summarize = {
                 "direction": constants.MAP_WIND_DIRECTION(getMode(wind_direction).mode)
             },
             "relative_humidity": getMaxMinMean(relative_humidity),
-            "visibility" : constants.MAP_VISIBILITY(getMode(visibility).mode),
+            "visibility": constants.MAP_VISIBILITY(getMode(visibility).mode),
             "significant_weather": constants.MAP_SIGNIFICANT_WEATHER_TYPE(getMode(significant_weather).mode)
         };
 
@@ -292,7 +419,36 @@ exports.summarize = {
 
 exports.capture = {
 
-    time_target: (session, results, next)  => {
+    /**
+     * captures the luis builtin entity datetimeV2
+     */
+    datetimeV2: (session, results, next) => {
+        winston.debug("capturing datetimeV2");
+        var luis = session.conversationData.luis;
+        if (luis && luis.entities) {
+            var datetimeEntity = luis.entities.filter(e => e.type.includes("datetimeV2")[0]);
+            if (datetimeEntity) {
+                session.conversationData.time_target = datetimeEntity.entity;
+            }
+        }
+        if (!session.conversationData.time_target) {
+            session.conversationData.time_target = {
+                "entity": "now",
+                "type": "builtin.datetimeV2.time",
+                "resolution": {
+                    "values": [
+                        {
+                            "type": "time",
+                            "value": sugar.Date.format(sugar.Date.create("now", {fromUTC: true}), "{hh}:{mm}:{ss}")
+                        }
+                    ]
+                }
+            };
+        }
+        return next();
+    },
+
+    time_target: (session, results, next) => {
         winston.debug("capturing time_target");
         var luis = session.conversationData.luis;
         if (luis && luis.entities) {
