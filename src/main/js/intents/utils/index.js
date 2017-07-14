@@ -262,7 +262,7 @@ exports.sanitze = {
 
                 if (candidates.length == 1) {
                     var fromDT = sugar.Date.reset(candidates[0], "hour");
-                    var toDT = sugar.Date.addHours(fromDT, 1);
+                    var toDT = sugar.Date.addHours(sugar.Date.clone(fromDT), 1);
                     return {
                         fromDT: fromDT,
                         toDT: toDT
@@ -277,7 +277,7 @@ exports.sanitze = {
                         a.s < b.s ? a.v : b.v
                     });
                     var fromDT = sugar.Date.reset(candidates, "hour");
-                    var toDT = sugar.Date.addHours(fromDT, 1);
+                    var toDT = sugar.Date.addHours(sugar.Date.clone(fromDT), 1);
                     return {
                         fromDT: fromDT,
                         toDT: toDT
@@ -285,7 +285,7 @@ exports.sanitze = {
                 }
             } else {
                 var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].value, {fromUTC: true}), "hour");
-                var toDT = sugar.Date.addHours(fromDT, 1);
+                var toDT = sugar.Date.addHours(sugar.Date.clone(fromDT), 1);
                 return {
                     fromDT: fromDT,
                     toDT: toDT
@@ -295,7 +295,7 @@ exports.sanitze = {
 
         function processDate(dt) {
             var fromDT = sugar.Date.create(dt.resolution.values[0].value, {fromUTC: true});
-            var toDT = sugar.Date.addDays(fromDT, 1);
+            var toDT = sugar.Date.addDays(sugar.Date.clone(fromDT), 1);
             return {
                 fromDT: fromDT,
                 toDT: toDT
@@ -322,7 +322,7 @@ exports.sanitze = {
     },
 
     /**
-     * filters the datapoint weather response to just the set of forecasts we are interested in for the given time_target
+     * filters the datapoint weather response to be just the set of forecasts we are interested in for the given time_target.range
      */
     weather: (session, results, next) => {
         var fcstArray = session.conversationData.datapoint.features[0].properties.time_series;
@@ -346,8 +346,7 @@ exports.summarize = {
     //TODO add more functionality to merging of significant weather.
     weather: (session, results, next) => {
 
-        //TODO array of forecasts pre sorted to just the ones we are interested in
-        var fcstArray = session.conversationData.datapoint.features[0].properties.time_series;
+        var fcstArray = session.conversationData.forecast;
 
         function mapToTimeValue(arr, value) {
             return arr.map(x => {
@@ -426,9 +425,9 @@ exports.capture = {
         winston.debug("capturing datetimeV2");
         var luis = session.conversationData.luis;
         if (luis && luis.entities) {
-            var datetimeEntity = luis.entities.filter(e => e.type.includes("datetimeV2")[0]);
+            var datetimeEntity = luis.entities.filter(e => e.type.includes("datetimeV2"))[0];
             if (datetimeEntity) {
-                session.conversationData.time_target = datetimeEntity.entity;
+                session.conversationData.time_target = datetimeEntity;
             }
         }
         if (!session.conversationData.time_target) {

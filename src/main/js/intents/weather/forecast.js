@@ -32,8 +32,8 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             session.conversationData.luis = results;
             return next();
         },
-        utils.capture.time_target,
-        utils.sanitze.time_target,
+        utils.capture.datetimeV2,
+        utils.sanitze.datetimeV2,
         utils.capture.location,
         utils.sanitze.location,
         (session, results, next) => {
@@ -60,9 +60,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                   return session.endDialog();
                 })
         },
-        //TODO
-        // parse the time_target and condense forecast into just the times we need -
-        // not worth doing yet as changing the datetime recognition to use luis' built in functionality.
+        utils.sanitze.weather,
         utils.summarize.weather,
         (session, results, next) => {
             var response = "";
