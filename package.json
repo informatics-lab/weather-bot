@@ -2,7 +2,7 @@
   "name": "weather-bot",
   "version": "0.0.1",
   "description": "Met Office prototype chat bot to talk about all things weather & climate related",
-  "main": "src/app.js",
+  "main": "src/main/js/app.js",
   "scripts": {
     "start": "node src/main/js/app",
     "test" : "mocha src/test/main"
