@@ -25,9 +25,6 @@ module.exports = (bot, persona, datapoint, gmaps) => {
     bot.dialog(intent, [
         (session, results, next) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
-            ua(session.userData.ga_id, session.userData.uuid)
-                .event({ec: "intent", ea: intent, el: session.message.text})
-                .send();
             session.conversationData.luis = results;
             session.conversationData.intent = intent;
             return next();
@@ -62,6 +59,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 })
         },
         utils.sanitze.weather,
+        utils.summarize.weather,
         (session, results, next) => {
             var accessorySlug = sugar.String.underscore(session.conversationData.accessory.toLowerCase());
             var accessoryIntent = `${intent}.${accessorySlug}`;

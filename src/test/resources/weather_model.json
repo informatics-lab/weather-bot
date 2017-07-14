@@ -23,7 +23,7 @@
       "mean": 6
     }
   },
-  "probabiliity_of_precipitation": {
+  "probability_of_precipitation": {
     "max": {
       "dt": "2017-07-14T00:07Z",
       "v": 7

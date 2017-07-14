@@ -109,12 +109,12 @@ function main() {
     intents.met_office.general_information(bot, persona);
 
     // weather
-    // intents.weather.accessory(bot, persona, datapoint, gmaps);
-    // intents.weather.accessories.unknown(bot, persona);
-    // intents.weather.accessories.coat(bot, persona);
-    // intents.weather.accessories.umbrella(bot, persona);
-    // intents.weather.accessories.jumper(bot, persona);
-    // intents.weather.accessories.sun_cream(bot, persona);
+    intents.weather.accessory(bot, persona, datapoint, gmaps);
+    intents.weather.accessories.unknown(bot, persona);
+    intents.weather.accessories.coat(bot, persona);
+    intents.weather.accessories.umbrella(bot, persona);
+    intents.weather.accessories.jumper(bot, persona);
+    intents.weather.accessories.sun_cream(bot, persona);
 
     intents.weather.forecast(bot, persona, datapoint, gmaps);
     intents.weather.detail(bot, persona);

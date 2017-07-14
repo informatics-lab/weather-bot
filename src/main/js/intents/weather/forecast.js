@@ -68,9 +68,18 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             var model = {
                 user: session.userData,
                 location: session.conversationData.location,
-                weather: session.conversationData.weather
+                date:{
+                    day_string : session.conversationData.time_target.entity
+                }
             };
 
+            if(!session.conversationData.weather || session.conversationData.weather.length == 0) {
+                session.send(persona.getResponse("weather.no_data"));
+                return next({response: baseIntent});
+            }
+
+            model.weather = session.conversationData.weather;
+            
             response = response + persona.getResponse(intent, model);
 
             if (response && !(response === "")) {

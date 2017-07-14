@@ -158,14 +158,14 @@ exports.sanitze = {
         var result = new Array();
         if (nextDayRegexResult) {
             if (session.conversationData.time_target_dates && session.conversationData.time_target_dates.length >= 1) {
-                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length - 1], {fromUTC: true}), 1);
+                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length - 1], {setUTC: true}), 1);
                 result.push(day.toISOString());
             } else {
                 winston.error("next day regex matched but no previous time_target_date found");
             }
         } else if (dayAfterNextRegexResult) {
             if (session.conversationData.time_target_dates && session.conversationData.time_target_dates.length >= 1) {
-                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length - 1], {fromUTC: true}), 2);
+                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length - 1], {setUTC: true}), 2);
                 result.push(day.toISOString());
             } else {
                 winston.error("day after next regex matched but no previous time_target_date found");
@@ -176,14 +176,14 @@ exports.sanitze = {
                 case "next" :
                 case "last" :
                 case "this" :
-                    sat = sugar.Date.create(`${weekendRegexResult[1]} saturday`, {fromUTC: true});
+                    sat = sugar.Date.create(`${weekendRegexResult[1]} saturday`, {setUTC: true});
                     break;
                 default :
-                    sat = sugar.Date.create("saturday", {fromUTC: true});
+                    sat = sugar.Date.create("saturday", {setUTC: true});
                     break;
             }
             //TODO only using saturday for this weekend to make the date handling in the responses easier
-            // sun = sugar.Date.addDays(sugar.Date.create(sat.toISOString(), {fromUTC: true}), 1);
+            // sun = sugar.Date.addDays(sugar.Date.create(sat.toISOString(), {setUTC: true}), 1);
             result.push(sat.toISOString());
             // result.push(sun.toISOString());
         } else if (dayRegexResult) {
@@ -192,10 +192,10 @@ exports.sanitze = {
                 case "next" :
                 case "last" :
                 case "this" :
-                    day = sugar.Date.create(`${dayRegexResult[1]} ${dayRegexResult[2]}`, {fromUTC: true});
+                    day = sugar.Date.create(`${dayRegexResult[1]} ${dayRegexResult[2]}`, {setUTC: true});
                     break;
                 default :
-                    day = sugar.Date.create(dayRegexResult[2], {fromUTC: true});
+                    day = sugar.Date.create(dayRegexResult[2], {setUTC: true});
                     break;
             }
             result.push(day.toISOString());
@@ -204,7 +204,7 @@ exports.sanitze = {
             var strRegexResults = strRegex.exec(str);
             str = strRegexResults[strRegexResults.length - 1].trim();
 
-            var day = sugar.Date.create(str, {fromUTC: true});
+            var day = sugar.Date.create(str, {setUTC: true});
             result.push(day.toISOString());
         }
 
@@ -250,7 +250,7 @@ exports.sanitze = {
                  * if one of the options is before 7AM, choose the other
                  * otherwise, pick the closest to now.
                  */
-                var candidates = dt.resolution.values.map(x => sugar.Date.create(x.value, {fromUTC: true}));
+                var candidates = dt.resolution.values.map(x => sugar.Date.create(x.value, {setUTC: true}));
                 candidates = candidates.filter(x => {
                     var sevenAm = sugar.Date.create("07:00:00");
                     if (sugar.Date.isAfter(x, sevenAm)) {
@@ -283,7 +283,7 @@ exports.sanitze = {
                     }
                 }
             } else {
-                var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].value, {fromUTC: true}), "hour");
+                var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].value, {setUTC: true}), "hour");
                 var toDT = sugar.Date.addHours(sugar.Date.clone(fromDT), 1);
                 return {
                     fromDT: fromDT,
@@ -293,7 +293,7 @@ exports.sanitze = {
         }
 
         function processDate(dt) {
-            var fromDT = sugar.Date.create(dt.resolution.values[0].value, {fromUTC: true});
+            var fromDT = sugar.Date.create(dt.resolution.values[0].value, {setUTC: true});
             var toDT = sugar.Date.addDays(sugar.Date.clone(fromDT), 1);
             return {
                 fromDT: fromDT,
@@ -306,8 +306,8 @@ exports.sanitze = {
         }
 
         function processDateRange(dt) {
-            var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].start, {fromUTC: true}), "hour");
-            var toDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].end, {fromUTC: true}), "hour");
+            var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].start, {setUTC: true}), "hour");
+            var toDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].end, {setUTC: true}), "hour");
             return {
                 fromDT: fromDT,
                 toDT: toDT
@@ -347,6 +347,11 @@ exports.summarize = {
 
         var fcstArray = session.conversationData.forecast;
 
+        if(!fcstArray || fcstArray.length == 0){
+            session.conversationData.weather = null;
+            return next();
+        }
+
         function mapToTimeValue(arr, value) {
             return arr.map(x => {
                 return {
@@ -364,6 +369,7 @@ exports.summarize = {
         var wind_direction = mapToTimeValue(fcstArray, "10m_wind_direction");
         var relative_humidity = mapToTimeValue(fcstArray, "relative_humidity");
         var visibility = mapToTimeValue(fcstArray, "visibility");
+        var uv = mapToTimeValue(fcstArray, "uv_index");
         var significant_weather = mapToTimeValue(fcstArray, "significant_weather");
 
         function min(a, b) {
@@ -399,7 +405,7 @@ exports.summarize = {
                 "feels_like": getMaxMinMean(feels_like_temperature),
                 "screen": getMaxMinMean(screenTemperature)
             },
-            "probabiliity_of_precipitation": getMaxMinMean(probability_of_precipitation),
+            "probability_of_precipitation": getMaxMinMean(probability_of_precipitation),
             "wind": {
                 "gust": getMaxMinMean(wind_gust),
                 "speed": getMaxMinMean(wind_speed),
@@ -407,6 +413,7 @@ exports.summarize = {
             },
             "relative_humidity": getMaxMinMean(relative_humidity),
             "visibility": constants.MAP_VISIBILITY(getMode(visibility).mode),
+            "uv": constants.MAP_UV_INDEX(uv.reduce(max).v),
             "significant_weather": constants.MAP_SIGNIFICANT_WEATHER_TYPE(getMode(significant_weather).mode)
         };
 
@@ -437,7 +444,7 @@ exports.capture = {
                     "values": [
                         {
                             "type": "time",
-                            "value": sugar.Date.format(sugar.Date.create("now", {fromUTC: true}), "{hh}:{mm}:{ss}")
+                            "value": sugar.Date.format(sugar.Date.create("now", {setUTC: true}), "{hh}:{mm}:{ss}")
                         }
                     ]
                 }
@@ -487,7 +494,7 @@ exports.capture = {
         winston.debug("capturing accessory");
         var luis = session.conversationData.luis;
         if (luis && luis.entities) {
-            var accessoryEntity = results.entities.filter(e => e.type === "accessory")[0];
+            var accessoryEntity = luis.entities.filter(e => e.type === "accessory")[0];
             if (accessoryEntity) {
                 session.conversationData.accessory = accessoryEntity.entity;
             }
@@ -505,7 +512,7 @@ exports.capture = {
         winston.debug("capturing variable");
         var luis = session.conversationData.luis;
         if (luis && luis.entities) {
-            var variableEntity = results.entities.filter(e => e.type === "variable")[0];
+            var variableEntity = luis.entities.filter(e => e.type === "variable")[0];
             if (variableEntity) {
                 session.conversationData.variable = variableEntity.entity;
             }
