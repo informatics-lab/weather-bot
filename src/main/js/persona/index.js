@@ -9,7 +9,7 @@ var doT = require("dot");
  *
  * @param persona - persona JSON file responses should be taken from.
  */
-module.exports = function (persona) {
+module.exports = function(persona) {
 
     function randomIntFromInterval(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -31,10 +31,9 @@ module.exports = function (persona) {
         var keyParts = key.split(".");
         var personaProperty = persona;
         for (var i = 0; i < keyParts.length; i++) {
-            if (personaProperty.hasOwnProperty(keyParts[i])) {
+            if (personaProperty && personaProperty.hasOwnProperty(keyParts[i])) {
                 personaProperty = personaProperty[keyParts[i]];
-            }
-            else {
+            } else {
                 winston.warn("persona is missing key [%s]", key);
                 personaProperty = null;
             }
@@ -79,7 +78,7 @@ module.exports = function (persona) {
             .title(title)
             .text(text)
             .media([
-                {url: obj.contentUrl}
+                { url: obj.contentUrl }
             ])
             .buttons([
                 builder.CardAction.openUrl(session, obj.linkUrl, obj.linkText)

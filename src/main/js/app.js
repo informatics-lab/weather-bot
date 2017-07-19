@@ -14,14 +14,14 @@ var winston = require("winston");
 
 
 // application conf
-var config = nconf.env().argv().file({file: "secrets.json"});
+var config = nconf.env().argv().file({ file: "secrets.json" });
 config.app = require("../../../package.json");
 config.persona = config.get("PERSONA") ? config.get("PERSONA").toLowerCase() : "default";
 
 // logging conf
 winston.configure({
     transports: [
-        new (winston.transports.Console)({
+        new(winston.transports.Console)({
             level: config.get("LOG_LEVEL") || "info",
             colorize: "all",
             timestamp: false
@@ -42,8 +42,8 @@ function main() {
     winston.info("starting %s %s", config.app.name, config.app.version);
 
     // Set up the bot server..
-    var server = restify.createServer({name: config.app.name});
-    server.use(restify.bodyParser({mapParams: false}));
+    var server = restify.createServer({ name: config.app.name });
+    server.use(restify.bodyParser({ mapParams: false }));
     server.listen(config.get("PORT") || 3978, () => {
         winston.info("%s listening on %s", server.name, server.url);
     });
@@ -60,7 +60,7 @@ function main() {
     });
     server.post("/api/messages", connector.listen());
 
-    var bot = new builder.UniversalBot(connector, {persistConversationData: true});
+    var bot = new builder.UniversalBot(connector, { persistConversationData: true });
 
     var intents = require("./intents");
     var prompt = require("./prompt");
@@ -109,20 +109,7 @@ function main() {
     intents.met_office.general_information(bot, persona);
 
     // weather
-    intents.weather.accessory(bot, persona, datapoint, gmaps);
-    intents.weather.accessories.unknown(bot, persona);
-    intents.weather.accessories.coat(bot, persona);
-    intents.weather.accessories.umbrella(bot, persona);
-    intents.weather.accessories.jumper(bot, persona);
-    intents.weather.accessories.sun_cream(bot, persona);
-
-    intents.weather.forecast(bot, persona, datapoint, gmaps);
-    intents.weather.detail(bot, persona);
-
-    intents.weather.variable(bot, persona, datapoint, gmaps);
-    intents.weather.variables.unknown(bot, persona);
-    intents.weather.variables.sun(bot, persona);
-    intents.weather.variables.rain(bot, persona);
+    intents.weather(bot, persona, datapoint, gmaps);
 
     // smalltalk
     intents.smalltalk.greeting(bot, persona);
@@ -175,7 +162,7 @@ function main() {
     prompt(bot, persona);
 
 }
-raven.context(function () {
+raven.context(function() {
     main();
 });
 

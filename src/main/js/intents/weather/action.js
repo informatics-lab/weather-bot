@@ -4,15 +4,14 @@ var winston = require("winston");
 var sugar = require("sugar");
 var utils = require("../utils");
 var constants = require("../../constants");
-var ua = require("universal-analytics");
-
 
 /**
- * weather.forecast
+ * weather.action
  *
- * When executed this intent will attempt to give the user a brief forecast.
+ * Responds to questions like 'is it a good day for a BBQ'
+ * Executes waterfall defined here and then forwards on to weather.accessory.<type_of_activity>
  * Uses the entities identified by LUIS otherwise will fallback to use the stored session.conversationData or
- * session.userData to return weather.forecast response.
+ * session.userData.
  *
  * @param bot - bot to add intent to
  * @param persona - persona client
@@ -21,22 +20,20 @@ var ua = require("universal-analytics");
  */
 module.exports = (bot, persona, datapoint, gmaps) => {
 
-    var intent = "weather.forecast";
+    var intent = "weather.action";
 
     bot.dialog(intent, [
         (session, results, next) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
-            ua(session.userData.ga_id, session.userData.uuid)
-                .event({ ec: "intent", ea: intent, el: session.message.text })
-                .send();
             session.conversationData.luis = results;
             session.conversationData.intent = intent;
             return next();
         },
-        utils.capture.datetimeV2,
-        utils.sanitze.datetimeV2,
         utils.capture.location,
         utils.sanitze.location,
+        utils.capture.datetimeV2,
+        utils.sanitze.datetimeV2,
+        utils.capture.action,
         (session, results, next) => {
             gmaps.geocode(session.conversationData.location)
                 .then((res) => {
@@ -64,31 +61,14 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         utils.sanitze.weather,
         utils.summarize.weather,
         (session, results, next) => {
-            var response = "";
-            var model = {
-                user: session.userData,
-                location: session.conversationData.location,
-                date: {
-                    day_string: session.conversationData.time_target.entity
-                }
-            };
-
-            if (!session.conversationData.weather || session.conversationData.weather.length == 0) {
-                session.send(persona.getResponse("weather.no_data"));
-                return next({ response: intent });
-
-            }
-
-            model.weather = session.conversationData.weather;
-
-            response = response + persona.getResponse(intent, model);
-
-            if (response && !(response === "")) {
-                session.send(response);
-                return next({ response: intent });
+            var actionType = session.conversationData.action_type;
+            var actionIntent = `${intent}.${actionType}`;
+            if (session.library.dialogs[actionIntent]) {
+                session.beginDialog(actionIntent);
             } else {
-                session.send(persona.getResponse("error.general"));
-                return session.endDialog();
+                winston.warn("accessory [ %s ] did not match with any known accessories", session.conversationData.accessory);
+                var unknown = `${intent}.unknown`;
+                session.beginDialog(unknown);
             }
         },
         utils.storeAsPreviousIntent

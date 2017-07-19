@@ -4,6 +4,7 @@ var sugar = require("sugar");
 var winston = require("winston");
 var math = require("mathjs");
 var constants = require("../../constants");
+var actionUtils = require('./actionUtils');
 
 exports.storeAsPreviousIntent = (session, results) => {
     if (results && results.response) {
@@ -81,138 +82,7 @@ exports.sanitze = {
         return next();
     },
 
-    //deprecated now using LUIS builtin.datetimev2
-    //TODO more work required to implement all edge cases for dates
-    /**
-     * Parses the user's input to extract the time bounding that a user may be looking for.
-     * Returned as an array of ISO date time strings.
-     */
-    time_target: (session, results, next) => {
-        var str = session.conversationData.time_target.toLowerCase();
-        winston.debug(`sanitizing [ ${str} ] for a time_target`);
-
-        /* next day regex
-         * matches:
-         * the day after
-         * the next day
-         */
-        var nextDayRegex = /(?=.*\bday\b)((?=.*\bafter\b)|(?=.*\bnext\b)).*/g;
-        var nextDayRegexResult = nextDayRegex.exec(str);
-
-        /* day after next regex
-         * matches:
-         * the day after next
-         */
-        var dayAfterNextRegex = /(?=.*\bday\b)(?=.*\bafter\b)(?=.*\bnext\b).*/g;
-        var dayAfterNextRegexResult = dayAfterNextRegex.exec(str);
-
-        /* weekend regex
-         * matches:
-         * this weekend
-         * at the weekend
-         * on the weekend
-         */
-        var weekendRegex = /(?=(\w+)\b \bweekend\b).*/g;
-        var weekendRegexResult = weekendRegex.exec(str);
-
-        /* week regex (functionality not currently implemented)
-         * matches:
-         * this week
-         * for the week
-         * for next week
-         * for last week
-         */
-        // var weekRegex = /(?=(\w+)\b \bweek\b).*/g;
-        // var weekRegexResult = weekRegex.exec(str);
-
-        /* month regex (functionality not currently implemented)
-         * matches:
-         * this month
-         * for the month
-         * for next month
-         * for last month
-         */
-        // var monthRegex = /(?=(\w+)\b \bmonth\b).*/g;
-        // var monthRegexResult = monthRegex.exec(str);
-
-        /* year regex (functionality not currently implemented)
-         * matches:
-         * this year
-         * for the year
-         * for next year
-         * for last year
-         */
-        // var yearRegex = /(?=(\w+)\b \byear\b).*/g;
-        // var yearRegexResult = yearRegex.exec(str);
-
-        /* day regex
-         * matches:
-         * this monday
-         * last tuesday
-         * next friday
-         * on wednesday
-         */
-        var dayRegex = /(?=(\w+)\b \b(\w+day)\b).*/g;
-        var dayRegexResult = dayRegex.exec(str);
-
-        var result = new Array();
-        if (nextDayRegexResult) {
-            if (session.conversationData.time_target_dates && session.conversationData.time_target_dates.length >= 1) {
-                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length - 1], {setUTC: true}), 1);
-                result.push(day.toISOString());
-            } else {
-                winston.error("next day regex matched but no previous time_target_date found");
-            }
-        } else if (dayAfterNextRegexResult) {
-            if (session.conversationData.time_target_dates && session.conversationData.time_target_dates.length >= 1) {
-                var day = sugar.Date.addDays(sugar.Date.create(session.conversationData.time_target_dates[session.conversationData.time_target_dates.length - 1], {setUTC: true}), 2);
-                result.push(day.toISOString());
-            } else {
-                winston.error("day after next regex matched but no previous time_target_date found");
-            }
-        } else if (weekendRegexResult) {
-            var sat, sun;
-            switch (weekendRegexResult[1]) {
-                case "next" :
-                case "last" :
-                case "this" :
-                    sat = sugar.Date.create(`${weekendRegexResult[1]} saturday`, {setUTC: true});
-                    break;
-                default :
-                    sat = sugar.Date.create("saturday", {setUTC: true});
-                    break;
-            }
-            //TODO only using saturday for this weekend to make the date handling in the responses easier
-            // sun = sugar.Date.addDays(sugar.Date.create(sat.toISOString(), {setUTC: true}), 1);
-            result.push(sat.toISOString());
-            // result.push(sun.toISOString());
-        } else if (dayRegexResult) {
-            var day;
-            switch (dayRegexResult[1]) {
-                case "next" :
-                case "last" :
-                case "this" :
-                    day = sugar.Date.create(`${dayRegexResult[1]} ${dayRegexResult[2]}`, {setUTC: true});
-                    break;
-                default :
-                    day = sugar.Date.create(dayRegexResult[2], {setUTC: true});
-                    break;
-            }
-            result.push(day.toISOString());
-        } else {
-            var strRegex = /([A-Za-z ]+)/g;
-            var strRegexResults = strRegex.exec(str);
-            str = strRegexResults[strRegexResults.length - 1].trim();
-
-            var day = sugar.Date.create(str, {setUTC: true});
-            result.push(day.toISOString());
-        }
-
-        session.conversationData.time_target_dates = result;
-        return next();
-    },
-
-    //TODO make this return a single object { 'fromDT': x, 'toDT': y }
+    //TODO: make this return a single object { 'fromDT': x, 'toDT': y }
     datetimeV2: (session, results, next) => {
 
         var dt = session.conversationData.time_target;
@@ -250,7 +120,7 @@ exports.sanitze = {
                  * if one of the options is before 7AM, choose the other
                  * otherwise, pick the closest to now.
                  */
-                var candidates = dt.resolution.values.map(x => sugar.Date.create(x.value, {setUTC: true}));
+                var candidates = dt.resolution.values.map(x => sugar.Date.create(x.value, { setUTC: true }));
                 candidates = candidates.filter(x => {
                     var sevenAm = sugar.Date.create("07:00:00");
                     if (sugar.Date.isAfter(x, sevenAm)) {
@@ -283,7 +153,7 @@ exports.sanitze = {
                     }
                 }
             } else {
-                var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].value, {setUTC: true}), "hour");
+                var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].value, { setUTC: true }), "hour");
                 var toDT = sugar.Date.addHours(sugar.Date.clone(fromDT), 1);
                 return {
                     fromDT: fromDT,
@@ -293,7 +163,7 @@ exports.sanitze = {
         }
 
         function processDate(dt) {
-            var fromDT = sugar.Date.create(dt.resolution.values[0].value, {setUTC: true});
+            var fromDT = sugar.Date.create(dt.resolution.values[0].value, { setUTC: true });
             var toDT = sugar.Date.addDays(sugar.Date.clone(fromDT), 1);
             return {
                 fromDT: fromDT,
@@ -306,8 +176,8 @@ exports.sanitze = {
         }
 
         function processDateRange(dt) {
-            var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].start, {setUTC: true}), "hour");
-            var toDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].end, {setUTC: true}), "hour");
+            var fromDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].start, { setUTC: true }), "hour");
+            var toDT = sugar.Date.reset(sugar.Date.create(dt.resolution.values[0].end, { setUTC: true }), "hour");
             return {
                 fromDT: fromDT,
                 toDT: toDT
@@ -347,7 +217,7 @@ exports.summarize = {
 
         var fcstArray = session.conversationData.forecast;
 
-        if(!fcstArray || fcstArray.length == 0){
+        if (!fcstArray || fcstArray.length == 0) {
             session.conversationData.weather = null;
             return next();
         }
@@ -436,35 +306,20 @@ exports.capture = {
                 session.conversationData.time_target = datetimeEntity;
             }
         }
+        // TODO: record when we stored the datetime and throw away if older than say 1h.
+        // TODO: We have to guess at the users timezone. Let's assume it's the same as the servers.
         if (!session.conversationData.time_target) {
             session.conversationData.time_target = {
-                "entity": "now",
-                "type": "builtin.datetimeV2.time",
+                "entity": "today",
+                "type": "builtin.datetimeV2.datetimerange",
                 "resolution": {
-                    "values": [
-                        {
-                            "type": "time",
-                            "value": sugar.Date.format(sugar.Date.create("now", {setUTC: true}), "{hh}:{mm}:{ss}")
-                        }
-                    ]
+                    "values": [{
+                        "type": "datetimerange",
+                        "start": sugar.Date.format(sugar.Date.create("now"), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}"),
+                        "end": sugar.Date.format(sugar.Date.endOfDay(sugar.Date.create("now")), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}")
+                    }]
                 }
             };
-        }
-        return next();
-    },
-
-    //now deprecated as using builtin datetime v2
-    time_target: (session, results, next) => {
-        winston.debug("capturing time_target");
-        var luis = session.conversationData.luis;
-        if (luis && luis.entities) {
-            var timeTargetEntity = luis.entities.filter(e => e.type === "time_target")[0];
-            if (timeTargetEntity) {
-                session.conversationData.time_target = timeTargetEntity.entity;
-            }
-        }
-        if (!session.conversationData.time_target) {
-            session.conversationData.time_target = "today";
         }
         return next();
     },
@@ -483,7 +338,7 @@ exports.capture = {
             session.beginDialog("prompt", {
                 key: `prompts.${session.conversationData.intent}.location`,
                 sessionDataKey: "conversationData.location",
-                model: {user: session.userData}
+                model: { user: session.userData }
             });
         } else {
             return next();
@@ -502,6 +357,25 @@ exports.capture = {
         if (!session.conversationData.accessory) {
             winston.warn("no accessory found in [ %s ]", session.message.text);
             var unknown = "weather.accessory.unknown";
+            session.cancelDialog();
+            session.beginDialog(unknown);
+        }
+        return next();
+    },
+
+    action: (session, results, next) => {
+        winston.debug("capturing action");
+        var luis = session.conversationData.luis;
+        if (luis && luis.entities) {
+            var actionEntity = luis.entities.filter(e => e.type === "action")[0];
+            if (actionEntity) {
+                session.conversationData.action = actionEntity.entity;
+                session.conversationData.action_type = actionUtils.action_type(actionEntity.entity);
+            }
+        }
+        if (!session.conversationData.action) {
+            winston.warn("no action found in [ %s ]", session.message.text);
+            var unknown = "weather.action.unknown";
             session.cancelDialog();
             session.beginDialog(unknown);
         }
