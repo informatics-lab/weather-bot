@@ -22,6 +22,18 @@
             "min": 1
         }
     },
+
+
+    "P": {
+        "rating": 2,
+        "official_string": "Poor - Between 1-4 km",
+        "string": "poor",
+        "distance": {
+            "max": 4,
+            "min": 1
+        }
+    },
+
     "MO": {
         "rating": 3,
         "official_string": "Moderate - Between 4-10 km",
@@ -73,6 +85,17 @@
             "min": 20
         }
     },
+
+    "E": {
+        "rating": 5,
+        "official_string": "Excellent - More than 40 km",
+        "string": "excellent",
+        "distance": {
+            "max": 100,
+            "min": 40
+        }
+    },
+
     "EX": {
         "rating": 5,
         "official_string": "Excellent - More than 40 km",
