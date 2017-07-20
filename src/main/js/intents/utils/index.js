@@ -366,6 +366,9 @@ exports.capture = {
     action: (session, results, next) => {
         winston.debug("capturing action");
         var luis = session.conversationData.luis;
+        // Clear previous actions. We don't want to remember between conversations
+        session.conversationData.action = null;
+        session.conversationData.action_type = null;
         if (luis && luis.entities) {
             var actionEntity = luis.entities.filter(e => e.type === "action")[0];
             if (actionEntity) {
@@ -373,11 +376,8 @@ exports.capture = {
                 session.conversationData.action_type = actionUtils.action_type(actionEntity.entity);
             }
         }
-        if (!session.conversationData.action) {
-            winston.warn("no action found in [ %s ]", session.message.text);
-            var unknown = "weather.action.unknown";
-            session.cancelDialog();
-            session.beginDialog(unknown);
+        if (!session.conversationData.action_type) {
+            session.conversationData.action_type = actionUtils.UNKNOWN;
         }
         return next();
     },

@@ -2,8 +2,8 @@
 
 var winston = require("winston");
 var sugar = require("sugar");
-var utils = require("../utils");
-var constants = require("../../constants");
+var utils = require("../../utils");
+var constants = require("../../../constants");
 
 /**
  * weather.action
@@ -66,7 +66,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             if (session.library.dialogs[actionIntent]) {
                 session.beginDialog(actionIntent);
             } else {
-                winston.warn("accessory [ %s ] did not match with any known accessories", session.conversationData.accessory);
+                winston.warn("accessory [ %s ] did not match with any known actionType", session.conversationData.actionType);
                 var unknown = `${intent}.unknown`;
                 session.beginDialog(unknown);
             }

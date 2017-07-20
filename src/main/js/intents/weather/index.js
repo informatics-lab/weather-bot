@@ -8,7 +8,6 @@ module.exports = (bot, persona, datapoint, gmaps) => {
     require("./accessories")(bot, persona)
 
     require("./action")(bot, persona, datapoint, gmaps);
-    require("./actions")(bot, persona, datapoint, gmaps);
 
     require("./variable")(bot, persona, datapoint, gmaps);
     require("./variables")(bot, persona);

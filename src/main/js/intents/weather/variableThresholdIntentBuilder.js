@@ -22,8 +22,9 @@ var ua = require('universal-analytics');
  * @param localIntent - generic name for unique intent sub-route
  * @param synonyms - Array<String> - list of synonyms for the localIntent
  * @param variableThresholds - Array<VariableThreshold> - list of variables with their associated thresholds specified
+ * @param scoreAggregator - String - one of `min`, `max`, `mean` or `product`. Mode for combining the scores from the different variables. Defaults to `mean`
  */
-module.exports = function (baseIntent, localIntent, synonyms, variableThresholds) {
+module.exports = function(baseIntent, localIntent, synonyms, variableThresholds, scoreAggregator) {
 
     var self = this;
     self.baseIntent = baseIntent;
@@ -31,14 +32,16 @@ module.exports = function (baseIntent, localIntent, synonyms, variableThresholds
     self.primaryIntent = `${baseIntent}.${localIntent}`;
     self.synonyms = synonyms;
     self.variableThresholds = variableThresholds;
+    scoreAggregator = scoreAggregator || 'mean';
+    self.scoreAggregator = scoring.getAggregator(scoreAggregator);
 
     function compare(variableThreshold, wxModel) {
         var score = scoring.getScoringFunction(variableThreshold.comparison);
-        var value = eval("wxModel."+variableThreshold.variable);
+        var value = eval("wxModel." + variableThreshold.variable); // TODO: Replace eval with somehting safer? - https://stackoverflow.com/questions/6491463/accessing-nested-javascript-objects-with-string-key/22129960#22129960
         return score(variableThreshold.min, variableThreshold.optimal, variableThreshold.max, value);
     }
 
-    return function (bot, persona) {
+    return function(bot, persona) {
         self.synonyms.push(self.localIntent);
         self.synonyms.forEach((a) => {
             var currentIntent = `${self.baseIntent}.${a}`;
@@ -46,21 +49,21 @@ module.exports = function (baseIntent, localIntent, synonyms, variableThresholds
                 (session, results, next) => {
 
                     ua(session.userData.ga_id, session.userData.uuid)
-                        .event({ec: "intent", ea: currentIntent, el: session.message.text})
+                        .event({ ec: "intent", ea: currentIntent, el: session.message.text })
                         .send();
 
                     var response = "";
                     var model = {
                         user: session.userData,
                         location: session.conversationData.location,
-                        date:{
-                            day_string : session.conversationData.time_target.entity
+                        date: {
+                            day_string: session.conversationData.time_target.entity
                         }
                     };
-                    
-                    if(!session.conversationData.weather || session.conversationData.weather.length == 0) {
+
+                    if (!session.conversationData.weather) {
                         session.send(persona.getResponse("weather.no_data"));
-                        return next({response: baseIntent});
+                        return next({ response: baseIntent });
                     }
 
                     model.weather = session.conversationData.weather;
@@ -71,14 +74,14 @@ module.exports = function (baseIntent, localIntent, synonyms, variableThresholds
                         scores.push(score);
                     });
 
-                    //TODO should we always be looking at the max score? possibly pass the appropriate function in
-                    var finalScore = Math.max.apply(null, scores);
+
+                    var finalScore = self.scoreAggregator(scores);
 
                     response = response + persona.getResponseForScore(self.primaryIntent, finalScore, model);
 
                     if (response && !(response === "")) {
                         session.send(response);
-                        return next({response: baseIntent});
+                        return next({ response: baseIntent });
                     } else {
                         session.send(persona.getResponse("error.general"));
                         return session.endDialog();
