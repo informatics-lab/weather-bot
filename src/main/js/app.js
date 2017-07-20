@@ -33,7 +33,8 @@ var datapoint = require("./services/datapoint").new(config.get("NEW_DATAPOINT_AP
 var gmaps = require("./services/gmaps")(config.get("GOOGLE_MAPS_API_KEY"));
 var persona = require("./persona")(require(`../resources/personas/${config.persona}.json`));
 
-raven.context(function() {
+
+function main() {
     var server = restify.createServer({ name: config.app.name });
     server.use(restify.bodyParser({ mapParams: false }));
     server.listen(config.get("PORT") || 3978, () => {
@@ -52,4 +53,12 @@ raven.context(function() {
     });
     server.post("/api/messages", connector.listen());
     require('./bot')(luis, connector, config, persona, datapoint, gmaps, ua);
-});
+};
+
+if (process.env.ENVIRONMENT == "production") {
+    raven.context(function() {
+        main();
+    });
+} else {
+    main();
+}
