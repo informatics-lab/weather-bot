@@ -28,7 +28,7 @@
         "That's outside my area of expertise. Sorry."
     ],
     "help": [
-        "I can answer weather related questions like... \n * What is the forecast for London tomorrow? \n * Will it rain this weekend in Bath? \n * Will I need my coat on Friday?"
+        "I can answer weather related questions like... \n * What is the forecast for London tomorrow? \n * Will it rain this weekend in Bath? \n * Will I need my coat on Friday? \n * Is it a good day for a run?"
     ],
     "met_office": {
         "general_information": {
@@ -231,20 +231,9 @@
         "not_found": [
             "Sorry, I couldn't find the weather for the date, time and location you have specified."
         ],
-        "detail": [{
-            "title": "{{= it.location}} Weather Forecast",
-            "type": "video",
-            "text": [
-                "In {{= it.location}} on average temperatures will be around {{= it.weather.temperature.screen.mean}}\u00b0C reaching a high of {{= it.weather.temperature.screen.max.v}}\u00b0C.{{? it.weather.temperature.screen.max.v != it.weather.temperature.feels_like.max.v}} Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max.v}}\u00b0C at its peak.{{?}} {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. Visibility is expected to be {{= it.weather.visibility.string}} at up to {{= it.weather.visibility.distance.max}}km. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation. "
-            ],
-            "contentType": "video/mp4",
-            "contentUrl": "https://s3-eu-west-1.amazonaws.com/informatics-visualcortex/visual-cortex-sample-800x720.mp4",
-            "linkUrl": "http://www.metoffice.gov.uk/",
-            "linkText": "Find Out More"
-        }],
+        "detail": ["Check out the [Met Office website](http://www.metoffice.gov.uk/) or [YouTube channel](https://www.youtube.com/user/TheMetOffice) for more info."],
         "forecast": [
-            "My pals at the Met Office think {{= it.location}} will be {{= it.weather.significant_weather.string}}. {{? it.weather.significant_weather.emoji}}{{= it.weather.significant_weather.emoji}}{{?}}",
-            "{{= it.location}} {{? it.weather.temperature.feels_like.mean<=7}}looks like it will be pretty cold{{?? it.weather.temperature.feels_like.mean<=12}}will be reasonably mild{{?? it.weather.temperature.feels_like.mean>12}}is looking hot!{{??}}{{?}}"
+            "In {{= it.location}} on average temperatures will be around {{= it.weather.temperature.screen.mean}}\u00b0C reaching a high of {{= it.weather.temperature.screen.max.v}}\u00b0C.{{? it.weather.temperature.screen.max.v != it.weather.temperature.feels_like.max.v}} Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max.v}}\u00b0C at its peak.{{?}} {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. Visibility is expected to be {{= it.weather.visibility.string}} at up to {{= it.weather.visibility.distance.max}}km. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation. "
         ],
         "variable": {
             "unknown": [
@@ -254,20 +243,27 @@
                 "type": "variable_certainty",
                 "certainties": [{
                         "score_upper_bound": 1.0,
-                        "score_lower_bound": 0.9,
+                        "score_lower_bound": 0.8,
                         "response": [
-                            "Yes"
+                            "Yes, its very likely to rain in {{= it.location}} {{= it.date.day_string}}"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.9,
-                        "score_lower_bound": 0.7,
+                        "score_upper_bound": 0.79,
+                        "score_lower_bound": 0.5,
                         "response": [
-                            "Maybe"
+                            "Probably, it's more likely than not to rain in {{= it.location}} {{= it.date.day_string}}"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.7,
+                        "score_upper_bound": 0.49,
+                        "score_lower_bound": 0.2,
+                        "response": [
+                            "Maybe not, it's more likely to be dry than not in {{= it.location}} {{= it.date.day_string}}"
+                        ]
+                    },
+                    {
+                        "score_upper_bound": 0.19,
                         "score_lower_bound": 0.0,
                         "response": [
                             "No, it looks dry in {{= it.location}} {{= it.date.day_string}}"
@@ -281,21 +277,21 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.9,
                         "response": [
-                            "Yes, it looks like it's going to be nice in {{= it.location}} {{= it.date.day_string}}. {{? it.weather_type.emoji}}{{= it.weather_type.emoji}}{{?}}"
+                            "Yes, it looks like it's going to be nice in {{= it.location}} {{= it.date.day_string}}.{{? it.weather_type.emoji}} {{= it.weather_type.emoji}}{{?}}"
                         ]
                     },
                     {
                         "score_upper_bound": 0.9,
                         "score_lower_bound": 0.7,
                         "response": [
-                            "Maybe"
+                            "Maybe some sun for {{= it.location}} {{= it.date.day_string}}, but I doubt alot.{{? it.weather_type.emoji}} {{= it.weather_type.emoji}}{{?}}"
                         ]
                     },
                     {
                         "score_upper_bound": 0.7,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "No"
+                            "No, you won't catch much sun in {{= it.location}} {{= it.date.day_string}}.{{? it.weather_type.emoji}} {{= it.weather_type.emoji}}{{?}}"
                         ]
                     }
                 ]
@@ -355,7 +351,7 @@
                         "score_upper_bound": 0.14,
                         "score_lower_bound": 0,
                         "response": [
-                            "I'd take a rain check, it's very likely to be wet {{= it.date.day_string}} {{= it.location}}."
+                            "I'd take a rain check, it's very likely to be wet {{= it.date.day_string}} in {{= it.location}}."
                         ]
                     }
                 ]
@@ -428,21 +424,21 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.9,
                         "response": [
-                            "I would definitely take a coat. "
+                            "I would definitely take a coat if I was going out {{= it.date.day_string}} in {{= it.location}}."
                         ]
                     },
                     {
                         "score_upper_bound": 0.9,
                         "score_lower_bound": 0.7,
                         "response": [
-                            "It would probably be wise to take a coat. "
+                            "It would probably be wise to take a coat in {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
                         "score_upper_bound": 0.7,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "No, I wouldn't bother with a coat. "
+                            "No, I wouldn't bother with a coat {{= it.date.day_string}} in {{= it.location}}. "
                         ]
                     }
                 ]
@@ -453,21 +449,21 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.96,
                         "response": [
-                            "I would definitely take a brolly. "
+                            "I would definitely take a brolly if I was in {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
                         "score_upper_bound": 0.95,
                         "score_lower_bound": 0.71,
                         "response": [
-                            "It would probably be wise to pack an umbrella, the forecast is {{= it.weather_type}} "
+                            "It would probably be wise to pack an umbrella, the forecast is {{= it.weather_type}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
                         "score_upper_bound": 0.7,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "No, I wouldn't bother with an umbrella. "
+                            "No, I wouldn't bother with an umbrella {{= it.date.day_string}} in {{= it.location}}. "
                         ]
                     }
                 ]
@@ -478,21 +474,21 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.96,
                         "response": [
-                            "I would definitely take a jumper. "
+                            "I would definitely take a jumper if I was out and about in {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
                         "score_upper_bound": 0.95,
                         "score_lower_bound": 0.71,
                         "response": [
-                            "It would probably be wise to pack a warm top, the forecast is {{= it.weather_type}} "
+                            "It would probably be wise to pack a warm top, the forecast is {{= it.weather_type}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
                         "score_upper_bound": 0.7,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "No, I wouldn't bother with a jumper. "
+                            "No, I wouldn't bother with a jumper in {{= it.location}} {{= it.date.day_string}}"
                         ]
                     }
                 ]
@@ -503,7 +499,7 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.5,
                         "response": [
-                            "You should definitely wear some sun cream {{= it.date.day_string}}."
+                            "You should definitely wear some sun cream in {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
@@ -544,8 +540,8 @@
             },
             "forecast": {
                 "location": [
-                    "{{= it.user.name}}, I get it, you'd like a weather forecast, but for where?",
-                    "OK {{= it.user.name}}, where do you want to know that for?",
+                    "{{? it.user.name}}{{= it.user.name}}, {{?}}I get it, you'd like a weather forecast, but for where?",
+                    "OK{{? it.user.name}} {{= it.user.name}}{{?}}, where do you want to know that for?",
                     "Where?"
                 ]
             },
@@ -557,7 +553,7 @@
             },
             "variable": {
                 "location": [
-                    "Very good question {{= it.user.name}}. Where though?",
+                    "Very good question{{? it.user.name}} {{= it.user.name}}{{?}}. Where though?",
                     "Where would you like to know that for?"
                 ]
             }

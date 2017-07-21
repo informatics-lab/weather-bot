@@ -15,7 +15,7 @@ let replies = {
     }
 }
 
-describe('BotTester Usage', () => {
+describe('Gets weather data correctly', () => {
     let bot;
     let clock;
     let requestedLatLon;
@@ -31,15 +31,17 @@ describe('BotTester Usage', () => {
             datapoint,
             gmaps,
             ua
-        } = botRequirements();
+        } = botRequirements(false, 'warn');
 
         persona = require(`../utils/mockPersona`)(replies);
 
+        function mockDataAPI(lat, lon) {
+            requestedLatLon = [lat, lon];
+            return Promise.resolve(require('../resources/datapoint.json'));
+        }
+
         datapoint = {
-            getHourlyDataForLatLng: (lat, lon) => {
-                requestedLatLon = [lat, lon];
-                return Promise.resolve(require('../resources/datapoint.json'));
-            }
+            getMethodForTargetTime: () => mockDataAPI
         };
 
         bot = buildBot(luis, connector, config, persona, datapoint, gmaps, ua);

@@ -47,7 +47,8 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            datapoint.getHourlyDataForLatLng(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
+            var end = session.conversationData.time_target.range.toDT;
+            datapoint.getMethodForTargetTime(end)(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
                 .then((res) => {
                     session.conversationData.datapoint = res;
                     return next();

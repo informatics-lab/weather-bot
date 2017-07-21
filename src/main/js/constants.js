@@ -136,7 +136,7 @@ var mapUvIndex = function(i) {
 
 module.exports = {
     "HOURLY": "hourly",
-    "THREE_HOURLY": "3hourly",
+    "THREE_HOURLY": "three-hourly",
     "DAILY": "daily",
 
     "HOURS_TO_MILLIS": hoursToMillis,

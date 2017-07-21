@@ -24,7 +24,7 @@ module.exports = (bot, persona) => {
         (session, results, next) => {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
             ua(session.userData.ga_id, session.userData.uuid)
-                .event({ec: "intent", ea: intent, el: session.message.text})
+                .event({ ec: "intent", ea: intent, el: session.message.text })
                 .send();
             session.conversationData.luis = results;
             session.conversationData.intent = intent;
@@ -33,7 +33,7 @@ module.exports = (bot, persona) => {
                 winston.warn("[ %s ] matched but the time_target was [ %s ] and the location was [ %s ]", intent, session.conversationData.time_target, session.conversationData.location);
                 session.cancelDialog();
                 session.beginDialog("error.nonsense");
-            } 
+            }
             if (!(session.conversationData.previous_intent.split(".")[0] == "weather")) {
                 winston.warn("[ %s ] matched but previous intent was [ %s ]", intent, session.conversationData.previous_intent);
                 session.cancelDialog();
@@ -47,14 +47,14 @@ module.exports = (bot, persona) => {
             var model = {
                 user: session.userData,
                 location: session.conversationData.location,
-                date:{
-                    day_string : session.conversationData.time_target.entity
+                date: {
+                    day_string: session.conversationData.time_target.text
                 }
             };
 
-            if(!session.conversationData.weather || session.conversationData.weather.length == 0) {
+            if (!session.conversationData.weather || session.conversationData.weather.length == 0) {
                 session.send(persona.getResponse("weather.no_data"));
-                return next({response: baseIntent});
+                return next({ response: baseIntent });
             }
 
             model.weather = session.conversationData.weather;
@@ -63,7 +63,7 @@ module.exports = (bot, persona) => {
 
             if (response && !(response === "")) {
                 session.send(response);
-                return next({response: intent});
+                return next({ response: intent });
             } else {
                 session.send(persona.getResponse("error.general"));
                 return session.endDialog();

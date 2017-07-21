@@ -57,7 +57,7 @@ module.exports = function(baseIntent, localIntent, synonyms, variableThresholds,
                         user: session.userData,
                         location: session.conversationData.location,
                         date: {
-                            day_string: session.conversationData.time_target.entity
+                            day_string: session.conversationData.time_target.text
                         }
                     };
 

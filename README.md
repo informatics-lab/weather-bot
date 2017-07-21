@@ -42,6 +42,20 @@ Command | Result
 `/sUserData` | Show all `userData` data
 `/dUserData` | Delete all `userData` data
 
+### Auto testting
+
+For examples see `src/test`.
+
+To run:
+
+`npm run test`
+
+To debug tests:
+
+`node  node_modules/mocha/bin/_mocha -u tdd --timeout 4000 --colors src/test/main`
+
+For more tips see [Bot Tester for Bot Builder Framework](https://github.com/microsoftly/BotTester)
+
 ## notes
  * LUIS has a hard limit of 80 intents per application.
 

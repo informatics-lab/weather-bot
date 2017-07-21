@@ -8,42 +8,40 @@ var constants = require("../../constants");
 
 var baseUri = "https://pwms.datapoint.metoffice.gov.uk";
 
-module.exports = function (key) {
+module.exports = function(key) {
 
     var datapointCache = new cache();
 
-    function getDailyDataForLatLng(lat, lng) {
-        var slug = `${constants.DAILY}-${lat}-${lng}`;
-        if (datapointCache.get(slug)) {
-            winston.debug("resolving [ %s ] from datapoint cache", slug);
-            return Promise.resolve(datapointCache.get(slug));
-        } else {
-            winston.debug("getting [ %s ] from datapoint", slug);
-            return getDataForLatLng(lat, lng, constants.DAILY)
-                .then((res)=> {
-                    res.resolution = constants.DAILY;
-
-                    var ttl = new sugar.Date().millisecondsUntil("midnight");
-                    datapointCache.set(slug, res, ttl.raw);
-
-                    return res;
-                });
+    function getMethodForTargetTime(dt) {
+        if (sugar.Date.hoursFromNow(dt) <= 40) {
+            return getHourlyDataForLatLng;
         }
+        return get3HourlyDataForLatLng;
+    }
+
+    function get3HourlyDataForLatLng(lat, lng) {
+        return getAndCacheDataForLatLng(constants.THREE_HOURLY, lat, lng);
+    }
+
+    function getDailyDataForLatLng(lat, lng) {
+        return getAndCacheDataForLatLng(constants.DAILY, lat, lng);
     }
 
     function getHourlyDataForLatLng(lat, lng) {
-        var slug = `${constants.HOURLY}-${lat}-${lng}`;
+        return getAndCacheDataForLatLng(constants.HOURLY, lat, lng);
+    }
+
+    function getAndCacheDataForLatLng(resolution, lat, lng) {
+        var slug = `${resolution}-${lat}-${lng}`;
         if (datapointCache.get(slug)) {
             winston.debug("resolving [ %s ] from datapoint cache", slug);
             return Promise.resolve(datapointCache.get(slug));
         } else {
             winston.debug("getting [ %s ] from datapoint", slug);
-            return getDataForLatLng(lat, lng, constants.HOURLY)
-                .then((res)=> {
-                    res.resolution = constants.HOURLY;
-
-                    //TODO alter caching to be end of this hour
-                    var ttl = new sugar.Date().millisecondsUntil("midnight");
+            return getDataForLatLng(lat, lng, resolution)
+                .then((res) => {
+                    res.resolution = resolution;
+                    var ttl = 1000 * 60 * 30; // 30 minutes. TODO: Different cache lengths?
                     datapointCache.set(slug, res, ttl.raw);
 
                     return res;
@@ -63,9 +61,13 @@ module.exports = function (key) {
 
         getDailyDataForLatLng: getDailyDataForLatLng,
 
-        getHourlyDataForLatLng: getHourlyDataForLatLng,
+        //getHourlyDataForLatLng: getHourlyDataForLatLng, // TODO: Currently downsream processing won't handle the differnet format of daily.
 
         getDataForLatLng: getDataForLatLng,
+
+        get3HourlyDataForLatLng: get3HourlyDataForLatLng,
+
+        getMethodForTargetTime: getMethodForTargetTime
     }
 
 };

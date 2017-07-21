@@ -18,7 +18,7 @@ let replies = {
     "prompts": { "user": { "name": ["What is your name"] } }
 }
 
-describe('BotTester Usage', () => {
+describe('Greets appropiatly', () => {
     let bot;
 
     beforeEach(() => {

@@ -11,14 +11,18 @@ var winston = require("winston");
 const MAIN = '../../main/js'
 
 
-function get() {
+function get(showBotMessages, loglevel) {
+
+    showBotMessages = (showBotMessages === true) ? true : false;
+    loglevel = loglevel || 'warn';
+
     // application conf
     var config = nconf.env().argv().file({ file: "secrets.json" });
     config.app = require("../../../package.json");
     config.persona = config.get("PERSONA") ? config.get("PERSONA").toLowerCase() : "default";
 
     // logging conf
-    winston.level = 'info';
+    winston.level = loglevel;
 
     // services conf
     var luis = require(`${MAIN}/services/luis`)(config.get("LUIS_APP_ID"), config.get("LUIS_SUBSCRIPTION_KEY"));
@@ -34,9 +38,14 @@ function get() {
         appPasswordStr = `DEV_${appPasswordStr}`;
     }
 
+    var connector = new builder.ConsoleConnector()
+    if (!showBotMessages) {
+        connector.send = () => undefined; // Stop output to console.
+    }
+
     return {
         luis: luis,
-        connector: new builder.ConsoleConnector(),
+        connector: connector,
         config: config,
         persona: persona,
         datapoint: datapoint,
