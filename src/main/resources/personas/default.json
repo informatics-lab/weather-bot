@@ -337,7 +337,7 @@
                         "score_upper_bound": 0.84,
                         "score_lower_bound": 0.50,
                         "response": [
-                            "Hum up to you, tt's more likely than not to be dry {{= it.date.day_string}} {{= it.location}} but it could get wet on you."
+                            "Hum up to you, it's more likely than not to be dry {{= it.date.day_string}} in {{= it.location}} but it could get wet on you."
                         ]
                     },
                     {
