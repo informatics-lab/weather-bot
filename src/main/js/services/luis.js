@@ -11,7 +11,7 @@ module.exports = (appId, subscriptionKey) => {
     var luisCache = new cache();
 
     function parse(q) {
-        var slug = sugar.String.dasherize(q.toLowerCase());
+        var slug = sugar.String.underscore(q.toLowerCase());
         if(luisCache.get(slug)) {
             winston.debug("resolving [ %s ] from luis cache", slug);
             return Promise.resolve(luisCache.get(slug));

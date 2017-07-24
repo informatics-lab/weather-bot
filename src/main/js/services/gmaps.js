@@ -23,7 +23,7 @@ module.exports = (key) => {
 
     function geocode(location) {
 
-        var slug = sugar.String.dasherize(location.toLowerCase());
+        var slug = sugar.String.underscore(location.toLowerCase());
         if (gmapsCache.get(slug)) {
             winston.debug("resolving [ %s ] from gmaps cache", slug);
             return Promise.resolve(gmapsCache.get(slug));
@@ -31,9 +31,9 @@ module.exports = (key) => {
             winston.debug("getting [ %s ] from gmaps", slug);
             var uri = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&region=uk&language=en&key=${key}`;
             return httpClient.getAsJson(uri)
-                .then((res) => {
-                    return locationInUK(res);
-                })
+                // .then((res) => {
+                //     return locationInUK(res);
+                // }) //TODO: Do we want to limit to UK only???
                 .then((res) => {
                     gmapsCache.set(slug, res, constants.DAYS_TO_MILLIS(5));
                     return res;

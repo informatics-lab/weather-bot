@@ -1,8 +1,14 @@
 "use strict";
 
-exports.accessories = require("./accessories");
-exports.accessory = require("./accessory");
+module.exports = (bot, persona, datapoint, gmaps) => {
+    require("./forecast")(bot, persona, datapoint, gmaps)
+    require("./detail")(bot, persona);
 
-exports.forecast = require("./forecast");
+    require("./accessory")(bot, persona, datapoint, gmaps);
+    require("./accessories")(bot, persona)
 
-exports.variable = require("./variable");
+    require("./action")(bot, persona, datapoint, gmaps);
+
+    require("./variable")(bot, persona, datapoint, gmaps);
+    require("./variables")(bot, persona);
+}

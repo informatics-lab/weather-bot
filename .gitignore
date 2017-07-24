@@ -3,3 +3,5 @@
 secret*
 *.log
 .node-version
+.vscode/*
+package-lock.json

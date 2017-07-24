@@ -1,7 +1,6 @@
 "use strict";
 
 var winston = require("winston");
-var doT = require("dot");
 var utils = require("../utils");
 var sugar = require("sugar");
 
@@ -18,23 +17,15 @@ module.exports = function (bot, persona) {
                     return next({response: nameEntity.entity});
                 }
             }
-            session.beginDialog("prompt", {key: "prompts.user.name", model: {}});
+            session.beginDialog("prompt", {key: "prompts.user.name", sessionDataKey:"userData.name", model: {}});
         },
         utils.sanitze.name,
-        (session, results, next) => {
-            if (!session.userData.name || !(session.userData.name === results.response)) {
-                session.userData.name = sugar.String.capitalize(results.response, true, true);
-            }
-            return next();
-        },
         (session) => {
-            var template = doT.template(persona.getResponse(intent));
-            var response = template({name: session.userData.name});
-
+            var model = {user: session.userData};
+            var response = persona.getResponse(intent, model);
             winston.debug("response [ %s ]", response);
             session.send(response);
             session.endDialog();
         }
-
     ])
 };

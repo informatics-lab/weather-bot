@@ -2,14 +2,14 @@
 
 var winston = require("winston");
 var sugar = require("sugar");
-var utils = require("../utils");
-var constants = require("../../constants");
+var utils = require("../../utils");
+var constants = require("../../../constants");
 
 /**
- * weather.variable
+ * weather.action
  *
- * Responds to questions like 'will it rain tomorrow' with a variable-certainty response.
- * Executes waterfall defined here and then forwards on to weather.variable.<variable_entity>
+ * Responds to questions like 'is it a good day for a BBQ'
+ * Executes waterfall defined here and then forwards on to weather.accessory.<type_of_activity>
  * Uses the entities identified by LUIS otherwise will fallback to use the stored session.conversationData or
  * session.userData.
  *
@@ -20,7 +20,7 @@ var constants = require("../../constants");
  */
 module.exports = (bot, persona, datapoint, gmaps) => {
 
-    var intent = "weather.variable";
+    var intent = "weather.action";
 
     bot.dialog(intent, [
         (session, results, next) => {
@@ -33,7 +33,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         utils.sanitze.location,
         utils.capture.datetimeV2,
         utils.sanitze.datetimeV2,
-        utils.capture.variable,
+        utils.capture.action,
         (session, results, next) => {
             gmaps.geocode(session.conversationData.location)
                 .then((res) => {
@@ -62,12 +62,12 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         utils.sanitze.weather,
         utils.summarize.weather,
         (session, results, next) => {
-            var variableSlug = sugar.String.underscore(session.conversationData.variable.toLowerCase());
-            var variableIntent = `${intent}.${variableSlug}`;
-            if (session.library.dialogs[variableIntent]) {
-                session.beginDialog(variableIntent);
+            var actionType = session.conversationData.action_type;
+            var actionIntent = `${intent}.${actionType}`;
+            if (session.library.dialogs[actionIntent]) {
+                session.beginDialog(actionIntent);
             } else {
-                winston.warn("variable [ %s ] did not match with any known variable", session.conversationData.variable);
+                winston.warn("accessory [ %s ] did not match with any known actionType", session.conversationData.actionType);
                 var unknown = `${intent}.unknown`;
                 session.beginDialog(unknown);
             }

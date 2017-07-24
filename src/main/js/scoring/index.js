@@ -10,6 +10,9 @@ function mapRange(value, low1, high1, low2, high2) {
  * function ‾\_
  */
 function lessThan(min, optimal, max, value) {
+    if (typeof(optimal) !== "number") throw "missing [optimal] argument for LT scoring function";
+    if (typeof(max) !== "number") throw "missing [max] argument for LT scoring function";
+
     var result = null;
     if (value <= optimal) {
         result = 1.0;
@@ -26,6 +29,9 @@ function lessThan(min, optimal, max, value) {
  * function _/‾
  */
 function greaterThan(min, optimal, max, value) {
+    if (typeof(min) !== "number") throw "missing [min] argument for GT scoring function";
+    if (typeof(optimal) !== "number") throw "missing [optimal] argument for GT scoring function";
+
     var result = null;
     if (value <= min) {
         result = 0.0;
@@ -41,6 +47,10 @@ function greaterThan(min, optimal, max, value) {
  * function _/\_
  */
 function between(min, optimal, max, value) {
+    if (typeof(min) !== "number") throw "missing [min] argument for B scoring function";
+    if (typeof(optimal) !== "number") throw "missing [optimal] argument for B scoring function";
+    if (typeof(max) !== "number") throw "missing [max] argument for B scoring function";
+
     var result = null;
     if (value <= min) {
         result = 0.0;
@@ -58,18 +68,25 @@ function between(min, optimal, max, value) {
 
 function getScoringFunction(str) {
     switch (str) {
-        case "GT" :
+        case "GT":
             return greaterThan;
-        case "LT" :
+        case "LT":
             return lessThan;
-        case "B" :
+        case "B":
             return between;
         default:
             return null;
     }
 }
 
-exports.lessThan = lessThan;
-exports.greaterThan = greaterThan;
-exports.between = between;
+function getAggregator(name) {
+    return {
+        'product': scores => scores.reduce((prev, curr) => prev * curr),
+        'max': scores => Math.max.apply(null, scores),
+        'min': scores => Math.min.apply(null, scores),
+        'mean': scores => scores.reduce((prev, curr) => prev + curr) / scores.length
+    }[name]
+}
+
 exports.getScoringFunction = getScoringFunction;
+exports.getAggregator = getAggregator;

@@ -1,24 +1,31 @@
 {
-  "name": "weather-bot",
-  "version": "0.0.1",
-  "description": "Met Office prototype chat bot to talk about all things weather & climate related",
-  "main": "src/app.js",
-  "scripts": {
-    "start": "node src/main/js/app"
-  },
-  "author": "Tom Powell <thomas.powell@informaticslab.co.uk>",
-  "license": "GPL-3.0",
-  "dependencies": {
-    "botbuilder": "^3.8.2",
-    "dot": "^1.1.1",
-    "haversine": "^1.0.2",
-    "js-cache": "^1.0.2",
-    "nconf": "^0.8.4",
-    "raven": "^2.0.2",
-    "request": "^2.81.0",
-    "restify": "^4.3.0",
-    "sugar": "^2.0.4",
-    "universal-analytics": "^0.4.13",
-    "winston": "^2.3.1"
-  }
+    "name": "weather-bot",
+    "version": "0.0.1",
+    "description": "Met Office prototype chat bot to talk about all things weather & climate related",
+    "main": "src/main/js/app.js",
+    "scripts": {
+        "start": "node src/main/js/app",
+        "test": "mocha -u tdd --timeout 4000 --colors src/test/main"
+    },
+    "author": "Tom Powell <thomas.powell@informaticslab.co.uk>",
+    "license": "GPL-3.0",
+    "dependencies": {
+        "bot-tester": "^0.1.5",
+        "botbuilder": "^3.8.2",
+        "dot": "^1.1.1",
+        "haversine": "^1.0.2",
+        "js-cache": "^1.0.2",
+        "mathjs": "^3.14.2",
+        "nconf": "^0.8.4",
+        "raven": "^2.0.2",
+        "request": "^2.81.0",
+        "restify": "^4.3.0",
+        "sugar": "^2.0.4",
+        "universal-analytics": "^0.4.13",
+        "winston": "^2.3.1"
+    },
+    "devDependencies": {
+        "mocha": "^3.4.2",
+        "sinon": "^2.3.8"
+    }
 }
