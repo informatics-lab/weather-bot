@@ -35,14 +35,16 @@ module.exports = {
         // TODO: record when we stored the datetime and throw away if older than say 1h.
         // TODO: We have to guess at the users timezone. Let's assume it's the same as the servers.
         if (!session.conversationData.time_target) {
+
+
             session.conversationData.time_target = {
                 "entity": "today",
                 "type": "builtin.datetimeV2.datetimerange",
                 "resolution": {
                     "values": [{
                         "type": "datetimerange",
-                        "start": sugar.Date.format(sugar.Date.create("now"), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}"),
-                        "end": sugar.Date.format(sugar.Date.endOfDay(sugar.Date.create("now")), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}")
+                        "start": sugar.Date.format(sugar.Date.create("now", {setUTC: true}), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}"),
+                        "end": sugar.Date.format(sugar.Date.endOfDay(sugar.Date.create("now", {setUTC: true})), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}")
                     }]
                 }
             };
