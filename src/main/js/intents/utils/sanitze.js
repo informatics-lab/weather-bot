@@ -22,19 +22,26 @@ module.exports = {
          * matches:
          * my location is exeter
          * in weston super mare
+         * SG8 9PZ
+         * for SG89PZ
          * for bristol
          */
         var locationRegex = /(?:(\bin\b|\bfor\b|\bis\b)) \b([A-Za-z ]+)/g;
+        var postCodeRegEx = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))\s?[0-9][A-Za-z]{2})/
         var locationRegexResults = locationRegex.exec(str);
+        var postCodeRegExResults = postCodeRegEx.exec(str);
         var result;
-        if (locationRegexResults) {
+        if (postCodeRegExResults) {
+            result = postCodeRegExResults[0].toUpperCase();
+        } else if (locationRegexResults) {
             result = locationRegexResults[locationRegexResults.length - 1];
+            result = sugar.String.capitalize(result, true, true);
         } else {
             var strRegex = /([A-Za-z ]+)/g;
             var strRegexResults = strRegex.exec(str);
             result = strRegexResults[strRegexResults.length - 1].trim();
+            result = sugar.String.capitalize(result, true, true);
         }
-        result = sugar.String.capitalize(result, true, true);
         session.conversationData.location = result;
         return next();
     },
