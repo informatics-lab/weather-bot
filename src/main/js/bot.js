@@ -59,7 +59,7 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
     intents.weather(bot, persona, datapoint, gmaps);
 
     // smalltalk
-    intents.smalltalk.greeting(bot, persona);
+    intents.smalltalk.greeting(bot, persona, config.get("LOGO_URL"));
     intents.smalltalk.farewell(bot, persona);
 
     intents.smalltalk.bot.are_you_a_chatbot(bot, persona);
