@@ -56,7 +56,7 @@ module.exports = {
             };
         }
         time_target.text = timeEntityToMsgText(time_target);
-        convData.addWithExpiry(session, 'time_target', time_target, ttl);
+        convData.addWithExpiry(session, 'time_target', time_target);
         return next();
     },
 

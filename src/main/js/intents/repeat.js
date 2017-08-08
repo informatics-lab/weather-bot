@@ -16,11 +16,13 @@ module.exports = function(bot, persona) {
                 session.beginDialog(session.conversationData.previous_intent, results);
                 next();
             } else {
+                convData.deleteItem('isRepeat');
                 session.send(persona.getResponse("error.general"));
                 session.endDialog();
             }
         },
         function(session, results, next) {
+            console.error('delete repete');
             convData.deleteItem('isRepeat');
         }
     ]);

@@ -3,6 +3,7 @@
 var sugar = require("sugar");
 var winston = require("winston");
 var convData = require('./convData');
+var timeUtils = require('./timeUtils');
 
 // TODO: Split out this in to moudles. 
 
@@ -197,7 +198,7 @@ module.exports = {
     weather: (session, results, next) => {
         var fcstArray = session.conversationData.datapoint.features[0].properties.time_series;
 
-        var range = convData.get(session, 'time_target').range;
+        var range = timeUtils.rangeStrsToObjs(convData.get(session, 'time_target').range);
 
         fcstArray = fcstArray.filter(x => {
             var dt = sugar.Date.create(x.time);

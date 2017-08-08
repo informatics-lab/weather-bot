@@ -20,3 +20,5 @@ exports.summarize = require('./summarize');
 exports.capture = require('./capture');
 
 exports.convData = require('./convData');
+
+exports.time = require('./timeUtils');
