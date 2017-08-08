@@ -55,7 +55,11 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 })
                 .catch((err) => {
                     winston.warn(err);
-                    session.send(persona.getResponse("error.data.not_returned"));
+                    if(err.response_id) {
+                        session.send(persona.getResponse(err.response_id));
+                    } else {
+                        session.send(persona.getResponse("error.data.not_returned"));
+                    }
                     return session.endDialog();
                 })
         },
