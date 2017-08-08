@@ -8,6 +8,7 @@ var raven = require('raven');
 var nconf = require("nconf");
 var winston = require("winston");
 
+const IS_PRODUCTION = (process.env.ENVIRONMENT === "production");
 
 
 // application conf
@@ -20,7 +21,7 @@ winston.configure({
     transports: [
         new(winston.transports.Console)({
             level: config.get("LOG_LEVEL") || "info",
-            colorize: "all",
+            colorize: (IS_PRODUCTION) ? false : "always",
             timestamp: false
         })
     ]
@@ -55,7 +56,7 @@ function main() {
     require('./bot')(luis, connector, config, persona, datapoint, gmaps, ua);
 };
 
-if (process.env.ENVIRONMENT == "production") {
+if (IS_PRODUCTION) {
     raven.context(function() {
         main();
     });
