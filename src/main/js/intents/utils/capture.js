@@ -3,6 +3,7 @@
 var sugar = require("sugar");
 var winston = require("winston");
 var actionUtils = require('./actionUtils');
+var convData = require('./convData');
 
 function timeEntityToMsgText(entity) {
     entity = entity.entity;
@@ -24,32 +25,35 @@ module.exports = {
      * captures the luis builtin entity datetimeV2
      */
     datetimeV2: (session, results, next) => {
+
+
+
         winston.debug("capturing datetimeV2");
         var luis = session.conversationData.luis;
+        var ttl = 3 * convData.HOUR;
         if (luis && luis.entities) {
             var datetimeEntity = luis.entities.filter(e => e.type.includes("datetimeV2"))[0];
             if (datetimeEntity) {
-                session.conversationData.time_target = datetimeEntity;
+                convData.addWithExpiry(session, 'time_target', datetimeEntity, ttl);
             }
         }
-        // TODO: record when we stored the datetime and throw away if older than say 1h.
-        // TODO: We have to guess at the users timezone. Let's assume it's the same as the servers.
-        if (!session.conversationData.time_target) {
 
-
-            session.conversationData.time_target = {
+        var time_target = convData.get(session, 'time_target');
+        if (!time_target) {
+            time_target = {
                 "entity": "today",
                 "type": "builtin.datetimeV2.datetimerange",
                 "resolution": {
                     "values": [{
                         "type": "datetimerange",
-                        "start": sugar.Date.format(sugar.Date.create("now", {setUTC: true}), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}"),
-                        "end": sugar.Date.format(sugar.Date.endOfDay(sugar.Date.create("now", {setUTC: true})), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}")
+                        "start": sugar.Date.format(sugar.Date.create("now", { setUTC: true }), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}"),
+                        "end": sugar.Date.format(sugar.Date.endOfDay(sugar.Date.create("now", { setUTC: true })), "{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}")
                     }]
                 }
             };
         }
-        session.conversationData.time_target.text = timeEntityToMsgText(session.conversationData.time_target);
+        time_target.text = timeEntityToMsgText(time_target);
+        convData.addWithExpiry(session, 'time_target', time_target, ttl);
         return next();
     },
 
@@ -59,14 +63,15 @@ module.exports = {
         if (luis && luis.entities) {
             var locationEntity = luis.entities.filter(e => e.type === "location")[0];
             if (locationEntity) {
-                session.conversationData.location = locationEntity.entity;
+                convData.addWithExpiry(session, 'location', locationEntity.entity);
             }
         }
-        if (!session.conversationData.location) {
+        var location = convData.get(session, 'location');
+        if (!location) {
 
             session.beginDialog("prompt", {
                 key: `prompts.${session.conversationData.intent}.location`,
-                sessionDataKey: "conversationData.location",
+                convDataKey: "location",
                 model: { user: session.userData }
             });
         } else {
@@ -77,37 +82,47 @@ module.exports = {
     accessory: (session, results, next) => {
         winston.debug("capturing accessory");
         var luis = session.conversationData.luis;
+        var accessory = null;
+        if (convData.get(session, 'isRepeat')) {
+            accessory = convData.get(session, 'accessory');
+        }
         if (luis && luis.entities) {
             var accessoryEntity = luis.entities.filter(e => e.type === "accessory")[0];
             if (accessoryEntity) {
-                session.conversationData.accessory = accessoryEntity.entity;
+                accessory = accessoryEntity.entity;
             }
         }
-        if (!session.conversationData.accessory) {
+        if (!accessory) {
             winston.warn("no accessory found in [ %s ]", session.message.text);
             var unknown = "weather.accessory.unknown";
             session.cancelDialog();
             session.beginDialog(unknown);
         }
+        convData.addWithExpiry(session, 'accessory', accessory, convData.HOUR / 4);
         return next();
     },
 
     action: (session, results, next) => {
         winston.debug("capturing action");
         var luis = session.conversationData.luis;
-        // Clear previous actions. We don't want to remember between conversations
-        session.conversationData.action = null;
-        session.conversationData.action_type = null;
+        var action = null;
+        var action_type = null;
+        if (convData.get(session, 'isRepeat')) {
+            action = convData.get(session, 'action');
+            action_type = convData.get(session, 'action_type');
+        }
         if (luis && luis.entities) {
             var actionEntity = luis.entities.filter(e => e.type === "action")[0];
             if (actionEntity) {
-                session.conversationData.action = actionEntity.entity;
-                session.conversationData.action_type = actionUtils.action_type(actionEntity.entity);
+                action = actionEntity.entity;
+                action_type = actionUtils.action_type(actionEntity.entity);
             }
         }
-        if (!session.conversationData.action_type) {
-            session.conversationData.action_type = actionUtils.UNKNOWN;
+        if (!action_type) {
+            action_type = actionUtils.UNKNOWN;
         }
+        convData.addWithExpiry(session, 'action', action, convData.HOUR / 4);
+        convData.addWithExpiry(session, 'action_type', action_type, convData.HOUR / 4);
         return next();
     },
 

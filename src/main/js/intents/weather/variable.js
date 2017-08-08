@@ -35,7 +35,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         utils.sanitze.datetimeV2,
         utils.capture.variable,
         (session, results, next) => {
-            gmaps.geocode(session.conversationData.location)
+            gmaps.geocode(utils.convData.get(session, 'location'))
                 .then((res) => {
                     session.conversationData.gmaps = res;
                     return next();
@@ -47,7 +47,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            var end = session.conversationData.time_target.range.toDT;
+            var end = utils.convData.get(session, 'time_target').range.toDT;
             datapoint.getMethodForTargetTime(end)(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
                 .then((res) => {
                     session.conversationData.datapoint = res;

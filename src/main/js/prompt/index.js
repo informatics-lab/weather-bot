@@ -2,26 +2,34 @@
 
 var builder = require("botbuilder");
 var winston = require("winston");
+var convData = require('../intents/utils').convData;
 
-module.exports = function (bot, persona) {
+module.exports = function(bot, persona) {
 
     var dialog = "prompt";
-
-    var sessionDataKey = null;
 
     bot.dialog(dialog, [
         (session, results, next) => {
             var key = results.key;
             var model = results.model;
-            sessionDataKey = results.sessionDataKey;
-
+            session.dialogData.promptTarget = {
+                sessionDataKey: results.sessionDataKey, // Depricated in favour of 'key' and the convData tools.
+                key: results.convDataKey,
+                ttl: results.ttl
+            };
             winston.debug("running prompt [%s]", key);
             var text = persona.getResponse(key, model);
 
             builder.Prompts.text(session, text);
         },
         (session, results, next) => {
-            assign(session, sessionDataKey, results.response);
+            var target = session.dialogData.promptTarget;
+            if (target.sessionDataKey) {
+                assign(session, target.sessionDataKey, results.response);
+            }
+            if (target.key) {
+                convData.addWithExpiry(session, target.key, results.response, target.ttl);
+            }
             return next();
         }
     ]);
@@ -35,9 +43,8 @@ function assign(obj, prop, value) {
     if (prop.length > 1) {
         var e = prop.shift();
         assign(obj[e] =
-                Object.prototype.toString.call(obj[e]) === "[object Object]"
-                    ? obj[e]
-                    : {},
+            Object.prototype.toString.call(obj[e]) === "[object Object]" ?
+            obj[e] : {},
             prop,
             value);
     } else
