@@ -67,6 +67,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             if (session.library.dialogs[variableIntent]) {
                 session.beginDialog(variableIntent);
             } else {
+                //TODO potentially implement Theos unknown handling pattern of returning a general forecast.
                 winston.warn("variable [ %s ] did not match with any known variable", session.conversationData.variable);
                 var unknown = `${intent}.unknown`;
                 session.beginDialog(unknown);
