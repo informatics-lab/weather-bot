@@ -8,6 +8,7 @@ var raven = require('raven');
 var nconf = require("nconf");
 var winston = require("winston");
 
+var IS_PRODUCTION = (process.env.ENVIRONMENT === "production");
 
 
 // application conf
@@ -20,7 +21,7 @@ winston.configure({
     transports: [
         new(winston.transports.Console)({
             level: config.get("LOG_LEVEL") || "info",
-            colorize: "all",
+            colorize: (IS_PRODUCTION) ? false : "all",
             timestamp: false
         })
     ]
@@ -43,7 +44,7 @@ function main() {
 
     var appIdStr = "MICROSOFT_APP_ID";
     var appPasswordStr = "MICROSOFT_APP_PASSWORD";
-    let connector = new builder.ChatConnector({
+    var connector = new builder.ChatConnector({
         appId: config.get(appIdStr),
         appPassword: config.get(appPasswordStr)
     });
@@ -51,7 +52,7 @@ function main() {
     require('./bot')(luis, connector, config, persona, datapoint, gmaps, ua);
 };
 
-if (process.env.ENVIRONMENT == "production") {
+if (IS_PRODUCTION) {
     raven.context(function() {
         main();
     });
