@@ -48,7 +48,7 @@ function main() {
         appIdStr = `DEV_${appIdStr}`;
         appPasswordStr = `DEV_${appPasswordStr}`;
     }
-    let connector = new builder.ChatConnector({
+    var connector = new builder.ChatConnector({
         appId: config.get(appIdStr),
         appPassword: config.get(appPasswordStr)
     });
