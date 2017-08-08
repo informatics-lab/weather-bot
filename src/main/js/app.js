@@ -8,7 +8,7 @@ var raven = require('raven');
 var nconf = require("nconf");
 var winston = require("winston");
 
-const IS_PRODUCTION = (process.env.ENVIRONMENT === "production");
+var IS_PRODUCTION = (process.env.ENVIRONMENT === "production");
 
 
 // application conf
