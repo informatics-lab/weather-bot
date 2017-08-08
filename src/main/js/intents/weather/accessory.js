@@ -67,6 +67,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             if (session.library.dialogs[accessoryIntent]) {
                 session.beginDialog(accessoryIntent);
             } else {
+                //TODO potentially implement Theos unknown handling pattern of returning a general forecast.
                 winston.warn("accessory [ %s ] did not match with any known accessories", session.conversationData.accessory);
                 var unknown = `${intent}.unknown`;
                 session.beginDialog(unknown);
