@@ -12,6 +12,16 @@
                 "Unfortunately my data source is playing up at the moment, no data is currently available to fulfill your request."
             ]
         },
+        "date":{
+            "range": {
+                "before": [
+                    "Sorry, I only currently deal with dates in the future."
+                ],
+                "after": [
+                    "Sorry, I am currently only able to get information for the next 7 days."
+                ]
+            }
+        },
         "location": {
             "not_uk": [
                 "The location you have asked for seems to be outside of the UK. Currently I can only help you with UK weather.",
@@ -22,10 +32,9 @@
     },
     "none": [
         "Sorry, I don't know how to answer that. Try asking me something else.",
-        "Do you know how to answer that?! Because I sure don't.",
-        "I'm not designed to answer that. Try asking me something I can answer.",
-        "I don't feel like that's something I'd be good at answering. Have you tried googling it?",
-        "That's outside my area of expertise. Sorry."
+        "I'm not designed to answer that. Try asking me something I can answer. Ask for help for some tips on what I'm good at.",
+        "I don't feel like that's something I'd be good at answering. You should try googling it!",
+        "That's outside of my area of expertise. Sorry."
     ],
     "help": [
         "I can answer weather related questions like... \n * What is the forecast for London tomorrow? \n * Will it rain this weekend in Bath? \n * Will I need my coat on Friday? \n * Is it a good day for a run?"
@@ -67,8 +76,8 @@
                 "I'm here to serve. The second law of robotics states 'a robot must obey orders given it by a human'."
             ],
             "are_you_busy": [
-                "I always have time to help you out. What can I do for you?",
-                "Helping you out is my first priority. What can I do for you?",
+                "I always have time to help you out. What can I do for you today?",
+                "Helping you out is my first priority. What would you like?",
                 "I always have time to help you out. That's what I'm here for. What can I assist you with?"
             ],
             "are_you_hungry": [
@@ -160,7 +169,8 @@
                 "Terrific!"
             ],
             "no": [
-                "OK"
+                "OK",
+                "I understand"
             ],
             "no_problem": [
                 "Didn't think it would be.",
@@ -171,8 +181,7 @@
                 "Sweet",
                 "Good",
                 "It is good that you understand",
-                "Nice",
-                "Mint"
+                "Nice"
             ],
             "please": [
                 "Just tell me what you want me to do, I'm here!"
@@ -193,7 +202,8 @@
                 "My pleasure."
             ],
             "yes": [
-                "OK"
+                "OK",
+                "I understand"
             ],
             "you_are_welcome": [
                 "Such nice manners you have."
@@ -233,7 +243,7 @@
         ],
         "detail": ["Check out the [Met Office website](http://www.metoffice.gov.uk/) or [YouTube channel](https://www.youtube.com/user/TheMetOffice) for more info."],
         "forecast": [
-            "In {{= it.location}} on average temperatures will be around {{= it.weather.temperature.screen.mean}}\u00b0C reaching a high of {{= it.weather.temperature.screen.max.v}}\u00b0C.{{? it.weather.temperature.screen.max.v != it.weather.temperature.feels_like.max.v}} Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max.v}}\u00b0C at its peak.{{?}} {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. Visibility is expected to be {{= it.weather.visibility.string}} at up to {{= it.weather.visibility.distance.max}}km. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation. "
+            "In {{= it.location}} {{= it.date.day_string}} temperatures will be around {{= it.weather.temperature.screen.mean}}\u00b0C reaching a high of {{= it.weather.temperature.screen.max.v}}\u00b0C.{{? it.weather.temperature.screen.max.v != it.weather.temperature.feels_like.max.v}} Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max.v}}\u00b0C at its peak.{{?}} {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. Visibility is expected to be {{= it.weather.visibility.string}} at up to {{= it.weather.visibility.distance.max}}km. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation. "
         ],
         "variable": {
             "unknown": [
@@ -252,14 +262,14 @@
                         "score_upper_bound": 0.79,
                         "score_lower_bound": 0.5,
                         "response": [
-                            "Probably, it's more likely than not to rain in {{= it.location}} {{= it.date.day_string}}"
+                            "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}}"
                         ]
                     },
                     {
                         "score_upper_bound": 0.49,
                         "score_lower_bound": 0.2,
                         "response": [
-                            "Maybe not, it's more likely to be dry than not in {{= it.location}} {{= it.date.day_string}}"
+                            "Hopefully not, it looks likely to be dry in {{= it.location}} {{= it.date.day_string}}"
                         ]
                     },
                     {
@@ -277,28 +287,28 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.9,
                         "response": [
-                            "Yes, it looks like it's going to be nice in {{= it.location}} {{= it.date.day_string}}.{{? it.weather_type.emoji}} {{= it.weather_type.emoji}}{{?}}"
+                            "Yes, it looks like it's going to be nice in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
                         "score_upper_bound": 0.9,
                         "score_lower_bound": 0.7,
                         "response": [
-                            "Maybe some sun for {{= it.location}} {{= it.date.day_string}}, but I doubt alot.{{? it.weather_type.emoji}} {{= it.weather_type.emoji}}{{?}}"
+                            "There may be some sun in {{= it.location}} {{= it.date.day_string}}. {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
                         "score_upper_bound": 0.7,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "No, you won't catch much sun in {{= it.location}} {{= it.date.day_string}}.{{? it.weather_type.emoji}} {{= it.weather_type.emoji}}{{?}}"
+                            "It looks like you won't catch much sun in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     }
                 ]
             }
         },
         "action": {
-            "unknown": ["I'm not sure what weather you need for doing that so here's a forecast."],
+            "unknown": ["I'm not sure what weather you need for doing that so here's the general forecast."],
             "warm_dry": {
                 "type": "variable_certainty",
                 "certainties": [{
@@ -456,7 +466,7 @@
                         "score_upper_bound": 0.95,
                         "score_lower_bound": 0.71,
                         "response": [
-                            "It would probably be wise to pack an umbrella, the forecast is {{= it.weather_type}} for {{= it.location}} {{= it.date.day_string}}."
+                            "It would be wise to pack an umbrella, the forecast is {{= it.weather.significant_weather.string}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
@@ -481,7 +491,7 @@
                         "score_upper_bound": 0.95,
                         "score_lower_bound": 0.71,
                         "response": [
-                            "It would probably be wise to pack a warm top, the forecast is {{= it.weather_type}} for {{= it.location}} {{= it.date.day_string}}."
+                            "It would probably be wise to pack a warm top, the forecast is {{= it.weather.significant_weather.string}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
@@ -515,13 +525,11 @@
     },
     "user": {
         "name": [
-            "OK, from now on I will call you {{= it.user.name}}.",
-            "You're now known as {{= it.user.name}}.",
             "Really? My favourite cousin is called {{= it.user.name}}... such a small world.",
             "I have never met a {{= it.user.name}} before.",
             "{{= it.user.name}}, that's a nice name. My father wanted to call me {{= it.user.name}} but my mother preferred Sol.",
-            "I once met someone called {{= it.user.name}} at an ABBA tribute concert. Any chance that was you?",
-            "I once got stuck in a lift with someone called {{= it.user.name}}"
+            "I once met someone called {{= it.user.name}} at an ABBA tribute concert. Those were the days!",
+            "I once got stuck in a lift with someone called {{= it.user.name}}."
         ]
     },
     "prompts": {

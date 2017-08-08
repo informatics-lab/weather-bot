@@ -55,7 +55,11 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 })
                 .catch((err) => {
                     winston.warn(err);
-                    session.send(persona.getResponse("error.data.not_returned"));
+                    if (err.response_id) {
+                        session.send(persona.getResponse(err.response_id));
+                    } else {
+                        session.send(persona.getResponse("error.data.not_returned"));
+                    }
                     return session.endDialog();
                 })
         },
@@ -68,6 +72,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             if (session.library.dialogs[accessoryIntent]) {
                 session.beginDialog(accessoryIntent);
             } else {
+                //TODO: potentially implement Theos unknown handling pattern of returning a general forecast.
                 winston.warn("accessory [ %s ] did not match with any known accessories", accessory);
                 var unknown = `${intent}.unknown`;
                 session.beginDialog(unknown);

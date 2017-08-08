@@ -55,7 +55,11 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 })
                 .catch((err) => {
                     winston.warn(err);
-                    session.send(persona.getResponse("error.data.not_returned"));
+                    if(err.response_id) {
+                        session.send(persona.getResponse(err.response_id));
+                    } else {
+                        session.send(persona.getResponse("error.data.not_returned"));
+                    }
                     return session.endDialog();
                 })
         },
@@ -67,6 +71,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             if (session.library.dialogs[variableIntent]) {
                 session.beginDialog(variableIntent);
             } else {
+                //TODO potentially implement Theos unknown handling pattern of returning a general forecast.
                 winston.warn("variable [ %s ] did not match with any known variable", session.conversationData.variable);
                 var unknown = `${intent}.unknown`;
                 session.beginDialog(unknown);

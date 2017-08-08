@@ -13,8 +13,16 @@ module.exports = function(key) {
     var datapointCache = new cache();
 
     function getMethodForTargetTime(dt) {
-        if (sugar.Date.hoursFromNow(dt) <= 40) {
+        if(sugar.Date.isBefore(dt, "now")) {
+            return function () {
+                return Promise.reject({response_id:"error.date.range.before"})
+            }
+        } else if (sugar.Date.hoursFromNow(dt) <= 40) {
             return getHourlyDataForLatLng;
+        } else if(sugar.Date.daysFromNow(dt) > 7) {
+            return function () {
+                return Promise.reject({response_id:"error.date.range.after"})
+            }
         }
         return get3HourlyDataForLatLng;
     }
@@ -59,13 +67,12 @@ module.exports = function(key) {
 
     return {
 
-        getDailyDataForLatLng: getDailyDataForLatLng,
+        // TODO: Currently downsream processing won't handle the format of a daily response.
+        // getDailyDataForLatLng: getDailyDataForLatLng,
 
-        //getHourlyDataForLatLng: getHourlyDataForLatLng, // TODO: Currently downsream processing won't handle the differnet format of daily.
+        // getHourlyDataForLatLng: getHourlyDataForLatLng,
 
-        getDataForLatLng: getDataForLatLng,
-
-        get3HourlyDataForLatLng: get3HourlyDataForLatLng,
+        // get3HourlyDataForLatLng: get3HourlyDataForLatLng,
 
         getMethodForTargetTime: getMethodForTargetTime
     }

@@ -5,6 +5,7 @@ var winston = require("winston");
 var actionUtils = require('./actionUtils');
 var convData = require('./convData');
 
+//TODO potentially move this function to somewhere more appropriate.
 function timeEntityToMsgText(entity) {
     entity = entity.entity;
     if (entity.search(/weekend/) >= 0) {
@@ -13,7 +14,10 @@ function timeEntityToMsgText(entity) {
     if (entity.search(/today/i) >= 0) {
         return entity;
     }
-    if (entity.search(/((this)|(next)|(comming))/i) === 0) {
+    if (entity.search(/tomorrow/i) >= 0) {
+        return entity;
+    }
+    if (entity.search(/((this)|(next)|(coming))/i) === 0) {
         return entity;
     }
     return "on " + entity;

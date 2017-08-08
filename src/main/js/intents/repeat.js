@@ -2,6 +2,8 @@
 
 var winston = require("winston");
 var convData = require('./utils').convData;
+
+//TODO: not really a weather specific intent possibly move
 module.exports = function(bot, persona) {
 
     var intent = "repeat";
