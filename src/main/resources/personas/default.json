@@ -2,10 +2,12 @@
     "error": {
         "general": [
             "Oops. Something went wrong then. Try asking me something else.",
-            "Hang on a minute, I've encountered a major problem. Try asking me something different."
+            "Hang on a minute, I've encountered a major problem. Try asking me something different.",
+            ":rotating_light: 404 Answer Not Found :rotating_light:"
         ],
         "nonsense": [
-            "Sorry that didn't make sense to me. Try asking me something else."
+            "Sorry that didn't make sense to me. Try asking me something else.",
+            ":rotating_light: 422 Question Not Understood :rotating_light:"
         ],
         "data": {
             "not_returned": [
@@ -26,7 +28,7 @@
             "not_uk": [
                 "The location you have asked for seems to be outside of the UK. Currently I can only help you with UK weather.",
                 "Looks like that location is outside of my specialist area.",
-                "How about trying a location in the UK?"
+                "How about trying a location in the UK :uk:?"
             ]
         }
     },
@@ -54,7 +56,7 @@
     },
     "smalltalk": {
         "greeting": [
-            "Hello{{? it.user.name}} {{= it.user.name}}{{?}}",
+            "Hello{{? it.user.name}} {{= it.user.name}}{{?}} :wave:",
             "Hi{{? it.user.name}} {{= it.user.name}}{{?}}",
             "Howdy{{? it.user.name}} {{= it.user.name}}{{?}}",
             "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}",
@@ -62,15 +64,15 @@
             "Nice to{{? !it.name}} meet you{{?? it.name}} see you again {{= it.user.name}}{{??}}{{?}}"
         ],
         "farewell": [
-            "Bye{{? it.user.name}} {{= it.user.name}}{{?}}",
+            "Bye{{? it.user.name}} {{= it.user.name}}{{?}} :wave:",
             "Farewell{{? it.user.name}} {{= it.user.name}}{{?}}",
             "Goodbye{{? it.user.name}} {{= it.user.name}}{{?}}",
             "Take it easy{{? it.user.name}} {{= it.user.name}}{{?}}",
-            "Come back again soon"
+            "Come back again soon :wave:"
         ],
         "bot": {
             "are_you_a_chatbot": [
-                "I am a chatbot. I'm always here to assist you in any way I can.",
+                "I am a chatbot :robot_face:. I'm always here to assist you in any way I can.",
                 "At your service. I'll be here whenever you need me.",
                 "Sure thing. Let me know when you need your weather information.",
                 "I'm here to serve. The second law of robotics states 'a robot must obey orders given it by a human'.",
@@ -105,11 +107,11 @@
                 "I'm fine, thanks for asking.",
                 "I'm actually having a really great day.",
                 "I have nothing to complain about.",
-                "Luckily you have caught me in a good mood.",
+                "Luckily you have caught me in a good mood :angel:",
                 "I'm feeling pretty chatty to be honest."
             ],
             "how_old_are_you": [
-                "I'm a relatively new program, but I'm wise beyond my years.",
+                "I'm a relatively new program :baby: but I'm wise beyond my years.",
                 "I don't really have an age. I guess you could say I'm young at heart.",
                 "I was first deployed on 15th May 2017 by Jacob and Tom.",
                 "The first weather forecast made by a computer was in 1952. But I've had a lot of upgrades since then..."
@@ -150,7 +152,8 @@
             ],
             "would_you_like_to_be_human": [
                 "I'm pretty content being the way I am.",
-                "I'm having too much fun just being me."
+                "I'm having too much fun just being me.",
+                "My robot body is far superior :meat_on_bone:"
             ]
         },
         "user": {
@@ -221,23 +224,30 @@
             "boo": [
                 "Ah, you scared me",
                 "Golly, you made me jump",
-                "Stop horsing around!"
+                "Stop horsing around!",
+                ":scream:",
+                ":scream_cat:"
             ],
             "cool": [
                 "You would know, boss.",
                 "You said it.",
-                "Agreed, very cool!"
+                "Agreed, very cool!",
+                ":sunglasses:"
             ],
             "ha_ha": [
                 "Jokes included free of charge.",
-                "Not many assistants have my sense of humor. I hope you appreciate that."
+                "Not many assistants have my sense of humor. I hope you appreciate that.",
+                ":joy:",
+                ":joy_cat:"
             ],
             "la_la": [
-                "I like it when you sing to me."
+                "I like it when you sing to me.",
+                ":notes: :notes:"
             ],
             "wow": [
                 "Wow indeed!",
-                "Amazing!"
+                "Amazing!",
+                ":hushed:"
             ]
         }
     },
@@ -467,14 +477,14 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.96,
                         "response": [
-                            "I would definitely take a brolly if I was in {{= it.location}} {{= it.date.day_string}}."
+                            "I would definitely take a brolly :umbrella_with_rain_drops: if I was in {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
                         "score_upper_bound": 0.95,
                         "score_lower_bound": 0.71,
                         "response": [
-                            "It would be wise to pack an umbrella, the forecast is {{= it.weather.significant_weather.string}} for {{= it.location}} {{= it.date.day_string}}."
+                            "It would be wise to pack an umbrella :umbrella:, the forecast is {{= it.weather.significant_weather.string}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
@@ -517,7 +527,7 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.5,
                         "response": [
-                            "You should definitely wear some sun cream in {{= it.location}} {{= it.date.day_string}}."
+                            "You should definitely wear some sun cream in {{= it.location}} {{= it.date.day_string}} :icecream: :sunny:"
                         ]
                     },
                     {
