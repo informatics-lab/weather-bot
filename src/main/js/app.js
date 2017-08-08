@@ -12,7 +12,7 @@ var IS_PRODUCTION = (process.env.ENVIRONMENT === "production");
 
 
 // application conf
-var config = nconf.env().argv().file({ file: "dev-secrets.json" });
+var config = nconf.env().argv().file({ file: "secrets.json" });
 config.app = require("../../../package.json");
 config.persona = config.get("PERSONA") ? config.get("PERSONA").toLowerCase() : "default";
 
