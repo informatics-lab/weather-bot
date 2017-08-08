@@ -30,11 +30,10 @@ module.exports = {
 
         winston.debug("capturing datetimeV2");
         var luis = session.conversationData.luis;
-        var ttl = 3 * convData.HOUR;
         if (luis && luis.entities) {
             var datetimeEntity = luis.entities.filter(e => e.type.includes("datetimeV2"))[0];
             if (datetimeEntity) {
-                convData.addWithExpiry(session, 'time_target', datetimeEntity, ttl);
+                convData.addWithExpiry(session, 'time_target', datetimeEntity);
             }
         }
 
