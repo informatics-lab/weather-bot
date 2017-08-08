@@ -21,7 +21,7 @@ winston.configure({
     transports: [
         new(winston.transports.Console)({
             level: config.get("LOG_LEVEL") || "info",
-            colorize: (IS_PRODUCTION) ? false : "always",
+            colorize: (IS_PRODUCTION) ? false : "all",
             timestamp: false
         })
     ]
