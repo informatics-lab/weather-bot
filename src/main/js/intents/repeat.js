@@ -2,6 +2,7 @@
 
 var winston = require("winston");
 
+//TODO not really a weather specific intent possibly move
 module.exports = function (bot, persona) {
 
     var intent = "repeat";

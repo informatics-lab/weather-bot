@@ -277,21 +277,21 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.9,
                         "response": [
-                            "Yes, it looks like it's going to be nice in {{= it.location}} {{= it.date.day_string}}.{{? it.weather_type.emoji}} {{= it.weather_type.emoji}}{{?}}"
+                            "Yes, it looks like it's going to be nice in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
                         "score_upper_bound": 0.9,
                         "score_lower_bound": 0.7,
                         "response": [
-                            "Maybe some sun for {{= it.location}} {{= it.date.day_string}}, but I doubt alot.{{? it.weather_type.emoji}} {{= it.weather_type.emoji}}{{?}}"
+                            "Maybe some sun for {{= it.location}} {{= it.date.day_string}}, but I doubt alot.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
                         "score_upper_bound": 0.7,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "No, you won't catch much sun in {{= it.location}} {{= it.date.day_string}}.{{? it.weather_type.emoji}} {{= it.weather_type.emoji}}{{?}}"
+                            "No, you won't catch much sun in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     }
                 ]
@@ -456,7 +456,7 @@
                         "score_upper_bound": 0.95,
                         "score_lower_bound": 0.71,
                         "response": [
-                            "It would probably be wise to pack an umbrella, the forecast is {{= it.weather_type}} for {{= it.location}} {{= it.date.day_string}}."
+                            "It would probably be wise to pack an umbrella, the forecast is {{= it.weather.significant_weather}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
@@ -481,7 +481,7 @@
                         "score_upper_bound": 0.95,
                         "score_lower_bound": 0.71,
                         "response": [
-                            "It would probably be wise to pack a warm top, the forecast is {{= it.weather_type}} for {{= it.location}} {{= it.date.day_string}}."
+                            "It would probably be wise to pack a warm top, the forecast is {{= it.weather.significant_weather}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {

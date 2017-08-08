@@ -43,10 +43,6 @@ function main() {
 
     var appIdStr = "MICROSOFT_APP_ID";
     var appPasswordStr = "MICROSOFT_APP_PASSWORD";
-    if (config.get("DEBUG")) {
-        appIdStr = `DEV_${appIdStr}`;
-        appPasswordStr = `DEV_${appPasswordStr}`;
-    }
     let connector = new builder.ChatConnector({
         appId: config.get(appIdStr),
         appPassword: config.get(appPasswordStr)
