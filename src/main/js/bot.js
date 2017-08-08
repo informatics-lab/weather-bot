@@ -7,7 +7,7 @@ var debugTools = require('./debugTools');
 function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
     winston.info("starting %s %s", config.app.name, config.app.version);
 
-    var bot = new builder.UniversalBot(connector, { persistConversationData: true });
+    var bot = new builder.UniversalBot(connector, {persistConversationData: true});
 
     var intents = require("./intents");
     var prompt = require("./prompt");
@@ -28,23 +28,34 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
                 session.userData["ga_id"] = config.get("GOOGLE_ANALYTICS_ID");
                 session.userData["uuid"] = ua(session.userData.ga_id).cid;
             }
-            luis.parse(session.message.text)
-                .then((response) => {
-                    if (response.topScoringIntent.score >= 0.1) {
-                        session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
-                    } else {
-                        if (!session.userData.greeted) {
-                            session.beginDialog("smalltalk.greeting");
-                        } else {
-                            session.beginDialog("none");
-                        }
-                    }
-                })
-                .catch((err) => {
-                    winston.error("%s", err);
-                    session.send(persona.getResponse("error.general"));
+            if (!session.message.text || session.message.text.trim() === "") {
+                // no content in message from user - probably a 'like' or 'sticker'
+                if (!session.userData.greeted) {
+                    // user may have initialised conversation with a like or sticker.
+                    session.beginDialog("smalltalk.greeting");
+                } else {
+                    session.send(persona.getResponse("error.nonsense"));
                     session.endDialog();
-                });
+                }
+            } else {
+                luis.parse(session.message.text)
+                    .then((response) => {
+                        if (response.topScoringIntent.score >= 0.1) {
+                            session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
+                        } else {
+                            if (!session.userData.greeted) {
+                                session.beginDialog("smalltalk.greeting");
+                            } else {
+                                session.beginDialog("none");
+                            }
+                        }
+                    })
+                    .catch((err) => {
+                        winston.error("%s", err);
+                        session.send(persona.getResponse("error.general"));
+                        session.endDialog();
+                    });
+            }
         }
     ]);
 
@@ -110,8 +121,6 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
 
     return bot;
 }
-
-
 
 
 module.exports = buildBot;

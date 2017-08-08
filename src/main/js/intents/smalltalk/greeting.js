@@ -17,7 +17,7 @@ module.exports = function (bot, persona, logoStr) {
             var msg = new builder.Message(session);
             var response = persona.getResponse(intent, model);
             var actions = [
-                builder.CardAction.imBack(session, "weather forecast", "weather"),
+                builder.CardAction.imBack(session, "weather forecast", "get a forecast"),
                 builder.CardAction.imBack(session, "help", "help")
             ];
             if (!session.userData.greeted) {
