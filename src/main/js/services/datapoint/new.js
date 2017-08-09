@@ -13,9 +13,12 @@ module.exports = function(key) {
     var datapointCache = new cache();
 
     function getMethodForTargetTime(dt) {
-        if (sugar.Date.isBefore(dt, "now")) {
-            return function() {
-                return Promise.reject({ response_id: "error.date.range.before" });
+        if(typeof dt === "string"){
+            dt = sugar.Date.create(dt);
+        }
+        if(sugar.Date.isBefore(dt, "now")) {
+            return function () {
+                return Promise.reject({response_id:"error.date.range.before"})
             }
         } else if (sugar.Date.hoursFromNow(dt) <= 40) {
             return getHourlyDataForLatLng;
