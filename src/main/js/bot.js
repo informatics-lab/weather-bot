@@ -69,6 +69,10 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
     // weather
     intents.weather(bot, persona, datapoint, gmaps);
 
+    //context inspection
+    intents.context.date(bot, persona);
+    intents.context.location(bot, persona);
+
     // smalltalk
     intents.smalltalk.greeting(bot, persona, config.get("LOGO_URL"));
     intents.smalltalk.farewell(bot, persona);
