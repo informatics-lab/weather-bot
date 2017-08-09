@@ -28,9 +28,10 @@ module.exports = (bot, persona) => {
                 .send();
             session.conversationData.luis = results;
             session.conversationData.intent = intent;
-
-            if (!session.conversationData.time_target || !session.conversationData.location) {
-                winston.warn("[ %s ] matched but the time_target was [ %s ] and the location was [ %s ]", intent, session.conversationData.time_target, session.conversationData.location);
+            var time_target = utils.convData.get(session, 'time_target');
+            var location = utils.convData.get(session, 'location')
+            if (!time_target || !location) {
+                winston.warn("[ %s ] matched but the time_target was [ %s ] and the location was [ %s ]", intent, time_target, location);
                 session.cancelDialog();
                 session.beginDialog("error.nonsense");
             }
@@ -46,9 +47,9 @@ module.exports = (bot, persona) => {
             var response = "";
             var model = {
                 user: session.userData,
-                location: session.conversationData.location,
+                location: utils.convData.get(session, 'location'),
                 date: {
-                    day_string: session.conversationData.time_target.text
+                    day_string: utils.convData.get(session, 'time_target').text
                 }
             };
 

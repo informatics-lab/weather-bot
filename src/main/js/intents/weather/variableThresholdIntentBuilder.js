@@ -55,9 +55,9 @@ module.exports = function(baseIntent, localIntent, synonyms, variableThresholds,
                     var response = "";
                     var model = {
                         user: session.userData,
-                        location: session.conversationData.location,
+                        location: utils.convData.get(session, 'location'),
                         date: {
-                            day_string: session.conversationData.time_target.text
+                            day_string: utils.convData.get(session, 'time_target').text
                         }
                     };
 

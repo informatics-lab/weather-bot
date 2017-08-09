@@ -35,7 +35,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         utils.sanitze.datetimeV2,
         utils.capture.variable,
         (session, results, next) => {
-            gmaps.geocode(session.conversationData.location)
+            gmaps.geocode(utils.convData.get(session, 'location'))
                 .then((res) => {
                     session.conversationData.gmaps = res;
                     return next();
@@ -47,7 +47,9 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            var end = session.conversationData.time_target.range.toDT;
+            var range = utils.convData.get(session, 'time_target').range;
+            range = utils.time.rangeStrsToObjs(range);
+            var end = range.toDT;
             datapoint.getMethodForTargetTime(end)(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
                 .then((res) => {
                     session.conversationData.datapoint = res;
@@ -55,7 +57,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 })
                 .catch((err) => {
                     winston.warn(err);
-                    if(err.response_id) {
+                    if (err.response_id) {
                         session.send(persona.getResponse(err.response_id));
                     } else {
                         session.send(persona.getResponse("error.data.not_returned"));

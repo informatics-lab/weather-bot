@@ -35,7 +35,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         utils.sanitze.datetimeV2,
         utils.capture.action,
         (session, results, next) => {
-            gmaps.geocode(session.conversationData.location)
+            gmaps.geocode(utils.convData.get(session, 'location'))
                 .then((res) => {
                     session.conversationData.gmaps = res;
                     return next();
@@ -47,7 +47,9 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 });
         },
         (session, results, next) => {
-            var end = session.conversationData.time_target.range.toDT;
+            var range = utils.convData.get(session, 'time_target').range;
+            range = utils.time.rangeStrsToObjs(range);
+            var end = range.toDT;
             datapoint.getMethodForTargetTime(end)(session.conversationData.gmaps.results[0].geometry.location.lat, session.conversationData.gmaps.results[0].geometry.location.lng)
                 .then((res) => {
                     session.conversationData.datapoint = res;
@@ -55,7 +57,7 @@ module.exports = (bot, persona, datapoint, gmaps) => {
                 })
                 .catch((err) => {
                     winston.warn(err);
-                    if(err.response_id) {
+                    if (err.response_id) {
                         session.send(persona.getResponse(err.response_id));
                     } else {
                         session.send(persona.getResponse("error.data.not_returned"));
@@ -66,12 +68,12 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         utils.sanitze.weather,
         utils.summarize.weather,
         (session, results, next) => {
-            var actionType = session.conversationData.action_type;
+            var actionType = utils.convData.get(session, 'action_type');
             var actionIntent = `${intent}.${actionType}`;
             if (session.library.dialogs[actionIntent]) {
                 session.beginDialog(actionIntent);
             } else {
-                winston.warn("accessory [ %s ] did not match with any known actionType", session.conversationData.actionType);
+                winston.warn("accessory [ %s ] did not match with any known actionType", actionType);
                 var unknown = `${intent}.unknown`;
                 session.beginDialog(unknown);
             }

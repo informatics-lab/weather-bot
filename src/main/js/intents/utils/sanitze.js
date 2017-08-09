@@ -2,6 +2,8 @@
 
 var sugar = require("sugar");
 var winston = require("winston");
+var convData = require('./convData');
+var timeUtils = require('./timeUtils');
 
 // TODO: Split out this in to moudles. 
 
@@ -12,10 +14,10 @@ module.exports = {
 
     /**
      * Parses the user's response to extract the user specified location.
-     * Sets the session.conversationData.location property
+     * Sets the convData 'location'  property
      */
     location: (session, results, next) => {
-        var str = session.conversationData.location.toLowerCase();
+        var str = convData.get(session, 'location').toLowerCase();
         winston.debug(`sanitizing [ ${str} ] for a location`);
 
         /* location regex
@@ -42,7 +44,7 @@ module.exports = {
             result = strRegexResults[strRegexResults.length - 1].trim();
             result = sugar.String.capitalize(result, true, true);
         }
-        session.conversationData.location = result;
+        convData.addWithExpiry(session, 'location', result);
         return next();
     },
 
@@ -81,10 +83,9 @@ module.exports = {
         return next();
     },
 
-    //TODO: make this return a single object { 'fromDT': x, 'toDT': y }
     datetimeV2: (session, results, next) => {
 
-        var dt = session.conversationData.time_target;
+        var dt = convData.get(session, 'time_target');
         var dtType = dt.type.split('.')[2];
         var range = null;
         switch (dtType) {
@@ -107,7 +108,7 @@ module.exports = {
                 throw `unrecognised datetimeV2 entity type [${dtType}]`;
         }
 
-        session.conversationData.time_target.range = range;
+        dt.range = range;
 
         return next();
 
@@ -196,7 +197,8 @@ module.exports = {
      */
     weather: (session, results, next) => {
         var fcstArray = session.conversationData.datapoint.features[0].properties.time_series;
-        var range = session.conversationData.time_target.range;
+
+        var range = timeUtils.rangeStrsToObjs(convData.get(session, 'time_target').range);
 
         fcstArray = fcstArray.filter(x => {
             var dt = sugar.Date.create(x.time);

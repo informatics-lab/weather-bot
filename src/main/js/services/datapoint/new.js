@@ -13,15 +13,15 @@ module.exports = function(key) {
     var datapointCache = new cache();
 
     function getMethodForTargetTime(dt) {
-        if(sugar.Date.isBefore(dt, "now")) {
-            return function () {
-                return Promise.reject({response_id:"error.date.range.before"})
+        if (sugar.Date.isBefore(dt, "now")) {
+            return function() {
+                return Promise.reject({ response_id: "error.date.range.before" });
             }
         } else if (sugar.Date.hoursFromNow(dt) <= 40) {
             return getHourlyDataForLatLng;
-        } else if(sugar.Date.daysFromNow(dt) > 7) {
-            return function () {
-                return Promise.reject({response_id:"error.date.range.after"})
+        } else if (sugar.Date.daysFromNow(dt) > 7) {
+            return function() {
+                return Promise.reject({ response_id: "error.date.range.after" });
             }
         }
         return get3HourlyDataForLatLng;
