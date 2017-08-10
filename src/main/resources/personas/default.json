@@ -299,27 +299,35 @@
                     }
                 ]
             },
-            "sunny": {
+            "clarity": {
                 "type": "variable_certainty",
                 "certainties": [{
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.9,
                         "response": [
-                            "Yes, it looks like it's going to be nice in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                            "It looks like there will be clear skies in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
                         "score_upper_bound": 0.9,
                         "score_lower_bound": 0.7,
                         "response": [
-                            "There may be some sun in {{= it.location}} {{= it.date.day_string}}. {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                            "There will be a bit of cloud in {{= it.location}} {{= it.date.day_string}}. {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}",
+                            "There will be the odd cloud in {{= it.location}} {{= it.date.day_string}}. {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
                         "score_upper_bound": 0.7,
+                        "score_lower_bound": 0.3,
+                        "response": [
+                            "It looks like it will be fairly cloudy with some clear spells in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                        ]
+                    },
+                    {
+                        "score_upper_bound": 0.3,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "It looks like you won't catch much sun in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                            "It looks like it will be very cloudy in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     }
                 ]
