@@ -134,7 +134,7 @@
                 "You know, I'm not really sure. But if you'd like to celebrate my birthday today, I'm all for it.",
                 "I don't really have a birthday. I think you need a body for one of those. I do accept gifts all year around, however.",
                 "Wait a minute. Are you planning a surprise party for me? I love surprises! I'll pretend you didn't say anything.",
-                "I represent a force as old as the cosmos :milky_way:... but if you want to get me some :cake: then try May 15th." 
+                "I represent a force as old as the cosmos :milky_way:... but if you want to get me some :cake: then try May 15th."
             ],
             "where_are_you_from": [
                 "The Internet is my home, which means I know it better than anyone.",
@@ -299,7 +299,7 @@
                     }
                 ]
             },
-            "sun": {
+            "sunny": {
                 "type": "variable_certainty",
                 "certainties": [{
                         "score_upper_bound": 1.0,
@@ -320,6 +320,46 @@
                         "score_lower_bound": 0.0,
                         "response": [
                             "It looks like you won't catch much sun in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                        ]
+                    }
+                ]
+            },
+            "temperature": {
+                "type": "variable_certainty",
+                "certainties": [{
+                        "score_upper_bound": 1.0,
+                        "score_lower_bound": 0.8,
+                        "response": [
+                            "It's going to be boiling in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}",
+                            "It's going to be super hot in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                        ]
+                    },
+                    {
+                        "score_upper_bound": 0.8,
+                        "score_lower_bound": 0.6,
+                        "response": [
+                            "It's going to be warm in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                        ]
+                    },
+                    {
+                        "score_upper_bound": 0.6,
+                        "score_lower_bound": 0.4,
+                        "response": [
+                            "It's not too hot or too cold in {{= it.location}}, between {{= it.weather.temperature.feels_like.min.v}}°C and {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                        ]
+                    },
+                    {
+                        "score_upper_bound": 0.4,
+                        "score_lower_bound": 0.2,
+                        "response": [
+                            "It's going to be rather in {{= it.location}}, between {{= it.weather.temperature.feels_like.min.v}}°C and {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                        ]
+                    },
+                    {
+                        "score_upper_bound": 0.2,
+                        "score_lower_bound": 0.0,
+                        "response": [
+                            "It's going to be super cold in {{= it.location}}, as low as {{= it.weather.temperature.feels_like.min.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     }
                 ]
