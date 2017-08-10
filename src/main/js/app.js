@@ -49,6 +49,7 @@ function main() {
         appPassword: config.get(appPasswordStr)
     });
     server.post("/api/messages", connector.listen());
+    server.get("/healthz", require('./healthz'));
     require('./bot')(luis, connector, config, persona, datapoint, gmaps, ua);
 };
 
