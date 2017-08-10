@@ -92,9 +92,9 @@ module.exports = (bot, persona, datapoint, gmaps) => {
             session.beginDialog(actionIntent);
         },
         (session, results, next) => {
-            next(results)
+            utils.storeAsPreviousIntent(session, { response: intent });
         },
-        utils.storeAsPreviousIntent
+
     ]);
 
 };
