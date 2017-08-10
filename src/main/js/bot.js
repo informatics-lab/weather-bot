@@ -3,11 +3,12 @@
 var builder = require("botbuilder");
 var winston = require("winston");
 var debugTools = require('./debugTools');
+var convData = require('./intents/utils').convData;
 
 function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
     winston.info("starting %s %s", config.app.name, config.app.version);
 
-    var bot = new builder.UniversalBot(connector, {persistConversationData: true});
+    var bot = new builder.UniversalBot(connector, { persistConversationData: true });
 
     var intents = require("./intents");
     var prompt = require("./prompt");
@@ -41,6 +42,7 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
                 luis.parse(session.message.text)
                     .then((response) => {
                         if (response.topScoringIntent.score >= 0.1) {
+                            convData.deleteItem(session, 'isRepeat'); // delete the repeate flag. It will be added by the repeate intent if is repeat.
                             session.beginDialog(response.topScoringIntent.intent.toLowerCase(), response);
                         } else {
                             if (!session.userData.greeted) {

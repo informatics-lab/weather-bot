@@ -11,7 +11,7 @@
     "license": "GPL-3.0",
     "dependencies": {
         "bot-tester": "^0.1.5",
-        "botbuilder": "^3.8.2",
+        "botbuilder": "^3.9.0",
         "dot": "^1.1.1",
         "haversine": "^1.0.2",
         "js-cache": "^1.0.2",

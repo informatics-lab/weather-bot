@@ -22,7 +22,9 @@ var unknownIntent = function(bot, persona) {
         (session, results, next) => {
             session.beginDialog("weather.forecast");
         },
-        utils.storeAsPreviousIntent
+        (session, results, next) => {
+            session.endDialog();
+        },
     ]);
 };
 

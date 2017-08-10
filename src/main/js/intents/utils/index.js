@@ -7,7 +7,7 @@ var constants = require("../../constants");
 var actionUtils = require('./actionUtils');
 
 exports.storeAsPreviousIntent = (session, results) => {
-    if (results && results.response) {
+    if (results && results.response && typeof(results.response) === 'string') {
         session.conversationData.previous_intent = results.response;
     }
     session.endDialog();
