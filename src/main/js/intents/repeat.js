@@ -22,6 +22,7 @@ module.exports = function(bot, persona) {
         },
         (session, results, next) => {
             convData.deleteItem(session, "isRepeat");
+            session.endDialog();
         }
     ]);
 
