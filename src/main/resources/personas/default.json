@@ -39,7 +39,9 @@
         "That's outside of my area of expertise. Sorry."
     ],
     "help": [
-        "I can answer weather related questions like... \n * What is the forecast for London tomorrow? \n * Will it rain this weekend in Bath? \n * Will I need my coat on Friday? \n * Is it a good day for a run?"
+        "Ask me your weather related questions, or just use one of the buttons.",
+        "Try out one of the buttons below, or just ask me something.",
+        "Ask me something, or use a button. My speciality is talking about the weather."
     ],
     "met_office": {
         "general_information": {
