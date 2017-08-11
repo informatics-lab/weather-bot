@@ -334,6 +334,38 @@
                     }
                 ]
             },
+            "wind": {
+                "type": "variable_certainty",
+                "certainties": [{
+                        "score_upper_bound": 1.0,
+                        "score_lower_bound": 0.9,
+                        "response": [
+                            "It looks like it will be very windy in {{= it.location}} {{= it.date.day_string}}."
+                        ]
+                    },
+                    {
+                        "score_upper_bound": 0.9,
+                        "score_lower_bound": 0.7,
+                        "response": [
+                            "It will be pretty windy in {{= it.location}} {{= it.date.day_string}}."
+                        ]
+                    },
+                    {
+                        "score_upper_bound": 0.7,
+                        "score_lower_bound": 0.3,
+                        "response": [
+                            "It will be slightly windy in {{= it.location}} {{= it.date.day_string}}."
+                        ]
+                    },
+                    {
+                        "score_upper_bound": 0.3,
+                        "score_lower_bound": 0.0,
+                        "response": [
+                            "It should be quite calm in {{= it.location}} {{= it.date.day_string}}.}"
+                        ]
+                    }
+                ]
+            },
             "temperature": {
                 "type": "variable_certainty",
                 "certainties": [{
