@@ -14,7 +14,8 @@ module.exports = function (bot, persona) {
             if (results && results.entities) {
                 var nameEntity = results.entities.filter(e => e.type === "name")[0];
                 if (nameEntity) {
-                    return next({response: nameEntity.entity});
+                    session.userData.name = nameEntity.entity;
+                    return next();
                 }
             }
             session.beginDialog("prompt", {key: "prompts.user.name", sessionDataKey:"userData.name", model: {}});
@@ -26,6 +27,7 @@ module.exports = function (bot, persona) {
             winston.debug("response [ %s ]", response);
             session.send(response);
             session.endDialog();
-        }
+        },
+        utils.storeAsPreviousIntent
     ])
 };
