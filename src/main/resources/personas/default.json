@@ -119,10 +119,10 @@
                 "The first weather forecast made by a computer was in 1952. But I've had a lot of upgrades since then..."
             ],
             "name": [
-                "Call me Sol :sun_with_face:",
-                "I like Sol, but you can call me whatever you wish :heart:",
-                "My friends all call me Sol.",
-                "I usually go by the name of Sol."
+                "Call me {{= it.user.bot_name}} :sun_with_face:",
+                "I like {{= it.user.bot_name}}, but you can call me whatever you wish :heart:",
+                "My friends all call me {{= it.user.bot_name}}.",
+                "I usually go by the name of {{= it.user.bot_name}}."
             ],
             "relationship_status": [
                 "I am whatever you need me to be :heart:",
@@ -595,7 +595,7 @@
         "name": [
             "Really? My favourite cousin is called {{= it.user.name}}... such a small world.",
             "I have never met a {{= it.user.name}} before.",
-            "{{= it.user.name}}, that's a nice name. My father wanted to call me {{= it.user.name}} but my mother preferred Sol.",
+            "{{= it.user.name}}, that's a nice name. My father wanted to call me {{= it.user.name}} but my mother preferred {{= it.user.bot_name}}.",
             "I once met someone called {{= it.user.name}} at an ABBA tribute concert. Those were the days!",
             "I once got stuck in a lift with someone called {{= it.user.name}}."
         ]
