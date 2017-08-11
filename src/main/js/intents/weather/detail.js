@@ -33,23 +33,25 @@ module.exports = (bot, persona) => {
             if (!time_target || !location) {
                 winston.warn("[ %s ] matched but the time_target was [ %s ] and the location was [ %s ]", intent, time_target, location);
                 session.cancelDialog();
-                session.beginDialog("error.nonsense");
+                session.send(persona.getResponse("error.nonsense"));
+                return session.endDialog();
             }
-            if (!(session.conversationData.previous_intent.split(".")[0] == "weather")) {
+            var previous = utils.convData.get(session, "previous_intent");
+            if (previous && !(previous.split(".")[0] === "weather")) {
                 winston.warn("[ %s ] matched but previous intent was [ %s ]", intent, session.conversationData.previous_intent);
                 session.cancelDialog();
-                session.beginDialog("error.nonsense");
+                session.send(persona.getResponse("error.nonsense"));
+                return session.endDialog();
             }
-
             return next();
         },
         (session, results, next) => {
             var response = "";
             var model = {
                 user: session.userData,
-                location: utils.convData.get(session, 'location'),
+                location: utils.convData.get(session, "location"),
                 date: {
-                    day_string: utils.convData.get(session, 'time_target').text
+                    day_string: utils.convData.get(session, "time_target").text
                 }
             };
 
@@ -60,14 +62,20 @@ module.exports = (bot, persona) => {
 
             model.weather = session.conversationData.weather;
 
-            response = persona.getResponse(intent, model);
-
-            if (response && !(response === "")) {
-                session.send(response);
-                return next({ response: intent });
+            if(!(utils.convData.get(session, "previous_intent") === "weather.forecast") &&
+                !(utils.convData.get(session, "previous_intent") === "weather.detail")) {
+                session.cancelDialog();
+                session.beginDialog("weather.forecast");
             } else {
-                session.send(persona.getResponse("error.general"));
-                return session.endDialog();
+                response = persona.getResponse(intent, model);
+
+                if (response && !(response === "")) {
+                    session.send(response);
+                    return next({response: intent});
+                } else {
+                    session.send(persona.getResponse("error.general"));
+                    return session.endDialog();
+                }
             }
         },
         utils.storeAsPreviousIntent
