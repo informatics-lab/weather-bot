@@ -10,19 +10,18 @@ module.exports = function(bot, persona) {
     bot.dialog(intent, [
         (session, results, next) => {
             winston.info("[ %s ] intent matched [ %s ]", intent, session.message.text);
-            var previous = utils.convData.get(session, "previous_intent");
+            var previous = convData.get(session, "previous_intent");
             if (previous) {
-                convData.addWithExpiry(session, 'isRepeat', true, convData.MINUTE * 3);
-                session.beginDialog(previous, results);
-                next();
+                convData.addWithExpiry(session, "isRepeat", true, convData.MINUTE * 3);
+                return session.beginDialog(previous, results);
             } else {
-                convData.deleteItem('isRepeat');
+                convData.deleteItem(session, "isRepeat");
                 session.send(persona.getResponse("error.nonsense"));
-                session.endDialog();
+                return session.endDialog();
             }
         },
         (session, results, next) => {
-            convData.deleteItem('isRepeat');
+            convData.deleteItem(session, "isRepeat");
         }
     ]);
 

@@ -20,7 +20,7 @@ function timeEntityToMsgText(entity) {
     if (entity.search(/((this)|(next)|(coming))/i) === 0) {
         return entity;
     }
-    return "on " + entity;
+    return "on " + sugar.String.capitalize(entity);
 }
 
 module.exports = {
