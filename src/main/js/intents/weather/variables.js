@@ -31,6 +31,15 @@ module.exports = (bot, persona) => {
       [
         {variable: "temperature.feels_like.max.v", comparison: "GT", min: -5, optimal: 30}
       ]);
+  
+
+    var wind = new variableThresholdIntentBuilder(
+      "weather.variable",
+      "wind",
+      ["windy", "blowey", "calm", "still"],
+      [
+        {variable: "wind.speed.mean.v", comparison: "GT", min: 0, optimal: 25}
+      ]);
 
 
     unknown(bot, persona);
