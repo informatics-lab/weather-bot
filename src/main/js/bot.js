@@ -28,6 +28,7 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
                 }
                 session.userData["ga_id"] = config.get("GOOGLE_ANALYTICS_ID");
                 session.userData["uuid"] = ua(session.userData.ga_id).cid;
+                session.userData["bot_name"] = config.get("NAME");
             }
             if (!session.message.text || session.message.text.trim() === "") {
                 // no content in message from user - probably a 'like' or 'sticker'
@@ -70,6 +71,10 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
 
     // weather
     intents.weather(bot, persona, datapoint, gmaps);
+
+    //context inspection
+    intents.context.date(bot, persona);
+    intents.context.location(bot, persona);
 
     // smalltalk
     intents.smalltalk.greeting(bot, persona, config.get("LOGO_URL"));

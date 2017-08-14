@@ -3,26 +3,26 @@
 var winston = require("winston");
 var convData = require('./utils').convData;
 
-
 //TODO: not really a weather specific intent possibly move
 module.exports = function(bot, persona) {
 
     var intent = "repeat";
 
     bot.dialog(intent, [
-        function(session, results, next) {
+        (session, results, next) => {
             winston.info("[ %s ] intent matched [ %s ]", intent, session.message.text);
-            if (session.conversationData.previous_intent) {
-                convData.addWithExpiry(session, 'isRepeat', true, convData.MINUTE * 3);
-                session.beginDialog(session.conversationData.previous_intent, results);
+            var previous = convData.get(session, "previous_intent");
+            if (previous) {
+                convData.addWithExpiry(session, "isRepeat", true, convData.MINUTE * 3);
+                return session.beginDialog(previous, results);
             } else {
-                convData.deleteItem(session, 'isRepeat');
-                session.send(persona.getResponse("error.general"));
-                session.endDialog();
+                convData.deleteItem(session, "isRepeat");
+                session.send(persona.getResponse("error.nonsense"));
+                return session.endDialog();
             }
         },
-        function(session, results, next) {
-            convData.deleteItem(session, 'isRepeat');
+        (session, results, next) => {
+            convData.deleteItem(session, "isRepeat");
             session.endDialog();
         }
     ]);

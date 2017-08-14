@@ -8,3 +8,4 @@ exports.met_office = require("./met-office");
 exports.smalltalk = require("./smalltalk");
 exports.weather = require("./weather");
 exports.user = require("./user");
+exports.context = require("./context");

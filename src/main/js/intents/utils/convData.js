@@ -1,4 +1,6 @@
-var cache = require("js-cache");
+"use strict";
+
+var winston = require("winston");
 var HOUR = 1000 * 60 * 60;
 var MINUTE = 1000 * 60;
 var DAY = HOUR * 24;
@@ -28,7 +30,23 @@ function deleteItem(session, key) {
     delete getAll(session)[key];
 }
 
+function getProperty(obj, arr) {
+    if (arr && arr.length >= 1) {
+        return getProperty(obj[arr.shift()], arr)
+    }
+    return obj;
+}
+
 function get(session, key) {
+    var split = key.trim().split(".");
+    if(split.length > 1){
+        // we have a compound key
+        var objData = get(session, split.shift());
+        if(objData) {
+            objData = getProperty(objData, split);
+        }
+        return objData
+    }
     // Gets the data if not expired. If expired or not found return undefined.
     var data = getAll(session)[key];
     if (!data) {

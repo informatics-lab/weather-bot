@@ -1,14 +1,10 @@
 "use strict";
 
-var sugar = require("sugar");
-var winston = require("winston");
-var math = require("mathjs");
-var constants = require("../../constants");
-var actionUtils = require('./actionUtils');
+var convData = require("./convData");
 
 exports.storeAsPreviousIntent = (session, results) => {
     if (results && results.response && typeof(results.response) === 'string') {
-        session.conversationData.previous_intent = results.response;
+        convData.addWithExpiry(session, "previous_intent", results.response, convData.MINUTE * 3);
     }
     session.endDialog();
 };
@@ -19,6 +15,6 @@ exports.summarize = require('./summarize');
 
 exports.capture = require('./capture');
 
-exports.convData = require('./convData');
+exports.convData = convData;
 
 exports.time = require('./timeUtils');

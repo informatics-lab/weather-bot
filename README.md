@@ -9,16 +9,30 @@ If you don't already have it, get the [bot emulator app][2]
 To run this app you will need a JSON credentials file called `secrets.json` in the root of the application with the following keys:
 ```javascript
 {
-  "PERSONA":                "default",
-  "PORT":                   3978,
-  "DEBUG_TOOLS":            true,
-  "LOG_LEVEL":              "debug",
-  "MICROSOFT_APP_ID":       "...",
+  "NAME": "Bob",
+  "PERSONA": "default",
+  "LOGO_URL": "https://blah.jpg",
+
+  "PORT": 3978,
+  "DEBUG_TOOLS": true,
+  "LOG_LEVEL": "debug",
+
+  "GOOGLE_ANALYTICS_ID": "...",
+
+  "MICROSOFT_APP_ID": "...",
   "MICROSOFT_APP_PASSWORD": "...",
-  "LUIS_APP_ID":            "...",
-  "LUIS_SUBSCRIPTION_KEY":  "...",
-  "DATAPOINT_API_KEY":      "...",
-  "GOOGLE_MAPS_API_KEY":    "..."
+
+  "LUIS_APP_ID":"...",
+  "LUIS_SUBSCRIPTION_KEY":"...",
+
+  "DATAPOINT_API_KEY": "...",
+  "NEW_DATAPOINT_API_KEY": "...",
+
+  "GOOGLE_MAPS_API_KEY": "...",
+
+  "SENTRY_USERNAME": "...",
+  "SENTRY_PASSWORD": "...",
+  "SENTRY_APP_ID": "..."
 }
 ```
 

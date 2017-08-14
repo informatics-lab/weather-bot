@@ -24,6 +24,37 @@ module.exports = {
             })
         }
 
+        /**
+         * Get a scale of cloudy to clear from -1 to 1.
+         */
+        function getClearScore(arr) {
+          return arr.map(x => {
+            var score;
+            switch(x.v) {
+                case 0: // "Clear night"
+                case 1: // "Sunny day"
+                    score = 1.0;
+                    break;
+                case 3: // "Partly cloudy (day)"
+                    score = 0.5;
+                    break;
+                case 9: // "Light rain shower (night)"
+                case 10: // "Light rain shower (day)"
+                case 11: // "Drizzle"
+                case 12: // "Light rain"
+                    score = 0.0;
+                    break;
+                default:
+                    score = -1.0; // Default -1 because everything else is super cloudy
+                    break;
+            }
+            return {
+                "dt": x.dt,
+                "v": score
+            }
+          })
+        }
+
 
         var temParam = (fcstArray[0] && fcstArray[0]['screen_temperature']) ? "screen_temperature" : "3_hour_max_screen_temperature"
         var screenTemperature = mapToTimeValue(fcstArray, temParam);
@@ -36,6 +67,7 @@ module.exports = {
         var visibility = mapToTimeValue(fcstArray, "visibility");
         var uv = mapToTimeValue(fcstArray, "uv_index");
         var significant_weather = mapToTimeValue(fcstArray, "significant_weather");
+        var clear_score = getClearScore(significant_weather);
 
         function min(a, b) {
             return a.v < b.v ? a : b;
@@ -79,7 +111,8 @@ module.exports = {
             "relative_humidity": getMaxMinMean(relative_humidity),
             "visibility": constants.MAP_VISIBILITY(getMode(visibility).mode),
             "uv": constants.MAP_UV_INDEX(uv.reduce(max).v),
-            "significant_weather": constants.MAP_SIGNIFICANT_WEATHER_TYPE(getMode(significant_weather).mode)
+            "significant_weather": constants.MAP_SIGNIFICANT_WEATHER_TYPE(getMode(significant_weather).mode),
+            "clear_score": getMode(clear_score).mode
         };
 
         session.conversationData.weather = wx;
