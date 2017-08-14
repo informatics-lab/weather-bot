@@ -3,6 +3,7 @@
 var winston = require("winston");
 var sugar = require("sugar");
 var utils = require("../../utils");
+var actionUtils = require('../../utils/actionUtils');
 var constants = require("../../../constants");
 
 /**
@@ -34,6 +35,24 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         utils.capture.datetimeV2,
         utils.sanitze.datetimeV2,
         utils.capture.action,
+        (session, results, next) => {
+            var actionType = utils.convData.get(session, 'action_type');
+            if (actionType === actionUtils.UNKNOWN || !actionType) {
+                winston.warn("action [ %s ] did not match with any known actionType", actionType);
+                var unknown = `${intent}.unknown`;
+                session.beginDialog(unknown);
+            } else {
+                next();
+            }
+        },
+        (session, results, next) => {
+            var actionType = utils.convData.get(session, 'action_type');
+            if (actionType === actionUtils.UNKNOWN || !actionType) {
+                session.endDialog();
+            } else {
+                next();
+            }
+        },
         (session, results, next) => {
             gmaps.geocode(utils.convData.get(session, 'location'))
                 .then((res) => {
@@ -70,15 +89,12 @@ module.exports = (bot, persona, datapoint, gmaps) => {
         (session, results, next) => {
             var actionType = utils.convData.get(session, 'action_type');
             var actionIntent = `${intent}.${actionType}`;
-            if (session.library.dialogs[actionIntent]) {
-                session.beginDialog(actionIntent);
-            } else {
-                winston.warn("accessory [ %s ] did not match with any known actionType", actionType);
-                var unknown = `${intent}.unknown`;
-                session.beginDialog(unknown);
-            }
+            session.beginDialog(actionIntent);
         },
-        utils.storeAsPreviousIntent
+        (session, results, next) => {
+            utils.storeAsPreviousIntent(session, { response: intent });
+        },
+
     ]);
 
 };

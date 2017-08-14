@@ -3,7 +3,7 @@
 var convData = require("./convData");
 
 exports.storeAsPreviousIntent = (session, results) => {
-    if (results && results.response) {
+    if (results && results.response && typeof(results.response) === 'string') {
         convData.addWithExpiry(session, "previous_intent", results.response, convData.MINUTE * 3);
     }
     session.endDialog();
