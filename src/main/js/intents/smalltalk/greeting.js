@@ -14,25 +14,30 @@ module.exports = function (bot, persona, logoStr) {
 
             var model = {user: session.userData};
 
+
+            if (!session.userData.greeted) {
+                // this is the first time a user has spoken to us -
+                // hero card greeting with the warning.
+                session.send(persona.getResponse("smalltalk.welcome", model, session));
+                session.sendTyping();
+                session.delay(750);
+                session.send(persona.getResponse("smalltalk.warning"));
+                session.sendTyping();
+                session.delay(750);
+                session.userData.greeted = true;
+            }
+
             var msg = new builder.Message(session);
             var response = persona.getResponse(intent, model);
             var actions = [
-                builder.CardAction.imBack(session, "weather forecast", "get a forecast"),
+                builder.CardAction.imBack(session, "weather today", "weather today"),
+                builder.CardAction.imBack(session, "weather tomorrow", "weather tomorrow"),
                 builder.CardAction.imBack(session, "help", "help")
             ];
-            if (!session.userData.greeted) {
-                // this is the first time a user has spoken to us -
-                // hero card greeting with a menu ui.
-                msg.addAttachment(new builder.HeroCard(session)
-                    .title("Sol Weather Bot")
-                    .images([new builder.CardImage.create(session, logoStr)])
-                    .text(`${response}. Welcome to my weather channel, you can ask me for any weather information you need.`)
-                    .buttons(actions));
-                session.userData.greeted = true;
-            } else {
-                //user has chatted previously - standard hello with menu ui.
-                msg.text(response).suggestedActions(builder.SuggestedActions.create(session,actions));
-            }
+
+            //user has chatted previously - just standard hello with menu ui.
+            msg.text(response).suggestedActions(builder.SuggestedActions.create(session,actions));
+
             session.send(msg);
 
             return next();

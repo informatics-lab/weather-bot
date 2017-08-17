@@ -40,6 +40,7 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
                     session.endDialog();
                 }
             } else {
+                session.sendTyping();
                 luis.parse(session.message.text)
                     .then((response) => {
                         if (response.topScoringIntent.score >= 0.1) {

@@ -30,6 +30,7 @@ module.exports = function(bot, persona) {
             if (target.key) {
                 convData.addWithExpiry(session, target.key, results.response, target.ttl);
             }
+            session.sendTyping();
             return next();
         }
     ]);

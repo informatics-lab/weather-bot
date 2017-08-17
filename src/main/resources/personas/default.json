@@ -1,13 +1,13 @@
 {
     "error": {
         "general": [
-            ":hear_no_evil: Oops. Something went wrong then. Try asking me something else.",
-            ":see_no_evil: Hang on a minute, I've encountered a major problem. Try asking me something different."
+            "🙉 Oops. Something went wrong then. Try asking me something else.",
+            "🙈 Hang on a minute, I've encountered a major problem. Try asking me something different."
         ],
         "nonsense": [
-            "Sorry that didn't make sense to me. Try asking me something else :innocent:",
-            ":thinking: Hmm, I'm not sure that I understand what you mean by that. Ask me something else.",
-            ":grimacing: I don't really understand what you're getting at."
+            "Sorry that didn't make sense to me. Try asking me something else 😇",
+            "🤔 Hmm, I'm not sure that I understand what you mean by that. Ask me something else.",
+            "😬 I don't really understand what you're getting at."
         ],
         "data": {
             "not_returned": [
@@ -35,13 +35,13 @@
     "none": [
         "Sorry, I don't know how to answer that. Try asking me something else.",
         "I'm not designed to answer that. Try asking me something I can answer. Ask for help for some tips on what I'm good at.",
-        "I don't feel like that's something I'd be good at answering. You should try googling it!",
+        "🤔 I don't feel like that's something I'd be good at answering. You should try googling it!",
         "That's outside of my area of expertise. Sorry."
     ],
     "help": [
         "Ask me your weather related questions, or just use one of the buttons. ",
-        "Try out one of the buttons below, or just ask me something. :nerd:",
-        ":nerd: Ask me something, or use a button. My speciality is talking about the weather."
+        "Try out one of the buttons below, or just ask me something. 🤓",
+        "🤓 Ask me something, or use a button. My speciality is talking about the weather."
     ],
     "met_office": {
         "general_information": {
@@ -57,20 +57,34 @@
         }
     },
     "smalltalk": {
+        "welcome": {
+            "title": "Met Office WeatherBot",
+            "type": "image",
+            "text": [
+                "Hello{{? it.user.name}} {{= it.user.name}}{{?}}. Welcome to our prototype weather chat channel. 🤖",
+                "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}. Welcome to our prototype weather chat channel. 🤖"
+            ],
+            "contentType": "image/png",
+            "contentUrl": "https://images.informaticslab.co.uk/misc/4c6a0d953da08779dd78f07157887d3a.png",
+            "linkUrl": "http://www.metoffice.gov.uk/",
+            "linkText": "Met Office Website"
+        },
+        "warning": [
+            "⚠ WARNING: Although I'm very smart, I'm still learning how best to help you. For any critical weather information please ensure you refer back to the Met Office website or app. "
+        ],
         "greeting": [
-            "Hello{{? it.user.name}} {{= it.user.name}}{{?}} :wave:",
-            "Hi{{? it.user.name}} {{= it.user.name}}{{?}} :smile:",
-            "Howdy{{? it.user.name}} {{= it.user.name}}{{?}} :cowboy:",
+            "Hello{{? it.user.name}} {{= it.user.name}}{{?}} 👋",
+            "Hi{{? it.user.name}} {{= it.user.name}}{{?}} 😊",
+            "Howdy{{? it.user.name}} {{= it.user.name}}{{?}} 🤠",
             "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}",
-            "What's up{{? it.user.name}} {{= it.user.name}}{{?}}",
-            "Nice to{{? !it.name}} meet you{{?? it.name}} see you again {{= it.user.name}}{{??}}{{?}}"
+            "What's up{{? it.user.name}} {{= it.user.name}}{{?}} 😎"
         ],
         "farewell": [
-            "Bye{{? it.user.name}} {{= it.user.name}}{{?}} :wave:",
+            "Bye{{? it.user.name}} {{= it.user.name}}{{?}} 👋",
             "Farewell{{? it.user.name}} {{= it.user.name}}{{?}}",
             "Goodbye{{? it.user.name}} {{= it.user.name}}{{?}}",
-            "Take it easy{{? it.user.name}} {{= it.user.name}}{{?}} :sunglasses:",
-            "Come back again soon :wave:"
+            "Take it easy{{? it.user.name}} {{= it.user.name}}{{?}} 😎",
+            "Come back again soon 👋"
         ],
         "bot": {
             "are_you_a_chatbot": [
@@ -119,10 +133,9 @@
                 "The first weather forecast made by a computer was in 1952. But I've had a lot of upgrades since then..."
             ],
             "name": [
-                "Call me {{= it.user.bot_name}} :sun_with_face:",
-                "I like {{= it.user.bot_name}}, but you can call me whatever you wish :heart:",
-                "My friends all call me {{= it.user.bot_name}}.",
-                "I usually go by the name of {{= it.user.bot_name}}."
+                "I am the {{= it.user.bot_name}} :sun_with_face:",
+                "My friends all call me the {{= it.user.bot_name}}.",
+                "I usually go by the name of '{{= it.user.bot_name}}', But you can call me whatever you wish :heart:"
             ],
             "relationship_status": [
                 "I am whatever you need me to be :heart:",
