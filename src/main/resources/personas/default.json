@@ -28,7 +28,7 @@
             "not_uk": [
                 "The location you have asked for seems to be outside of the UK. Currently I can only help you with UK weather.",
                 "Looks like that location is outside of my specialist area.",
-                "How about trying a location in the UK :uk:?"
+                "How about trying a location in the UK 🇬🇧?"
             ]
         }
     },
@@ -88,7 +88,7 @@
         ],
         "bot": {
             "are_you_a_chatbot": [
-                "I am a chatbot :robot_face:. I'm always here to assist you in any way I can.",
+                "I am a chatbot 🤖. I'm always here to assist you in any way I can.",
                 "At your service. I'll be here whenever you need me.",
                 "Sure thing. Let me know when you need your weather information.",
                 "I'm here to serve. The second law of robotics states 'a robot must obey orders given it by a human'.",
@@ -127,7 +127,7 @@
                 "I'm feeling pretty chatty to be honest."
             ],
             "how_old_are_you": [
-                "I'm a relatively new program :baby: but I'm wise beyond my years.",
+                "I'm a relatively new program 👶 but I'm wise beyond my years.",
                 "I don't really have an age. I guess you could say I'm young at heart.",
                 "I was first deployed on 15th May 2017 by Jacob and Tom.",
                 "The first weather forecast made by a computer was in 1952. But I've had a lot of upgrades since then..."
@@ -571,14 +571,14 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.95,
                         "response": [
-                            "I would definitely take a brolly :umbrella_with_rain_drops: if I was in {{= it.location}} {{= it.date.day_string}}."
+                            "I would definitely take a brolly ☔ if I was in {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
                         "score_upper_bound": 0.94,
                         "score_lower_bound": 0.7,
                         "response": [
-                            "It would be wise to pack an umbrella :umbrella:, the forecast is {{= it.weather.significant_weather.string}} for {{= it.location}} {{= it.date.day_string}}."
+                            "It would be wise to pack an umbrella ☂, the forecast is {{= it.weather.significant_weather.string}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
@@ -621,7 +621,7 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.5,
                         "response": [
-                            "You should definitely wear some sun cream in {{= it.location}} {{= it.date.day_string}} :icecream: :sunny:"
+                            "You should definitely wear some sun cream in {{= it.location}} {{= it.date.day_string}} 🍨🌞"
                         ]
                     },
                     {
@@ -638,7 +638,7 @@
     "user": {
         "name": [
             "Really? My favourite cousin is called {{= it.user.name}}... such a small world.",
-            ":astonished: I have never met a {{= it.user.name}} before.",
+            "☺ I have never met a {{= it.user.name}} before.",
             "{{= it.user.name}}, that's a nice name. My father wanted to call me {{= it.user.name}} but my mother preferred {{= it.user.bot_name}}.",
             "I once met someone called {{= it.user.name}} at an ABBA tribute concert. Those were the days! 🕺💃💃🕺",
             "I once got stuck in a lift with someone called {{= it.user.name}}."
