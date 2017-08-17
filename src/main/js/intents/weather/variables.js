@@ -19,7 +19,7 @@ module.exports = (bot, persona) => {
     var rain = new variableThresholdIntentBuilder(
       "weather.variable",
       "rain",
-      ["rainfall", "rainy", "wet", "damp", "drizzle", "shower", "showers", "showery"],
+      ["rainfall", "rainy", "wet", "damp", "drizzle", "shower", "showers", "showery", "dry"],
       [
         {variable: "probability_of_precipitation.max.v", comparison: "GT", min: 0, optimal: 100}
       ]);
@@ -36,9 +36,9 @@ module.exports = (bot, persona) => {
     var wind = new variableThresholdIntentBuilder(
       "weather.variable",
       "wind",
-      ["windy", "blowey", "calm", "still"],
+      ["windy", "breeze", "breezy", "blowey", "blustery", "calm", "still"],
       [
-        {variable: "wind.speed.mean.v", comparison: "GT", min: 0, optimal: 25}
+        {variable: "wind.speed.mean", comparison: "GT", min: 0, optimal: 25}
       ]);
 
 
@@ -46,4 +46,5 @@ module.exports = (bot, persona) => {
     clarity(bot, persona);
     rain(bot, persona);
     temperature(bot, persona);
-}
+    wind(bot, persona);
+};

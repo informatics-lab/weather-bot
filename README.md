@@ -56,7 +56,7 @@ Command | Result
 `/sUserData` | Show all `userData` data
 `/dUserData` | Delete all `userData` data
 
-### Auto testting
+### Auto testing
 
 For examples see `src/test`.
 
@@ -72,6 +72,7 @@ For more tips see [Bot Tester for Bot Builder Framework](https://github.com/micr
 
 ## notes
  * LUIS has a hard limit of 80 intents per application.
+ * [facebook emojis](https://www.piliapp.com/facebook-symbols/)
 
 [1]: https://dev.botframework.com/
 [2]: https://docs.botframework.com/en-us/tools/bot-framework-emulator/

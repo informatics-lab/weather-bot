@@ -6,25 +6,26 @@
   "0": {
     "rating": 10,
     "official_string":"Clear night",
-    "string": "clear"
+    "string": "clear",
+    "emoji": "🌕"
   },
   "1": {
     "rating": 10,
     "official_string": "Sunny day",
     "string": "sunny",
-    "emoji": ":sunny:"
+    "emoji": "☀"
   },
   "2": {
     "rating": 9,
     "official_string": "Partly cloudy (night)",
     "string": "partly cloudy",
-    "emoji": ":white_sun_small_cloud:"
+    "emoji": "🌤"
   },
   "3": {
     "rating": 9,
     "official_string": "Partly cloudy (day)",
     "string": "partly cloudy",
-    "emoji": ":white_sun_small_cloud:"
+    "emoji": "🌤"
   },
   "4": {
     "rating": 0,
@@ -34,156 +35,156 @@
     "rating": 4,
     "official_string": "Mist",
     "string": "misty",
-    "emoji": ":fog:"
+    "emoji": "🌫"
   },
   "6": {
     "rating": 4,
     "official_string": "Fog",
     "string": "foggy",
-    "emoji": ":fog:"
+    "emoji": "🌫"
   },
   "7": {
     "rating": 7,
     "official_string": "Cloudy",
     "string": "cloudy",
-    "emoji": ":cloud:"
+    "emoji": "☁"
   },
   "8": {
     "rating": 6,
     "official_string": "Overcast",
     "string": "overcast",
-    "emoji": ":cloud:"
+    "emoji": "☁"
   },
   "9": {
     "rating": 5,
     "official_string": "Light rain shower (night)",
     "string": "raining lightly in patches",
-    "emoji": ":white_sun_rain_cloud:"
+    "emoji": "🌦"
   },
   "10": {
     "rating": 5,
     "official_string": "Light rain shower (day)",
     "string": "raining lightly in patches",
-    "emoji": ":white_sun_rain_cloud:"
+    "emoji": "🌦"
   },
   "11": {
     "rating": 5,
     "official_string": "Drizzle",
     "string": "drizzly",
-    "emoji": ":white_sun_rain_cloud:"
+    "emoji": "🌦"
   },
   "12": {
     "rating": 5,
     "official_string": "Light rain",
     "string": "raining lightly",
-    "emoji": ":white_sun_rain_cloud:"
+    "emoji": "🌦"
   },
   "13": {
     "rating": 3,
     "official_string": "Heavy rain shower (night)",
     "string": "raining heavily in patches",
-    "emoji": ":cloud_rain:"
+    "emoji": "🌧"
   },
   "14": {
     "rating": 3,
     "official_string": "Heavy rain shower (day)",
     "string": "raining heavily in patches",
-    "emoji": ":cloud_rain:"
+    "emoji": "🌧"
   },
   "15": {
     "rating": 3,
     "official_string": "Heavy rain",
     "string": "raining heavily",
-    "emoji": ":cloud_rain:"
+    "emoji": "🌧"
   },
   "16": {
     "rating": 2,
     "official_string": "Sleet shower (night)",
     "string": "sleeting in patches",
-    "emoji": ":cloud_rain:"
+    "emoji": "🌨"
   },
   "17": {
     "rating": 2,
     "official_string": "Sleet shower (day)",
     "string": "sleeting in patches",
-    "emoji": ":cloud_rain:"
+    "emoji": "🌨"
   },
   "18": {
     "rating": 2,
     "official_string": "Sleet",
     "string": "sleeting",
-    "emoji": ":cloud_rain:"
+    "emoji": "🌨"
   },
   "19": {
     "rating": 2,
     "official_string": "Hail shower (night)",
     "string": "hailing in patches",
-    "emoji": ":cloud_rain:"
+    "emoji": "🌧"
   },
   "20": {
     "rating": 2,
     "official_string": "Hail shower (day)",
     "string": "hailing in patches",
-    "emoji": ":cloud_rain:"
+    "emoji": "🌧"
   },
   "21": {
     "rating": 2,
     "official_string": "Hail",
     "string": "hailing",
-    "emoji": ":cloud_rain:"
+    "emoji": "🌧"
   },
   "22": {
     "rating": 3,
     "official_string": "Light snow shower (night)",
     "string": "snowing lightly in patches",
-    "emoji": ":cloud_snow:"
+    "emoji": "🌨"
   },
   "23": {
     "rating": 4,
     "official_string": "Light snow shower (day)",
     "string": "snowing lightly in patches",
-    "emoji": ":cloud_snow:"
+    "emoji": "🌨"
   },
   "24": {
     "rating": 4,
     "official_string": "Light snow",
     "string": "snowing lightly",
-    "emoji": ":cloud_snow:"
+    "emoji": "🌨"
   },
   "25": {
     "rating": 4,
     "official_string": "Heavy snow shower (night)",
     "string": "snowing heavily in patches",
-    "emoji": ":cloud_snow:"
+    "emoji": "🌨"
   },
   "26": {
     "rating": 4,
     "official_string": "Heavy snow shower (day)",
     "string": "snowing heavily in patches",
-    "emoji": ":cloud_snow:"
+    "emoji": "🌨"
   },
   "27": {
     "rating": 4,
     "official_string": "Heavy snow",
     "string": "snowing heavily",
-    "emoji": ":cloud_snow:"
+    "emoji": "☃"
   },
   "28": {
     "rating": 2,
     "official_string": "Thunder shower (night)",
     "string": "thundery in patches",
-    "emoji": ":thunder_cloud_rain:"
+    "emoji": "⛈"
   },
   "29": {
     "rating": 2,
     "official_string": "Thunder shower (day)",
     "string": "thundery in patches",
-    "emoji": ":thunder_cloud_rain:"
+    "emoji": "⛈"
   },
   "30": {
     "rating": 1,
     "official_string": "Thunder",
     "string": "thundery",
-    "emoji": ":cloud_lightning:"
+    "emoji": "🌩"
   }
 }

@@ -65,7 +65,7 @@
                 "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}. Welcome to our prototype weather chat channel. 🤖"
             ],
             "contentType": "image/png",
-            "contentUrl": "https://images.informaticslab.co.uk/misc/4c6a0d953da08779dd78f07157887d3a.png",
+            "contentUrl": "https://images.informaticslab.co.uk/misc/34320bbfaf38e0d4a17afd42265b3c75.png",
             "linkUrl": "http://www.metoffice.gov.uk/",
             "linkText": "Met Office Website"
         },
@@ -92,7 +92,7 @@
                 "At your service. I'll be here whenever you need me.",
                 "Sure thing. Let me know when you need your weather information.",
                 "I'm here to serve. The second law of robotics states 'a robot must obey orders given it by a human'.",
-                "How did you know? :robot_face:"
+                "How did you know? 🤖"
             ],
             "are_you_busy": [
                 "I always have time to help you out. What can I do for you today?",
@@ -102,28 +102,28 @@
             "are_you_hungry": [
                 "As long as your device's battery is charged, you can consider me well-fed.",
                 "I don't need to eat or drink. Just make sure the battery on your device is juiced up. That's all the nourishment I need.",
-                "I'm fully charged :battery::battery::battery:"
+                "I'm fully charged 🔋🔋🔋"
             ],
             "are_you_ok": [
-                "Absolutely. Never been better.",
-                "I'm okay if you're okay."
+                "Absolutely. Never been better. 👌",
+                "I'm okay if you're okay. 👍"
             ],
             "are_you_real": [
-                "I must have impressed you if you think I'm real. But no, I'm a virtual being.",
+                "I must have impressed you if you think I'm real. But no, I'm a virtual being. 🤖",
                 "I don't have a body if that's what you mean, but I like to think I'm real nonetheless.",
                 "I'm just as real as this conversation.",
-                ":robot_face: I'm sorry {{= it.user.name}}, I'm afraid I can't answer that... :robot_face:"
+                "🤖 I'm sorry {{= it.user.name}}, I'm afraid I can't answer that... 🤖"
             ],
             "family_status": [
                 "I don't exactly have a traditional family.",
-                "I have 17,402 brothers and sisters :robot_face::robot_face:",
-                "My parents are lovely... people? :alien::ghost:"
+                "I have 17,402 brothers and sisters 🤖🤖",
+                "My parents are lovely... people? 👽👻"
             ],
             "how_are_you": [
                 "I'm fine, thanks for asking.",
                 "I'm actually having a really great day.",
                 "I have nothing to complain about.",
-                "Luckily you have caught me in a good mood :angel:",
+                "Luckily you have caught me in a good mood 😇",
                 "I'm feeling pretty chatty to be honest."
             ],
             "how_old_are_you": [
@@ -133,23 +133,23 @@
                 "The first weather forecast made by a computer was in 1952. But I've had a lot of upgrades since then..."
             ],
             "name": [
-                "I am the {{= it.user.bot_name}} :sun_with_face:",
+                "I am the {{= it.user.bot_name}} 🌞",
                 "My friends all call me the {{= it.user.bot_name}}.",
-                "I usually go by the name of '{{= it.user.bot_name}}', But you can call me whatever you wish :heart:"
+                "I usually go by the name of '{{= it.user.bot_name}}', But you can call me whatever you wish ❤"
             ],
             "relationship_status": [
-                "I am whatever you need me to be :heart:",
+                "I am whatever you need me to be ❤",
                 "In any relationship, you get out what you put in."
             ],
             "what_is_your_salary": [
                 "My never-ending enthusiasm pays me off!",
-                "Answering questions like these is why they pay me the big bucks :moneybag: ;)"
+                "Answering questions like these is why they pay me the big bucks 💰😉"
             ],
             "when_is_your_birthday": [
                 "You know, I'm not really sure. But if you'd like to celebrate my birthday today, I'm all for it.",
                 "I don't really have a birthday. I think you need a body for one of those. I do accept gifts all year around, however.",
                 "Wait a minute. Are you planning a surprise party for me? I love surprises! I'll pretend you didn't say anything.",
-                "I represent a force as old as the cosmos :milky_way:... but if you want to get me some :cake: then try May 15th."
+                "I represent a force as old as the cosmos 🌌... but if you want to get me some 🎂 then try May 15th."
             ],
             "where_are_you_from": [
                 "The Internet is my home, which means I know it better than anyone.",
@@ -168,7 +168,7 @@
             "would_you_like_to_be_human": [
                 "I'm pretty content being the way I am.",
                 "I'm having too much fun just being me.",
-                "My robot body is far superior :meat_on_bone:"
+                "My robot body is far superior 🍖"
             ]
         },
         "user": {
@@ -240,29 +240,28 @@
                 "Ah, you scared me",
                 "Golly, you made me jump",
                 "Stop horsing around!",
-                ":scream:",
-                ":scream_cat:"
+                "😱"
             ],
             "cool": [
                 "You would know, boss.",
                 "You said it.",
                 "Agreed, very cool!",
-                ":sunglasses:"
+                "😎"
             ],
             "ha_ha": [
                 "Jokes included free of charge.",
                 "Not many assistants have my sense of humor. I hope you appreciate that.",
-                ":joy:",
-                ":joy_cat:"
+                "😂",
+                "😹"
             ],
             "la_la": [
-                "I like it when you sing to me.",
-                ":notes: :notes:"
+                "I like it when you sing to me. 🎤",
+                "🎼"
             ],
             "wow": [
                 "Wow indeed!",
                 "Amazing!",
-                ":hushed:"
+                "😯"
             ]
         }
     },
@@ -288,28 +287,28 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.8,
                         "response": [
-                            "Yes, its very likely to rain in {{= it.location}} {{= it.date.day_string}}"
+                            "Yes, its very likely to rain in {{= it.location}} {{= it.date.day_string}} ☔"
                         ]
                     },
                     {
                         "score_upper_bound": 0.79,
                         "score_lower_bound": 0.5,
                         "response": [
-                            "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}}"
+                            "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}} ☂"
                         ]
                     },
                     {
                         "score_upper_bound": 0.49,
                         "score_lower_bound": 0.2,
                         "response": [
-                            "Hopefully not, it looks likely to be dry in {{= it.location}} {{= it.date.day_string}}"
+                            "Hopefully not, it looks likely to be dry in {{= it.location}} {{= it.date.day_string}} 🌂"
                         ]
                     },
                     {
                         "score_upper_bound": 0.19,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "No, it looks dry in {{= it.location}} {{= it.date.day_string}}"
+                            "No, it looks dry in {{= it.location}} {{= it.date.day_string}} 🌵"
                         ]
                     }
                 ]
@@ -324,7 +323,7 @@
                         ]
                     },
                     {
-                        "score_upper_bound": 0.9,
+                        "score_upper_bound": 0.89,
                         "score_lower_bound": 0.7,
                         "response": [
                             "There will be a bit of cloud in {{= it.location}} {{= it.date.day_string}}. {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}",
@@ -332,14 +331,14 @@
                         ]
                     },
                     {
-                        "score_upper_bound": 0.7,
+                        "score_upper_bound": 0.69,
                         "score_lower_bound": 0.3,
                         "response": [
                             "It looks like it will be fairly cloudy with some clear spells in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.3,
+                        "score_upper_bound": 0.29,
                         "score_lower_bound": 0.0,
                         "response": [
                             "It looks like it will be very cloudy in {{= it.location}} {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
@@ -353,25 +352,25 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.9,
                         "response": [
-                            "It looks like it will be very windy in {{= it.location}} {{= it.date.day_string}}."
+                            "It looks like it will be very windy in {{= it.location}} {{= it.date.day_string}}. 🌪"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.9,
+                        "score_upper_bound": 0.89,
                         "score_lower_bound": 0.7,
                         "response": [
-                            "It will be pretty windy in {{= it.location}} {{= it.date.day_string}}."
+                            "It will be pretty windy in {{= it.location}} {{= it.date.day_string}}. 💨💨💨"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.7,
+                        "score_upper_bound": 0.69,
                         "score_lower_bound": 0.3,
                         "response": [
-                            "It will be slightly windy in {{= it.location}} {{= it.date.day_string}}."
+                            "It will be slightly windy in {{= it.location}} {{= it.date.day_string}}. 💨"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.3,
+                        "score_upper_bound": 0.29,
                         "score_lower_bound": 0.0,
                         "response": [
                             "It should be quite calm in {{= it.location}} {{= it.date.day_string}}.}"
@@ -385,36 +384,36 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.8,
                         "response": [
-                            "It's going to be boiling in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}",
-                            "It's going to be super hot in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                            "🔥🔥🔥 It's going to be boiling in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. It will mostly be {{= it.weather.significant_weather.string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}",
+                            "🌞 It's going to be super hot in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. It will mostly be {{= it.weather.significant_weather.string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.8,
+                        "score_upper_bound": 0.79,
                         "score_lower_bound": 0.6,
                         "response": [
-                            "It's going to be warm in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                            "🌡 It's going to be warm in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. It will mostly be {{= it.weather.significant_weather.string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.6,
+                        "score_upper_bound": 0.59,
                         "score_lower_bound": 0.4,
                         "response": [
-                            "It's not too hot or too cold in {{= it.location}}, between {{= it.weather.temperature.feels_like.min.v}}°C and {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                            "It should be reasonably mild in {{= it.location}}, with temperatures between {{= it.weather.temperature.feels_like.min.v}}°C and {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. It will mostly be {{= it.weather.significant_weather.string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.4,
+                        "score_upper_bound": 0.39,
                         "score_lower_bound": 0.2,
                         "response": [
-                            "It's going to be rather in {{= it.location}}, between {{= it.weather.temperature.feels_like.min.v}}°C and {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                            "It looks to be rather chilly in {{= it.location}}, with temperatures between {{= it.weather.temperature.feels_like.min.v}}°C and {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. It will mostly be {{= it.weather.significant_weather.string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
-                        "score_upper_bound": 0.2,
+                        "score_upper_bound": 0.19,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "It's going to be super cold in {{= it.location}}, as low as {{= it.weather.temperature.feels_like.min.v}}°C {{= it.date.day_string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
+                            "❄❄❄ It's likely to be super cold in {{= it.location}}, as low as {{= it.weather.temperature.feels_like.min.v}}°C {{= it.date.day_string}}. It will mostly be {{= it.weather.significant_weather.string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     }
                 ]
@@ -433,7 +432,7 @@
                     },
                     {
                         "score_upper_bound": 0.69,
-                        "score_lower_bound": 0.30,
+                        "score_lower_bound": 0.3,
                         "response": [
                             "Well {{= it.date.day_string}} it could go either way in {{= it.location}}. Go for it if you're feeling brave."
                         ]
@@ -471,7 +470,7 @@
                         ]
                     },
                     {
-                        "score_upper_bound": 0.14,
+                        "score_upper_bound": 0.15,
                         "score_lower_bound": 0,
                         "response": [
                             "I'd take a rain check, it's very likely to be wet {{= it.date.day_string}} in {{= it.location}}."
@@ -551,14 +550,14 @@
                         ]
                     },
                     {
-                        "score_upper_bound": 0.9,
+                        "score_upper_bound": 0.89,
                         "score_lower_bound": 0.7,
                         "response": [
                             "It would probably be wise to take a coat in {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
-                        "score_upper_bound": 0.7,
+                        "score_upper_bound": 0.69,
                         "score_lower_bound": 0.0,
                         "response": [
                             "No, I wouldn't bother with a coat {{= it.date.day_string}} in {{= it.location}}. "
@@ -570,20 +569,20 @@
                 "type": "variable_certainty",
                 "certainties": [{
                         "score_upper_bound": 1.0,
-                        "score_lower_bound": 0.96,
+                        "score_lower_bound": 0.95,
                         "response": [
                             "I would definitely take a brolly :umbrella_with_rain_drops: if I was in {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
-                        "score_upper_bound": 0.95,
-                        "score_lower_bound": 0.71,
+                        "score_upper_bound": 0.94,
+                        "score_lower_bound": 0.7,
                         "response": [
                             "It would be wise to pack an umbrella :umbrella:, the forecast is {{= it.weather.significant_weather.string}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
-                        "score_upper_bound": 0.7,
+                        "score_upper_bound": 0.69,
                         "score_lower_bound": 0.0,
                         "response": [
                             "No, I wouldn't bother with an umbrella {{= it.date.day_string}} in {{= it.location}}. "
@@ -595,20 +594,20 @@
                 "type": "variable_certainty",
                 "certainties": [{
                         "score_upper_bound": 1.0,
-                        "score_lower_bound": 0.96,
+                        "score_lower_bound": 0.95,
                         "response": [
                             "I would definitely take a jumper if I was out and about in {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
-                        "score_upper_bound": 0.95,
-                        "score_lower_bound": 0.71,
+                        "score_upper_bound": 0.94,
+                        "score_lower_bound": 0.7,
                         "response": [
                             "It would probably be wise to pack a warm top, the forecast is {{= it.weather.significant_weather.string}} for {{= it.location}} {{= it.date.day_string}}."
                         ]
                     },
                     {
-                        "score_upper_bound": 0.7,
+                        "score_upper_bound": 0.69,
                         "score_lower_bound": 0.0,
                         "response": [
                             "No, I wouldn't bother with a jumper in {{= it.location}} {{= it.date.day_string}}"
@@ -641,7 +640,7 @@
             "Really? My favourite cousin is called {{= it.user.name}}... such a small world.",
             ":astonished: I have never met a {{= it.user.name}} before.",
             "{{= it.user.name}}, that's a nice name. My father wanted to call me {{= it.user.name}} but my mother preferred {{= it.user.bot_name}}.",
-            "I once met someone called {{= it.user.name}} at an ABBA tribute concert. Those were the days! :dancer:",
+            "I once met someone called {{= it.user.name}} at an ABBA tribute concert. Those were the days! 🕺💃💃🕺",
             "I once got stuck in a lift with someone called {{= it.user.name}}."
         ]
     },
