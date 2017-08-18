@@ -26,6 +26,7 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
             lastInteraction = sugar.Date.create(lastInteraction, {setUTC: true});
             if (sugar.Date.isBefore(lastInteraction, deployDT)) {
                 // app has been deployed since user last spoke to it
+                winston.debug("redeployment of app detected at [%s] removing conversational state", deployDT.toISOString());
 
                 // reinitialise any properties from config in-case something has changed
                 session.userData["bot_name"] = config.get("NAME");
@@ -39,6 +40,7 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
             }
         } else {
             // user has never spoken to us before
+            winston.debug("initialising new user");
 
             // ensure clean slate
             session.userData = {};
