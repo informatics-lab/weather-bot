@@ -11,7 +11,7 @@ To run this app you will need a JSON credentials file called `secrets.json` in t
 {
   "NAME": "Bob",
   "PERSONA": "default",
-  "LOGO_URL": "https://blah.jpg",
+  "DEPLOY_DT": "2017-08-08T00:00:00.000Z",
 
   "PORT": 3978,
   "DEBUG_TOOLS": true,
@@ -41,6 +41,10 @@ Using node version 7.10.0
 `npm install`   
 `npm start`    
 
+### deployment
+On redeployment of the app ensure the `DEPLOY_DT` property is updated in the secrets file to clear users 
+conversational states.
+
 ### testing
 Connect your bot emulator app to your locally running instance.  
 URI :     `http://localhost:3978/api/messages`    
@@ -69,6 +73,7 @@ To debug tests:
 `node  node_modules/mocha/bin/_mocha -u tdd --timeout 4000 --colors src/test/main`
 
 For more tips see [Bot Tester for Bot Builder Framework](https://github.com/microsoftly/BotTester)
+
 
 ## notes
  * LUIS has a hard limit of 80 intents per application.

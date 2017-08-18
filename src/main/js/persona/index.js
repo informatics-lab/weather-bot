@@ -56,10 +56,11 @@ module.exports = function(persona) {
 
     function createHeroCard(session, obj, model) {
 
+        var title = applyModelToTemplate(obj.title, model);
         var text = applyModelToTemplate(getRandomElementFromArray(obj.text), model);
 
         return new builder.HeroCard(session)
-            .title(obj.title)
+            .title(title)
             .text(text)
             .images([
                 builder.CardImage.create(session, obj.contentUrl)
