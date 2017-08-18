@@ -4,7 +4,7 @@ var winston = require("winston");
 var utils = require("../utils");
 var builder = require("botbuilder");
 
-module.exports = function (bot, persona, logoStr) {
+module.exports = function (bot, persona) {
 
     var intent = "smalltalk.greeting";
 

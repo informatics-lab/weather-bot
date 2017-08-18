@@ -3,33 +3,68 @@
 var builder = require("botbuilder");
 var winston = require("winston");
 var debugTools = require('./debugTools');
+var sugar = require('sugar');
 var convData = require('./intents/utils').convData;
 
 function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
     winston.info("starting %s %s", config.app.name, config.app.version);
 
-    var bot = new builder.UniversalBot(connector, { persistConversationData: true });
+    var bot = new builder.UniversalBot(connector, {persistConversationData: true});
 
     var intents = require("./intents");
     var prompt = require("./prompt");
 
 
-    //conversation root
+    // conversation root
     bot.dialog("/", [
         (session) => {
+
             if (config.get("DEBUG_TOOLS") && debugTools(session)) {
                 return;
             }
-            if (!session.userData.uuid) {
-                if (session.message.address.channelId === "facebook") {
-                    session.userData["channel"] = "fb";
-                    session.userData["name"] = session.message.address.user.name.split(" ")[0];
-                    session.userData["fb"] = session.message.address.user;
+
+            var lastInteraction = session.userData.last_interaction;
+            if (lastInteraction) {
+                var deployDT = sugar.Date.create(config.get("DEPLOY_DT"), {setUTC: true});
+                lastInteraction = sugar.Date.create(lastInteraction, {setUTC: true});
+                if (sugar.Date.isBefore(lastInteraction, deployDT)) {
+                    // app has been deployed since user last spoke to it
+
+                    // reinitialise any properties from config in-case something has changed
+                    session.userData["bot_name"] = config.get("NAME");
+
+                    // clear all previous conversational state data
+                    session.userData.greeted = false;
+                    session.conversationData = {}
+
+                } else {
+                    //nothing to do here should be the default case
                 }
+            } else {
+                // user has never spoken to us before
+
+                // ensure clean slate
+                session.userData = {};
+                session.conversationData = {};
+
+                // initialise any properties from config
+                session.userData["bot_name"] = config.get("NAME");
+
+                // we only want to run this once running again will skew our user analytics
                 session.userData["ga_id"] = config.get("GOOGLE_ANALYTICS_ID");
                 session.userData["uuid"] = ua(session.userData.ga_id).cid;
-                session.userData["bot_name"] = config.get("NAME");
+
+                if (session.message.address.channelId === "facebook") {
+                    // user is using facebook platform - ensure we have their correct credentials
+                    session.userData["channel"] = "fb";
+                    session.userData["fb"] = session.message.address.user;
+                    session.userData["name"] = session.message.address.user.name.split(" ")[0];
+                }
             }
+            session.userData["last_interaction"] = sugar.Date.create("now", {setUTC: true});
+
+
+            session.sendTyping();
             if (!session.message.text || session.message.text.trim() === "") {
                 // no content in message from user - probably a 'like' or 'sticker'
                 if (!session.userData.greeted) {
@@ -40,7 +75,6 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
                     session.endDialog();
                 }
             } else {
-                session.sendTyping();
                 luis.parse(session.message.text)
                     .then((response) => {
                         if (response.topScoringIntent.score >= 0.1) {
@@ -78,7 +112,7 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
     intents.context.location(bot, persona);
 
     // smalltalk
-    intents.smalltalk.greeting(bot, persona, config.get("LOGO_URL"));
+    intents.smalltalk.greeting(bot, persona);
     intents.smalltalk.farewell(bot, persona);
 
     intents.smalltalk.bot.are_you_a_chatbot(bot, persona);

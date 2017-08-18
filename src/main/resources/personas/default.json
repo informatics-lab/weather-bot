@@ -58,11 +58,11 @@
     },
     "smalltalk": {
         "welcome": {
-            "title": "Met Office WeatherBot",
+            "title": "{{= it.user.bot_name}}",
             "type": "image",
             "text": [
-                "Hello{{? it.user.name}} {{= it.user.name}}{{?}}. Welcome to our prototype weather chat channel. 🤖",
-                "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}. Welcome to our prototype weather chat channel. 🤖"
+                "Hello{{? it.user.name}} {{= it.user.name}}{{?}}, welcome to our prototype weather chat channel. 🤖",
+                "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}, welcome to our prototype weather chat channel. 🤖"
             ],
             "contentType": "image/png",
             "contentUrl": "https://images.informaticslab.co.uk/misc/34320bbfaf38e0d4a17afd42265b3c75.png",
@@ -660,9 +660,9 @@
             },
             "forecast": {
                 "location": [
-                    "{{? it.user.name}}{{= it.user.name}}, {{?}}I get it, you'd like a weather forecast, but for where?",
+                    "{{? it.user.name}}{{= it.user.name}}, {{?}}I understand, you'd like a weather forecast, but for where?",
                     "OK{{? it.user.name}} {{= it.user.name}}{{?}}, where do you want to know that for?",
-                    "Where?"
+                    "Where would you like to know that for?"
                 ]
             },
             "accessory": {
