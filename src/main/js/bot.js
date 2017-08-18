@@ -14,6 +14,52 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
     var intents = require("./intents");
     var prompt = require("./prompt");
 
+    /**
+     * Handles setting up a user for the first time and manages the conversational state based on the last user interaction.
+     * Allows us to forget old conversations/functionality between deployments of the application
+     * @param session - current session
+     */
+    function handleLastInteration(session) {
+        var lastInteraction = session.userData.last_interaction;
+        if (lastInteraction) {
+            var deployDT = sugar.Date.create(config.get("DEPLOY_DT"), {setUTC: true});
+            lastInteraction = sugar.Date.create(lastInteraction, {setUTC: true});
+            if (sugar.Date.isBefore(lastInteraction, deployDT)) {
+                // app has been deployed since user last spoke to it
+
+                // reinitialise any properties from config in-case something has changed
+                session.userData["bot_name"] = config.get("NAME");
+
+                // clear all previous conversational state data
+                session.userData.greeted = false;
+                session.conversationData = {}
+
+            } else {
+                //nothing to do here should be the default case
+            }
+        } else {
+            // user has never spoken to us before
+
+            // ensure clean slate
+            session.userData = {};
+            session.conversationData = {};
+
+            // initialise any properties from config
+            session.userData["bot_name"] = config.get("NAME");
+
+            // we only want to run this once running again will skew our user analytics
+            session.userData["ga_id"] = config.get("GOOGLE_ANALYTICS_ID");
+            session.userData["uuid"] = ua(session.userData.ga_id).cid;
+
+            if (session.message.address.channelId === "facebook") {
+                // user is using facebook platform - ensure we have their correct credentials
+                session.userData["channel"] = "fb";
+                session.userData["fb"] = session.message.address.user;
+                session.userData["name"] = session.message.address.user.name.split(" ")[0];
+            }
+        }
+        session.userData["last_interaction"] = sugar.Date.create("now", {setUTC: true});
+    }
 
     // conversation root
     bot.dialog("/", [
@@ -23,48 +69,10 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
                 return;
             }
 
-            var lastInteraction = session.userData.last_interaction;
-            if (lastInteraction) {
-                var deployDT = sugar.Date.create(config.get("DEPLOY_DT"), {setUTC: true});
-                lastInteraction = sugar.Date.create(lastInteraction, {setUTC: true});
-                if (sugar.Date.isBefore(lastInteraction, deployDT)) {
-                    // app has been deployed since user last spoke to it
-
-                    // reinitialise any properties from config in-case something has changed
-                    session.userData["bot_name"] = config.get("NAME");
-
-                    // clear all previous conversational state data
-                    session.userData.greeted = false;
-                    session.conversationData = {}
-
-                } else {
-                    //nothing to do here should be the default case
-                }
-            } else {
-                // user has never spoken to us before
-
-                // ensure clean slate
-                session.userData = {};
-                session.conversationData = {};
-
-                // initialise any properties from config
-                session.userData["bot_name"] = config.get("NAME");
-
-                // we only want to run this once running again will skew our user analytics
-                session.userData["ga_id"] = config.get("GOOGLE_ANALYTICS_ID");
-                session.userData["uuid"] = ua(session.userData.ga_id).cid;
-
-                if (session.message.address.channelId === "facebook") {
-                    // user is using facebook platform - ensure we have their correct credentials
-                    session.userData["channel"] = "fb";
-                    session.userData["fb"] = session.message.address.user;
-                    session.userData["name"] = session.message.address.user.name.split(" ")[0];
-                }
-            }
-            session.userData["last_interaction"] = sugar.Date.create("now", {setUTC: true});
-
+            handleLastInteration(session);
 
             session.sendTyping();
+
             if (!session.message.text || session.message.text.trim() === "") {
                 // no content in message from user - probably a 'like' or 'sticker'
                 if (!session.userData.greeted) {
