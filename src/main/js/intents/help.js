@@ -17,17 +17,11 @@ module.exports = function (bot, persona) {
                 .event({ec: "intent", ea: intent, el: session.message.text})
                 .send();
 
-            var msg = new builder.Message(session);
-            var response = persona.getResponse(intent);
-            var actions = [
-                builder.CardAction.imBack(session, "weather forecast", "get a forecast"),
-                builder.CardAction.imBack(session, "will it rain today", "will it rain tomorrow"),
-                builder.CardAction.imBack(session, "do i need a coat today", "will I need a coat today"),
-                builder.CardAction.imBack(session, "is it a good day for a run", "is it a good day for a run")
-            ];
+            var model = {user: session.userData};
 
-            msg.text(response).suggestedActions(builder.SuggestedActions.create(session,actions));
-            session.send(msg);
+            var response = persona.getResponse(intent, model);
+
+            session.send(response);
             return next();
         },
         (session, results, next) => {

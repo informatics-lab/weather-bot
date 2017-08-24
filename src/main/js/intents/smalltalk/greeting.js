@@ -21,18 +21,16 @@ module.exports = function (bot, persona) {
                 session.send(persona.getResponse("smalltalk.welcome", model, session));
                 session.sendTyping();
                 session.delay(750);
-                session.send(persona.getResponse("smalltalk.warning"));
-                session.sendTyping();
-                session.delay(750);
                 session.userData.greeted = true;
             }
 
             var msg = new builder.Message(session);
             var response = persona.getResponse(intent, model);
             var actions = [
-                builder.CardAction.imBack(session, "weather today", "weather today"),
-                builder.CardAction.imBack(session, "weather tomorrow", "weather tomorrow"),
-                builder.CardAction.imBack(session, "help", "help")
+                builder.CardAction.imBack(session, "weather forecast", "What's the weather?"),
+                builder.CardAction.imBack(session, "will it rain today", "Will it rain today?"),
+                builder.CardAction.imBack(session, "what is the met office", "What's the Met Office?"),
+                builder.CardAction.imBack(session, "help", "Help me")
             ];
 
             //user has chatted previously - just standard hello with menu ui.

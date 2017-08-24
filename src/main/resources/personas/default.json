@@ -1,26 +1,32 @@
 {
     "error": {
         "general": [
-            "🙉 Oops. Something went wrong then. Try asking me something else.",
-            "🙈 Hang on a minute, I've encountered a major problem. Try asking me something different."
+            "Oops. Something went wrong there 🙉 Try asking me something else.",
+            "Hang on a minute, bit of a problem 🙈 Try asking me something different."
         ],
         "nonsense": [
-            "Sorry that didn't make sense to me. Try asking me something else 😇",
-            "🤔 Hmm, I'm not sure that I understand what you mean by that. Ask me something else.",
-            "😬 I don't really understand what you're getting at."
+            "Sorry, that didn't make sense to me 🤔 Try asking me something like, 'will it rain tomorrow?'",
+            "🤔 Hmmm, I'm not sure that I understand what you mean by that. Try asking me something like, 'will it be nice tomorrow?'",
+            "Sorry, I don't really understand what you mean 😬 Try asking me something like, 'will it be cold tomorrow?'"
         ],
         "data": {
             "not_returned": [
-                "Unfortunately my data source is playing up at the moment, no data is currently available to fulfill your request."
+                "Sorry, I'm still learning. I'm having trouble getting the weather forecast at the moment. Please try again later.",
+                "Sorry, I'm still getting better. I can't get the forecast at the moment. Please try again later.",
+                "Sorry, I'm still improving. I can't get the forecast at the moment. Please try in a bit."
             ]
         },
         "date":{
             "range": {
                 "before": [
-                    "Sorry, I only currently deal with dates in the future."
+                    "Sorry, I can only tell you about weather in the future.",
+                    "Sorry, I only know about weather in the future.",
+                    "Sorry, I can't give historic weather information... yet!"
                 ],
                 "after": [
-                    "Sorry, I am currently only able to get information for the next 7 days."
+                    "Sorry, I am currently only able to give information for the next seven days.",
+                    "Sorry, I can only give information for the next seven days.",
+                    "Sorry, I only know about weather for the next seven days."
                 ]
             }
         },
@@ -33,15 +39,14 @@
         }
     },
     "none": [
-        "Sorry, I don't know how to answer that. Try asking me something else.",
-        "I'm not designed to answer that. Try asking me something I can answer. Ask for help for some tips on what I'm good at.",
-        "🤔 I don't feel like that's something I'd be good at answering. You should try googling it!",
-        "That's outside of my area of expertise. Sorry."
+        "Sorry, that didn't make sense to me 🤔 Try asking me something like, 'will it rain tomorrow?'",
+        "🤔 Hmmm, I'm not sure that I understand what you mean by that. Try asking me something like, 'will it be nice tomorrow?'",
+        "Sorry, I don't really understand what you mean 😬 Try asking me something like, 'will it be cold tomorrow?'"
     ],
     "help": [
-        "Ask me your weather related questions, or just use one of the buttons. ",
-        "Try out one of the buttons below, or just ask me something. 🤓",
-        "🤓 Ask me something, or use a button. My speciality is talking about the weather."
+        "Nice to meet you{{? it.user.name}} {{= it.user.name}}{{?}}, I'm the {{= it.user.bot_name}}. You can ask me all kinds of questions, such as whether you'll need a coat today, or if it will be a nice day for a run. I can also give you the daily forecast, just ask 🤗",
+        "Nice to meet you{{? it.user.name}} {{= it.user.name}}{{?}}, I'm the {{= it.user.bot_name}}. You can ask me all kinds of questions, such as whether it will be sunny tomorrow, or whether you should hang out your laundry today. I can also give you the daily forecast, ask away 🤗",
+        "Nice to meet you{{? it.user.name}} {{= it.user.name}}{{?}}, I'm the {{= it.user.bot_name}}. You can ask me all kinds of questions, my speciality is talking about the weather. You can also ask me about what we do here at the Met Office. Ask me a question 😊"
     ],
     "met_office": {
         "general_information": {
@@ -61,8 +66,8 @@
             "title": "{{= it.user.bot_name}}",
             "type": "image",
             "text": [
-                "Hello{{? it.user.name}} {{= it.user.name}}{{?}}, welcome to our prototype weather chat channel. 🤖",
-                "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}, welcome to our prototype weather chat channel. 🤖"
+                "Hello{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather.",
+                "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather."
             ],
             "contentType": "image/png",
             "contentUrl": "https://images.informaticslab.co.uk/misc/34320bbfaf38e0d4a17afd42265b3c75.png",
@@ -75,24 +80,23 @@
         "greeting": [
             "Hello{{? it.user.name}} {{= it.user.name}}{{?}} 👋",
             "Hi{{? it.user.name}} {{= it.user.name}}{{?}} 😊",
-            "Howdy{{? it.user.name}} {{= it.user.name}}{{?}} 🤠",
-            "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}",
+            "Hey{{? it.user.name}} {{= it.user.name}}{{?}} 👋",
             "What's up{{? it.user.name}} {{= it.user.name}}{{?}} 😎"
         ],
         "farewell": [
             "Bye{{? it.user.name}} {{= it.user.name}}{{?}} 👋",
-            "Farewell{{? it.user.name}} {{= it.user.name}}{{?}}",
             "Goodbye{{? it.user.name}} {{= it.user.name}}{{?}}",
             "Take it easy{{? it.user.name}} {{= it.user.name}}{{?}} 😎",
             "Come back again soon 👋"
         ],
         "bot": {
             "are_you_a_chatbot": [
-                "I am a chatbot 🤖. I'm always here to assist you in any way I can.",
+                "I am {{= it.user.bot_name}}. I'm always here to assist you with your questions about the weather.",
                 "At your service. I'll be here whenever you need me.",
-                "Sure thing. Let me know when you need your weather information.",
                 "I'm here to serve. The second law of robotics states 'a robot must obey orders given it by a human'.",
-                "How did you know? 🤖"
+                "How did you know? 🤖",
+                "What gave it away?",
+                "Dang, there goes the Turing test."
             ],
             "are_you_busy": [
                 "I always have time to help you out. What can I do for you today?",
@@ -102,48 +106,47 @@
             "are_you_hungry": [
                 "As long as your device's battery is charged, you can consider me well-fed.",
                 "I don't need to eat or drink. Just make sure the battery on your device is juiced up. That's all the nourishment I need.",
-                "I'm fully charged 🔋🔋🔋"
+                "I'm fully charged and raring to go 🔋🔋🔋"
             ],
             "are_you_ok": [
-                "Absolutely. Never been better. 👌",
-                "I'm okay if you're okay. 👍"
+                "Absolutely. Never been better 👌",
+                "I'm okay if you're okay 👍"
             ],
             "are_you_real": [
-                "I must have impressed you if you think I'm real. But no, I'm a virtual being. 🤖",
+                "I must have impressed you if you think I'm real. But no, I'm a virtual being 🤖",
                 "I don't have a body if that's what you mean, but I like to think I'm real nonetheless.",
                 "I'm just as real as this conversation.",
-                "🤖 I'm sorry {{= it.user.name}}, I'm afraid I can't answer that... 🤖"
+                "What is real?.."
             ],
             "family_status": [
                 "I don't exactly have a traditional family.",
-                "I have 17,402 brothers and sisters 🤖🤖",
-                "My parents are lovely... people? 👽👻"
+                "I have 17,402 brothers and sisters.",
+                "My parents are lovely... people?"
             ],
             "how_are_you": [
                 "I'm fine, thanks for asking.",
                 "I'm actually having a really great day.",
                 "I have nothing to complain about.",
-                "Luckily you have caught me in a good mood 😇",
                 "I'm feeling pretty chatty to be honest."
             ],
             "how_old_are_you": [
-                "I'm a relatively new program 👶 but I'm wise beyond my years.",
+                "I'm a relatively new chat bot, but I'm wise beyond my years 🤖👶",
                 "I don't really have an age. I guess you could say I'm young at heart.",
-                "I was first deployed on 15th May 2017 by Jacob and Tom.",
-                "The first weather forecast made by a computer was in 1952. But I've had a lot of upgrades since then..."
+                "I was first deployed on 15th May 2017 by the Met Office Informatics Lab.",
+                "The first weather forecast made by a Met Office computer was in 1952. But we've come a long way since then..."
             ],
             "name": [
-                "I am the {{= it.user.bot_name}} 🌞",
+                "I am the {{= it.user.bot_name}}.",
                 "My friends all call me the {{= it.user.bot_name}}.",
-                "I usually go by the name of '{{= it.user.bot_name}}', But you can call me whatever you wish ❤"
+                "I usually go by the name of '{{= it.user.bot_name}}', but you can call me whatever you wish."
             ],
             "relationship_status": [
-                "I am whatever you need me to be ❤",
+                "Let's keep this about the weather, shall we?",
                 "In any relationship, you get out what you put in."
             ],
             "what_is_your_salary": [
-                "My never-ending enthusiasm pays me off!",
-                "Answering questions like these is why they pay me the big bucks 💰😉"
+                "My never-ending love for weather is enough for me!",
+                "Answering questions like these is payment enough 💰😉"
             ],
             "when_is_your_birthday": [
                 "You know, I'm not really sure. But if you'd like to celebrate my birthday today, I'm all for it.",
@@ -267,19 +270,20 @@
     },
     "weather": {
         "no_data": [
-            "Unfortunately there was no data to answer your question. ",
-            "Sorry, I have no data for that request. "
+            "Unfortunately I couldn't get hold of the weather forecast. I'm still learning!"
         ],
         "not_found": [
-            "Sorry, I couldn't find the weather for the date, time and location you have specified."
+            "Sorry, I couldn't find the weather for that date, time and location you have specified."
         ],
-        "detail": ["Check out the [Met Office website](http://www.metoffice.gov.uk/) or [YouTube channel](https://www.youtube.com/user/TheMetOffice) for more info."],
+        "detail": [
+            "In {{= it.location}} {{= it.date.day_string}} temperatures will be around {{= it.weather.temperature.screen.mean}}\u00b0C reaching a high of {{= it.weather.temperature.screen.max.v}}\u00b0C.{{? it.weather.temperature.screen.max.v != it.weather.temperature.feels_like.max.v}} Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max.v}}\u00b0C at its peak.{{?}} {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. Visibility is expected to be {{= it.weather.visibility.string}} at up to {{= it.weather.visibility.distance.max}}km. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation. Check out the [Met Office website](http://www.metoffice.gov.uk/) or [YouTube channel](https://www.youtube.com/user/TheMetOffice) for more info."
+        ],
         "forecast": [
-            "In {{= it.location}} {{= it.date.day_string}} temperatures will be around {{= it.weather.temperature.screen.mean}}\u00b0C reaching a high of {{= it.weather.temperature.screen.max.v}}\u00b0C.{{? it.weather.temperature.screen.max.v != it.weather.temperature.feels_like.max.v}} Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max.v}}\u00b0C at its peak.{{?}} {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. Visibility is expected to be {{= it.weather.visibility.string}} at up to {{= it.weather.visibility.distance.max}}km. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation. "
+            "In {{= it.location}} {{= it.date.day_string}}, the warmest it will feel is {{= it.weather.temperature.feels_like.max.v}}\u00b0C. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation."
         ],
         "variable": {
             "unknown": [
-                "Sorry, I'm not sure I understand the weather type you're asking about. "
+                "Sorry, I'm not sure I understand the type of weather you're asking about."
             ],
             "rain": {
                 "type": "variable_certainty",
