@@ -38,7 +38,7 @@ module.exports = (bot, persona) => {
       "wind",
       ["windy", "breeze", "breezy", "blowey", "blustery", "calm", "still"],
       [
-        {variable: "wind.speed.mean", comparison: "GT", min: 0, optimal: 25}
+        {variable: "wind.speed.mean", comparison: "GT", min: 0, optimal: 30}
       ]);
 
 

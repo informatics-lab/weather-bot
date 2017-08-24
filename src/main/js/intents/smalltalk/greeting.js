@@ -27,10 +27,10 @@ module.exports = function (bot, persona) {
             var msg = new builder.Message(session);
             var response = persona.getResponse(intent, model);
             var actions = [
-                builder.CardAction.imBack(session, "weather forecast", "What's the weather?"),
-                builder.CardAction.imBack(session, "will it rain today", "Will it rain today?"),
-                builder.CardAction.imBack(session, "what is the met office", "What's the Met Office?"),
-                builder.CardAction.imBack(session, "help", "Help me")
+                builder.CardAction.imBack(session, "What's the weather?", "What's the weather?"),
+                builder.CardAction.imBack(session, "Will it rain today?", "Will it rain today?"),
+                builder.CardAction.imBack(session, "What's the Met Office?", "What's the Met Office?"),
+                builder.CardAction.imBack(session, "Help me", "Help me")
             ];
 
             //user has chatted previously - just standard hello with menu ui.
