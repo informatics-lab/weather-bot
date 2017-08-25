@@ -70,6 +70,22 @@ module.exports = function(persona) {
             ]);
     }
 
+    function createAnimationCard(session, obj, model) {
+
+        var title = applyModelToTemplate(obj.title, model);
+        var text = applyModelToTemplate(getRandomElementFromArray(obj.text), model);
+
+        return new builder.AnimationCard(session)
+            .title(title)
+            .text(text)
+            .media([
+                { url: obj.contentUrl }
+            ])
+            .buttons([
+                builder.CardAction.openUrl(session, obj.linkUrl, obj.linkText)
+            ]);
+    }
+
     function createVideoCard(session, obj, model) {
 
         var title = applyModelToTemplate(obj.title, model);
@@ -95,6 +111,9 @@ module.exports = function(persona) {
                 break;
             case "image":
                 card = createHeroCard(session, obj, model);
+                break;
+            case "gif":
+                card = createAnimationCard(session, obj, model);
                 break;
         }
         return new builder.Message(session).addAttachment(card);
@@ -137,7 +156,7 @@ module.exports = function(persona) {
 
 
         var result;
-        if (responseItem && typeof(responseItem) === "object" && responseItem.type && (responseItem.type === "video" || responseItem.type === "image")) {
+        if (responseItem && typeof(responseItem) === "object" && responseItem.type && (responseItem.type === "video" || responseItem.type === "image" || responseItem.type === "gif")) {
             result = buildMediaResponse(session, responseItem, model);
         } else if (responseItem && typeof(responseItem) === "string") {
             result = applyModelToTemplate(responseItem, model);

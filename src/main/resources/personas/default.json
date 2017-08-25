@@ -63,13 +63,13 @@
     "smalltalk": {
         "welcome": {
             "title": "{{= it.user.bot_name}}",
-            "type": "image",
+            "type": "video",
             "text": [
                 "Hello{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather.",
                 "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather."
             ],
-            "contentType": "image/png",
-            "contentUrl": "https://images.informaticslab.co.uk/misc/34320bbfaf38e0d4a17afd42265b3c75.png",
+            "contentType": "video/mp4",
+            "contentUrl": "https://images.informaticslab.co.uk/misc/f76934cf97bd6986c76d57f1e2094bf7.mp4",
             "linkUrl": "http://www.metoffice.gov.uk/",
             "linkText": "Met Office Website"
         },
@@ -370,14 +370,34 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.8,
                         "response": [
-                            "🌞 It's going to be boiling in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. It will mostly be {{= it.weather.significant_weather.string}} {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}} Be careful in this heat 😩"
+                            {
+                                "title": "",
+                                "type": "gif",
+                                "text": [
+                                    "🌞 It's going to be boiling in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. It will mostly be {{= it.weather.significant_weather.string}} {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}} Be careful in this heat 😩"
+                                ],
+                                "contentType": "image/gif",
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/cac410be91a767cd5f7f102257c780da.gif",
+                                "linkUrl": "http://www.metoffice.gov.uk/",
+                                "linkText": "Met Office Website"
+                            }
                         ]
                     },
                     {
                         "score_upper_bound": 0.79,
                         "score_lower_bound": 0.6,
                         "response": [
-                            "It's {{= it.weather.significant_weather.string}} in {{= it.location}} {{= it.date.day_string}} {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}. It should be fairly hot, with temperatures feeling as warm as {{= it.weather.temperature.feels_like.max.v}}°C 🌞"
+                            {
+                                "title": "",
+                                "type": "gif",
+                                "text": [
+                                    "It's {{= it.weather.significant_weather.string}} in {{= it.location}} {{= it.date.day_string}} {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}. It should be fairly hot, with temperatures feeling as warm as {{= it.weather.temperature.feels_like.max.v}}°C 🌞"
+                                ],
+                                "contentType": "image/gif",
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/cac410be91a767cd5f7f102257c780da.gif",
+                                "linkUrl": "http://www.metoffice.gov.uk/",
+                                "linkText": "Met Office Website"
+                            }
                         ]
                     },
                     {

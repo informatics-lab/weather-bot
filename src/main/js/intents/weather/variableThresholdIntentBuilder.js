@@ -77,7 +77,7 @@ module.exports = function(baseIntent, localIntent, synonyms, variableThresholds,
 
                     var finalScore = self.scoreAggregator(scores);
 
-                    response = response + persona.getResponseForScore(self.primaryIntent, finalScore, model);
+                    response = persona.getResponseForScore(self.primaryIntent, finalScore, model, session);
 
                     if (response && !(response === "")) {
                         session.send(response);
