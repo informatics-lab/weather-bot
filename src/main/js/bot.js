@@ -125,10 +125,8 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
     intents.smalltalk.greeting(bot, persona);
     intents.smalltalk.farewell(bot, persona);
 
-    intents.smalltalk.bot.are_you_a_chatbot(bot, persona);
     intents.smalltalk.bot.are_you_busy(bot, persona);
     intents.smalltalk.bot.are_you_hungry(bot, persona);
-    intents.smalltalk.bot.are_you_ok(bot, persona);
     intents.smalltalk.bot.are_you_real(bot, persona);
     intents.smalltalk.bot.family_status(bot, persona);
     intents.smalltalk.bot.how_old_are_you(bot, persona);
