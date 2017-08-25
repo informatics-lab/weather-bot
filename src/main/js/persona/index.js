@@ -78,6 +78,7 @@ module.exports = function(persona) {
         return new builder.VideoCard(session)
             .title(title)
             .text(text)
+            .autostart(true)
             .media([
                 { url: obj.contentUrl }
             ])

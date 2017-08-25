@@ -6,14 +6,13 @@
         ],
         "nonsense": [
             "Sorry, that didn't make sense to me 🤔 Try asking me something like, 'will it rain tomorrow?'",
-            "🤔 Hmmm, I'm not sure that I understand what you mean by that. Try asking me something like, 'will it be nice tomorrow?'",
+            "🤔 Hmm, I'm not sure that I understand what you mean by that. Try asking me something like, 'will it be nice tomorrow?'",
             "Sorry, I don't really understand what you mean 😬 Try asking me something like, 'will it be cold tomorrow?'"
         ],
         "data": {
             "not_returned": [
-                "Sorry, I'm still learning. I'm having trouble getting the weather forecast at the moment. Please try again later.",
-                "Sorry, I'm still getting better. I can't get the forecast at the moment. Please try again later.",
-                "Sorry, I'm still improving. I can't get the forecast at the moment. Please try in a bit."
+                "Sorry, I'm having trouble getting the weather forecast at the moment. Please try again later 😬",
+                "Sorry, I can't get the weather forecast at the moment. Please try again later on 😬"
             ]
         },
         "date":{
@@ -297,9 +296,8 @@
                         "score_lower_bound": 0.5,
                         "response": [
                             "Hmm, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☂",
-                            "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}} ☂ Maybe watch a movie? 🍿",
-                            "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}} ☂ Remember those wellies! 💦",
-                            "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}} ☂ Remember your coat."
+                            "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☂ Maybe worth staying in and watching a movie? 🍿",
+                            "There is a {{= it.weather.probability_of_precipitation}}% chance of rain in {{= it.location}} {{= it.date.day_string}}, remember those wellies if you're heading out! 💦🦆"
                         ]
                     },
                     {
@@ -444,7 +442,7 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.85,
                         "response": [
-                            "Go for it, {{= it.date.day_string}} it likely to be dry in {{= it.location}} 👍",
+                            "Go for it, {{= it.date.day_string}} is likely to be dry in {{= it.location}} 👍",
                             "Sounds great, Looks like it will be good weather for that {{= it.date.day_string}} 👍",
                             "I don't see why not, it should be dry {{= it.date.day_string}} in {{= it.location}} 👍"
                         ]
@@ -461,16 +459,16 @@
                         "score_upper_bound": 0.49,
                         "score_lower_bound": 0.15,
                         "response": [
-                            "It's likely to be wet {{= it.date.day_string}} in {{= it.location}}. So bare that in mind!",
-                            "It might be a little rainy {{= it.date.day_string}} in {{= it.location}}. So I'm not sure 🤔"
+                            "There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain {{= it.date.day_string}} in {{= it.location}}. So bare that in mind!",
+                            "It might be a little rainy {{= it.date.day_string}} in {{= it.location}}. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain, so I'm not sure 🤔"
                         ]
                     },
                     {
                         "score_upper_bound": 0.14,
                         "score_lower_bound": 0,
                         "response": [
-                            "I'd take a rain check, it's very likely to be wet {{= it.date.day_string}} in {{= it.location}} ☔",
-                            "I wouldn't if I were you, it's likely to be rainy {{= it.date.day_string}} in {{= it.location}} ☔"
+                            "I'd take a rain check, it's very likely to be wet {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔",
+                            "I wouldn't if I were you, it's likely to be rainy {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔"
                         ]
                     }
                 ]
