@@ -2,10 +2,8 @@
 
 var basicIntentBuilder = require("../../basicIntentBuilder");
 
-exports.are_you_a_chatbot = new basicIntentBuilder("smalltalk.bot.are_you_a_chatbot");
 exports.are_you_busy = new basicIntentBuilder("smalltalk.bot.are_you_busy");
 exports.are_you_hungry = new basicIntentBuilder("smalltalk.bot.are_you_hungry");
-exports.are_you_ok = new basicIntentBuilder("smalltalk.bot.are_you_ok");
 exports.are_you_real = new basicIntentBuilder("smalltalk.bot.are_you_real");
 exports.family_status = new basicIntentBuilder("smalltalk.bot.family_status");
 exports.how_old_are_you = new basicIntentBuilder("smalltalk.bot.how_old_are_you");
