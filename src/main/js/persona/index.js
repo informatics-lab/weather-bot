@@ -75,14 +75,15 @@ module.exports = function(persona) {
         var title = applyModelToTemplate(obj.title, model);
         var text = applyModelToTemplate(getRandomElementFromArray(obj.text), model);
 
+        //TODO a bit of a nasty solution that works for now.
+        if(text && text != "") {
+            session.send(text);
+        }
+
         return new builder.AnimationCard(session)
             .title(title)
-            .text(text)
             .media([
                 { url: obj.contentUrl }
-            ])
-            .buttons([
-                builder.CardAction.openUrl(session, obj.linkUrl, obj.linkText)
             ]);
     }
 
