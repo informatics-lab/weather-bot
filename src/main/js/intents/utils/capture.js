@@ -17,6 +17,9 @@ function timeEntityToMsgText(entity) {
     if (entity.search(/tomorrow/i) >= 0) {
         return entity;
     }
+    if (entity.search(/now/i) >= 0) {
+        return entity;
+    }
     if (entity.search(/((this)|(next)|(coming))/i) === 0) {
         return entity;
     }
