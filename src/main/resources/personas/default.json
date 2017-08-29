@@ -313,9 +313,9 @@
                         "score_upper_bound": 0.19,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "No, it looks dry in {{= it.location}} {{= it.date.day_string}} 🌵 {{? it.weather.temperature.feels_like.mean > 12}}It could be nice weather for a BBQ{{?}}",
+                            "No, it looks dry in {{= it.location}} {{= it.date.day_string}} 🌵{{? it.weather.temperature.feels_like.mean > 18}}. It could be nice weather for a BBQ{{?}}",
                             "No, in {{= it.location}} {{= it.date.day_string}} it's going to be dry{{? it.weather.temperature.feels_like.mean > 16}} and hot, it could be perfect for a trip to the beach 🏖{{?}}",
-                            "Nope, in {{= it.location}} {{= it.date.day_string}} it's going to be dry {{? it.weather.temperature.feels_like.mean > 10}} it could be good for a bike ride 🚴{{?}}"
+                            "Nope, in {{= it.location}} {{= it.date.day_string}} it's going to be dry{{? it.weather.temperature.feels_like.mean > 12}}, it could be good for a bike ride 🚴{{?}}"
                         ]
                     }
                 ]
