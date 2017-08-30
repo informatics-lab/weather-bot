@@ -21,6 +21,9 @@ module.exports = function (bot, persona) {
                 session.send(persona.getResponse("smalltalk.welcome", model, session));
                 session.sendTyping();
                 session.delay(750);
+                session.send(persona.getResponse("smalltalk.warning", model, session));
+                session.sendTyping();
+                session.delay(750);
                 session.userData.greeted = true;
             }
 

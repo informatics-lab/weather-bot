@@ -39,7 +39,7 @@
     },
     "none": [
         "Sorry, that didn't make sense to me 🤔 Try asking me something like, 'will it rain tomorrow?'",
-        "🤔 Hmmm, I'm not sure that I understand what you mean by that. Try asking me something like, 'will it be nice tomorrow?'",
+        "🤔 Hmm, I'm not sure that I understand what you mean by that. Try asking me something like, 'will it be nice tomorrow?'",
         "Sorry, I don't really understand what you mean 😬 Try asking me something like, 'will it be cold tomorrow?'"
     ],
     "help": [
@@ -52,7 +52,7 @@
             "title": "What is the Met Office?",
             "type": "video",
             "text": [
-                "The Met Office is the UK's weather and climate service based in Exeter."
+                "The Met Office is the UK's national weather and climate service."
             ],
             "contentType": "video/mp4",
             "contentUrl": "https://images.informaticslab.co.uk/misc/c176054159d0101ecd32e244775faab4.mp4",
@@ -66,7 +66,7 @@
             "type": "video",
             "text": [
                 "Hello{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather.",
-                "Greetings{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather."
+                "Hi{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather."
             ],
             "contentType": "video/mp4",
             "contentUrl": "https://images.informaticslab.co.uk/misc/f76934cf97bd6986c76d57f1e2094bf7.mp4",
@@ -95,12 +95,12 @@
                 "I always have time to help you out. That's what I'm here for. What can I assist you with?"
             ],
             "are_you_hungry": [
-                "As long as your device's battery is charged, you can consider me well-fed.",
-                "I don't need to eat or drink. Just make sure the battery on your device is juiced up. That's all the nourishment I need.",
+                "As long as your device is plugged in or it's battery is fully charged, you can consider me well-fed.",
+                "I don't need to eat or drink. Just make sure your device is plugged in or juiced up. That's all the nourishment I need.",
                 "I'm fully charged and raring to go 🔋🔋🔋"
             ],
             "are_you_real": [
-                "I must have impressed you if you think I'm real. But no, I'm a virtual being 🤖",
+                "I must have impressed you if you think I'm real. But no, I'm a virtual assistant 🤖",
                 "I don't have a body if that's what you mean, but I like to think I'm real nonetheless.",
                 "I'm just as real as this conversation.",
                 "What is real?..",
@@ -108,8 +108,7 @@
                 "At your service. I'll be here whenever you need me.",
                 "I'm here to serve. The second law of robotics states 'a robot must obey orders given it by a human'.",
                 "How did you know? 🤖",
-                "What gave it away?",
-                "Dang, there goes the Turing test."
+                "What gave it away?"
             ],
             "family_status": [
                 "I don't exactly have a traditional family.",
@@ -122,12 +121,12 @@
                 "I have nothing to complain about",
                 "I'm feeling pretty chatty to be honest",
                 "Absolutely fine. Never been better 👌",
-                "I'm okay if you're okay 👍"
+                "I'm OK if you're OK 👍"
             ],
             "how_old_are_you": [
                 "I'm a relatively new chat bot, but I'm wise beyond my years 🤖👶",
                 "I don't really have an age. I guess you could say I'm young at heart.",
-                "I was first deployed on 15th May 2017 by the Met Office Informatics Lab.",
+                "I was first deployed on 15 May 2017 by the Met Office Informatics Lab.",
                 "The first weather forecast made by a Met Office computer was in 1952. But we've come a long way since then..."
             ],
             "name": [
@@ -170,7 +169,7 @@
         },
         "user": {
             "bored": [
-                "The Devil finds work for idle hands."
+                "Why not try asking me a question..."
             ],
             "happy": [
                 "Good, I'm pleased to hear that."
@@ -209,7 +208,7 @@
                 "Tell me how I can help 👍"
             ],
             "sorry": [
-                "It's okay. No worries.",
+                "It's OK. No worries.",
                 "It's cool"
             ],
             "thank_you": [
@@ -247,7 +246,7 @@
             ],
             "ha_ha": [
                 "Jokes included free of charge.",
-                "Not many assistants have my sense of humor. I hope you appreciate that.",
+                "Not many assistants have my sense of humour. I hope you appreciate that.",
                 "😂",
                 "😹"
             ],
@@ -278,7 +277,7 @@
         ],
         "variable": {
             "unknown": [
-                "Sorry, I'm not sure I understand the type of weather you're asking about."
+                "Sorry, I'm not sure I understand the type of weather you're asking about. Try asking me 'will it rain today?'"
             ],
             "rain": {
                 "type": "variable_certainty",
@@ -304,9 +303,9 @@
                         "score_upper_bound": 0.49,
                         "score_lower_bound": 0.2,
                         "response": [
-                            "Hopefully not, it looks like it's going to be dry in {{= it.location}} {{= it.date.day_string}} 🌂",
-                            "I don't think so, it should be dry in {{= it.location}} {{= it.date.day_string}} 🌂",
-                            "It doesn't seem likely, I think it's going to be dry in {{= it.location}} {{= it.date.day_string}} 🌂"
+                            "It looks like it's going to be dry in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain 🌂",
+                            "There is a {{= it.weather.probability_of_precipitation.max.v}}% chance it will rain in {{= it.location}} {{= it.date.day_string}} 🌂",
+                            "It doesn't seem likely, I think it's going to be dry in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain 🌂"
                         ]
                     },
                     {
@@ -437,9 +436,9 @@
                         "score_upper_bound": 0.69,
                         "score_lower_bound": 0.3,
                         "response": [
-                            "Well {{= it.date.day_string}} it could go either way in {{= it.location}}. Go for it if you're feeling brave.",
-                            "Hmm, I'm not sure 🤔 It could go either way {{= it.date.day_string}} in {{= it.location}}.",
-                            "🤔 I couldn't say for certain! "
+                            "Well {{= it.date.day_string}} it could go either way in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain. Go for it if you're feeling brave.",
+                            "Hmm, I'm not sure 🤔, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain. It could go either way {{= it.date.day_string}} in {{= it.location}}.",
+                            "🤔 I couldn't say for certain! There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain."
                         ]
                     },
                     {
@@ -458,8 +457,8 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.85,
                         "response": [
-                            "Go for it, {{= it.date.day_string}} is likely to be dry in {{= it.location}} 👍",
-                            "Sounds great, Looks like it will be good weather for that {{= it.date.day_string}} 👍",
+                            "Go for it, {{= it.date.day_string}} it is likely to be dry in {{= it.location}} 👍",
+                            "Sounds great, looks like it will be good weather for that {{= it.date.day_string}} 👍",
                             "I don't see why not, it should be dry {{= it.date.day_string}} in {{= it.location}} 👍"
                         ]
                     },
@@ -512,7 +511,7 @@
                         "score_lower_bound": 0.0,
                         "response": [
                             "Nope, I'm afraid your laundry probably won't get dry {{= it.date.day_string}} 🙁!",
-                            "I definitely wouldn't recommend that {{= it.date.day_string}} 🙁"
+                            "I wouldn't recommend that {{= it.date.day_string}} 🙁"
                         ]
                     }
                 ]
@@ -649,8 +648,8 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.3,
                         "response": [
-                            "Please do wear some sun cream in {{= it.location}} {{= it.date.day_string}}, and make sure you drink plenty of water 🌞",
-                            "I would recommend that you do wear some sun screen {{= it.date.day_string}} in {{= it.location}}, I don't want you getting burnt 😡"
+                            "I suggest you do wear some sun cream in {{= it.location}} {{= it.date.day_string}}, and make sure you drink plenty of water 🌞",
+                            "I would recommend that you do wear some sun cream {{= it.date.day_string}} in {{= it.location}}, I don't want you getting burnt 😡"
                         ]
                     },
                     {
@@ -685,10 +684,10 @@
         "weather": {
             "action": {
                 "unknown":[
-                    "Why don't you try asking me about something else?"
+                    "Why don't you try asking me about something else, like 'should I go for a boek ride today?'"
                 ],
                 "location": [
-                    "Where are you planing on doing that?"
+                    "Where are you planning on doing that?"
                 ]
             },
             "forecast": {
