@@ -62,16 +62,14 @@
     },
     "smalltalk": {
         "welcome": {
-            "title": "{{= it.user.bot_name}}",
-            "type": "video",
+            "title": "",
+            "type": "gif",
             "text": [
-                "Hello{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather.",
-                "Hi{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather."
+                "Hello{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather",
+                "Hi{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather"
             ],
-            "contentType": "video/mp4",
-            "contentUrl": "https://images.informaticslab.co.uk/misc/f76934cf97bd6986c76d57f1e2094bf7.mp4",
-            "linkUrl": "http://www.metoffice.gov.uk/",
-            "linkText": "Met Office Website"
+            "contentType": "image/gif",
+            "contentUrl": "https://images.informaticslab.co.uk/misc/ceacdc1712615955e79ba24d4fc08393.gif"
         },
         "warning": [
             "⚠ WARNING: Although I'm very smart, I'm still learning how best to help you. For any critical weather information please ensure you refer back to the Met Office website or app. "
