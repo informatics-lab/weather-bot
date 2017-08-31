@@ -43,8 +43,8 @@
         "Sorry, I don't really understand what you mean 😬 Try asking me something like, 'will it be cold tomorrow?'"
     ],
     "help": [
-        "Nice to meet you{{? it.user.name}} {{= it.user.name}}{{?}}, I'm the {{= it.user.bot_name}}. You can ask me all kinds of questions, such as whether you'll need a coat today, or if it will be a nice day for a run. I can also give you the daily forecast, just ask 🤗",
-        "Nice to meet you{{? it.user.name}} {{= it.user.name}}{{?}}, I'm the {{= it.user.bot_name}}. You can ask me all kinds of questions, such as whether it will be sunny tomorrow, or whether you should hang out your laundry today. I can also give you the daily forecast, ask away 🤗",
+        "Nice to meet you{{? it.user.name}} {{= it.user.name}}{{?}}, I'm the {{= it.user.bot_name}}. You can ask me all kinds of questions, such as whether you'll need a coat today, or if it will be a nice day for a run. I can also give you the today's forecast, just ask 🤗",
+        "Nice to meet you{{? it.user.name}} {{= it.user.name}}{{?}}, I'm the {{= it.user.bot_name}}. You can ask me all kinds of questions, such as whether it will be sunny tomorrow, or whether you should hang out your laundry today. I can also give you the today's forecast, ask away 🤗",
         "Nice to meet you{{? it.user.name}} {{= it.user.name}}{{?}}, I'm the {{= it.user.bot_name}}. You can ask me all kinds of questions, my speciality is talking about the weather. You can also ask me about what we do here at the Met Office. Ask me a question 😊"
     ],
     "met_office": {
