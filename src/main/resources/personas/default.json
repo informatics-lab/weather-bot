@@ -279,13 +279,22 @@
             ],
             "rain": {
                 "type": "variable_certainty",
-                "certainties": [{
+                "certainties": [
+                    {
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.8,
                         "response": [
-                            "Yes, it's very likely to be wet in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔ Might be worth wrapping up under a duvet and staying indoors.",
-                            "Yep, it looks wet in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔ Maybe stay in and watch a movie? 🍿",
-                            "It's very likely to be wet {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔ Remember those wellies if you're heading out! 💦🦆"
+                            {
+                                "title": "",
+                                "type": "gif",
+                                "text": [
+                                    "Yes, it's very likely to be wet in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔ Might be worth wrapping up under a duvet and staying indoors",
+                                    "Yep, it looks wet in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔ Maybe stay in and watch a movie 🍿",
+                                    "It's very likely to be wet {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔ Remember those wellies if you're heading out! 💦🦆"
+                                ],
+                                "contentType": "image/gif",
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/6e635efe62581611fe7ee6612cc719d0.gif"
+                            }
                         ]
                     },
                     {
@@ -411,7 +420,15 @@
                         "score_upper_bound": 0.19,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "❄❄❄ It will be freezing cold in {{= it.location}} {{= it.date.day_string}}, with temperatures as low as {{= it.weather.temperature.feels_like.min.v}}°C. It will generally be {{= it.weather.significant_weather.string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}} remember to wrap up warm if you're heading out ⛄"
+                            {
+                                "title": "",
+                                "type": "gif",
+                                "text": [
+                                    "❄❄❄ It will be freezing cold in {{= it.location}} {{= it.date.day_string}}, with temperatures as low as {{= it.weather.temperature.feels_like.min.v}}°C. It will generally be {{= it.weather.significant_weather.string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}} remember to wrap up warm if you're heading out ⛄"
+                                ],
+                                "contentType": "image/gif",
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/3508da3f8e26615308e938389e113aeb.gif"
+                            }
                         ]
                     }
                 ]
@@ -480,8 +497,16 @@
                         "score_upper_bound": 0.14,
                         "score_lower_bound": 0,
                         "response": [
-                            "I'd take a rain check, it's very likely to be wet {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔",
-                            "I wouldn't if I were you, it's likely to be rainy {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔"
+                            {
+                                "title": "",
+                                "type": "gif",
+                                "text": [
+                                    "I'd take a rain check, it's very likely to be wet {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔",
+                                    "I wouldn't if I were you, it's likely to be rainy {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔"
+                                ],
+                                "contentType": "image/gif",
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/6e635efe62581611fe7ee6612cc719d0.gif"
+                            }
                         ]
                     }
                 ]
@@ -508,8 +533,16 @@
                         "score_upper_bound": 0.29,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "Nope, I'm afraid your laundry probably won't get dry {{= it.date.day_string}} 🙁!",
-                            "I wouldn't recommend that {{= it.date.day_string}} 🙁"
+                            {
+                                "title": "",
+                                "type": "gif",
+                                "text": [
+                                    "Nope, I'm afraid your laundry probably won't get dry {{= it.date.day_string}} 🙁!",
+                                    "I wouldn't recommend that {{= it.date.day_string}} 🙁"
+                                ],
+                                "contentType": "image/gif",
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/6e635efe62581611fe7ee6612cc719d0.gif"
+                            }
                         ]
                     }
                 ]
@@ -520,8 +553,16 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.85,
                         "response": [
-                            "Oh yes {{= it.date.day_string}} you should stay inside, or go and splash around in puddles in {{= it.location}}. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔🦆",
-                            "Yes, if I were you I'd take a brolly {{= it.date.day_string}} in {{= it.location}} ☔💦"
+                            {
+                                "title": "",
+                                "type": "gif",
+                                "text": [
+                                    "Oh yes {{= it.date.day_string}} you should stay inside, or go and splash around in puddles in {{= it.location}}. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔🦆",
+                                    "Yes, if I were you I'd take a brolly {{= it.date.day_string}} in {{= it.location}} ☔💦"
+                                ],
+                                "contentType": "image/gif",
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/6e635efe62581611fe7ee6612cc719d0.gif"
+                            }
                         ]
                     },
                     {
