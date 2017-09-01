@@ -13,22 +13,6 @@ module.exports = function (bot, persona) {
             winston.debug("[ %s ] intent matched [ %s ]", intent, session.message.text);
 
             var model = {user: session.userData};
-
-
-            if (!session.userData.greeted) {
-                // this is the first time a user has spoken to us -
-                // hero card greeting with the warning.
-                session.send(persona.getResponse("smalltalk.welcome", model, session));
-                session.sendTyping();
-                session.delay(750);
-                session.send(persona.getResponse("smalltalk.warning", model, session));
-                session.sendTyping();
-                session.delay(750);
-                session.userData.greeted = true;
-            }
-
-            var msg = new builder.Message(session);
-            var response = persona.getResponse(intent, model);
             var actions = [
                 builder.CardAction.imBack(session, "What's the weather?", "What's the weather?"),
                 builder.CardAction.imBack(session, "Will it rain today?", "Will it rain today?"),
@@ -36,11 +20,21 @@ module.exports = function (bot, persona) {
                 builder.CardAction.imBack(session, "Help me", "Help me")
             ];
 
-            //user has chatted previously - just standard hello with menu ui.
-            msg.text(response).suggestedActions(builder.SuggestedActions.create(session,actions));
-
+            var msg;
+            if (!session.userData.greeted) {
+                // this is the first time a user has spoken to us -
+                // hero card greeting with the warning.
+                session.send(persona.getResponse("smalltalk.warning", model, session));
+                msg = persona.getResponse("smalltalk.welcome", model, session);
+                session.userData.greeted = true;
+            } else {
+                //user has chatted previously - just standard hello with menu ui.
+                msg = new builder.Message(session);
+                var response = persona.getResponse(intent, model);
+                msg.text(response);
+            }
+            msg.suggestedActions(builder.SuggestedActions.create(session, actions));
             session.send(msg);
-
             return next();
         },
         (session, results, next) => {

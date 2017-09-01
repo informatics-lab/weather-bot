@@ -72,7 +72,7 @@
             "contentUrl": "https://images.informaticslab.co.uk/misc/ceacdc1712615955e79ba24d4fc08393.gif"
         },
         "warning": [
-            "⚠ WARNING: Although I'm very smart, I'm still learning how best to help you. For any critical weather information please ensure you refer back to the Met Office website or app. "
+            "⚠ WARNING: Although I'm very smart, I'm still learning how best to help you. For any critical weather information please ensure that you double check with the Met Office website or app."
         ],
         "greeting": [
             "Hello{{? it.user.name}} {{= it.user.name}}{{?}} 👋",
