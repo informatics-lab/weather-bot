@@ -303,7 +303,7 @@
                         "response": [
                             "Hmm, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☂",
                             "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☂ Maybe worth staying in and watching a movie? 🍿",
-                            "There is a {{= it.weather.probability_of_precipitation}}% chance of rain in {{= it.location}} {{= it.date.day_string}}, remember those wellies if you're heading out! 💦🦆"
+                            "There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain in {{= it.location}} {{= it.date.day_string}}, remember those wellies if you're heading out! 💦🦆"
                         ]
                     },
                     {
