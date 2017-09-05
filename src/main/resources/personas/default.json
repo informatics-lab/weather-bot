@@ -636,16 +636,16 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.9,
                         "response": [
-                            "I would definitely take a brolly if I were in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}} chance of rain ☔",
-                            "You'll probably need a brolly in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}} chance of rain ☔"
+                            "I would definitely take a brolly if I were in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔",
+                            "You'll probably need a brolly in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔"
                         ]
                     },
                     {
                         "score_upper_bound": 0.89,
                         "score_lower_bound": 0.3,
                         "response": [
-                            "It would probably be wise to take an umbrella in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}} chance of rain ☔",
-                            "I think you might need a brolly in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}} chance of rain ☂👍"
+                            "It would probably be wise to take an umbrella in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔",
+                            "I think you might need a brolly in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☂👍"
                         ]
                     },
                     {
