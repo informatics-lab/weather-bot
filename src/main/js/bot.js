@@ -110,7 +110,7 @@ function buildBot(luis, connector, config, persona, datapoint, gmaps, ua) {
     // add the intents
     intents.none(bot, persona);
     intents.help(bot, persona);
-    intents.repeat(bot, persona);
+    intents.repeat(bot, persona, datapoint, gmaps);
 
     intents.met_office.general_information(bot, persona);
 

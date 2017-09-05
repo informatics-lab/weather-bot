@@ -20,6 +20,9 @@ function timeEntityToMsgText(entity) {
     if (entity.search(/now/i) >= 0) {
         return entity;
     }
+    if (entity.search(/tonight/i) >= 0) {
+        return entity;
+    }
     if (entity.search(/((this)|(next)|(coming))/i) === 0) {
         return entity;
     }
@@ -32,8 +35,6 @@ module.exports = {
      * captures the luis builtin entity datetimeV2
      */
     datetimeV2: (session, results, next) => {
-
-
 
         winston.debug("capturing datetimeV2");
         var luis = session.conversationData.luis;

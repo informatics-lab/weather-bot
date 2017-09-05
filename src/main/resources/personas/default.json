@@ -35,6 +35,11 @@
                 "Looks like that location is outside of my specialist area.",
                 "How about trying a location in the UK 🇬🇧?"
             ]
+        },
+        "repeat":{
+            "entity": [
+                "Sorry, I'm having trouble determining exactly how you have changed your previous question. Could you try asking me the same thing again but in a different way?"
+            ]
         }
     },
     "none": [
@@ -270,8 +275,8 @@
             "In {{= it.location}} {{= it.date.day_string}} temperatures will be around {{= it.weather.temperature.screen.mean}}\u00b0C reaching a high of {{= it.weather.temperature.screen.max.v}}\u00b0C.{{? it.weather.temperature.screen.max.v != it.weather.temperature.feels_like.max.v}} Given the other conditions, this will feel like {{= it.weather.temperature.feels_like.max.v}}\u00b0C at its peak.{{?}} {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. Visibility is expected to be {{= it.weather.visibility.string}} at up to {{= it.weather.visibility.distance.max}}km. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation. Check out the [Met Office website](http://www.metoffice.gov.uk/) or [YouTube channel](https://www.youtube.com/user/TheMetOffice) for more info."
         ],
         "forecast": [
-            "In {{= it.location}} {{= it.date.day_string}}, the warmest it will feel is {{= it.weather.temperature.feels_like.max.v}}\u00b0C. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation. Generally {{= it.weather.significant_weather.string}}{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}{{? it.weather.significant_weather.index == 15}} Remember to take a brolly ☔{{? it.weather.temperature.feels_like.mean < 6}} and wrap up warm!{{?}}{{?}}{{? it.weather.significant_weather.index == 1}} You'll probably need your sunglasses 😎{{? it.weather.temperature.feels_like.mean > 12}} and make sure you pack some suncream 😡{{?}}{{?}}{{? it.weather.significant_weather.index == 27}} Could be good weather for building snowmen ☃{{?}}",
-            "In {{= it.location}} {{= it.date.day_string}}, generally {{= it.weather.significant_weather.string}}{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}. The warmest it will feel is {{= it.weather.temperature.feels_like.max.v}}\u00b0C. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation.{{? it.weather.significant_weather.index == 15}} Remember to take a brolly ☔{{? it.weather.temperature.feels_like.mean < 6}} and wrap up warm!{{?}}{{?}}{{? it.weather.significant_weather.index == 1}} You'll probably need your sunglasses 😎{{? it.weather.temperature.feels_like.mean > 12}} and make sure you pack some suncream 😡{{?}}{{?}}{{? it.weather.significant_weather.index == 27}} Could be good weather for building snowmen ☃{{?}}"
+            "In {{= it.location}} {{= it.date.day_string}}, the warmest it will feel is {{= it.weather.temperature.feels_like.max.v}}\u00b0C. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation. Generally {{= it.weather.significant_weather.string}}{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}{{? it.weather.significant_weather.index == 15}} Remember to take a brolly ☔{{? it.weather.temperature.feels_like.mean < 6}} and wrap up warm!{{?}}{{?}}{{? it.weather.significant_weather.index == 1}} You'll probably need your sunglasses 😎{{? it.weather.temperature.feels_like.mean > 12}} and make sure you pack some suncream as I don't want you getting burnt 😡{{?}}{{?}}{{? it.weather.significant_weather.index == 27}} Could be good weather for building snowmen ☃{{?}}",
+            "In {{= it.location}} {{= it.date.day_string}}, generally {{= it.weather.significant_weather.string}}{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}. The warmest it will feel is {{= it.weather.temperature.feels_like.max.v}}\u00b0C. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of precipitation.{{? it.weather.significant_weather.index == 15}} Remember to take a brolly ☔{{? it.weather.temperature.feels_like.mean < 6}} and wrap up warm!{{?}}{{?}}{{? it.weather.significant_weather.index == 1}} You'll probably need your sunglasses 😎{{? it.weather.temperature.feels_like.mean > 12}} and make sure you pack some suncream as I don't want you getting burnt 😡{{?}}{{?}}{{? it.weather.significant_weather.index == 27}} Could be good weather for building snowmen ☃{{?}}"
         ],
         "variable": {
             "unknown": [
@@ -288,9 +293,9 @@
                                 "title": "",
                                 "type": "gif",
                                 "text": [
-                                    "Yes, it's very likely to be wet in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔ Might be worth wrapping up under a duvet and staying indoors",
-                                    "Yep, it looks wet in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔ Maybe stay in and watch a movie 🍿",
-                                    "It's very likely to be wet {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔ Remember those wellies if you're heading out! 💦🦆"
+                                    "Yes, it's very likely to be wet in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔",
+                                    "Yep, it looks wet in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔",
+                                    "It's very likely to be wet {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain 💦🦆"
                                 ],
                                 "contentType": "image/gif",
                                 "contentUrl": "https://images.informaticslab.co.uk/misc/6e635efe62581611fe7ee6612cc719d0.gif"
@@ -302,8 +307,8 @@
                         "score_lower_bound": 0.5,
                         "response": [
                             "Hmm, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☂",
-                            "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☂ Maybe worth staying in and watching a movie? 🍿",
-                            "There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain in {{= it.location}} {{= it.date.day_string}}, remember those wellies if you're heading out! 💦🦆"
+                            "Probably, I think it's likely to rain in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☂",
+                            "There is good chance it will be wet, I'm told there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain in {{= it.location}} {{= it.date.day_string}} 💦🦆"
                         ]
                     },
                     {
@@ -311,7 +316,7 @@
                         "score_lower_bound": 0.2,
                         "response": [
                             "It looks like it's going to be dry in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain 🌂",
-                            "There is a {{= it.weather.probability_of_precipitation.max.v}}% chance it will rain in {{= it.location}} {{= it.date.day_string}} 🌂",
+                            "It seems unlikely, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance it will rain in {{= it.location}} {{= it.date.day_string}} 🌂",
                             "It doesn't seem likely, I think it's going to be dry in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain 🌂"
                         ]
                     },
@@ -319,9 +324,9 @@
                         "score_upper_bound": 0.19,
                         "score_lower_bound": 0.0,
                         "response": [
-                            "No, it looks dry in {{= it.location}} {{= it.date.day_string}} 🌵{{? it.weather.temperature.feels_like.mean > 18}}. It could be nice weather for a BBQ{{?}}",
-                            "No, in {{= it.location}} {{= it.date.day_string}} it's going to be dry{{? it.weather.temperature.feels_like.mean > 16}} and hot, it could be perfect for a trip to the beach 🏖{{?}}",
-                            "Nope, in {{= it.location}} {{= it.date.day_string}} it's going to be dry{{? it.weather.temperature.feels_like.mean > 12}}, it could be good for a bike ride 🚴{{?}}"
+                            "It looks to be dry in {{= it.location}} {{= it.date.day_string}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance it will rain 🌵",
+                            "In {{= it.location}} {{= it.date.day_string}} it's going to be dry, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance it will rain 🌵",
+                            "Looks like in {{= it.location}} {{= it.date.day_string}} it's going to be dry, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance it will rain 🌵"
                         ]
                     }
                 ]
@@ -332,7 +337,7 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.9,
                         "response": [
-                            "It looks like there will be {{= it.weather.significant_weather.string}} skies in {{= it.location}} {{= it.date.day_string}}{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}{{? it.weather.temperature.feels_like.mean > 16}} Could be a nice day for the beach! ⛱ {{??}} It could be a nice day for a bike ride 🚴{{?}}"
+                            "It looks like there will be {{= it.weather.significant_weather.string}} skies in {{= it.location}} {{= it.date.day_string}}{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}"
                         ]
                     },
                     {
@@ -350,15 +355,15 @@
                         "score_upper_bound": 1.0,
                         "score_lower_bound": 0.9,
                         "response": [
-                            "It looks like it will be very, very windy in {{= it.location}} {{= it.date.day_string}}. Watch out! 🌪"
+                            "It looks like it will be very, very windy in {{= it.location}} {{= it.date.day_string}}. {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. Watch out! 🌪"
                         ]
                     },
                     {
                         "score_upper_bound": 0.89,
                         "score_lower_bound": 0.5,
                         "response": [
-                            "It will be fairly windy in {{= it.location}} {{= it.date.day_string}} {{? it.weather.probability_of_precipitation.max.v < 30}} Could be good for kite flying 💨♦{{?}}",
-                            "It should be reasonably windy in {{= it.location}} {{= it.date.day_string}} {{? it.weather.probability_of_precipitation.max.v < 30}} Could be good for sailing ⛵{{?}}"
+                            "It will be fairly windy in {{= it.location}} {{= it.date.day_string}}. {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. {{? it.weather.probability_of_precipitation.max.v < 30}} Should be good weather for flying kites 💨♦{{?}}",
+                            "It should be reasonably windy in {{= it.location}} {{= it.date.day_string}}. {{= it.weather.wind.direction.string}} winds will reach a maximum of {{= it.weather.wind.speed.max.v}}mph. {{? it.weather.probability_of_precipitation.max.v < 30}} Should be good for any sailors ⛵{{?}}"
                         ]
                     },
                     {

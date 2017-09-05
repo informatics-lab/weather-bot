@@ -28,8 +28,9 @@ module.exports = (bot, persona) => {
                 .send();
             session.conversationData.luis = results;
             session.conversationData.intent = intent;
+            //here!!!
             var time_target = utils.convData.get(session, 'time_target');
-            var location = utils.convData.get(session, 'location')
+            var location = utils.convData.get(session, 'location');
             if (!time_target || !location) {
                 winston.warn("[ %s ] matched but the time_target was [ %s ] and the location was [ %s ]", intent, time_target, location);
                 session.cancelDialog();
