@@ -494,7 +494,7 @@
                         "score_upper_bound": 0.49,
                         "score_lower_bound": 0.15,
                         "response": [
-                            "There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain {{= it.date.day_string}} in {{= it.location}}. So bare that in mind!",
+                            "There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain {{= it.date.day_string}} in {{= it.location}}. So bear that in mind!",
                             "It might be a little rainy {{= it.date.day_string}} in {{= it.location}}. There is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain, so I'm not sure 🤔"
                         ]
                     },
@@ -582,7 +582,7 @@
                         "score_upper_bound": 0.49,
                         "score_lower_bound": 0.15,
                         "response": [
-                            "{{= it.date.day_string}} it's likely to be dry in {{= it.location}}, so bare that in mind 🤠",
+                            "{{= it.date.day_string}} it's likely to be dry in {{= it.location}}, so bear that in mind 🤠",
                             "{{= it.date.day_string}} it looks like it should be dry in {{= it.location}}, but I'm not certain 😘"
                         ]
                     },
