@@ -617,7 +617,7 @@
                         "score_lower_bound": 0.3,
                         "response": [
                             "It would probably be wise to take a coat in {{= it.location}} {{= it.date.day_string}}.",
-                            "I'd say you might need a jacket {{= it.location}} {{= it.date.day_string}} 😊"
+                            "I think you probably will need a jacket in {{= it.location}} {{= it.date.day_string}} 😊"
                         ]
                     },
                     {
@@ -728,7 +728,7 @@
         "weather": {
             "action": {
                 "unknown":[
-                    "Why don't you try asking me about something else, like 'should I go for a boek ride today?'"
+                    "Why don't you try asking me about something else, like 'should I go for a bike ride today?'"
                 ],
                 "location": [
                     "Where are you planning on doing that?"
