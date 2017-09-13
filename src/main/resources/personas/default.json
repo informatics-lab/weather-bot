@@ -74,7 +74,7 @@
                 "Hi{{? it.user.name}} {{= it.user.name}}{{?}}, ask me about the weather"
             ],
             "contentType": "image/gif",
-            "contentUrl": "https://images.informaticslab.co.uk/misc/ceacdc1712615955e79ba24d4fc08393.gif"
+            "contentUrl": "https://images.informaticslab.co.uk/misc/49187f97f483c024cdce3cb88a29c99c.gif"
         },
         "warning": [
             "⚠ WARNING: Although I'm very smart, I'm still learning how best to help you. For any critical weather information please ensure that you double check with the Met Office website or app."
@@ -298,7 +298,7 @@
                                     "It's very likely to be wet {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain 💦🦆"
                                 ],
                                 "contentType": "image/gif",
-                                "contentUrl": "https://images.informaticslab.co.uk/misc/6e635efe62581611fe7ee6612cc719d0.gif"
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/eb350f518d2511bbe235492d871b2d48.gif"
                             }
                         ]
                     },
@@ -388,7 +388,7 @@
                                     "🌞 It's going to be boiling in {{= it.location}}, up to {{= it.weather.temperature.feels_like.max.v}}°C {{= it.date.day_string}}. It will mostly be {{= it.weather.significant_weather.string}} {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}} Be careful in this heat 😩"
                                 ],
                                 "contentType": "image/gif",
-                                "contentUrl": "https://images.informaticslab.co.uk/misc/cac410be91a767cd5f7f102257c780da.gif"
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/9701d86057973d1458d45ea15530fb82.gif"
                             }
                         ]
                     },
@@ -403,7 +403,7 @@
                                     "It's {{= it.weather.significant_weather.string}} in {{= it.location}} {{= it.date.day_string}} {{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}}. It should be fairly hot, with temperatures feeling as warm as {{= it.weather.temperature.feels_like.max.v}}°C 🌞"
                                 ],
                                 "contentType": "image/gif",
-                                "contentUrl": "https://images.informaticslab.co.uk/misc/cac410be91a767cd5f7f102257c780da.gif"
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/9701d86057973d1458d45ea15530fb82.gif"
                             }
                         ]
                     },
@@ -432,7 +432,7 @@
                                     "❄❄❄ It will be freezing cold in {{= it.location}} {{= it.date.day_string}}, with temperatures as low as {{= it.weather.temperature.feels_like.min.v}}°C. It will generally be {{= it.weather.significant_weather.string}}.{{? it.weather.significant_weather.emoji}} {{= it.weather.significant_weather.emoji}}{{?}} remember to wrap up warm if you're heading out ⛄"
                                 ],
                                 "contentType": "image/gif",
-                                "contentUrl": "https://images.informaticslab.co.uk/misc/3508da3f8e26615308e938389e113aeb.gif"
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/72a27a7c135dfc7ce2fc3ad3363fae37.gif"
                             }
                         ]
                     }
@@ -510,7 +510,7 @@
                                     "I wouldn't if I were you, it's likely to be rainy {{= it.date.day_string}} in {{= it.location}}, there is a {{= it.weather.probability_of_precipitation.max.v}}% chance of rain ☔"
                                 ],
                                 "contentType": "image/gif",
-                                "contentUrl": "https://images.informaticslab.co.uk/misc/6e635efe62581611fe7ee6612cc719d0.gif"
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/eb350f518d2511bbe235492d871b2d48.gif"
                             }
                         ]
                     }
@@ -546,7 +546,7 @@
                                     "I wouldn't recommend that {{= it.date.day_string}} 🙁"
                                 ],
                                 "contentType": "image/gif",
-                                "contentUrl": "https://images.informaticslab.co.uk/misc/6e635efe62581611fe7ee6612cc719d0.gif"
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/eb350f518d2511bbe235492d871b2d48.gif"
                             }
                         ]
                     }
@@ -566,7 +566,7 @@
                                     "Yes, if I were you I'd take a brolly {{= it.date.day_string}} in {{= it.location}} ☔💦"
                                 ],
                                 "contentType": "image/gif",
-                                "contentUrl": "https://images.informaticslab.co.uk/misc/6e635efe62581611fe7ee6612cc719d0.gif"
+                                "contentUrl": "https://images.informaticslab.co.uk/misc/eb350f518d2511bbe235492d871b2d48.gif"
                             }
                         ]
                     },
