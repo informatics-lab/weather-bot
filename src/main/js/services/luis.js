@@ -20,7 +20,7 @@ module.exports = (appId, subscriptionKey) => {
             var uri = `https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/${appId}?subscription-key=${subscriptionKey}&verbose=true&timezoneOffset=0.0&spellCheck=true&q=${q}`;
             return httpClient.getAsJson(uri)
                 .then((res) => {
-                    luisCache.set(slug, res, constants.DAYS_TO_MILLIS(1));
+                    luisCache.set(slug, res, constants.MINUTES_TO_MILLIS(5));
                     return res;
                 });
         }

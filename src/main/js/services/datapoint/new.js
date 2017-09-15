@@ -52,9 +52,7 @@ module.exports = function(key) {
             return getDataForLatLng(lat, lng, resolution)
                 .then((res) => {
                     res.resolution = resolution;
-                    var ttl = 1000 * 60 * 30; // 30 minutes. TODO: Different cache lengths?
-                    datapointCache.set(slug, res, ttl.raw);
-
+                    datapointCache.set(slug, res, constants.MINUTES_TO_MILLIS(5));
                     return res;
                 });
         }

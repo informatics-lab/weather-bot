@@ -13,6 +13,10 @@ var hoursToMillis = function(n) {
     return n * 3600000;
 };
 
+var minutesToMillis = function(n) {
+    return n * 60000;
+}
+
 var dayIndexToDayString = function(i) {
     switch (i) {
         case 0:
@@ -141,6 +145,7 @@ module.exports = {
 
     "HOURS_TO_MILLIS": hoursToMillis,
     "DAYS_TO_MILLIS": daysToMillis,
+    "MINUTES_TO_MILLIS": minutesToMillis,
 
     "DAY_INDEX_TO_DAY_STRING": dayIndexToDayString,
     "MONTH_INDEX_TO_MONTH_STRING": monthIndexToMonthString,
