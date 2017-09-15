@@ -59,7 +59,7 @@ module.exports = function(bot, persona, datapoint, gmaps) {
                 })
                 .catch((err) => {
                     winston.warn(err);
-                    if (err.response_id) {
+                    if (err && err.response_id) {
                         session.send(persona.getResponse(err.response_id));
                     } else {
                         session.send(persona.getResponse("error.data.not_returned"));
